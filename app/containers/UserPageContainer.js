@@ -1,18 +1,18 @@
 import React from 'react';
-import {Header} from './Header';
-import {Main} from './Main';
-import {Footer} from './Footer';
+import {Header} from '../components/Header';
+import {Main} from '../config/Main';
+import {Footer} from '../components/Footer';
 
-export class UserPage extends React.Component{
+export class UserPageContainer extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
 			nameObjJN:{
 				nameStr: 'jonathon nagatani',
 				nameArr: [],
-				nameInterval:false,
+				nameInterval:null,
 				selectedLetter:false,
-				lettersInterval:false,
+				lettersInterval:null,
 				letterCount:false,
 				animating:false
 			},
@@ -38,8 +38,8 @@ export class UserPage extends React.Component{
 	displayHeaderName(letterSpeed){
 		//map name array into name div with each letter a span
 		let{nameObjJN} = this.state;
-		let addLettersToNameArr = setInterval(this.addOneHeaderLetter,letterSpeed);
-		let newObjCopy = Object.assign({}, nameObjJN, {nameInterval: addLettersToNameArr});
+		let interval = setInterval(this.addOneHeaderLetter,letterSpeed);
+		let newObjCopy = Object.assign({}, nameObjJN, {nameInterval: interval});
 		this.setState({
 			nameObjJN: newObjCopy
 		});

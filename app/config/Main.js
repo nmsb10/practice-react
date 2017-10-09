@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Home } from './Home';
-import { Projects } from './Projects';
-import { Thoughts } from './Thoughts';
-import { RealEstate } from './RealEstate';
-import { InvestPropCalc } from './InvestPropCalc';
+import { Home } from '../components/Home';
+import { Projects } from '../components/Projects';
+import { Thoughts } from '../components/Thoughts';
+import { RealEstate } from '../components/RealEstate';
+import { InvestPropCalcContainer } from '../containers/InvestPropCalcContainer';
 
 export class Main extends React.Component{
 	componentDidMount(){
@@ -17,7 +17,7 @@ export class Main extends React.Component{
 					<Route path = '/userpage/projects' component = {Projects}/>
 					<Route path = '/userpage/thoughts' component = {Thoughts}/>
 					<Route path = '/userpage/real-estate' component = {RealEstate}/>
-					<Route path = '/userpage/investment-property-calculator' component = {InvestPropCalc}/>
+					<Route path = '/userpage/investment-property-calculator' component = {InvestPropCalcContainer}/>
 				</Switch>
 			</main>
 		);

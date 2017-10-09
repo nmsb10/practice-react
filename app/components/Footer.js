@@ -1,32 +1,21 @@
 import React from 'react';
 
-export class Footer extends React.Component{
-	constructor(props){
-		super(props);
-		this.state = {
-			year: ''
-		};
-		this.populateFooterYears = this.populateFooterYears.bind(this);
-	}
-	componentDidMount(){
-		this.populateFooterYears();
-	}
-	populateFooterYears(){
-		//http://www.w3schools.com/jsref/jsref_obj_date.asp
-		let d = new Date();
-		let yearCurrent = d.getFullYear();
-		let years = '2016 - ' + yearCurrent;
-		this.setState({
-			year: years
-		})
+// export class Footer extends React.Component{
+// 	render(){
+// 		let {year, name} = this.props;
+// 		return(
+// 			<footer>
+// 				Copyright &copy; 2016 - {year} <a href="https://www.linkedin.com/in/jonathonnagatani" target="_blank" title="Jonathon on LinkedIn"><span className = 'capitalize'>{name}</span></a>. All Rights Reserved.
+// 			</footer>
+// 		);
+// 	}
+// }
 
-	}
-	render(){
-		let{year} = this.state;
-		return(
-			<div>
-				Copyright &copy; {year} <a className="footer-link" href="https://www.linkedin.com/in/jonathonnagatani" target="_blank" title="Jonathon on LinkedIn">Jonathon Nagatani</a>. All Rights Reserved.
-			</div>
-		);
-	}
+export const Footer = (props) => {
+	let {year, name} = props;
+	return(
+		<footer>
+			Copyright &copy; 2016 - {year} <a href="https://www.linkedin.com/in/jonathonnagatani" target="_blank" title="Jonathon on LinkedIn"><span className = 'capitalize'>{name}</span></a>. All Rights Reserved.
+		</footer>
+	);
 }

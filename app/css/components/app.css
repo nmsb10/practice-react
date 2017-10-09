@@ -1,0 +1,87 @@
+html{
+	font-size:16px;
+	font-family: "Helvetica", 'Helvetica Neue', Arial, sans-serif;
+    color: black;
+}
+
+body{
+	padding:0;
+	border:0;
+	margin:0;
+}
+
+.capitalize{
+	text-transform: capitalize;
+}
+
+/*https://www.w3schools.com/Css/css_dropdowns.asp
+https://www.w3schools.com/Css/tryit.asp?filename=trycss_dropdown_text*/
+.dropdown{
+	cursor: pointer;
+}
+
+.dropdown:hover{
+	/*	only want the dropdown trigger to be position relative on hover, so then this trigger element does not cover up adjacent elements' box shadows.*/
+	position:relative;
+}
+
+.dropdown-content{
+	/*content hidden by default*/
+	/*display: none;*/
+	/*except if want the dropdown-content to appear gradually, must make it always be display block instead*/
+	display:block;
+	position: absolute;
+	/*left 0 so left side of dropdown-content aligns with left side of dropdown*/
+	left: 0;
+	top: 1.2rem;
+	opacity:0;
+	-webkit-transition: all 0.5s ease 0s;
+	-moz-transition: all 0.5s ease 0s;
+	transition: all 0.5s ease 0s;
+}
+
+.dropdown:hover .dropdown-content{
+/*	display: block;
+*/	opacity: 0.8;
+	/*top:30px because dropdown is 30px height*/
+	/*top:30px;*/
+}
+
+.dropdown:hover a{
+	display:inline-block;
+}
+
+.dropdown-content a{
+	/*since dropdown-content is always display block to enable the transition, must make the a elements within only display inline-block upon dropdown hover*/
+	display: none;
+	cursor: pointer;
+	text-decoration: none;
+	border-radius:0;
+	width:150px;
+	padding: 5px 8px;
+	color: rgb(15, 15, 15);
+	/*border-top: 1px solid purple;*/
+	background-color: rgb(235, 235, 235);
+	-webkit-transition: all 0.5s ease 0s;
+	-moz-transition: all 0.5s ease 0s;
+	transition: all 0.5s ease 0s;
+}
+
+.dropdown-content a:last-child{
+	border-radius: 0 0 35% 0;
+}
+
+.dropdown-content a:hover{
+	color:rgb(235, 235, 235);
+	background-color:rgb(15, 15, 15);
+}
+
+/*@media screen and (max-width:480px) and (orientation:landscape OR portrait){
+}*/
+
+@media screen and (max-width:480px){
+	html {
+		font-size:10px;
+		color: rgb(35, 25, 35);
+	}
+}

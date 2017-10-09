@@ -1,0 +1,35 @@
+footer{
+	text-align: center;
+	font-size: 0.65rem;
+	color: rgba(235, 235, 235, 0.85);
+	position:fixed;
+	/*need to define width because position is fixed*/
+	width: 100%;
+	min-width: 300px;
+	top: 100%;
+	margin-top: -20px;
+    -webkit-transition: all 0.25s ease 0s;/* For Safari 3.1 to 6.0 */
+	-moz-transition: all 0.25s ease 0s;
+	transition: all 0.25s ease 0s;
+}
+
+footer a{
+	text-decoration: none;
+	color:inherit;
+	-webkit-transition: all 0.25s ease 0s; /* For Safari 3.1 to 6.0 */
+    -moz-transition: all 0.25s ease 0s;
+    transition: all 0.25s ease 0s;
+}
+
+footer:hover{
+	color: rgba(205, 205, 205, 0.95);
+}
+
+footer a:hover{
+	color: rgba(38, 25, 38, 0.95);
+	text-decoration: underline;
+}
+
+footer a:active{
+	color: rgba(190, 190, 190, 0.9);
+}

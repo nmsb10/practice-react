@@ -6,7 +6,7 @@ export class NameAnimation extends React.Component{
 		this.handleClick = this.handleClick.bind(this);
 	}
 	handleClick(e){
-		this.props.onClick(e.target.dataset.letterPosition);
+		this.props.onClick(parseInt(e.target.dataset.letterPosition));
 	}
 	render(){
 		let {arr} = this.props;

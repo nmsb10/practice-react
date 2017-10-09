@@ -1,15 +1,19 @@
 #primary-name{
 	font-family: 'Georgia', Times, "Times New Roman", serif;
-	letter-spacing: 0.3rem;
-	display: inline-block;
-	padding: 0.3rem;
+	letter-spacing: 0.27rem;
+	font-size:1.1rem;
+	padding: 0.5rem;
 	cursor: default;
+	display:inline-block;
+	width: 15.75rem;
+	height: 2rem;
+	line-height:2rem;
 }
 
 #primary-name .letter{
 	color: rgba(35, 35, 35, 0.9);
-	text-shadow: 0 0 2px rgba(235, 235, 235, 0.8), 0 0 3.5px rgba(190, 190, 190, 0.8);
-	-webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+/*	text-shadow: 0 0 0.125rem rgba(235, 235, 235, 0.8), 0 0 3.5px rgba(190, 190, 190, 0.8);
+*/	-webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
 	-moz-transition: all 0.2s ease 0s;
 	transition: all 0.2s ease 0s;
 	-webkit-animation: fadeinletter 2s linear 0s;
@@ -18,7 +22,7 @@
 
 #primary-name .letter:hover{
 	color: rgba(255, 255, 255, 1);
-	text-shadow: 0 0 1px rgba(35, 35, 35, 0.95);
+	text-shadow: 0 0 0.1rem rgba(35, 35, 35, 0.9);
 }
 
 /* Safari and Chrome */
@@ -48,4 +52,39 @@
 @keyframes fadeinletter {
 	0% { opacity: 0; }
 	100% { opacity: 1; }
+}
+
+#primary-name .letter-animated{
+	-webkit-animation: letteranimated 3s linear 0s infinite;
+	animation: letteranimated 3s linear 0s infinite;
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes letteranimated {
+    0% { }
+    50% { text-shadow: 0.2rem 0.2rem 0 rgba(35, 35, 35, 0.9);}
+	100% { transform: rotate(360deg);}
+}
+
+/* Firefox */
+@-moz-keyframes letteranimated {
+	50% { text-shadow: 0.2rem 0.2rem 0 rgba(35, 35, 35, 0.9);}
+	100% { transform: rotate(360deg);}
+}
+
+/* Internet Explorer */
+@-ms-keyframes letteranimated {
+	50% { text-shadow: 0.2rem 0.2rem 0 rgba(35, 35, 35, 0.9);}
+	100% { transform: rotate(360deg);}
+}
+
+/* Opera */
+@-o-keyframes letteranimated {
+	50% { text-shadow: 0.2rem 0.2rem 0 rgba(35, 35, 35, 0.9);}
+	100% { transform: rotate(360deg);}
+}
+
+@keyframes letteranimated {
+	50% { text-shadow: 0.2rem 0.2rem 0 rgba(35, 35, 35, 0.9);}
+	100% { transform: rotate(360deg);}
 }

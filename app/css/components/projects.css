@@ -1,0 +1,4 @@
+.projects{
+	/*	this time should be the same as the interval defined when calling the bcChange function*/
+	transition: background-color 3s linear;
+}

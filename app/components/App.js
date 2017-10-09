@@ -1,15 +1,16 @@
 import React from 'react';
-import {Header} from './Header';
-import {Main} from './Main';
-import {Footer} from './Footer';
+import { Switch, Route } from 'react-router-dom';
+import {Welcome} from './Welcome';
+import {UserPage} from './UserPage';
 
 export class App extends React.Component{
 	render(){
 		return(
 			<div>
-				<Header />
-				<Main />
-				<Footer />
+				<Switch>
+					<Route exact path = '/' component = {Welcome}/>
+					<Route path = '/userpage' component = {UserPage}/>
+				</Switch>
 			</div>
 		);
 	}

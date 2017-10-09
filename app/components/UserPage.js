@@ -9,7 +9,7 @@ export class UserPage extends React.Component{
 		this.state = {
 			nameObjJN:{
 				nameStr: 'jonathon nagatani',
-				nameArr: [{letter:'j',class:'letter'},{letter:'n', class:'letter'}],
+				nameArr: [],
 				nameInterval:false,
 				selectedLetter:false,
 				lettersInterval:false,
@@ -25,7 +25,7 @@ export class UserPage extends React.Component{
 		this.animateLetters = this.animateLetters.bind(this);
 	}
 	componentDidMount(){
-		//this.displayHeaderName(190);
+		this.displayHeaderName(190);
 		this.getCurrentYear();
 	}
 	getCurrentYear(){

@@ -64,9 +64,11 @@ export class UserPageContainer extends React.Component{
 	}
 	animateName(letter){
 		let{nameObjJN} = this.state;
+		let newNameArr = nameObjJN.nameArr;
+		newNameArr[letter].class = 'letter letter-animated';
 		if(!nameObjJN.animating){
 			let interval = setInterval(this.animateLetters, 500);
-			let newObjCopy = Object.assign({}, nameObjJN, {animating: true, selectedLetter: letter, lettersInterval: interval, letterCount:1});
+			let newObjCopy = Object.assign({}, nameObjJN, {animating: true, selectedLetter: letter, lettersInterval: interval, letterCount:1, nameArr: newNameArr});
 			this.setState({
 				nameObjJN: newObjCopy
 			});

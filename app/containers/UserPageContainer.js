@@ -16,13 +16,15 @@ export class UserPageContainer extends React.Component{
 				letterCount:null,
 				animating:false
 			},
-			currentYear:0
+			currentYear:0,
+			activePage:'home'
 		};
 		this.displayHeaderName = this.displayHeaderName.bind(this);
 		this.addOneHeaderLetter = this.addOneHeaderLetter.bind(this);
 		this.getCurrentYear = this.getCurrentYear.bind(this);
 		this.animateName = this.animateName.bind(this);
 		this.animateLetters = this.animateLetters.bind(this);
+		this.changeCurrentPage = this.changeCurrentPage.bind(this);
 	}
 	componentDidMount(){
 		this.displayHeaderName(190);
@@ -106,16 +108,24 @@ export class UserPageContainer extends React.Component{
 			}, 7000);
 		}
 	}
+	changeCurrentPage(page){
+		this.setState({
+			activePage: page
+		});
+	}
 	render(){
 		let{
 			nameObjJN,
-			currentYear
+			currentYear,
+			activePage
 		} = this.state;
 		return(
 			<div>
 				<Header
 					nameObject = {nameObjJN}
 					animateName = {this.animateName}
+					currentPage = {activePage}
+					handleClick = {this.changeCurrentPage}
 				/>
 				<Main />
 				<Footer

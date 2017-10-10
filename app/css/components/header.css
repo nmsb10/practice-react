@@ -29,7 +29,7 @@ header nav ul li a{
     transition: all 0.35s ease 0s;
 }
 
-header nav ul li a:hover{
+header nav ul li a:hover, .current-page{
     background-color: rgba(35, 25, 35, 0.9);
     color: rgba(255, 255, 255, 0.9);
     /*position relative means when this is hovered, the box shadow will appear on top of nearby elements*/
@@ -37,57 +37,12 @@ header nav ul li a:hover{
     box-shadow: 0.2rem 0.2rem 0.2rem rgba(80, 80, 80, 0.5);
 }
 
+header nav ul li .current-page{
+    padding: 0.2rem 0.65rem;
+    background-color: rgba(35, 25, 35, 0.9);
+    box-shadow: 0.25rem 0.25rem 0.25rem rgba(70, 70, 70, 0.65);
+}
+
 header nav ul li a:active{
     background-color: lime
 }
-
-/*https://www.w3schools.com/howto/howto_css_tooltip.asp
-https://www.w3schools.com/css/css_tooltip.asp*/
-#intro-nav a .tooltiptext{
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    font-size:15px;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-
-    /* Position the tooltip text */
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-/* Tooltip arrow */
-#intro-nav a .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-#intro-nav a:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-/*.contacts-ul li:nth-child(2n){
-	background-color: rgb(249, 247, 249);
-}
-
-.contacts-ul li:hover{
-	background-color: rgba(135, 135, 135, 0.85);
-	color:white;
-}*/

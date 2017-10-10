@@ -44,7 +44,7 @@ export class IPCForm extends React.Component{
 						</select>
 					</div>
 				*/}
-					<div className="form-group">
+					<div className="form-group" className = 'ttt-container'><span className="tooltiptext ttt-bottom">enter rental income here</span>
 						<label htmlFor = 'incomeRental'>rental income:</label><span>{fields.income.rental[0].vmes}</span>
 						<input
 							type='text'

@@ -16,11 +16,14 @@
 */	-webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
 	-moz-transition: all 0.2s ease 0s;
 	transition: all 0.2s ease 0s;
+}
+
+#primary-name .letter-initial{
 	-webkit-animation: fadeinletter 2s linear 0s;
 	animation: fadeinletter 2s linear 0s;
 }
 
-#primary-name .letter:hover{
+#primary-name .letter:hover, .letter-initial:hover{
 	color: rgba(255, 255, 255, 1);
 	text-shadow: 0 0 0.1rem rgba(35, 35, 35, 0.9);
 }

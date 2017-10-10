@@ -11,9 +11,9 @@ export class UserPageContainer extends React.Component{
 				nameStr: 'jonathon nagatani',
 				nameArr: [],
 				nameInterval:null,
-				selectedLetter:false,
+				selectedLetter:null,
 				lettersInterval:null,
-				letterCount:false,
+				letterCount:null,
 				animating:false
 			},
 			currentYear:0
@@ -52,7 +52,7 @@ export class UserPageContainer extends React.Component{
 		if(position < nameLength){
 			nameArrUpdated.push({
 				letter: nameObjJN.nameStr[position],
-				class: 'letter'
+				class: 'letter-initial'
 			});
 			let newObjCopy = Object.assign({}, nameObjJN, {nameArr: nameArrUpdated});
 			this.setState({
@@ -65,7 +65,7 @@ export class UserPageContainer extends React.Component{
 	animateName(letter){
 		let{nameObjJN} = this.state;
 		let newNameArr = nameObjJN.nameArr;
-		newNameArr[letter].class = 'letter letter-animated';
+		newNameArr[letter].class += ' letter-animated';
 		if(!nameObjJN.animating){
 			let interval = setInterval(this.animateLetters, 500);
 			let newObjCopy = Object.assign({}, nameObjJN, {animating: true, selectedLetter: letter, lettersInterval: interval, letterCount:1, nameArr: newNameArr});
@@ -80,11 +80,11 @@ export class UserPageContainer extends React.Component{
 		let newNameArr = nameObjJN.nameArr;
 		//see if the lower letter index is >=0
 		if(nameObjJN.selectedLetter - nameObjJN.letterCount >=0){
-			newNameArr[nameObjJN.selectedLetter - nameObjJN.letterCount].class = 'letter letter-animated';
+			newNameArr[nameObjJN.selectedLetter - nameObjJN.letterCount].class += ' letter-animated';
 			lower = true;
 		}
 		if(nameObjJN.selectedLetter + nameObjJN.letterCount < newNameArr.length){
-			newNameArr[nameObjJN.selectedLetter + nameObjJN.letterCount].class = 'letter letter-animated';
+			newNameArr[nameObjJN.selectedLetter + nameObjJN.letterCount].class += ' letter-animated';
 			higher = true;
 		}
 		if(lower || higher){
@@ -94,12 +94,15 @@ export class UserPageContainer extends React.Component{
 			});
 		}else{
 			clearInterval(nameObjJN.lettersInterval);
-			let newObjCopy = Object.assign({}, nameObjJN, {animating: false, nameArr: []});
+			for(let i = 0; i<newNameArr.length; i++){
+				newNameArr[i].class = 'letter';
+			}
+			let newObjCopy = Object.assign({}, nameObjJN, {animating: false, nameArr: newNameArr});
 			setTimeout(() => {
 				this.setState({
 					nameObjJN: newObjCopy
 				});
-				this.displayHeaderName(100);
+				//this.displayHeaderName(100);
 			}, 7000);
 		}
 	}

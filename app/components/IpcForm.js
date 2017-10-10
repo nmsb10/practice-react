@@ -1,15 +1,23 @@
 import React from 'react';
 
 export class IPCForm extends React.Component{
+	constructor(props) {
+		super(props);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+	//form event handlers
+	handleSubmit(event){
+		event.preventDefault();
+		this.props.calculate();
+	}
 	render(){
 		let {
-			handleSubmit,
 			handleInputChange,
 			fields,
 			vmes
 		} = this.props;
 		return(
-			<form onSubmit = {(event) => handleSubmit(event)}>
+			<form onSubmit = {(event) => this.handleSubmit(event)}>
 				{/*
 				when a label has attribute 'for' this makes the input with which it is associated clickable
 				htmlFor is necessary because in React, the for attribute in a label is htmlFor (like an html element has className instead of class)

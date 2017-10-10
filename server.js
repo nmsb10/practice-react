@@ -14,16 +14,26 @@ let PORT = process.env.PORT || 3000;
 
 // run morgan for logging
 app.use(logger('dev'));
+app.use(bodyParser.text());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //make the public folder a static directory
 app.use(express.static('./public'));
 //app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(req, res) {
+//route to send POST requests to conduct a property search
+app.post('/calculate-investment-property', function(request, response){
+	console.log('/search route in server.js: request.body', request.body);
+	let rb = request.body;
+	let results = 'here';
+	response.send(results);
+});
+
+// Main "/" Route. This will redirect the user to the rendered React application
+app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/public/index.html');
 });
 
-app.listen(PORT, function() {
+app.listen(PORT, () => {
 	console.log('app listening on PORT: ' + PORT);
 });

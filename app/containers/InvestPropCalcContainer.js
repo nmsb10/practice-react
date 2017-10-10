@@ -79,8 +79,22 @@ export class InvestPropCalcContainer extends React.Component{
 		this.calculate = this.calculate.bind(this);
 		this.updateFormFields = this.updateFormFields.bind(this);
 	}
-	calculate(e){
-		console.log(e);
+	calculate(){
+		let{formFields} = this.state;
+		axios.post('/calculate-investment-property', formFields).then(function(response){
+			console.log(response.data);
+		});
+		// }.bind(this));
+		// .then(() => {
+		// 	this.redirectToSearch();
+		// })
+		// .catch((error) => {
+		// 	console.log('search didn\'t work. darn.');
+		// });
+	}
+	redirectToSearch(){
+		//'search' is the Route path from routes.js
+		this.context.router.push('search');
 	}
 	updateFormFields(e){
 		console.log(e.target.dataset.propertyName);
@@ -100,7 +114,7 @@ export class InvestPropCalcContainer extends React.Component{
 		return(
 			<div>
 				<IPCForm
-					handleSubmit = {this.calculate}
+					calculate = {this.calculate}
 					handleInputChange = {this.updateFormFields}
 					fields = {formFields}
 					vmes = {validationMes}//validation messages

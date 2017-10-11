@@ -14,6 +14,10 @@ body{
 	text-transform: capitalize;
 }
 
+.hidden{
+	display:none;
+}
+
 /*https://www.w3schools.com/Css/css_dropdowns.asp
 https://www.w3schools.com/Css/tryit.asp?filename=trycss_dropdown_text*/
 .dropdown{
@@ -35,6 +39,7 @@ https://www.w3schools.com/Css/tryit.asp?filename=trycss_dropdown_text*/
 	left: 0;
 	top: 1.2rem;
 	opacity:0;
+	z-index:1;
 	-webkit-transition: all 0.5s ease 0s;
 	-moz-transition: all 0.5s ease 0s;
 	transition: all 0.5s ease 0s;

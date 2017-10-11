@@ -15,7 +15,7 @@ export const Footer = (props) => {
 	let {year, name} = props;
 	return(
 		<footer>
-			Copyright &copy; 2016 - {year} <a href="https://www.linkedin.com/in/jonathonnagatani" target="_blank" title="Jonathon on LinkedIn"><span className = 'capitalize'>{name}</span></a>. All Rights Reserved.
+			Copyright &copy; 2016 - {year} <a href="https://www.linkedin.com/in/jonathonnagatani" target="_blank" title={name ? name + ' on LinkedIn' : ''}><span className = 'capitalize'>{name}</span></a>. All Rights Reserved.
 		</footer>
 	);
 }

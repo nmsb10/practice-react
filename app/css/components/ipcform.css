@@ -1,13 +1,11 @@
-.search-form-1{
-	font-size:15px;
-	display: inline-block;
-	font-size: 13px;
-	width: 50%;
-	min-width: 250px;
+.ipc-form-container{
+	width: 80%;
+	min-width: 15.875rem;
+	/*border-box = The width and height properties (and min/max properties) includes content, padding and border, but not the margin*/
 	box-sizing: border-box;
-	vertical-align: top;
-	border-radius: 5px;
-	color: black;
+	border-radius: 0.35rem;
+	color: rgba(0, 0, 0, 1);
+	background-color: rgba(255, 255, 255, 0.89);
 	display: block;
 	margin: 0 auto;
 	-webkit-transition: all 0.5s ease 0s; /* For Safari 3.1 to 6.0 */
@@ -15,12 +13,187 @@
 	transition: all 0.5s ease 0s;
 }
 
-.search-form-1:hover{
-	background-color: rgba(250, 250, 250, 1);
+.ipc-form-container:hover{
+	background-color: rgba(250, 250, 250, 0.95);
 }
 
-.search-form-1 form{
-	padding:10px 0;
+.ipc-form-container:hover .word-line-centered .wl-ipc-form{
+	background-color: rgb(250, 250, 250);
+}
+
+.ipc-form-container form{
+	padding: 0.7rem 0.5rem;
+}
+
+.ipc-form-container form .content{
+	margin-bottom: 1rem;
+}
+
+.ipc-form-container form .content .main-section .subtitle{
+	display: inline-block;
+	width: 90%;
+	color: rgba(255, 255, 255, 0.95);
+	font-size:1.25rem;
+	padding: 0.25rem;
+	padding-left: 0.5rem;
+	/*border-radius: 0 35% 35% 0;*/
+	border-radius: 0.35rem 0 0 0.35rem;
+	/*The angle is specified as an angle between a horizontal line and the gradient line.*/
+	background: rgba(30, 30, 30, 0.9); /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(90deg, rgba(50, 50, 50, 1), rgba(50, 50, 50, 0)); /*Safari 5.1-6*/
+	background: -o-linear-gradient(90deg, rgba(50, 50, 50, 1), rgba(50, 50, 50, 0)); /*Opera 11.1-12*/
+	background: -moz-linear-gradient(90deg, rgba(50, 50, 50, 1), rgba(50, 50, 50, 0)); /*Fx 3.6-15*/
+	background: linear-gradient(90deg, rgba(97, 0, 97, 0.9), rgba(50, 50, 50, 0)); /*Standard*/
+}
+
+.ipc-form-container form .content .form-group-container{
+	margin-bottom: 1.5rem;
+}
+
+.ipc-form-container form .content .form-group{
+	width:40%;
+	max-width: 22rem;
+	display:inline-block;
+	margin-right:5%;
+}
+
+.ipc-form-container form .content .input-container .top{
+	background-color:black;
+	color:white;
+	border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.ipc-form-container form .content .input-container .bottom{
+	background-color:purple;
+	color:white;
+	border-radius: 0 0 0.35rem 0.35rem;
+}
+
+/* The Close Button */
+.ipc-form-container form .content .input-container .close {
+	position: absolute;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    right: -17px;
+    top: -17px;
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 17px;
+    box-shadow: 0px 0px 7px 3px rgba(73, 62, 71, 0.65);
+    background-color: rgba(79, 0, 79, 0.7);
+    -webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.ipc-form-container form .content .input-container .close:hover,
+.ipc-form-container form .content .input-container .close:focus {
+    color: rgb(79, 0, 79);
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(79, 0, 79);
+    box-shadow: 0px 0px 7px 5px rgba(73, 62, 71, 0.65);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ipc-form-container form .content .input-container .close:active{
+	background-color: rgba(79, 0, 79, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ipc-form-container form .content input{
+	display: block;
+	margin: 0 auto;
+	width: 90%;
+	border-radius: 7px;
+	font-size: 16px;
+	padding: 5px;
+	border: 1px solid rgba(235, 215, 235, 1);
+	-webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: all 0.35s ease 0s;
+	transition: all 0.35s ease 0s;
+}
+
+.ipc-form-container form .content input:focus, select:focus{
+	outline: none;
+	box-shadow: 0 0 5px 2px rgba(82, 195, 29, 0.7);
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.ipc-form-container form .content input:hover, select:hover{
+	background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 8px 3px rgba(127, 0, 127,0.7);
+}
+
+/*http://stackoverflow.com/questions/2920306/google-chrome-form-autofill-and-its-yellow-background*/
+input:-webkit-autofill,textarea:-webkit-autofill, select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 50px white inset !important;
+}
+
+.ipc-form-container form .content label{
+	display: block;
+	margin: 0 auto;
+	width: 90%;
+	font-size:12px;
+}
+
+.ipc-form-container form .content .form-group .val-mes{
+	background-color:red;
+	color:white;
+	padding:0.2rem;
+	border-radius: 5px;
+}
+
+.ipc-form-container form .content select{
+	display: block;
+	margin: 0 auto;
+	width: 95%;
+}
+
+.ipc-form-container form .content button {
+	color: rgb(255, 255, 255);
+    background-color: rgb(59, 3, 79);
+    background: linear-gradient(top, #6496c8, #346392);
+    border: none;
+    border-radius: 8px;
+    width: 65%;
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    outline: none;
+    -webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.ipc-form-container form .content button:hover{
+	box-shadow: 0 5px 9px rgb(110, 95, 107);
+}
+
+.ipc-form-container form .content button:active{
+	box-shadow: inset 0 0 0 1px rgb(59, 3, 79), inset 0 5px 30px rgb(250, 250, 250);
 }
 
 .no-results-mes{
@@ -68,87 +241,4 @@
 
 @keyframes greenblink {
 	50% {color:lime;}
-}
-
-.sf-content{
-	margin-bottom: 10px;
-}
-
-.sf-content input{
-	display: block;
-	margin: 0 auto;
-	width: 90%;
-	border-radius: 7px;
-	font-size: 16px;
-	padding: 5px;
-	border: 1px solid rgba(235, 215, 235, 1);
-	-webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
-	-moz-transition: all 0.35s ease 0s;
-	transition: all 0.35s ease 0s;
-}
-
-.sf-content input:focus, select:focus{
-	outline: none;
-	box-shadow: 0 0 5px 2px rgba(82, 195, 29, 0.7);
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.sf-content input:hover, select:hover{
-	background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 8px 3px rgba(127, 0, 127,0.7);
-}
-
-/*http://stackoverflow.com/questions/2920306/google-chrome-form-autofill-and-its-yellow-background*/
-input:-webkit-autofill,textarea:-webkit-autofill, select:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 50px white inset !important;
-}
-
-.sf-content label{
-	display: block;
-	margin: 0 auto;
-	width: 90%;
-	font-size:12px;
-}
-
-.sf-content .form-group{
-	margin-bottom: 7px;
-}
-
-.sf-content .form-group .val-mes{
-	background-color:red;
-	color:white;
-	padding:0.2rem;
-	border-radius: 5px;
-}
-
-.sf-content select{
-	display: block;
-	margin: 0 auto;
-	width: 95%;
-}
-
-.sf-content button {
-	color: rgb(255, 255, 255);
-    background-color: rgb(59, 3, 79);
-    background: linear-gradient(top, #6496c8, #346392);
-    border: none;
-    border-radius: 8px;
-    width: 65%;
-    display: block;
-    margin: 0 auto;
-    padding: 5px;
-    font-size: 17px;
-    font-weight: bold;
-    outline: none;
-    -webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
-	-moz-transition: all 0.2s ease 0s;
-	transition: all 0.2s ease 0s;
-}
-
-.sf-content button:hover{
-	box-shadow: 0 5px 9px rgb(110, 95, 107);
-}
-
-.sf-content button:active{
-	box-shadow: inset 0 0 0 1px rgb(59, 3, 79), inset 0 5px 30px rgb(250, 250, 250);
 }

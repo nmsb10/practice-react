@@ -18,63 +18,87 @@ export class InvestPropCalcContainer extends React.Component{
 				purchasePrice:[
 					{
 						name:'purchase price',
+						preEntry:'$',
 						value:'',
+						postEntry:'',
 						placeholder:'-0-',
 						required:true,
+						canDelete:false,//can this field be deleted?
 						validation: ['number'],
 						validEntry:false,
 						vmes:'validation message for the purchase price',
-						tooltip:'enter the purchase price for the subject property (anticipated or actual)'
+						tooltip:'enter the purchase price for the subject property (anticipated or actual)',
+						ttLoc:'bottom'
 					}
 				],
 				income:{
 					retail:[{
 						name:'business one',
+						preEntry:'$',
 						value:'',
+						postEntry:'',
 						placeholder:'-0-',
 						required:true,
+						canDelete:true,
 						validation: ['number'],
 						validEntry:false,
 						vmes:'validation message for the income: business one',
-						tooltip:'enter business one income (anticipated or actual)'
+						tooltip:'enter business one income (anticipated or actual)',
+						ttLoc:'bottom'
 					},{
 						name:'business two',
+						preEntry:'$',
 						value:'',
+						postEntry:'',
 						placeholder:'-0-',
 						required:true,
+						canDelete:true,
 						validation: ['number','chicken'],
 						validEntry:false,
 						vmes:'required',
-						tooltip:'enter business two income (anticipated or actual)'
+						tooltip:'enter business two income (anticipated or actual)',
+						ttLoc:'bottom'
 					}],
 					other:[{//also add other: miscellaneous: state source and amount
 						name:'laundry room',
+						preEntry:'$',
 						value:'',
+						postEntry:'',
 						placeholder:'-0-',
 						required:true,
+						canDelete:true,
 						validation: ['number','kale'],
 						validEntry:false,
 						vmes:'please enter a number',
-						tooltip:'enter the laundry room income for the subject property (estimated or actual)'
+						tooltip:'enter the laundry room income for the subject property (estimated or actual)',
+						ttLoc:'bottom'
 					},{
 						name:'vending machines',
+						preEntry:'$',
 						value:'',
+						postEntry:'',
 						placeholder:'-0-',
 						required:true,
+						canDelete:true,
 						validation: ['number'],
 						validEntry:false,
 						vmes:'validation message for the vending machine income',
-						tooltip:'enter vending machine income for the subject property (estimated or actual)'
+						tooltip:'enter vending machine income for the subject property (estimated or actual)',
+						ttLoc:'bottom'
 					}],
 					rental:[{//state unit or lessee name, and amount
 						name:'rental income, unit one',
+						preEntry:'$',
 						value:'',
+						postEntry:'',
 						placeholder:'-0-',
 						required:true,
+						canDelete:false,
 						validation: ['number','integer'],
 						validEntry:false,
 						vmes:'validation mes for rental income',
-						tooltip:'enter the rental income for the subject property'
+						tooltip:'enter the rental income for the subject property',
+						ttLoc:'bottom'
 					}]
 				}
 			},

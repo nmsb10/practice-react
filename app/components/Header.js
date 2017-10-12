@@ -28,14 +28,18 @@ export class Header extends React.Component{
 				<nav>
 					<ul>
 						<li><Link to = '/userpage' className={currentPage==='home'?'current-page':''} data-page-name = 'home' onClick = {this.handleClick} >Home</Link></li>
-						<li><Link to = '/userpage/projects' className={currentPage==='projects'?'current-page':''} data-page-name = 'projects' onClick = {this.handleClick}>Projects</Link></li>
-						<li><Link to = '/userpage/thoughts' className={currentPage==='thoughts'?'current-page':''} data-page-name = 'thoughts' onClick = {this.handleClick}>Thoughts</Link></li>
-						<li className = 'dropdown'><Link to = '/userpage/real-estate' className={currentPage==='real estate'?'current-page':''} data-page-name = 'real estate' onClick = {this.handleClick}>Real Estate</Link>
+						<li className = 'dropdown'><Link to = '/userpage/about' className={currentPage==='about'?'current-page':''} data-page-name = 'about' onClick = {this.handleClick}>About</Link>
 							<div className = 'dropdown-content' onClick = {this.handleClick}>
 								<a href='https://www.linkedin.com/in/jonathonnagatani' target='_blank' title='Jonathon on LinkedIn'>LinkedIn</a>
 								<a href = 'https://www.youtube.com/user/JonathonNagatani' target='_blank' title='Jonathon on YouTube'>YouTube</a>
 								<a href="https://github.com/nmsb10" target="_blank" title="Jonathon on github | nmsb10">github</a>
-								<Link to = '/userpage/investment-property-calculator' data-page-name = 'real estate' >prop calc</Link>
+							</div>
+						</li>
+						<li><Link to = '/userpage/projects' className={currentPage==='projects'?'current-page':''} data-page-name = 'projects' onClick = {this.handleClick}>Projects</Link></li>
+						<li><Link to = '/userpage/thoughts' className={currentPage==='thoughts'?'current-page':''} data-page-name = 'thoughts' onClick = {this.handleClick}>Thoughts</Link></li>
+						<li className = 'dropdown'><Link to = '/userpage/real-estate' className={currentPage==='real estate'?'current-page':''} data-page-name = 'real estate' onClick = {this.handleClick}>Real Estate</Link>
+							<div className = 'dropdown-content' onClick = {this.handleClick}>
+								<Link to = '/userpage/investment-property-calculator' data-page-name = 'real estate' >property calculator</Link>
 							</div>
 						</li>
 					</ul>

@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import { Home } from '../components/Home';
 import { About } from '../components/About';
 import { Projects } from '../components/Projects';
-import { Thoughts } from '../components/Thoughts';
 import { RealEstate } from '../components/RealEstate';
 import { InvestPropCalcContainer } from '../containers/InvestPropCalcContainer';
 
@@ -17,7 +16,6 @@ export class Main extends React.Component{
 					<Route exact path = '/userpage' component = {Home}/>
 					<Route path = '/userpage/about' component = {About}/>
 					<Route path = '/userpage/projects' component = {Projects}/>
-					<Route path = '/userpage/thoughts' component = {Thoughts}/>
 					<Route path = '/userpage/real-estate' component = {RealEstate}/>
 					<Route path = '/userpage/investment-property-calculator' component = {InvestPropCalcContainer}/>
 				</Switch>

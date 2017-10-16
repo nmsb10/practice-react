@@ -6,7 +6,7 @@ import {UserPageContainer} from '../containers/UserPageContainer';
 export class App extends React.Component{
 	render(){
 		return(
-			<div>
+			<div id = 'wel-user-switch'>
 				<Switch>
 					<Route exact path = '/' component = {WelcomeContainer}/>
 					<Route path = '/userpage' component = {UserPageContainer}/>

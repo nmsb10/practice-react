@@ -95,7 +95,6 @@ export class IPCForm extends React.Component{
 					{/*
 						http://fontawesome.io/examples/#animated
 						http://fontawesome.io/icons/
-						try position sticky: https://www.w3schools.com/Css/css_positioning.asp
 					*/}
 						<i className ="fa fa-spinner fa-pulse fa-3x" aria-hidden = 'true'></i>
 						<button

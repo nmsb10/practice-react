@@ -1,0 +1,175 @@
+.welcome-content{
+    /*height 100% necessary so parallax class can use height 100%*/
+    /*NB: must make welcome-content 500% because it is the container for 5 parallax divs. Each child div wants height of 100% viewport, so each will have height 20%.*/
+    height:455%;
+}
+
+.welcome-content .pax{
+    /*remember, welcome-content has height 500%.*/
+    height:22%;
+    min-height:15rem;
+}
+
+.welcome-content .pax:nth-child(odd){
+    height:17%;
+}
+
+.welcome-content #login-container{
+    /*position absolute necessary so this div does not leave a gap in the page where it would normally have been located*/
+    position:absolute;
+    height:455%;
+    left: 50%;
+    /*margin-left due to button container being about 6.875rem wide*/
+    margin-left: -3.4375rem;
+    z-index:1;
+}
+
+.welcome-content #login-container #lbc-top-spacer{
+    /*height  = 1/2 height of first pax child, which is 22%*/
+    height:11%;
+    /*button container about 2.8rem high*/
+    margin-top:-1.4rem;
+    width:100%;
+}
+
+.welcome-content #login-container #button-container{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1.25rem;
+}
+
+
+/*#wlb-container{
+    width: 200px;
+    height:100px;
+    position: relative;
+    top:50%;
+    margin:0 auto;
+    margin-top:-100px;
+}*/
+
+/*USE FOR THE MODAL FORM
+#welcome-login-button{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1.5rem;
+    padding: 5px;
+    background-color: #cae8ca;
+    border: 2px solid #4CAF50;
+}*/
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 75px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.35); /* Black w/ opacity */
+    -webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
+    -moz-transition: all 0.35s ease 0s;
+    transition: all 0.35s ease 0s;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+/*    removed overflow auto so close X could appear outside the modal content
+*/    /*overflow: auto;*/
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.animate-down{
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.35s;
+    animation-name: animatetop;
+    animation-duration: 0.35s
+}
+
+.animate-up{
+    -webkit-animation: animateUp 0.35s ease-in 0s;
+    animation: animateUp 0.35s ease-in 0s;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@-webkit-keyframes animateUp {
+    0% {top:0; opacity:1}
+    15% {top:30px;}
+    100% {top:-500px; opacity:0;} 
+}
+
+@keyframes animateUp {
+    0% {top:0; opacity:1}
+    15% {top:30px;}
+    100% {top:-500px; opacity:0;} 
+}
+
+.modal-header {
+    padding: 7px 17px;
+    background-color: rgba(82, 195, 29, 1);
+    color: white;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.modal-body {
+    padding: 10px 17px;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: justify;
+}
+
+.modal-footer {
+    padding: 0 16px;
+    font-size:1rem;
+    background-color: #5cb85c;
+    color: white;
+    /*clear both necessary because photo-jn is floated left*/
+    clear: both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.welcome-thoughts{
+    text-align: center;
+
+}
+
+.welcome-thoughts .thoughts-container{
+    width: 90%;
+height: 90%;
+position: relative;
+top: 50%;
+background-color: #cae8ca;
+    border: 2px solid #4CAF50;
+}

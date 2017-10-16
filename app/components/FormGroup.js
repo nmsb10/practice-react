@@ -10,13 +10,13 @@ export class FormGroup extends React.Component {
 		this.props.handleInputChange(e);
 	}
 	render(){
-		let { info, section } =this.props;
+		let { info, section } =this.props;//think of section as the path of the formFields object. then key = which array is displayed in that object following that path
 		return(
 			<div className = 'form-group-container'>
 				{info.map( (contents, i) => {
 					return(
 						<div className="form-group ttt-container input-container" key = {i}>
-							<span className = 'close'>x</span>
+							<span className = 'close'>&times;</span>
 							<Tooltip
 								location = {contents.ttLoc}
 								text = {contents.tooltip}

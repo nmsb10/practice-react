@@ -1,0 +1,46 @@
+.ex-bor-container{
+    cursor: pointer;
+}
+
+.ex-bor-container .expanding-border{
+    box-sizing: border-box;
+    position: absolute;
+    width:0%;
+    height:100%;
+    top:0;
+    left:50%;
+    -webkit-transition: all 0.75s ease 0s;
+    -moz-transition: all 0.75s ease 0s;
+    transition: all 0.75s ease 0s;
+    border: 0.25rem solid rgba(50, 50, 50, 0.2);
+    border-left: none;
+    border-right: none;
+}
+
+.ex-bor-container:hover .expanding-border{
+    left: 0%;
+    width:100%;
+    border-color: rgba(50, 50, 50, 0.85);
+}
+
+.ex-bor-container .ex-bor-content{
+    box-sizing: border-box;
+    color: rgba(59, 3, 79, 0.85);
+    line-height:2.1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    padding: 0.35rem 1.35rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0)); /*Safari 5.1-6*/
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0)); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0)); /*Fx 3.6-15*/
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0)); /*Standard*/
+    -webkit-transition: all 0.75s ease 0s;
+    -moz-transition: all 0.75s ease 0s;
+    transition: all 0.75s ease 0s;
+}
+
+.ex-bor-container:hover .ex-bor-content{
+    color: rgba(59, 3, 79, 0.9);
+    background-color: rgba(255, 255, 255, 0.75);
+}

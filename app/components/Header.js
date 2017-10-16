@@ -36,7 +36,6 @@ export class Header extends React.Component{
 							</div>
 						</li>
 						<li><Link to = '/userpage/projects' className={currentPage==='projects'?'current-page':''} data-page-name = 'projects' onClick = {this.handleClick}>Projects</Link></li>
-						<li><Link to = '/userpage/thoughts' className={currentPage==='thoughts'?'current-page':''} data-page-name = 'thoughts' onClick = {this.handleClick}>Thoughts</Link></li>
 						<li className = 'dropdown'><Link to = '/userpage/real-estate' className={currentPage==='real estate'?'current-page':''} data-page-name = 'real estate' onClick = {this.handleClick}>Real Estate</Link>
 							<div className = 'dropdown-content' onClick = {this.handleClick}>
 								<Link to = '/userpage/investment-property-calculator' data-page-name = 'real estate' >property calculator</Link>

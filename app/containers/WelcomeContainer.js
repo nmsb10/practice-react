@@ -59,10 +59,21 @@ export class WelcomeContainer extends React.Component{
 					quote: 'We would like to express our enthusiastic endorsement of Jonathon Nagatani as a REALTOR. Among his many strengths are good listening and communication skills, diligence, enthusiasm and attention to detail. After not being able to sell our home in the Edgebrook neighborhood for nearly a year, we turned to Jonathon and the Koenig & Strey company to represent us as sellers. Jonathon developed and implemented a strong marketing program and then met with us weekly to provide a detailed analysis of the results to date. As a result of Jonathon\'s work of finding qualified buyers and the value-add of the Koenig & Strey network and services, we went under contract in less than a month in the winter of 2011. Jonathon negotiated aggressively on our behalf, facilitating a deal with which we were very pleased. He continued to work proactively, monitoring each step of the process through to a successful close.We absolutely would work with Jonathon again and highly recommend that you select him as your REALTOR.',
 					source: 'Jackie and William G.'
 				}
-			]
+			],
+			modalContainerClass:'modal',
+			modalAnimateClass:'modal-content animate-down',
+			loginForm:{
+				username:'',
+				password:'',
+				passwordHidden:''
+			}
 		};
 		this.setBackgroundImages = this.setBackgroundImages.bind(this);
 		this.shuffleByKnuth = this.shuffleByKnuth.bind(this);
+		this.handleShowLoginModal = this.handleShowLoginModal.bind(this);
+		this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	componentDidMount(){
 		this.setBackgroundImages();
@@ -103,97 +114,106 @@ export class WelcomeContainer extends React.Component{
 		}
 		return array;
 	}
-
-
-// // Get the modal
-// var modal = document.getElementById('myModal');
-// var modalAboutMe = document.getElementById('modalAboutMe');
-
-// // Get the button that opens the modal
-// var btn = document.getElementById("aboutMeBtn");
-
-// // Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// // When the user clicks the button, open the modal 
-// btn.onclick = function() {
-//     modal.style.display = "block";
-//     modal.style.backgroundColor = 'rgba(0,0,0,0.35)';
-// };
-
-// // When the user clicks anywhere outside of the modal OR the X span, close the modal
-// window.onclick = function(event) {
-//     if (event.target === modal || event.target === span) {
-//     	if(modalAboutMe.className === 'modal-content animate-down'){
-//     		modalAboutMe.className = 'modal-content animate-up';
-//     		modal.style.backgroundColor = 'rgba(0,0,0,0)';
-//     		setTimeout(function(){
-//     			modal.style.display = "none";
-//     			modalAboutMe.className = 'modal-content animate-down';
-//     		}, 300);
-//     	}
-//     }
-// }; 
-
-
-
+	handleShowLoginModal(){
+		let {modalContainerClass} = this.state;
+		this.setState({
+			modalContainerClass: modalContainerClass + ' modal-open'
+		});
+	}
+	handleCloseLoginModal(e){
+		let{modalContainerClass, modalAnimateClass} = this.state;
+		let clicked = e.target.id;
+		if(clicked === 'modal-container' || clicked === 'login-close-span'){
+			this.setState({
+				modalContainerClass: 'modal modal-closing',
+				modalAnimateClass: 'modal-content animate-up'
+			});
+			setTimeout(() =>{
+				this.setState({
+					modalContainerClass: 'modal',
+					modalAnimateClass: 'modal-content animate-down'
+				});
+			}, 350);
+		}
+	}
+	handleInputChange(e){
+		let {loginForm} = this.state;
+		let newState = {};
+		if(e.target.id === 'password'){
+			newState.password = loginForm.password + e.target.value[e.target.value.length-1];
+			newState.passwordHidden = e.target.value.replace(/./gi, '*');
+		}else{
+			newState[e.target.id] = e.target.value;
+		}
+		let objCopy = Object.assign({}, loginForm, newState);
+		this.setState({
+			loginForm: objCopy
+		});
+	}
+	handleSubmit(e){
+		e.preventDefault();
+	}
 	render(){
 		let{
 			currentYear,
-			backgroundImageDir
+			backgroundImageDir,
+			modalContainerClass,
+			modalAnimateClass,
+			loginForm
 		} = this.state;
 		return(
 			<div className = 'welcome-content'>
 				<div id = 'login-container'>
 					<div id = 'lbc-top-spacer'>
 					</div>
-					<div id = 'button-container'>
+					<div id = 'button-container' onClick = {this.handleShowLoginModal}>
 						< ExpandingBorder
 							elementType = 'button'
 							text = 'log in'
 						/>
 					</div>
-					<div id="myModal" className="modal">
-						<div className="modal-content animate-down" id = 'modalAboutMe'>
-							<span className="closeSpan">&times;</span>
+					<div className={modalContainerClass} id = 'modal-container' onClick = {this.handleCloseLoginModal}>
+						<div className={modalAnimateClass} id = 'login-modal-content'>
+							<span className="closeSpan" id = 'login-close-span'>&times;</span>
 							<div className="modal-header">
-								<h2>jonathon nagatani</h2>
+								<span>welcome</span>
 							</div>
 							<div className="modal-body">
-								<p>Jonathon develops engaging applications using JavaScript, React, Node, Express, MongoDB, HTML5, CSS3,  jQuery, mySQL, and Twitter Bootstrap. He strives to write clear, concise code. Above all he values sharing his experience and talents to save others time and solve their problems with elegant solutions.
-								</p>
-								<p>Jonathon's mission is simple. Create a "Wow!" experience for each of his clients, every day. As a Full Stack Web Developer and Realtor, Jonathon provides services tailored to your specific needs, at exceptional value.</p>
-								<p>Expect straightforward advice, research, and service, supported by salient analysis custom designed for your needs. Whether seeking a completely custom application to enhance your everyday life, selling your home for the most money in the most convenient manner, buying your next property at the best terms possible, or seeking guidance with real estate investment, enjoy the benefits of Jonathon's comprehensive resources carefully designed to achieve your goals. Jonathon dedicates himself to thrilling clients with the results of their collaboration.</p>
+								<form onSubmit = {this.handleSubmit}>
+									<label htmlFor = 'username'>
+										<span>username | e-mail</span>
+									</label>
+									<input
+										type = 'text'
+										id = 'username'
+										value = {loginForm.username}
+										placeholder = 'username'
+										onChange = {this.handleInputChange}
+									/>
+									<label htmlFor = 'password'>
+										<span>password</span>
+									</label>
+									<input
+										type = 'text'
+										id = 'password'
+										value = {loginForm.passwordHidden}
+										placeholder = 'password'
+										onChange = {this.handleInputChange}
+									/>
+									<button
+										type="submit"
+										className=''
+									>enter
+									</button>
+								</form>
 								<p>Contact Jonathon now for your complimentary consultation. Start enjoying the freedom and security that confidential guidance and eloquent application development will bring to your business and personal lives. Read reviews from enthusiastic clients on LinkedIn.</p>
 							</div>
-							<div className="modal-footer">hello there I\'m the footer
+							<div className="modal-footer">
+								<Link to = '/userpage'>click here to represent signing in...</Link>
 							</div>
 						</div>
 					</div>
-				</div>
-
-{/*
-	<!-- modal -->
-	<div id="myModal" class="modal">
-		<!-- Modal content -->
-		<div class="modal-content animate-down" id = 'modalAboutMe'>
-			<span class="closeSpan">&times;</span>
-			<div class="modal-header">
-				<h2>jonathon nagatani</h2>
-			</div>
-			<div class="modal-body">
-				<p><img src="./assets/images/five.jpg" alt="jonathon nagatani" title="jonathon nagatani" id = 'photo-jn'>
-				Jonathon develops engaging applications using JavaScript, React, Node, Express, MongoDB, HTML5, CSS3,  jQuery, mySQL, and Twitter Bootstrap. He strives to write clear, concise code. Above all he values sharing his experience and talents to save others time and solve their problems with elegant solutions.
-				</p>
-				<p>Jonathon's mission is simple. Create a "Wow!" experience for each of his clients, every day. As a Full Stack Web Developer and Realtor, Jonathon provides services tailored to your specific needs, at exceptional value.</p>
-				<p>Expect straightforward advice, research, and service, supported by salient analysis custom designed for your needs. Whether seeking a completely custom application to enhance your everyday life, selling your home for the most money in the most convenient manner, buying your next property at the best terms possible, or seeking guidance with real estate investment, enjoy the benefits of Jonathon's comprehensive resources carefully designed to achieve your goals. Jonathon dedicates himself to thrilling clients with the results of their collaboration.</p>
-				<p>Contact Jonathon now for your complimentary consultation. Start enjoying the freedom and security that confidential guidance and eloquent application development will bring to your business and personal lives. Read reviews from enthusiastic clients on LinkedIn.</p>
-			</div>
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-*/}			
+				</div>	
 				<div className = 'pax wc-section' style = {backgroundImageDir[0]}>
 					{/*review array functions including filter
 						https://stackoverflow.com/questions/7206640/css-vertically-align-div-when-no-fixed-size-of-the-div-is-known
@@ -205,31 +225,7 @@ export class WelcomeContainer extends React.Component{
 					<div className = 'thoughts-container'>
 					thoughts here
 					</div>
-				</div>
-				<div className = 'pax wc-section' style = {backgroundImageDir[3]}>
-				</div>
-				<div className = 'pax wc-section' style = {backgroundImageDir[4]}>
-				</div>
-				
-				{/*
-				<div className = 'intro'>
-					<div className = 'welcome-nav'>
-						<div>welcome</div>
-						<nav id = 'intro-nav'>
-							<Link to = '/userpage'>click here to represent signing in...</Link>
-						</nav>
-					</div>
-				</div>
-				<div className = 'intro'>
-					<div className = 'content' id= 'welcome-c2'>
-					impartial. transparent. accurate.
-					<br/>
-					always offer solutions.
-					<br/>
-					anyone can complain about problems.
-					</div>
-				</div>
-				<div className = 'intro'>
+{/*
 					<div className = 'welcome'>
 						<div id = 'one-test'>
 							<span className = {currentQuote === '' ? '' : 'quote'}>{currentQuote===''? 'testimonials for Jonathon Nagatani...': '"' + currentQuote +'"'}</span>
@@ -237,24 +233,12 @@ export class WelcomeContainer extends React.Component{
 							<span className = 'source'>{currentSource}</span>
 						</div>
 					</div>
+*/}
 				</div>
-				<div className = 'intro'>
-					<div className = 'welcome-nav'>
-						<div>welcome</div>
-						<nav id = 'intro-nav'>
-							<Link to = '/userpage'>click here to represent signing in...</Link>
-						</nav>
-					</div>
+				<div className = 'pax wc-section' style = {backgroundImageDir[3]}>
 				</div>
-				<div className = 'intro'>
-					<div className = 'welcome-nav'>
-						<div>welcome</div>
-						<nav id = 'intro-nav'>
-							<Link to = '/userpage'>click here to represent signing in...</Link>
-						</nav>
-					</div>
+				<div className = 'pax wc-section' style = {backgroundImageDir[4]}>
 				</div>
-			*/}
 			<Footer
 					year = {currentYear}
 					name = 'jonathon nagatani'

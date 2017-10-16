@@ -33,3 +33,8 @@ footer a:hover{
 footer a:active{
 	color: rgba(190, 190, 190, 0.9);
 }
+
+.welcome-content footer{
+	/*so footer is on top of welcome login*/
+	z-index:2;
+}

@@ -2,15 +2,8 @@ import React from 'react';
 import { Tooltip } from './Tooltip';
 
 export class FormGroup extends React.Component {
-	constructor(props){
-		super(props);
-		this.handleInputChange = this.handleInputChange.bind(this);
-	}
-	handleInputChange(e){
-		this.props.handleInputChange(e);
-	}
 	render(){
-		let { info, section } =this.props;//think of section as the path of the formFields object. then key = which array is displayed in that object following that path
+		let { info, section, handleInputChange } =this.props;//think of section as the path of the formFields object. then key = which array is displayed in that object following that path
 		return(
 			<div className = 'form-group-container'>
 				{info.map( (contents, i) => {
@@ -37,7 +30,7 @@ export class FormGroup extends React.Component {
 									data-section = {section}
 									value = {contents.value}
 									placeholder = {contents.placeholder}
-									onChange = {this.handleInputChange}
+									onChange = {handleInputChange}
 								/>
 								<span>{contents.postEntry}</span>
 							</div>

@@ -1,23 +1,22 @@
 .welcome-content{
     /*height 100% necessary so parallax class can use height 100%*/
-    /*NB: must make welcome-content 500% because it is the container for 5 parallax divs. Each child div wants height of 100% viewport, so each will have height 20%.*/
-    height:455%;
+    height:100%;
 }
 
 .welcome-content .pax{
-    /*remember, welcome-content has height 500%.*/
-    height:22%;
+    height:100%;
     min-height:15rem;
 }
 
 .welcome-content .pax:nth-child(odd){
-    height:17%;
+    height:75%;
 }
 
 .welcome-content #login-container{
     /*position absolute necessary so this div does not leave a gap in the page where it would normally have been located*/
     position:absolute;
-    height:455%;
+    /*height must equal sum of all 5 pax elements on this page. 100*3 + 75*2*/
+    height:450%;
     left: 50%;
     /*margin-left due to button container being about 6.875rem wide*/
     margin-left: -3.4375rem;
@@ -38,25 +37,6 @@
     top: 1.25rem;
 }
 
-
-/*#wlb-container{
-    width: 200px;
-    height:100px;
-    position: relative;
-    top:50%;
-    margin:0 auto;
-    margin-top:-100px;
-}*/
-
-/*USE FOR THE MODAL FORM
-#welcome-login-button{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 1.5rem;
-    padding: 5px;
-    background-color: #cae8ca;
-    border: 2px solid #4CAF50;
-}*/
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -73,6 +53,16 @@
     -webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
     -moz-transition: all 0.35s ease 0s;
     transition: all 0.35s ease 0s;
+}
+
+.modal-open{
+    display: block;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.modal-closing{
+    display: block;
+    background-color: rgba(0,0,0,0);
 }
 
 /* Modal Content */

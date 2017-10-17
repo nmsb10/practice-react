@@ -30,6 +30,10 @@ export class UserPageContainer extends React.Component{
 		this.displayHeaderName(190);
 		this.getCurrentYear();
 	}
+	componentWillUnmount(){
+		clearInterval(this.state.nameObjJN.nameInterval);
+		clearInterval(this.state.nameObjJN.lettersInterval);
+	}
 	getCurrentYear(){
 		//http://www.w3schools.com/jsref/jsref_obj_date.asp
 		let d = new Date();

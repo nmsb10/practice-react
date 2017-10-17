@@ -170,6 +170,9 @@ export class InvestPropCalcContainer extends React.Component{
 		console.log('key: ', e.dataset.key);
 		console.log(formFields['income.retail']);
 		console.log(formFields.income.retail[e.dataset.key]);
+					// 		{review array functions including filter
+					// 	https://stackoverflow.com/questions/7206640/css-vertically-align-div-when-no-fixed-size-of-the-div-is-known
+					// }
 
 		//https://stackoverflow.com/questions/4260308/getting-the-objects-property-name
 

@@ -136,30 +136,3 @@
     /*clear both necessary because photo-jn is floated left*/
     clear: both;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.welcome-thoughts{
-    text-align: center;
-
-}
-
-.welcome-thoughts .thoughts-container{
-    width: 90%;
-height: 90%;
-position: relative;
-top: 50%;
-background-color: #cae8ca;
-    border: 2px solid #4CAF50;
-}

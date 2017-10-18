@@ -1,1 +1,60 @@
-/*What about centering via positioning absolute with top, bottom set to zero and margin to auto in relative positioning container…*/
+.testimonials-container{
+	background-color: rgba(245, 245, 245, 0.7);
+	border: 0.2rem solid rgba(255, 255, 255, 0.85);
+	border-radius: 0.45rem;
+}
+
+/*to have a completely centered content, also consider:
+container: position relative
+content: position absolute, with top, bottom, left, right set to 0, and margin auto*/
+
+.testimonials-container .testimonial-content{
+	color: rgba(0, 0, 0, 0.95);
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	height: 95%;
+	text-align: justify;
+
+	/*text-align: center;
+	letter-spacing: 0.125rem;
+	font-size: 1.25rem;
+	line-height: 1.8rem;*/
+
+	-webkit-animation: fadeinoutlong 19s linear 0s infinite;
+    animation: fadeinoutlong 19s linear 0s infinite;
+}
+
+@-webkit-keyframes fadeinoutlong {
+  0%,98%, 100% { opacity: 0; }
+  8%, 92% { opacity: 1; }
+}
+
+@keyframes fadeinoutlong {
+  0%,98%, 100% { opacity: 0; }
+  8%, 92% { opacity: 1; }
+}
+
+
+.testimonials-container .testimonial-content .testimonial{
+	display:block;
+	overflow: auto;
+	max-height:90%;
+}
+
+.testimonials-container .testimonial-content .source{
+	position: absolute;
+	right:0;
+	font-style: italic;
+}
+
+.testimonials-container .detail-note{
+	position: absolute;
+	bottom:0.3rem;
+	right:0.3rem;
+	font-size: 0.65rem;
+	color: rgba(25,25,25, 0.85);
+	font-style: italic;
+}

@@ -8,7 +8,7 @@ export const Thoughts = (props) => {
 			<div className = {thoughts.cssClass}>
 			{thought}
 			</div>
-			<span className = 'thoughts-note'>thoughts</span>
+			<span className = 'detail-note'>thoughts</span>
 		</div>
 	);
 }

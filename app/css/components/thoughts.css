@@ -1,4 +1,4 @@
-.thoughts-container{
+.thoughts-container, .testimonials-container{
 	position: absolute;
 	box-sizing: border-box;
 	width:80%;
@@ -15,7 +15,7 @@
 
 }
 
-.one-thought{
+.thoughts-container .one-thought{
 	color: rgba(255, 255, 255, 0.95);
 	width: 80%;
 	margin:0 auto;
@@ -25,6 +25,7 @@
 	top: 50%;
 	transform: translateY(-50%);
 
+	max-height:95%;
 	overflow: auto;
 	text-align: center;
 	letter-spacing: 0.125rem;
@@ -37,7 +38,7 @@
     animation: fadeinout 10s linear 0s infinite;
 }
 
-.one-thought-end{
+.thoughts-container .one-thought-end{
 	-webkit-animation: fadeinout 10s linear forwards;
     animation: fadeinout 10s linear forwards;
 }
@@ -52,7 +53,7 @@
   20%, 80% { opacity: 1; }
 }
 
-.thoughts-note{
+.thoughts-container .detail-note{
 	position: absolute;
 	bottom:0.2rem;
 	right:0.2rem;

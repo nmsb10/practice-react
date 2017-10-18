@@ -52,7 +52,7 @@ export class WelcomeContainer extends React.Component{
 						source: 'Hari R.'
 					},
 					{
-						quote: 'I would just like to provide some feedback with regards to the service that Jonathon extended to us while we were selling our Lake Forest property. From beginning to end Jonathon’s professionalism was impressive.We originally chose Jonathan as an agent because we had received a mailing from him for homes in the neighborhood that clearly stood out above the rest. He did not disappoint. He had a professional photographer take pictures of the property, created a beautiful brochure and provided great online exposure. Jonathon also accompanied potential buyers to all the showings and provided us with feedback. He also kept us up to date on market activity. We were extremely pleased with Jonathon and look forward to working with him whenever we need an agent.',
+						quote: 'I would just like to provide some feedback with regards to the service that Jonathon extended to us while we were selling our Lake Forest property. From beginning to end Jonathon’s professionalism was impressive. We originally chose Jonathon as an agent because we had received a mailing from him for homes in the neighborhood that clearly stood out above the rest. He did not disappoint. He had a professional photographer take pictures of the property, created a beautiful brochure and provided great online exposure. Jonathon also accompanied potential buyers to all the showings and provided us with feedback. He also kept us up to date on market activity. We were extremely pleased with Jonathon and look forward to working with him whenever we need an agent.',
 						source: 'Monica K.'
 					},
 					{
@@ -90,13 +90,17 @@ export class WelcomeContainer extends React.Component{
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.showThoughts = this.showThoughts.bind(this);
 		this.changeCurrentThought = this.changeCurrentThought.bind(this);
+		this.showTestimonials = this.showTestimonials.bind(this);
+		this.changeCurrentTestimonial = this.changeCurrentTestimonial.bind(this);
 	}
 	componentDidMount(){
 		this.setBackgroundImages();
 		this.showThoughts();
+		this.showTestimonials();
 	}
 	componentWillUnmount(){
 		clearInterval(this.state.thoughts.interval);
+		clearInterval(this.state.testimonials.interval);
 	}
 	setBackgroundImages(){
 		let { imageURLs } = this.state;
@@ -198,8 +202,34 @@ export class WelcomeContainer extends React.Component{
 				thoughts: objCopy
 			});
 			//must stop this counter, otherwise will continue to perform changeThoughts function while also performing it again and again, simultaneously
-			clearInterval(this.state.thoughts.interval);
+			clearInterval(thoughts.interval);
 			this.showThoughts();
+		}
+	}
+	showTestimonials(){
+		let { testimonials } = this.state;
+		let interval = setInterval(this.changeCurrentTestimonial, 19000);
+		let mixedThoughts = this.shuffleByKnuth(testimonials.fullArray);
+		let objCopy = Object.assign({}, testimonials, {fullArray: mixedThoughts, current:0, interval: interval, cssClass: 'testimonial-content'});
+		this.setState({
+			testimonials: objCopy
+		});
+	}
+	changeCurrentTestimonial(){
+		let {testimonials} = this.state;
+		let objCopy = {};
+		if(testimonials.current < testimonials.fullArray.length-1){
+			objCopy = Object.assign({}, testimonials, {current: testimonials.current+1});
+			this.setState({
+				testimonials: objCopy
+			});
+		}else{
+			objCopy = Object.assign({}, testimonials, {current: testimonials.fullArray.length-1, cssClass: ''});
+			this.setState({
+				testimonials: objCopy
+			});
+			clearInterval(testimonials.interval);
+			this.showTestimonials();
 		}
 	}
 	render(){
@@ -208,7 +238,8 @@ export class WelcomeContainer extends React.Component{
 			backgroundImageDir,
 			loginModal,
 			loginForm,
-			thoughts
+			thoughts,
+			testimonials
 		} = this.state;
 		return(
 			<div className = 'welcome-content'>
@@ -276,6 +307,7 @@ export class WelcomeContainer extends React.Component{
 				</div>
 				<div className = 'pax' style = {backgroundImageDir[4]}>
 					<Testimonials
+						content = {testimonials}
 					/>		
 				</div>
 				<Footer

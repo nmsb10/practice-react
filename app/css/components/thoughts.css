@@ -40,6 +40,8 @@
 
 .thoughts-container .one-thought-end{
 	color: rgba(247, 247, 247, 0.95);
+	-webkit-animation: resetfadeinout 10s linear forwards;
+    animation: resetfadeinout 10s linear linear forwards;
 }
 
 @-webkit-keyframes fadeinout {
@@ -48,6 +50,16 @@
 }
 
 @keyframes fadeinout {
+  0%,97%, 100% { opacity: 0; }
+  20%, 80% { opacity: 1; }
+}
+
+@-webkit-keyframes resetfadeinout {
+  0%,97%, 100% { opacity: 0; }
+  20%, 80% { opacity: 1; }
+}
+
+@keyframes resetfadeinout {
   0%,97%, 100% { opacity: 0; }
   20%, 80% { opacity: 1; }
 }

@@ -39,8 +39,7 @@
 }
 
 .thoughts-container .one-thought-end{
-	-webkit-animation: fadeinout 10s linear forwards;
-    animation: fadeinout 10s linear forwards;
+	color: rgba(247, 247, 247, 0.95);
 }
 
 @-webkit-keyframes fadeinout {

@@ -19,26 +19,28 @@ export class WelcomeContainer extends React.Component{
 				fullArray:[//{thought , picked}
 					{q: 'Do not expect anyone to hold your hand in "real life."', p: false},
 					{q: 'Nothing is sacred.', p: false},
-					{q: 'Focus on the nutrition of your mind.', p: false},
-					{q: 'Do more for others than anyone else does for them.', p: false},
-					{q: 'We must earn our clients and friends every day. Never take a relationship (business or friend) for granted.', p: false},
-					{q: 'Go beyond "the normal," especially when serving others.', p: false},
-					{q: 'What I do, not what I have, defines who and what I am.', p: false},
-					{q: 'Assume you are being recorded everywhere and that such recordings shall exist forever.', p: false},
-					{q: 'Is time the scarcest resource of all?', p: false},
-					{q: 'Does 1 minute of your time during one part of the day have a different value than the same length of time (1 minute) during a different time of the day?', p: false},
-					{q: 'Seek only positive energy.', p: false},
-					{q: 'Be the "calming force."', p: false},
-					{q: 'Through complaining, one embraces their identity as a "victim."', p: false},
-					{q: 'Less is more.', p: false},
-					{q: '"Conduct your life as though your every act were to become a universal law for all people."', p: false},
-					{q: 'Everyone is entitled to their beliefs. But holding a belief does not necessarily make it true. Or does it?', p: false},
-					{q: '"Truth is in the eye of the beholder." Do you make a distinction between truth and reality?', p: false},
-					{q: 'impartial. transparent. accurate.', p: false},
-					{q: 'always offer solutions, because anyone can complain about problems', p: false}
+					{q: 'Focus on the nutrition of your mind.', p: false}
+					// {q: 'Do more for others than anyone else does for them.', p: false},
+					// {q: 'We must earn our clients and friends every day. Never take a relationship (business or friend) for granted.', p: false},
+					// {q: 'Go beyond "the normal," especially when serving others.', p: false},
+					// {q: 'What I do, not what I have, defines who and what I am.', p: false},
+					// {q: 'Assume you are being recorded everywhere and that such recordings shall exist forever.', p: false},
+					// {q: 'Is time the scarcest resource of all?', p: false},
+					// {q: 'Does 1 minute of your time during one part of the day have a different value than the same length of time (1 minute) during a different time of the day?', p: false},
+					// {q: 'Seek only positive energy.', p: false},
+					// {q: 'Be the "calming force."', p: false},
+					// {q: 'Through complaining, one embraces their identity as a "victim."', p: false},
+					// {q: 'Less is more.', p: false},
+					// {q: '"Conduct your life as though your every act were to become a universal law for all people."', p: false},
+					// {q: 'Everyone is entitled to their beliefs. But holding a belief does not necessarily make it true. Or does it?', p: false},
+					// {q: '"Truth is in the eye of the beholder." Do you make a distinction between truth and reality?', p: false},
+					// {q: 'impartial. transparent. accurate.', p: false},
+					// {q: 'always offer solutions, because anyone can complain about problems', p: false}
 				],
-				current: null,
+				count: null,
+				currentSelection: null,
 				interval: null,
+				displaying: false,
 				cssClass: ''
 			},
 			testimonials:{
@@ -91,20 +93,21 @@ export class WelcomeContainer extends React.Component{
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.showThoughts = this.showThoughts.bind(this);
-		this.changeCurrentThought = this.changeCurrentThought.bind(this);
 		this.showTestimonials = this.showTestimonials.bind(this);
 	}
 	componentDidMount(){
 		this.setBackgroundImages();
-		//this.showThoughts();
+		this.showThoughts();
 		this.showTestimonials();
 	}
 	componentWillUnmount(){
 		let { thoughts, testimonials} = this.state;
 		clearInterval(thoughts.interval);
 		clearInterval(testimonials.interval);
+		let objCopyThoughts = Object.assign({}, thoughts, {displaying: false});
 		let objCopyTestim = Object.assign({}, testimonials, {displaying: false});
 		this.setState({
+			thoughts: objCopyThoughts,
 			testimonials: objCopyTestim
 		});
 	}
@@ -183,33 +186,33 @@ export class WelcomeContainer extends React.Component{
 	}
 	showThoughts(){
 		let { thoughts } = this.state;
-		let mixedThoughts = this.shuffleByKnuth(thoughts.fullArray);
-		let interval = setInterval(this.changeCurrentThought, 10000);
-		let objCopy = Object.assign({}, thoughts, {fullArray: mixedThoughts, current:0, interval: interval, cssClass: 'one-thought'});
-		this.setState({
-			thoughts: objCopy
-		});
-	}
-	changeCurrentThought(){
-		let {thoughts} = this.state;
 		let objCopy = {};
-		if(thoughts.current < thoughts.fullArray.length-1){
-			objCopy = Object.assign({}, thoughts, {current: thoughts.current+1, cssClass: 'one-thought'});
+		if(thoughts.displaying && thoughts.fullArray.length > 0){
+			let nextCount = thoughts.count + 1;
+			if(nextCount < thoughts.fullArray.length-1){
+				objCopy = Object.assign({}, thoughts, {currentSelection: thoughts.fullArray[nextCount], count: nextCount, cssClass: 'one-thought'});
+				this.setState({
+					thoughts: objCopy
+				});
+			}else{//on final fullArray element
+				//set currentSelection to the last
+				let lastSelection = thoughts.fullArray[nextCount];
+				//then reset count
+				//and remix the fullArray
+				let newMixedArray = this.shuffleByKnuth(thoughts.fullArray);
+				objCopy = Object.assign({}, thoughts, {fullArray: newMixedArray, currentSelection: lastSelection, count:-1, cssClass: 'one-thought one-thought-end'});
+				this.setState({
+					thoughts: objCopy
+				});
+			}
+		}else if(thoughts.fullArray.length > 0 && !thoughts.displaying){
+			let interval = setInterval(this.showThoughts, 10000);
+			let mixedThoughts = this.shuffleByKnuth(thoughts.fullArray);
+			let current = mixedThoughts[0];
+			objCopy = Object.assign({}, thoughts, {fullArray: mixedThoughts, count:0, currentSelection: current, interval: interval, displaying: true, cssClass: 'one-thought'});
 			this.setState({
 				thoughts: objCopy
 			});
-		}else{
-			//must display the final quote in the array here.
-			//Otherwise if the quote is displayed in the above if statement,
-			//then for this interval, the last quote will display for
-			//double the quantity of the time
-			objCopy = Object.assign({}, thoughts, {current: thoughts.fullArray.length-1, cssClass: 'one-thought-end'});
-			this.setState({
-				thoughts: objCopy
-			});
-			//must stop this counter, otherwise will continue to perform changeThoughts function while also performing it again and again, simultaneously
-			clearInterval(thoughts.interval);
-			this.showThoughts();
 		}
 	}
 	showTestimonials(){

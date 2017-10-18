@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Thoughts = (props) => {
 	let {thoughts} = props;
-	let thought = thoughts.current !== null ? thoughts.fullArray[thoughts.current].q : '[brace yourself for impact]';
+	let thought = thoughts.currentSelection !== null ? thoughts.currentSelection.q : '[brace yourself for impact]';
 	return(
 		<div className = 'thoughts-container'>
 			<div className = {thoughts.cssClass}>

@@ -32,8 +32,6 @@
 	font-size: 1.25rem;
 	line-height: 1.8rem;
 	/*http://stackoverflow.com/questions/30125705/css-how-to-make-an-element-fade-in-and-then-fade-out*/
-	/*-webkit-animation: fadeinout 8s linear forwards;
-    animation: fadeinout 8s linear forwards;*/
     -webkit-animation: fadeinout 10s linear 0s infinite;
     animation: fadeinout 10s linear 0s infinite;
 }
@@ -41,7 +39,7 @@
 .thoughts-container .one-thought-end{
 	color: rgba(247, 247, 247, 0.95);
 	-webkit-animation: resetfadeinout 10s linear forwards;
-    animation: resetfadeinout 10s linear linear forwards;
+    animation: resetfadeinout 10s linear forwards;
 }
 
 @-webkit-keyframes fadeinout {

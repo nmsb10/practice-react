@@ -21,12 +21,27 @@ content: position absolute, with top, bottom, left, right set to 0, and margin a
     animation: fadeinoutlong 19s linear 0s infinite;
 }
 
+.testimonials-container .tes-con-end{
+	-webkit-animation: resetfadeinoutlong 19s linear forwards;
+    animation: resetfadeinoutlong 19s linear forwards;
+}
+
 @-webkit-keyframes fadeinoutlong {
   0%,95%, 100% { opacity: 0; }
   8%, 92% { opacity: 1; }
 }
 
 @keyframes fadeinoutlong {
+  0%,95%, 100% { opacity: 0; }
+  8%, 92% { opacity: 1; }
+}
+
+@-webkit-keyframes resetfadeinoutlong {
+  0%,95%, 100% { opacity: 0; }
+  8%, 92% { opacity: 1; }
+}
+
+@keyframes resetfadeinoutlong {
   0%,95%, 100% { opacity: 0; }
   8%, 92% { opacity: 1; }
 }

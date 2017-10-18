@@ -19,23 +19,23 @@ export class WelcomeContainer extends React.Component{
 				fullArray:[//{thought , picked}
 					{q: 'Do not expect anyone to hold your hand in "real life."', p: false},
 					{q: 'Nothing is sacred.', p: false},
-					{q: 'Focus on the nutrition of your mind.', p: false}
-					// {q: 'Do more for others than anyone else does for them.', p: false},
-					// {q: 'We must earn our clients and friends every day. Never take a relationship (business or friend) for granted.', p: false},
-					// {q: 'Go beyond "the normal," especially when serving others.', p: false},
-					// {q: 'What I do, not what I have, defines who and what I am.', p: false},
-					// {q: 'Assume you are being recorded everywhere and that such recordings shall exist forever.', p: false},
-					// {q: 'Is time the scarcest resource of all?', p: false},
-					// {q: 'Does 1 minute of your time during one part of the day have a different value than the same length of time (1 minute) during a different time of the day?', p: false},
-					// {q: 'Seek only positive energy.', p: false},
-					// {q: 'Be the "calming force."', p: false},
-					// {q: 'Through complaining, one embraces their identity as a "victim."', p: false},
-					// {q: 'Less is more.', p: false},
-					// {q: '"Conduct your life as though your every act were to become a universal law for all people."', p: false},
-					// {q: 'Everyone is entitled to their beliefs. But holding a belief does not necessarily make it true. Or does it?', p: false},
-					// {q: '"Truth is in the eye of the beholder." Do you make a distinction between truth and reality?', p: false},
-					// {q: 'impartial. transparent. accurate.', p: false},
-					// {q: 'always offer solutions, because anyone can complain about problems', p: false}
+					{q: 'Focus on the nutrition of your mind.', p: false},
+					{q: 'Do more for others than anyone else does for them.', p: false},
+					{q: 'We must earn our clients and friends every day. Never take a relationship (business or friend) for granted.', p: false},
+					{q: 'Go beyond "the normal," especially when serving others.', p: false},
+					{q: 'What I do, not what I have, defines who and what I am.', p: false},
+					{q: 'Assume you are being recorded everywhere and that such recordings shall exist forever.', p: false},
+					{q: 'Is time the scarcest resource of all?', p: false},
+					{q: 'Does 1 minute of your time during one part of the day have a different value than the same length of time (1 minute) during a different time of the day?', p: false},
+					{q: 'Seek only positive energy.', p: false},
+					{q: 'Be the "calming force."', p: false},
+					{q: 'Through complaining, one embraces their identity as a "victim."', p: false},
+					{q: 'Less is more.', p: false},
+					{q: '"Conduct your life as though your every act were to become a universal law for all people."', p: false},
+					{q: 'Everyone is entitled to their beliefs. But holding a belief does not necessarily make it true. Or does it?', p: false},
+					{q: '"Truth is in the eye of the beholder." Do you make a distinction between truth and reality?', p: false},
+					{q: 'impartial. transparent. accurate.', p: false},
+					{q: 'always offer solutions, because anyone can complain about problems', p: false}
 				],
 				count: null,
 				currentSelection: null,
@@ -221,7 +221,7 @@ export class WelcomeContainer extends React.Component{
 		if(testimonials.displaying && testimonials.fullArray.length > 0){
 			let nextCount = testimonials.count + 1;
 			if(nextCount < testimonials.fullArray.length-1){
-				objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount});
+				objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount, cssClass: 'testimonial-content'});
 				this.setState({
 					testimonials: objCopy
 				});
@@ -231,7 +231,7 @@ export class WelcomeContainer extends React.Component{
 				//then reset count
 				//and remix the fullArray
 				let newMixedArray = this.shuffleByKnuth(testimonials.fullArray);
-				objCopy = Object.assign({}, testimonials, {fullArray: newMixedArray, currentSelection: lastSelection, count:-1});
+				objCopy = Object.assign({}, testimonials, {fullArray: newMixedArray, currentSelection: lastSelection, count:-1, cssClass: 'testimonial-content tes-con-end'});
 				this.setState({
 					testimonials: objCopy
 				});

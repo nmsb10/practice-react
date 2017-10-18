@@ -2,8 +2,8 @@ import React from 'react';
 
 export const Testimonials = (props) => {
 	let{content} = props;
-	let testimonial = content.current !== null ? content.fullArray[content.current].quote : 'testimonials for Jonathon Nagatani...';
-	let source = content.current !== null ? content.fullArray[content.current].source : 'source of the testimonial';
+	let testimonial = content.currentSelection !== null ? content.currentSelection.quote : 'testimonials for Jonathon Nagatani...';
+	let source = content.currentSelection !== null ? content.currentSelection.source : 'satisfied client';
 	return(
 		<div className = 'testimonials-container'>
 			<div className = {content.cssClass}>

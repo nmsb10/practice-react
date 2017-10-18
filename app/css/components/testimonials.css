@@ -17,36 +17,32 @@ content: position absolute, with top, bottom, left, right set to 0, and margin a
 	transform: translateY(-50%);
 	height: 95%;
 	text-align: justify;
-
-	/*text-align: center;
-	letter-spacing: 0.125rem;
-	font-size: 1.25rem;
-	line-height: 1.8rem;*/
-
 	-webkit-animation: fadeinoutlong 19s linear 0s infinite;
     animation: fadeinoutlong 19s linear 0s infinite;
 }
 
 @-webkit-keyframes fadeinoutlong {
-  0%,98%, 100% { opacity: 0; }
+  0%,95%, 100% { opacity: 0; }
   8%, 92% { opacity: 1; }
 }
 
 @keyframes fadeinoutlong {
-  0%,98%, 100% { opacity: 0; }
+  0%,95%, 100% { opacity: 0; }
   8%, 92% { opacity: 1; }
 }
-
 
 .testimonials-container .testimonial-content .testimonial{
 	display:block;
 	overflow: auto;
 	max-height:90%;
+	margin-top:0.25rem;
+	font-size:0.95rem;
 }
 
 .testimonials-container .testimonial-content .source{
 	position: absolute;
 	right:0;
+	font-size:1rem;
 	font-style: italic;
 }
 

@@ -60,16 +60,18 @@ export class WelcomeContainer extends React.Component{
 						source: 'Cate & Matthew F.'
 					},
 					{
-						quote: 'Jane and I sincerely appreciate all the hard work you put into the sale of our condominium. We would recommend you to friends and potential clients without reservation, and would tell them the following:Jonathon won our business through his professional and thorough approach, and obtained a legitimate offer on our property (which subsequently resulted in a sale) within three weeks of listing. He provided us with timely, detailed and accurate market information to enable us to make informed decisions about the listing and sale of our condominium. He then aggressively marketed the property through customized mailings of his own design, extensive internet marketing, and a custom property website. He continually explored new sources of potential buyers. Our neighbors in the building commented on the fact that they received two mailings about our condominium within the short period of time it was on the market. Jonathon\'s hard work and creative approach worked for us, and are certain to produce successful results with future listings.',
+						quote: 'Jane and I sincerely appreciate all the hard work you put into the sale of our condominium. We would recommend you to friends and potential clients without reservation, and would tell them the following: Jonathon won our business through his professional and thorough approach, and obtained a legitimate offer on our property (which subsequently resulted in a sale) within three weeks of listing. He provided us with timely, detailed and accurate market information to enable us to make informed decisions about the listing and sale of our condominium. He then aggressively marketed the property through customized mailings of his own design, extensive internet marketing, and a custom property website. He continually explored new sources of potential buyers. Our neighbors in the building commented on the fact that they received two mailings about our condominium within the short period of time it was on the market. Jonathon\'s hard work and creative approach worked for us, and are certain to produce successful results with future listings.',
 						source: 'Jane and Steven A.'
 					},
 					{
-						quote: 'We would like to express our enthusiastic endorsement of Jonathon Nagatani as a REALTOR. Among his many strengths are good listening and communication skills, diligence, enthusiasm and attention to detail. After not being able to sell our home in the Edgebrook neighborhood for nearly a year, we turned to Jonathon and the Koenig & Strey company to represent us as sellers. Jonathon developed and implemented a strong marketing program and then met with us weekly to provide a detailed analysis of the results to date. As a result of Jonathon\'s work of finding qualified buyers and the value-add of the Koenig & Strey network and services, we went under contract in less than a month in the winter of 2011. Jonathon negotiated aggressively on our behalf, facilitating a deal with which we were very pleased. He continued to work proactively, monitoring each step of the process through to a successful close.We absolutely would work with Jonathon again and highly recommend that you select him as your REALTOR.',
+						quote: 'We would like to express our enthusiastic endorsement of Jonathon Nagatani as a REALTOR. Among his many strengths are good listening and communication skills, diligence, enthusiasm and attention to detail. After not being able to sell our home in the Edgebrook neighborhood for nearly a year, we turned to Jonathon and the Koenig & Strey company to represent us as sellers. Jonathon developed and implemented a strong marketing program and then met with us weekly to provide a detailed analysis of the results to date. As a result of Jonathon\'s work of finding qualified buyers and the value-add of the Koenig & Strey network and services, we went under contract in less than a month in the winter of 2011. Jonathon negotiated aggressively on our behalf, facilitating a deal with which we were very pleased. He continued to work proactively, monitoring each step of the process through to a successful close. We absolutely would work with Jonathon again and highly recommend that you select him as your REALTOR.',
 						source: 'Jackie and William G.'
 					}
 				],
-				current: null,
+				count: null,
+				currentSelection: null,
 				interval: null,
+				displaying: false,
 				cssClass: ''
 			},
 			loginModal:{
@@ -95,12 +97,17 @@ export class WelcomeContainer extends React.Component{
 	}
 	componentDidMount(){
 		this.setBackgroundImages();
-		this.showThoughts();
+		//this.showThoughts();
 		this.showTestimonials();
 	}
 	componentWillUnmount(){
-		clearInterval(this.state.thoughts.interval);
-		clearInterval(this.state.testimonials.interval);
+		let { thoughts, testimonials} = this.state;
+		clearInterval(thoughts.interval);
+		clearInterval(testimonials.interval);
+		let objCopyTestim = Object.assign({}, testimonials, {displaying: false});
+		this.setState({
+			testimonials: objCopyTestim
+		});
 	}
 	setBackgroundImages(){
 		let { imageURLs } = this.state;
@@ -177,8 +184,8 @@ export class WelcomeContainer extends React.Component{
 	}
 	showThoughts(){
 		let { thoughts } = this.state;
-		let interval = setInterval(this.changeCurrentThought, 10000);
 		let mixedThoughts = this.shuffleByKnuth(thoughts.fullArray);
+		let interval = setInterval(this.changeCurrentThought, 10000);
 		let objCopy = Object.assign({}, thoughts, {fullArray: mixedThoughts, current:0, interval: interval, cssClass: 'one-thought'});
 		this.setState({
 			thoughts: objCopy
@@ -188,7 +195,7 @@ export class WelcomeContainer extends React.Component{
 		let {thoughts} = this.state;
 		let objCopy = {};
 		if(thoughts.current < thoughts.fullArray.length-1){
-			objCopy = Object.assign({}, thoughts, {current: thoughts.current+1});
+			objCopy = Object.assign({}, thoughts, {current: thoughts.current+1, cssClass: 'one-thought'});
 			this.setState({
 				thoughts: objCopy
 			});
@@ -208,12 +215,39 @@ export class WelcomeContainer extends React.Component{
 	}
 	showTestimonials(){
 		let { testimonials } = this.state;
-		let interval = setInterval(this.changeCurrentTestimonial, 19000);
-		let mixedThoughts = this.shuffleByKnuth(testimonials.fullArray);
-		let objCopy = Object.assign({}, testimonials, {fullArray: mixedThoughts, current:0, interval: interval, cssClass: 'testimonial-content'});
-		this.setState({
-			testimonials: objCopy
-		});
+		console.log(testimonials);
+		let objCopy = {};
+		if(testimonials.displaying && testimonials.fullArray.length > 0){
+			let nextCount = testimonials.count + 1;
+			if(nextCount < testimonials.fullArray.length-1){
+				console.log('current quote should be:',testimonials.fullArray[nextCount]);
+				objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount});
+				this.setState({
+					testimonials: objCopy
+				});
+			}else{//on final fullArray element
+				//set currentSelection to the last
+				let lastSelection = testimonials.fullArray[nextCount];
+				console.log('last element here', lastSelection);
+				//then reset count
+				//and remix the fullArray
+				let newMixedArray = this.shuffleByKnuth(testimonials.fullArray);
+				objCopy = Object.assign({}, testimonials, {fullArray: newMixedArray, currentSelection: lastSelection, count:-1});
+				this.setState({
+					testimonials: objCopy
+				});
+			}
+		}else if(testimonials.fullArray.length > 0 && !testimonials.displaying){
+			let interval = setInterval(this.showTestimonials, 19000);
+			let mixedTestimonials = this.shuffleByKnuth(testimonials.fullArray);
+			let current = mixedTestimonials[0];
+			objCopy = Object.assign({}, testimonials, {fullArray: mixedTestimonials, count:0, currentSelection: current, interval: interval, displaying: true, cssClass: 'testimonial-content'});
+			console.log('fresh testimonials object',objCopy);
+			console.log('current quote should be:', current);
+			this.setState({
+				testimonials: objCopy
+			});
+		}
 	}
 	changeCurrentTestimonial(){
 		let {testimonials} = this.state;
@@ -224,11 +258,11 @@ export class WelcomeContainer extends React.Component{
 				testimonials: objCopy
 			});
 		}else{
+			clearInterval(testimonials.interval);
 			objCopy = Object.assign({}, testimonials, {current: testimonials.fullArray.length-1, cssClass: ''});
 			this.setState({
 				testimonials: objCopy
 			});
-			clearInterval(testimonials.interval);
 			this.showTestimonials();
 		}
 	}

@@ -68,11 +68,12 @@
 /* Modal Content */
 .modal-content {
     position: relative;
-    background-color: #fefefe;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
-    width: 80%;
+    width: 35%;
+    min-width:21.5rem;
+    background-color: rgba(30, 30, 30, 0.85);
+    border: 0.08rem solid rgba(220, 220, 220, 0.85);
 /*    removed overflow auto so close X could appear outside the modal content
 */    /*overflow: auto;*/
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -126,6 +127,7 @@
     font-size: 16px;
     line-height: 18px;
     text-align: justify;
+    color:white;
 }
 
 .modal-footer {

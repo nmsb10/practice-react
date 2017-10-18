@@ -190,7 +190,7 @@ export class WelcomeContainer extends React.Component{
 		if(thoughts.displaying && thoughts.fullArray.length > 0){
 			let nextCount = thoughts.count + 1;
 			if(nextCount < thoughts.fullArray.length-1){
-				objCopy = Object.assign({}, thoughts, {currentSelection: thoughts.fullArray[nextCount], count: nextCount});
+				objCopy = Object.assign({}, thoughts, {currentSelection: thoughts.fullArray[nextCount], count: nextCount, cssClass: 'one-thought'});
 				this.setState({
 					thoughts: objCopy
 				});

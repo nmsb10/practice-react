@@ -93,7 +93,6 @@ export class WelcomeContainer extends React.Component{
 		this.showThoughts = this.showThoughts.bind(this);
 		this.changeCurrentThought = this.changeCurrentThought.bind(this);
 		this.showTestimonials = this.showTestimonials.bind(this);
-		this.changeCurrentTestimonial = this.changeCurrentTestimonial.bind(this);
 	}
 	componentDidMount(){
 		this.setBackgroundImages();
@@ -215,12 +214,10 @@ export class WelcomeContainer extends React.Component{
 	}
 	showTestimonials(){
 		let { testimonials } = this.state;
-		console.log(testimonials);
 		let objCopy = {};
 		if(testimonials.displaying && testimonials.fullArray.length > 0){
 			let nextCount = testimonials.count + 1;
 			if(nextCount < testimonials.fullArray.length-1){
-				console.log('current quote should be:',testimonials.fullArray[nextCount]);
 				objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount});
 				this.setState({
 					testimonials: objCopy
@@ -228,7 +225,6 @@ export class WelcomeContainer extends React.Component{
 			}else{//on final fullArray element
 				//set currentSelection to the last
 				let lastSelection = testimonials.fullArray[nextCount];
-				console.log('last element here', lastSelection);
 				//then reset count
 				//and remix the fullArray
 				let newMixedArray = this.shuffleByKnuth(testimonials.fullArray);
@@ -242,28 +238,9 @@ export class WelcomeContainer extends React.Component{
 			let mixedTestimonials = this.shuffleByKnuth(testimonials.fullArray);
 			let current = mixedTestimonials[0];
 			objCopy = Object.assign({}, testimonials, {fullArray: mixedTestimonials, count:0, currentSelection: current, interval: interval, displaying: true, cssClass: 'testimonial-content'});
-			console.log('fresh testimonials object',objCopy);
-			console.log('current quote should be:', current);
 			this.setState({
 				testimonials: objCopy
 			});
-		}
-	}
-	changeCurrentTestimonial(){
-		let {testimonials} = this.state;
-		let objCopy = {};
-		if(testimonials.current < testimonials.fullArray.length-1){
-			objCopy = Object.assign({}, testimonials, {current: testimonials.current+1});
-			this.setState({
-				testimonials: objCopy
-			});
-		}else{
-			clearInterval(testimonials.interval);
-			objCopy = Object.assign({}, testimonials, {current: testimonials.fullArray.length-1, cssClass: ''});
-			this.setState({
-				testimonials: objCopy
-			});
-			this.showTestimonials();
 		}
 	}
 	render(){

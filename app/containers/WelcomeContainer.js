@@ -273,10 +273,12 @@ export class WelcomeContainer extends React.Component{
 								<span>welcome</span>
 							</div>
 							<div className="modal-body">
-								<form onSubmit = {this.handleSubmit}>
+								<form id = 'welcome-login-form' onSubmit = {this.handleSubmit}>
+								{/*
 									<label htmlFor = 'username'>
 										<span>username | e-mail</span>
 									</label>
+								*/}
 									<input
 										type = 'text'
 										id = 'username'
@@ -284,9 +286,11 @@ export class WelcomeContainer extends React.Component{
 										placeholder = 'username'
 										onChange = {this.handleInputChange}
 									/>
+								{/*
 									<label htmlFor = 'password'>
 										<span>password</span>
 									</label>
+								*/}
 									<input
 										type = 'text'
 										id = 'password'
@@ -300,10 +304,10 @@ export class WelcomeContainer extends React.Component{
 									>enter
 									</button>
 								</form>
-								<p>Contact Jonathon now for your complimentary consultation. Start enjoying the freedom and security that confidential guidance and eloquent application development will bring to your business and personal lives. Read reviews from enthusiastic clients on LinkedIn.</p>
+								<Link to = '/userpage'>click here to represent signing in...</Link>
 							</div>
 							<div className="modal-footer">
-								<Link to = '/userpage'>click here to represent signing in...</Link>
+								<span>thank you</span>
 							</div>
 						</div>
 					</div>

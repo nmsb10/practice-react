@@ -24,27 +24,12 @@ content: position absolute, with top, bottom, left, right set to 0, and margin a
     animation: fadeinoutlong 19s linear 0s infinite;
 }
 
-.testimonials-container .tes-con-end{
-	-webkit-animation: resetfadeinoutlong 19s linear forwards;
-    animation: resetfadeinoutlong 19s linear forwards;
-}
-
 @-webkit-keyframes fadeinoutlong {
   0%,95%, 100% { opacity: 0; }
   8%, 92% { opacity: 1; }
 }
 
 @keyframes fadeinoutlong {
-  0%,95%, 100% { opacity: 0; }
-  8%, 92% { opacity: 1; }
-}
-
-@-webkit-keyframes resetfadeinoutlong {
-  0%,95%, 100% { opacity: 0; }
-  8%, 92% { opacity: 1; }
-}
-
-@keyframes resetfadeinoutlong {
   0%,95%, 100% { opacity: 0; }
   8%, 92% { opacity: 1; }
 }
@@ -71,4 +56,25 @@ content: position absolute, with top, bottom, left, right set to 0, and margin a
 	font-size: 0.65rem;
 	color: rgba(25,25,25, 0.85);
 	font-style: italic;
+}
+
+.testimonials-container .displayAgainButton{
+	display: block;
+	box-sizing: border-box;
+	outline: none;
+	margin: 0.5rem;
+	background-color: rgba(38, 3, 51, 0.65);
+	color: rgb(255, 255, 255);
+	padding: 0.5rem;
+	font-size: 0.9rem;
+	border: 0.09rem solid rgba(255, 255, 255, 0.85);
+	border-radius: 0.45rem;
+	-webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+    -moz-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;
+}
+
+.testimonials-container .displayAgainButton:hover{
+	background-color: rgba(38, 3, 51, 0.80);
+	box-shadow: 0 0.25rem 0.45rem rgb(110, 95, 107);
 }

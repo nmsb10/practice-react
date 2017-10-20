@@ -1,22 +1,27 @@
 import React from 'react';
+import {DisplayAgainButton} from './DisplayAgainButton';
 
 export const Testimonials = (props) => {
-	let{content} = props;
+	let{content, onClick} = props;
 	let testimonial = content.currentSelection !== null ? content.currentSelection.quote : 'testimonials for Jonathon Nagatani...';
 	let source = content.currentSelection !== null ? content.currentSelection.source : 'satisfied client';
+	let style = content.cssClass === '' ? 'testimonial-content tes-con-reg-animation' : content.cssClass;
 	return(
 		<div className = 'testimonials-container'>
-			<div className = {content.cssClass}>
-				<span className = 'testimonial'>
-					"{testimonial}"
-					{/*
-						{content.fullArray[content.current].quote ? '"' + content.fullArray[content.current].quote +'"' : 'testimonials for Jonathon Nagatani...'}
-					*/}
-				</span>
-				<span className = 'source'>
-					~{source}
-				</span>
-			</div>
+			{!content.displaying ?
+				<DisplayAgainButton
+					onClick = {onClick}
+				/>
+				:
+				<div className = {style}>
+					<span className = 'testimonial'>
+						"{testimonial}"
+					</span>
+					<span className = 'source'>
+						~{source}
+					</span>
+				</div>
+			}
 			<span className = 'detail-note'>testimonials for Jonathon Nagatani</span>
 		</div>
 	);

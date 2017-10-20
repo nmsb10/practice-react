@@ -94,6 +94,8 @@ export class WelcomeContainer extends React.Component{
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.showThoughts = this.showThoughts.bind(this);
 		this.showTestimonials = this.showTestimonials.bind(this);
+		this.clearTheIntervals = this.clearTheIntervals.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 	componentDidMount(){
 		this.setBackgroundImages();
@@ -101,15 +103,25 @@ export class WelcomeContainer extends React.Component{
 		this.showTestimonials();
 	}
 	componentWillUnmount(){
+		this.clearTheIntervals(['thoughts', 'testimonials']);
+	}
+	clearTheIntervals(sectionsArr){
 		let { thoughts, testimonials} = this.state;
-		clearInterval(thoughts.interval);
-		clearInterval(testimonials.interval);
-		let objCopyThoughts = Object.assign({}, thoughts, {displaying: false});
-		let objCopyTestim = Object.assign({}, testimonials, {displaying: false});
-		this.setState({
-			thoughts: objCopyThoughts,
-			testimonials: objCopyTestim
-		});
+		for(let i = 0; i<sectionsArr.length; i++){
+			if(sectionsArr[i] === 'thoughts'){
+				clearInterval(thoughts.interval);
+				let objCopyThoughts = Object.assign({}, thoughts, {displaying: false});
+				this.setState({
+					thoughts: objCopyThoughts
+				});
+			}else if(sectionsArr[i] === 'testimonials'){
+				clearInterval(testimonials.interval);
+				let objCopyTestim = Object.assign({}, testimonials, {displaying: false});
+				this.setState({
+					testimonials: objCopyTestim
+				});
+			}
+		}
 	}
 	setBackgroundImages(){
 		let { imageURLs } = this.state;
@@ -184,6 +196,11 @@ export class WelcomeContainer extends React.Component{
 	handleSubmit(e){
 		e.preventDefault();
 	}
+	handleClick(e){
+		if(e.target.id === 'showTestimonialsButton'){
+			this.showTestimonials();
+		}
+	}
 	showThoughts(){
 		let { thoughts } = this.state;
 		let objCopy = {};
@@ -220,21 +237,13 @@ export class WelcomeContainer extends React.Component{
 		let objCopy = {};
 		if(testimonials.displaying && testimonials.fullArray.length > 0){
 			let nextCount = testimonials.count + 1;
-			if(nextCount < testimonials.fullArray.length-1){
-				objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount, cssClass: 'testimonial-content tes-con-reg-animation'});
+			if(nextCount < testimonials.fullArray.length){
+				objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount});
 				this.setState({
 					testimonials: objCopy
 				});
-			}else{//on final fullArray element
-				//set currentSelection to the last
-				let lastSelection = testimonials.fullArray[nextCount];
-				//then reset count
-				//and remix the fullArray
-				let newMixedArray = this.shuffleByKnuth(testimonials.fullArray);
-				objCopy = Object.assign({}, testimonials, {fullArray: newMixedArray, currentSelection: lastSelection, count:-1, cssClass: 'testimonial-content tes-con-end'});
-				this.setState({
-					testimonials: objCopy
-				});
+			}else{//just completed displaying final fullArray element
+				this.clearTheIntervals(['testimonials']);
 			}
 		}else if(testimonials.fullArray.length > 0 && !testimonials.displaying){
 			let interval = setInterval(this.showTestimonials, 19000);
@@ -325,6 +334,7 @@ export class WelcomeContainer extends React.Component{
 				<div className = 'pax' style = {backgroundImageDir[4]}>
 					<Testimonials
 						content = {testimonials}
+						onClick = {this.handleClick}
 					/>		
 				</div>
 				<Footer

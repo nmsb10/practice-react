@@ -149,6 +149,7 @@
     color: rgb(255, 255, 255);
     background-color: rgba(0, 0, 0, 0.95);
     text-align: center;
+    box-sizing: border-box;
     -webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
     -moz-transition: all 0.35s ease 0s;
     transition: all 0.35s ease 0s;
@@ -161,25 +162,26 @@
 }
 
 #login-modal-content #welcome-login-form button{
-    color: rgb(255, 255, 255);
-    background-color: rgb(59, 3, 79);
-    background: linear-gradient(top, #6496c8, #346392);
-    border: none;
-    border-radius: 8px;
-    width: 65%;
     display: block;
-    margin: 0 auto;
-    padding: 5px;
-    font-size: 17px;
-    font-weight: bold;
+    box-sizing: border-box;
     outline: none;
-    -webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+    width: 90%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.97);
+    color: rgb(255, 255, 255);
+    padding: 0.35rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border:0.07rem solid rgba(255, 255, 255, 0.55);
+    border-radius: 0.5rem;
+    -webkit-transition: all 0.2s ease 0s;
     -moz-transition: all 0.2s ease 0s;
     transition: all 0.2s ease 0s;
 }
 
 #login-modal-content #welcome-login-form button:hover{
-box-shadow: 0 5px 9px rgb(110, 95, 107);
+    box-shadow: 0 5px 9px rgb(110, 95, 107);
+    border-color: rgba(255, 255, 255, 0.85);
 }
 
 

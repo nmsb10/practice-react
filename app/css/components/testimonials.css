@@ -17,6 +17,9 @@ content: position absolute, with top, bottom, left, right set to 0, and margin a
 	transform: translateY(-50%);
 	height: 95%;
 	text-align: justify;
+}
+
+.testimonials-container .tes-con-reg-animation{
 	-webkit-animation: fadeinoutlong 19s linear 0s infinite;
     animation: fadeinoutlong 19s linear 0s infinite;
 }

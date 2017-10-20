@@ -190,7 +190,7 @@ export class WelcomeContainer extends React.Component{
 		if(thoughts.displaying && thoughts.fullArray.length > 0){
 			let nextCount = thoughts.count + 1;
 			if(nextCount < thoughts.fullArray.length-1){
-				objCopy = Object.assign({}, thoughts, {currentSelection: thoughts.fullArray[nextCount], count: nextCount, cssClass: 'one-thought'});
+				objCopy = Object.assign({}, thoughts, {currentSelection: thoughts.fullArray[nextCount], count: nextCount, cssClass: 'one-thought tc-reg-animation'});
 				this.setState({
 					thoughts: objCopy
 				});
@@ -209,7 +209,7 @@ export class WelcomeContainer extends React.Component{
 			let interval = setInterval(this.showThoughts, 10000);
 			let mixedThoughts = this.shuffleByKnuth(thoughts.fullArray);
 			let current = mixedThoughts[0];
-			objCopy = Object.assign({}, thoughts, {fullArray: mixedThoughts, count:0, currentSelection: current, interval: interval, displaying: true, cssClass: 'one-thought'});
+			objCopy = Object.assign({}, thoughts, {fullArray: mixedThoughts, count:0, currentSelection: current, interval: interval, displaying: true, cssClass: 'one-thought tc-reg-animation'});
 			this.setState({
 				thoughts: objCopy
 			});
@@ -221,7 +221,7 @@ export class WelcomeContainer extends React.Component{
 		if(testimonials.displaying && testimonials.fullArray.length > 0){
 			let nextCount = testimonials.count + 1;
 			if(nextCount < testimonials.fullArray.length-1){
-				objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount, cssClass: 'testimonial-content'});
+				objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount, cssClass: 'testimonial-content tes-con-reg-animation'});
 				this.setState({
 					testimonials: objCopy
 				});
@@ -240,7 +240,7 @@ export class WelcomeContainer extends React.Component{
 			let interval = setInterval(this.showTestimonials, 19000);
 			let mixedTestimonials = this.shuffleByKnuth(testimonials.fullArray);
 			let current = mixedTestimonials[0];
-			objCopy = Object.assign({}, testimonials, {fullArray: mixedTestimonials, count:0, currentSelection: current, interval: interval, displaying: true, cssClass: 'testimonial-content'});
+			objCopy = Object.assign({}, testimonials, {fullArray: mixedTestimonials, count:0, currentSelection: current, interval: interval, displaying: true, cssClass: 'testimonial-content tes-con-reg-animation'});
 			this.setState({
 				testimonials: objCopy
 			});

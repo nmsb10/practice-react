@@ -31,6 +31,9 @@
 	letter-spacing: 0.125rem;
 	font-size: 1.25rem;
 	line-height: 1.8rem;
+}
+
+.thoughts-container .tc-reg-animation{
 	/*http://stackoverflow.com/questions/30125705/css-how-to-make-an-element-fade-in-and-then-fade-out*/
     -webkit-animation: fadeinout 10s linear 0s infinite;
     animation: fadeinout 10s linear 0s infinite;

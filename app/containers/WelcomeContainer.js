@@ -304,10 +304,9 @@ export class WelcomeContainer extends React.Component{
 									>enter
 									</button>
 								</form>
-								<Link to = '/userpage'>click here to represent signing in...</Link>
 							</div>
 							<div className="modal-footer">
-								<span>thank you</span>
+								<span><Link to = '/userpage'>click here to represent signing in...</Link>thank you</span>
 							</div>
 						</div>
 					</div>

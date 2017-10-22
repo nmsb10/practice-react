@@ -3,28 +3,18 @@ import {FormGroup} from './FormGroup';
 import {WordLine} from './WordLine';
 
 export class IPCForm extends React.Component{
-	constructor(props) {
-		super(props);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleInputChange = this.handleInputChange.bind(this);
-	}
-	//form event handlers
-	handleSubmit(event){
-		event.preventDefault();
-		this.props.calculate();
-	}
-	handleInputChange(e){
-		this.props.updateForm(e.target);
-	}
 	render(){
 		let {
 			fields,
+			handleInputChange,
+			handleSubmit,
+			onClick
 		} = this.props;
 		return(
 			<div className = 'ipc-form-container'>
-				<form onSubmit = {(event) => this.handleSubmit(event)}>
+				<form onSubmit = {(event) => handleSubmit(event)}>
 					<div className = 'content'>
-						<div className = 'main-section'>
+						<div className = 'content-section'>
 							<WordLine
 								location = 'ipcForm'
 								content = 'purchase price details'
@@ -32,34 +22,38 @@ export class IPCForm extends React.Component{
 							<FormGroup
 								info = {fields.purchasePrice}
 								section = 'purchasePrice'
-								handleInputChange = {this.handleInputChange}
+								handleInputChange = {handleInputChange}
+								onClick = {onClick}
 							/>
 						</div>
-						<div className = 'main-section'>
+						<div className = 'content-section'>
 							<WordLine
 								location = 'ipcForm'
 								content = 'income'
 							/>
-							<span className = 'subtitle'><i className="fa fa-money font-awesome" aria-hidden="true"></i>Rental: Retail</span>
+							<span className = 'subtitle'>Rental: Retail</span>
 							<FormGroup
 								info = {fields.income.retail}
 								section = 'income.retail'
-								handleInputChange = {this.handleInputChange}
+								handleInputChange = {handleInputChange}
+								onClick = {onClick}
 							/>
 							<span className = 'subtitle'><i className="fa fa-money font-awesome" aria-hidden="true"></i>Other (income)</span>
 							<FormGroup
 								info = {fields.income.other}
 								section = 'income.other'
-								handleInputChange = {this.handleInputChange}
+								handleInputChange = {handleInputChange}
+								onClick = {onClick}
 							/>
 							<span className = 'subtitle'><i className="fa fa-money font-awesome" aria-hidden="true"></i>Rental: Residential</span>
 							<FormGroup
 								info = {fields.income.rental}
 								section = 'income.rental'
-								handleInputChange = {this.handleInputChange}
+								handleInputChange = {handleInputChange}
+								onClick = {onClick}
 							/>
 						</div>
-						<div className = 'main-section'>
+						<div className = 'content-section'>
 							<div className = 'word-line-centered'>
 								<div className = 'word-line'>
 									<div className = 'capitalize wl-text wl-ipc-form'>expenses

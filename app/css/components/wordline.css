@@ -1,30 +1,37 @@
 .word-line-centered{
 	width: 100%;
-	height:2.75rem;
+	height:2.25rem;
 	/*need text align center for the parent so the child inline-block elements will be horizonally centered*/
 	text-align:center;
 }
 
 .word-line-centered .word-line{
 	position: relative;
-	width: 90%;
+	width: 92.5%;
 	margin: 0 auto;
 	height:0;
 	border-bottom: 0.2rem solid rgba(175, 175, 175, 0.9);
 	/*top  = (parent height - border width) / 2*/
-	top: 1.275rem;
+	top: 1.025rem;
 }
 
 .word-line-centered .wl-text{
 	position: relative;
-	top: -1.475rem;
+	/*top = 1/2 * (parent height + word-line height)*/
+	top: -1.225rem;
 	display: inline-block;
-	font-size:1.25rem;
-	line-height:2.75rem;
-	padding: 0 0.75rem;
+	font-size:1rem;
+	/*line-height = parent height*/
+	line-height:2.25rem;
+	padding: 0 0.45rem;
 	background: rgba(255, 255, 255, 1);
 	border-radius: 0.45rem;
 	-webkit-transition: all 0.5s ease 0s; /* For Safari 3.1 to 6.0 */
 	-moz-transition: all 0.5s ease 0s;
 	transition: all 0.5s ease 0s;
+}
+
+/*wl-ipc-form class necessary because ipc form changes color on hover, so these particular word-lines must also change background color accordingly*/
+.ipc-form-container:hover .word-line-centered .wl-ipc-form{
+	background-color: rgb(250, 250, 250);
 }

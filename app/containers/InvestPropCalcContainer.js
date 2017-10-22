@@ -1,5 +1,6 @@
 import React from 'react';
 import {IPCForm} from '../components/IpcForm';
+import {IPCAnalysis} from '../components/IpcAnalysis';
 import * as axios from 'axios';
 
 export class InvestPropCalcContainer extends React.Component{
@@ -28,7 +29,8 @@ export class InvestPropCalcContainer extends React.Component{
 						validEntry:false,
 						vmes:'validation message for the purchase price',
 						tooltip:'enter the purchase price for the subject property (anticipated or actual)',
-						ttLoc:'bottom'
+						ttLoc:'bottom',
+						isOpen:true
 					}
 				],
 				income:{
@@ -44,20 +46,22 @@ export class InvestPropCalcContainer extends React.Component{
 						validEntry:false,
 						vmes:'validation message for the income: business one',
 						tooltip:'enter business one income (anticipated or actual)',
-						ttLoc:'bottom'
+						ttLoc:'bottom',
+						isOpen:true
 					},{
 						name:'business two',
 						preEntry:'$',
 						value:'',
 						postEntry:'',
 						placeholder:'-0-',
-						required:true,
+						required:false,
 						canDelete:true,
 						validation: ['number','chicken'],
 						validEntry:false,
 						vmes:'required',
 						tooltip:'enter business two income (anticipated or actual)',
-						ttLoc:'bottom'
+						ttLoc:'bottom',
+						isOpen:true
 					}],
 					other:[{//also add other: miscellaneous: state source and amount
 						name:'laundry room',
@@ -65,26 +69,28 @@ export class InvestPropCalcContainer extends React.Component{
 						value:'',
 						postEntry:'',
 						placeholder:'-0-',
-						required:true,
+						required:false,
 						canDelete:true,
 						validation: ['number','kale'],
 						validEntry:false,
 						vmes:'please enter a number',
 						tooltip:'enter the laundry room income for the subject property (estimated or actual)',
-						ttLoc:'bottom'
+						ttLoc:'bottom',
+						isOpen:true
 					},{
 						name:'vending machines',
 						preEntry:'$',
 						value:'',
 						postEntry:'',
 						placeholder:'-0-',
-						required:true,
+						required:false,
 						canDelete:true,
 						validation: ['number'],
 						validEntry:false,
 						vmes:'validation message for the vending machine income',
 						tooltip:'enter vending machine income for the subject property (estimated or actual)',
-						ttLoc:'bottom'
+						ttLoc:'bottom',
+						isOpen:true
 					}],
 					rental:[{//state unit or lessee name, and amount
 						name:'rental income, unit one',
@@ -98,7 +104,8 @@ export class InvestPropCalcContainer extends React.Component{
 						validEntry:false,
 						vmes:'validation mes for rental income',
 						tooltip:'enter the rental income for the subject property',
-						ttLoc:'bottom'
+						ttLoc:'bottom',
+						isOpen:true
 					}]
 				}
 			},
@@ -140,9 +147,11 @@ export class InvestPropCalcContainer extends React.Component{
 		};
 		this.calculate = this.calculate.bind(this);
 		this.updateFormFields = this.updateFormFields.bind(this);
-		this.validateInput = this.validateInput.bind(this)
+		this.validateInput = this.validateInput.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
-	calculate(){
+	calculate(e){
+		e.preventDefault();
 		let{formFields} = this.state;
 		//validate all fields. if any have validEntry === false, print summary of input fields which need corrections
 		axios.post('/calculate-investment-property', formFields).then(function(response){
@@ -165,7 +174,7 @@ export class InvestPropCalcContainer extends React.Component{
 		//if change is valid, implement valid protocol, then update state
 		//if change not valid, implement correction protocol and update state
 		let {formFields} = this.state;
-		let enteredValue = e.value;
+		let enteredValue = e.target.value;
 		console.log('section:', e.dataset.section);
 		console.log('key: ', e.dataset.key);
 		console.log(formFields['income.retail']);
@@ -208,15 +217,48 @@ export class InvestPropCalcContainer extends React.Component{
 		// 		string:['letters only please']
 		// 	},
 
+		//http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+		// function withCommas(x) {
+		// 	return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		// }
+
+	}
+	handleClick(e){
+		let {formFields} = this.state;
+		let fieldsCopy = formFields;
+		let request = e.target.dataset.itemClicked;
+		let section = e.target.dataset.section;
+		let key = e.target.dataset.key;
+		if(request === 'minimizeSection'){
+			let sectionArr = section.split('.');
+			let specificObject = fieldsCopy[sectionArr[0]];
+			if(sectionArr.length === 1){
+				specificObject = specificObject[key];
+				specificObject.isOpen = !specificObject.isOpen;
+			}else if(sectionArr.length === 2){
+				specificObject = specificObject[sectionArr[1]][key];
+				specificObject.isOpen = !specificObject.isOpen;
+			}
+			let objCopy = Object.assign({}, formFields, fieldsCopy);
+			this.setState({
+				formFields: objCopy
+			});
+		}
+		if(request === 'removeSection'){
+			console.log('please remove section');
+		}
 	}
 	render(){
 		let { formFields } = this.state;
 		return(
-			<div>
+			<div className = 'fit-95'>
 				<IPCForm
-					calculate = {this.calculate}
-					updateForm = {this.updateFormFields}
+					handleSubmit = {this.calculate}
+					handleInputChange = {this.updateFormFields}
 					fields = {formFields}
+					onClick = {this.handleClick}
+				/>
+				<IPCAnalysis
 				/>
 			</div>
 		);

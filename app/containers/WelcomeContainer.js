@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {ExpandingBorder} from '../components/ExpandingBorder';
 import {Footer} from '../components/Footer';
 import {Thoughts} from '../components/Thoughts';
 import {Testimonials} from '../components/Testimonials';
+import {LoginModal} from '../components/LoginModal';
 
 export class WelcomeContainer extends React.Component{
 	constructor(props){
@@ -275,50 +275,13 @@ export class WelcomeContainer extends React.Component{
 							text = 'log in'
 						/>
 					</div>
-					<div className={loginModal.containerClass} id = 'modal-container' onClick = {this.handleCloseLoginModal}>
-						<div className={loginModal.animateClass} id = 'login-modal-content'>
-							<span className="closeSpan" id = 'login-close-span'>&times;</span>
-							<div className="modal-header">
-								<span>welcome</span>
-							</div>
-							<div className="modal-body">
-								<form id = 'welcome-login-form' onSubmit = {this.handleSubmit}>
-								{/*
-									<label htmlFor = 'username'>
-										<span>username | e-mail</span>
-									</label>
-								*/}
-									<input
-										type = 'text'
-										id = 'username'
-										value = {loginForm.username}
-										placeholder = 'username'
-										onChange = {this.handleInputChange}
-									/>
-								{/*
-									<label htmlFor = 'password'>
-										<span>password</span>
-									</label>
-								*/}
-									<input
-										type = 'text'
-										id = 'password'
-										value = {loginForm.passwordHidden}
-										placeholder = 'password'
-										onChange = {this.handleInputChange}
-									/>
-									<button
-										type="submit"
-										className=''
-									>enter
-									</button>
-								</form>
-							</div>
-							<div className="modal-footer">
-								<span><Link to = '/userpage'>click here to represent signing in...</Link>thank you</span>
-							</div>
-						</div>
-					</div>
+					<LoginModal
+						loginModal = {loginModal}
+						loginForm = {loginForm}
+						onClick = {this.handleCloseLoginModal}
+						onSubmit = {this.handleSubmit}
+						onChange = {this.handleInputChange}
+					/>
 				</div>	
 				<div className = 'pax' style = {backgroundImageDir[0]}>
 				</div>

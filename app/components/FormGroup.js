@@ -3,7 +3,7 @@ import { Tooltip } from './Tooltip';
 
 export class FormGroup extends React.Component {
 	render(){
-		let { info, section, handleInputChange, onClick} =this.props;//think of section as the path of the formFields object. then key = which array is displayed in that object following that path
+		let { info, section, onChange, onClick} =this.props;//think of section as the path of the formFields object. then key = which array is displayed in that object following that path
 		return(
 			<div className = 'form-group-container'>
 				{info.map( (contents, i) => {
@@ -35,7 +35,7 @@ export class FormGroup extends React.Component {
 								>
 								</i>
 							</div>
-							<div className = {contents.isOpen ? 'ttt-container inputs-container' : 'inputs-cont-closed'}>
+							<div className = {contents.isOpen ? 'ttt-container inputs-container' : 'inputs-container inputs-cont-closed'}>
 								<Tooltip
 									location = {contents.ttLoc}
 									text = {contents.tooltip}
@@ -43,18 +43,20 @@ export class FormGroup extends React.Component {
 								<div className = 'section-name'>
 									<div>
 										<input
+											className = ''
 											type='text'
 											id={contents.name}
 											value = {contents.name}
-											placeholder = 'source name'
-											onChange = {handleInputChange}
+											placeholder = {contents.name}
+											onChange = {onChange}
 										/>
 										<label htmlFor = {contents.name}>
 											<span>{contents.name}:</span>
-											<span className = {!contents.validEntry ? 'val-mes': 'hidden'}>{contents.vmes}</span>
 										</label>
 									</div>
-									
+									<div className = 'alerts'>
+										<span className = {!contents.validEntry ? 'val-mes': 'hidden'}>{contents.vmes}</span>
+									</div>
 								</div>
 								<div className = 'top'>
 									<label htmlFor = {contents.name}>
@@ -73,7 +75,7 @@ export class FormGroup extends React.Component {
 											data-section = {section}
 											value = {contents.value}
 											placeholder = {contents.placeholder}
-											onChange = {handleInputChange}
+											onChange = {onChange}
 										/>
 									</span>
 									<span className = 'input-contents'>{contents.postEntry}</span>

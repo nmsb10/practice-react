@@ -1,4 +1,5 @@
 .ipc-form-container{
+	display:inline-block;
 	width: 35%;
 	min-width: 15.875rem;
 	margin-right:5%;
@@ -21,6 +22,10 @@
 	padding: 0.7rem 0.5rem;
 }
 
+.ipc-form-container form .content .content-section .subtitle-container{
+	position: relative;
+}
+
 .ipc-form-container form .content .content-section .subtitle{
 	display: inline-block;
 	width: 65%;
@@ -38,11 +43,29 @@
 	background: linear-gradient(90deg, rgba(83, 11, 110, 0.9), rgba(255, 255, 255, 0)); /*Standard*/
 }
 
+.ipc-form-container form .content .content-section .fai-add-more{
+	position: absolute;
+	right:0;
+	top: 50%;
+	transform: translateY(-50%);
+	margin: 0 0.35rem;
+	-webkit-transition: all 0.2s ease 0s;
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.ipc-form-container form .content .content-section .fai-add-more:hover{
+	font-size:1.25rem;
+	color:lime;
+}
+
 .ipc-form-container form .content .content-section .form-group-container{
+	margin-top: 0.75rem;
 	margin-bottom: 1.5rem;
 }
 
 .ipc-form-container form .content .content-section .form-group-container .form-group{
+	vertical-align:top;
 	position: relative;
 	width:45%;
 	max-width: 22rem;
@@ -56,16 +79,16 @@
 .ipc-form-container form .content .content-section .form-group-container .form-group .close{
 	position: absolute;
 	color: white;
-	font-size: 1.25rem;
+	font-size: 1.1rem;
 /*	font-weight: bold;
-*/	width: 1.25rem;
-	height: 1.25rem;
-	line-height: 1.25rem;
-	right: -0.525rem;
-	top: -0.525rem;
+*/	width: 1.1rem;
+	height: 1.1rem;
+	line-height: 1.1rem;
+	right: -0.425rem;
+	top: -0.425rem;
 	text-align: center;
 	border: 0.1rem solid white;
-	border-radius: 0.725rem;
+	border-radius: 0.65rem;
 	box-shadow: 0px 0px 0.15rem 0.15rem rgba(73, 62, 71, 0.65);
 	background-color: rgba(79, 0, 79, 0.7);
 	-webkit-transition: all 0.2s ease 0s;
@@ -149,8 +172,8 @@
 	display:none;
 }
 
-.ipc-form-container form .content .content-section .inputs-container .section-name{
-	
+.ipc-form-container form .content .content-section .inputs-container .section-name .alerts{
+	overflow:auto;
 }
 
 

@@ -22,7 +22,7 @@ export class IPCForm extends React.Component{
 							<FormGroup
 								info = {fields.purchasePrice}
 								section = 'purchasePrice'
-								handleInputChange = {handleInputChange}
+								onChange = {handleInputChange}
 								onClick = {onClick}
 							/>
 						</div>
@@ -31,25 +31,58 @@ export class IPCForm extends React.Component{
 								location = 'ipcForm'
 								content = 'income'
 							/>
-							<span className = 'subtitle'>Rental: Retail</span>
+							<div className = 'subtitle-container'>
+								<span className = 'subtitle'>Rental: Retail</span>
+								<i
+									className= 'fa fa-plus fai-add-more'
+									aria-hidden="true"
+									data-item-clicked = 'addToSection'
+									data-section = 'income.retail'
+									title = 'add a source of retail rental income'
+									onClick = {onClick}
+								>
+								</i>
+							</div>
 							<FormGroup
 								info = {fields.income.retail}
 								section = 'income.retail'
-								handleInputChange = {handleInputChange}
+								onChange = {handleInputChange}
 								onClick = {onClick}
 							/>
-							<span className = 'subtitle'><i className="fa fa-money font-awesome" aria-hidden="true"></i>Other (income)</span>
+							<div className = 'subtitle-container'>
+								<span className = 'subtitle'>Other</span>
+								<i
+									className= 'fa fa-plus fai-add-more'
+									aria-hidden="true"
+									data-item-clicked = 'addToSection'
+									data-section = 'income.other'
+									title = 'add a source of other income'
+									onClick = {onClick}
+								>
+								</i>
+							</div>
 							<FormGroup
 								info = {fields.income.other}
 								section = 'income.other'
-								handleInputChange = {handleInputChange}
+								onChange = {handleInputChange}
 								onClick = {onClick}
 							/>
-							<span className = 'subtitle'><i className="fa fa-money font-awesome" aria-hidden="true"></i>Rental: Residential</span>
+							<div className = 'subtitle-container'>
+								<span className = 'subtitle'>Rental: Residential</span>
+								<i
+									className= 'fa fa-plus fai-add-more'
+									aria-hidden="true"
+									data-item-clicked = 'addToSection'
+									data-section = 'income.rental'
+									title = 'add a source of (residential) rental income'
+									onClick = {onClick}
+								>
+								</i>
+							</div>
 							<FormGroup
 								info = {fields.income.rental}
 								section = 'income.rental'
-								handleInputChange = {handleInputChange}
+								onChange = {handleInputChange}
 								onClick = {onClick}
 							/>
 						</div>

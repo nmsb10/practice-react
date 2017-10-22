@@ -245,7 +245,10 @@ export class InvestPropCalcContainer extends React.Component{
 			});
 		}
 		if(request === 'removeSection'){
-			console.log('please remove section');
+			console.log('please remove section in:', section,' with key',key);
+		}
+		if(request === 'addToSection'){
+			console.log('section to which to add an object:',section);
 		}
 	}
 	render(){

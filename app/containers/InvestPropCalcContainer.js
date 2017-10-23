@@ -91,7 +91,7 @@ export class InvestPropCalcContainer extends React.Component{
 							location: 'bottom'
 						},
 						required:false,
-						isOpen:true
+						isOpen:false
 					}],
 					other:[{//also add other: miscellaneous: state source and amount
 						name:'laundry room',

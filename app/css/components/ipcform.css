@@ -198,10 +198,6 @@
 .ipc-form-container form .content .content-section .inputs-container .section-name .name-input-container{
 }
 
-.ipc-form-container form .content .content-section .inputs-container .section-name .alerts{
-	overflow:auto;
-}
-
 .ipc-form-container form .content .content-section .inputs-container .section-value-wrapper{
 	background-color: white;
 	border-bottom: 0.08rem solid rgba(35, 15, 35, 0.5);
@@ -260,12 +256,6 @@
 	font-size:12px;
 }*/
 
-.ipc-form-container form .content .form-group .val-mes{
-	background-color:red;
-	color:white;
-	padding:0.2rem;
-	border-radius: 5px;
-}
 
 .ipc-form-container form .content select{
 	display: block;

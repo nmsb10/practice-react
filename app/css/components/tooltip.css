@@ -1,6 +1,6 @@
 /*https://www.w3schools.com/howto/howto_css_tooltip.asp
 https://www.w3schools.com/css/css_tooltip.asp*/
-.tooltiptext{
+.tooltiptext, .ttt-alert{
     visibility: hidden;
     width: 8rem;
     background-color: #555;
@@ -13,16 +13,38 @@ https://www.w3schools.com/css/css_tooltip.asp*/
     /* Position the tooltip text */
     position: absolute;
     z-index: 1;
-    /*top: 125%;*/
-    left: 50%;
-    /*margin-left should be 1/2 the width from above*/
-    margin-left: -4rem;
 
     /* Fade in tooltip */
     opacity: 0;
     -webkit-transition: all 0.5s ease 0s;
 	-moz-transition: all 0.5s ease 0s;
 	transition: all 0.5s ease 0s;
+}
+
+.ttt-alert{
+    width: 10rem;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.95);
+    text-align: left;
+}
+
+.ttt-alert span{
+    display:block;
+}
+
+.ttt-alert .invalid-value{
+    font-weight:600;
+}
+
+.ttt-alert ul{
+    margin:0;
+    list-style-position: inside;
+    padding: 0;
+}
+
+.alert-visible {
+    visibility: visible;
+    opacity: 1;
 }
 
 .ttt-large{
@@ -32,14 +54,32 @@ https://www.w3schools.com/css/css_tooltip.asp*/
 
 .ttt-bottom{
 	top: 115%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .ttt-top{
 	bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ttt-right{
+    left:105%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* Tooltip arrows */
 .tooltiptext::after {
+    content: "";
+    position: absolute;
+    margin-left: -0.39rem;
+    border-width: 0.39rem;
+    border-style: solid;
+}
+
+.ttt-alert::after {
     content: "";
     position: absolute;
     margin-left: -0.39rem;
@@ -57,6 +97,12 @@ https://www.w3schools.com/css/css_tooltip.asp*/
 	bottom: 100%;
     left: 50%;
     border-color: transparent transparent #555 transparent;
+}
+
+.ttt-right::after {
+    right: 100%;
+    top: 50%;
+    border-color: transparent rgba(255, 0, 0, 0.8) transparent transparent;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */

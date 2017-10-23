@@ -1,10 +1,44 @@
 import React from 'react';
 
 export const Tooltip = (props) => {
-	let {location, text } = props;
+	let { content, displayType } = props;
 	let cssClass = 'tooltiptext';
+	switch(content.location){
+		case 'bottom':
+			cssClass += ' ttt-bottom';
+			break;
+		case 'top':
+			cssClass += ' ttt-top';
+			break;
+		case 'right':
+			cssClass += ' ttt-right';
+			break;
+		case 'right-alert':
+			cssClass =  'ttt-alert ttt-right';
+			content.showVmes ? cssClass += ' alert-visible' : '';
+			break;
+		default:
+			return;
+	}
 	return(
-		<span className= {location === 'bottom' ? cssClass + ' ttt-bottom' : cssClass + ' ttt-top'}>{text}
+		<span className= {cssClass}>
+			{displayType === 'alert' ?
+			<div>
+				<span>you tried entering:</span>
+				<span className = 'invalid-value'>{content.invalidValue}</span>
+				<span>this value must be:</span>
+				<ul className = ''>
+				{content.vmes.map( (alertContent, i) => {
+					return(
+						<li key = {i}>{alertContent}</li>
+					);
+				})
+				}
+				</ul>
+			</div>
+			:
+			content.text
+			}
 		</span>
 	);
 }

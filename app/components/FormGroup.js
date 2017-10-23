@@ -37,8 +37,12 @@ export class FormGroup extends React.Component {
 							</div>
 							<div className = {contents.isOpen ? 'ttt-container inputs-container' : 'inputs-container closed'}>
 								<Tooltip
-									location = {contents.ttLoc}
-									text = {contents.tooltip}
+									content = {contents.tooltip}
+									displayType = 'normal'
+								/>
+								<Tooltip
+									content = {contents.validation}
+									displayType = 'alert'
 								/>
 								<div className = 'section-name'>
 									<div className = 'name-input-container'>
@@ -57,14 +61,11 @@ export class FormGroup extends React.Component {
 											<span className = 'label-span'>{contents.name}</span>
 										</label>
 									</div>
-									<div className = 'alerts'>
-										<span className = {contents.showVmes ? 'val-mes': 'hidden'}>{contents.vmes}</span>
-									</div>
 								</div>
 								{
 									contents.hasMonthlyAnnual === false ?
-									<div className = {contents.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
-										<span className = 'contents'>{contents.preEntry}</span>
+									<div className = {contents.validation.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
+										<span className = 'contents'>{contents.value.preEntry}</span>
 										<span className = 'contents'>
 											<input
 												type='text'
@@ -72,17 +73,17 @@ export class FormGroup extends React.Component {
 												data-key = {i}
 												data-request = 'changeFieldValue'
 												data-section = {section}
-												value = {contents.value}
-												placeholder = {contents.placeholder}
+												value = {contents.value.amount}
+												placeholder = {contents.value.placeholder}
 												onChange = {onChange}
 											/>
 										</span>
-										<span className = 'contents'>{contents.postEntry}</span>
+										<span className = 'contents'>{contents.value.postEntry}</span>
 									</div>
 									:
 									<div>
-										<div className = {contents.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
-											<span className = 'contents'>{contents.preEntry}</span>
+										<div className = {contents.validation.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
+											<span className = 'contents'>{contents.value.preEntry}</span>
 											<span className = 'contents'>
 												<input
 													type='text'
@@ -92,17 +93,17 @@ export class FormGroup extends React.Component {
 													data-val-period = 'monthly'
 													data-section = {section}
 													value = {contents.value.monthly}
-													placeholder = {contents.placeholder}
+													placeholder = {contents.value.placeholder}
 													onChange = {onChange}
 												/>
 											</span>
-											<span className = 'contents'>{contents.postEntry}</span>
+											<span className = 'contents'>{contents.value.postEntry}</span>
 										</div>
 										<label htmlFor = {contents.name + '-valueMonthly'}>
 											<span className = 'label-span'>monthly</span>
 										</label>
-										<div className = {contents.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
-											<span className = 'contents'>{contents.preEntry}</span>
+										<div className = {contents.validation.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
+											<span className = 'contents'>{contents.value.preEntry}</span>
 											<span className = 'contents'>
 												<input
 													type='text'
@@ -112,11 +113,11 @@ export class FormGroup extends React.Component {
 													data-val-period = 'annual'
 													data-section = {section}
 													value = {contents.value.annual}
-													placeholder = {contents.placeholder}
+													placeholder = {contents.value.placeholder}
 													onChange = {onChange}
 												/>
 											</span>
-											<span className = 'contents'>{contents.postEntry}</span>
+											<span className = 'contents'>{contents.value.postEntry}</span>
 										</div>
 										<label htmlFor = {contents.name + '-valueAnnual'}>
 											<span className = 'label-span'>annual</span>

@@ -9,124 +9,162 @@ export class InvestPropCalcContainer extends React.Component{
 		this.state = {
 			onView: 'search',//while searching on search form, is 'search'. otherwise 'loading'. after loading, if results are found, is 'stats' to show stats
 			validationMessages:{
-				positive: ['please enter a positive number','positive numbers only please','sorry, no negative numbers here'],
-				number: ['please enter a number','numbers only please'],
-				integer: ['please enter whole numbers only','no decimals please'],
-				float: ['enter a decimal'],
-				percentage: ['enter a percentage'],
-				string:['']
+				positive: ['a positive number','> 0','positive','non-negative'],
+				number: ['an actual number'],
+				integer: ['a whole number','an integer','without decimals'],
+				float: ['have a decimal'],
+				percentage: ['a percentage'],
+				string:['a string']
 			},
 			formFields:{
 				purchasePrice:[
 					{
 						name:'purchase price',
-						preEntry:'$',
 						hasMonthlyAnnual:false,
-						value:'',
-						postEntry:'',
-						placeholder:'-0-',
+						value:{
+							preEntry:'$',
+							amount:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
 						required:true,
-						validation: ['positive', 'number', 'integer'],
-						validEntry:false,
-						showVmes:false,
-						vmes:'',
-						tooltip:'enter the purchase price for the subject property (anticipated or actual)',
-						ttLoc:'bottom',
+						validation:{
+							arr: ['positive', 'number', 'integer'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'//location of the alert tooltip
+						},
+						tooltip:{
+							text:'enter the purchase price for the subject property (anticipated or actual)',
+							location: 'bottom'
+						},
 						isOpen:true
 					}
 				],
 				income:{
 					retail:[{
 						name:'business one',
-						preEntry:'$',
 						hasMonthlyAnnual:true,
 						value:{
+							preEntry:'$',
 							monthly: '',
-							annual:''
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
 						},
-						postEntry:'',
-						placeholder:'-0-',
 						required:true,
-						validation: ['positive', 'number'],
-						validEntry:false,
-						showVmes:false,
-						vmes:'',
-						tooltip:'enter business one income (anticipated or actual)',
-						ttLoc:'bottom',
+						validation:{
+							arr: ['positive', 'number'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter business one income (anticipated or actual)',
+							location: 'bottom'
+						},
 						isOpen:true
 					},{
 						name:'business two',
-						preEntry:'$',
 						hasMonthlyAnnual:true,
 						value:{
+							preEntry:'$',
 							monthly: '',
-							annual:''
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
 						},
-						postEntry:'',
-						placeholder:'-0-',
 						required:false,
-						validation: ['positive', 'number'],
-						validEntry:false,
-						showVmes:true,
-						vmes:'required',
-						tooltip:'enter business two income (anticipated or actual)',
-						ttLoc:'bottom',
+						validation:{
+							arr: ['positive', 'number'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter business two income (anticipated or actual)',
+							location: 'bottom'
+						},
 						isOpen:true
 					}],
 					other:[{//also add other: miscellaneous: state source and amount
 						name:'laundry room',
-						preEntry:'$',
 						hasMonthlyAnnual:true,
 						value:{
+							preEntry:'$',
 							monthly: '',
-							annual:''
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
 						},
-						postEntry:'',
-						placeholder:'-0-',
 						required:false,
-						validation: ['positive', 'number'],
-						validEntry:false,
-						showVmes:false,
-						vmes:'',
-						tooltip:'enter the laundry room income for the subject property (estimated or actual)',
-						ttLoc:'bottom',
+						validation:{
+							arr: ['positive', 'number'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter the laundry room income for the subject property (estimated or actual)',
+							location: 'bottom'
+						},
 						isOpen:true
 					},{
 						name:'vending machines',
-						preEntry:'$',
 						hasMonthlyAnnual:true,
 						value:{
+							preEntry:'$',
 							monthly: '',
-							annual:''
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
 						},
-						postEntry:'',
-						placeholder:'-0-',
 						required:false,
-						validation: ['positive', 'number'],
-						validEntry:false,
-						showVmes:false,
-						vmes:'',
-						tooltip:'enter vending machine income for the subject property (estimated or actual)',
-						ttLoc:'bottom',
+						validation:{
+							arr: ['positive', 'number'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter vending machine income for the subject property (estimated or actual)',
+							location: 'bottom'
+						},
 						isOpen:true
 					}],
 					rental:[{//state unit or lessee name, and amount
 						name:'rental income, unit one',
-						preEntry:'$',
 						hasMonthlyAnnual:true,
 						value:{
+							preEntry:'$',
 							monthly: '',
-							annual:''
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
 						},
-						postEntry:'',
-						placeholder:'-0-',
 						required:true,
-						validation: ['positive', 'number','integer'],
-						validEntry:false,
-						showVmes:true,
-						vmes:'validation mes for rental income',
-						tooltip:'enter the rental income for the subject property',
-						ttLoc:'bottom',
+						validation:{
+							arr: ['positive', 'number', 'integer'],
+							validEntry:false,
+							vmes:[],
+							showVmes:true,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter the rental income for the subject property',
+							location: 'bottom'
+						},
 						isOpen:true
 					}]
 				}
@@ -231,11 +269,11 @@ export class InvestPropCalcContainer extends React.Component{
 		let {validationMessages} = this.state;
 		//first check if e.target.value==='' then set all values to ''
 		if(newValue === ''){
-			obj.validEntry = true;
-			obj.showVmes = false;
+			obj.validation.validEntry = false;
+			obj.validation.showVmes = false;
 			if(!obj.hasMonthlyAnnual){
 				//update selection which has no monthly annual
-				obj.value = '';
+				obj.value.amount = '';
 			}else{
 				obj.value.monthly = '';
 				obj.value.annual = '';
@@ -243,27 +281,27 @@ export class InvestPropCalcContainer extends React.Component{
 			return obj;
 		}else{
 			//validate according to requirements in individual object
-			let validationArr = obj.validation;
+			let validationArr = obj.validation.arr;
 			let passedValidations = 0;
-			let vmes = '';
+			let vmes = [];
 			for(let i = 0; i<validationArr.length; i++){
 				if(validationArr[i] === 'number'){
 					if(isNaN(newValue)){
-						vmes += this.randomEntry(validationMessages.number);
+						vmes.push(this.randomEntry(validationMessages.number));
 					}else{
 						passedValidations++;
 					}
 				}
 				if(validationArr[i] === 'positive'){
 					if((parseInt(newValue, 10)<=0 && !isNaN(newValue)) || isNaN(newValue)){
-						vmes += this.randomEntry(validationMessages.positive);
+						vmes.push(this.randomEntry(validationMessages.positive));
 					}else{
 						passedValidations++;
 					}
 				}
 				if(validationArr[i] === 'integer'){
 					if(newValue % 1 !== 0){
-						vmes += this.randomEntry(validationMessages.integer);
+						vmes.push(this.randomEntry(validationMessages.integer));
 					}else{
 						passedValidations++;
 					}
@@ -276,11 +314,11 @@ export class InvestPropCalcContainer extends React.Component{
 			//update the obj accordingly to pass / fail of the validations:
 			if(passedValidations === validationArr.length){
 				console.log('input successfully passes validations');
-				obj.validEntry = true;
-				obj.showVmes = false;
+				obj.validation.validEntry = true;
+				obj.validation.showVmes = false;
 				if(!obj.hasMonthlyAnnual){
 					//update selection which has no monthly annual
-					obj.value = newValue;
+					obj.value.amount = newValue;
 				}else{
 					if(period === 'monthly'){
 						obj.value.monthly = newValue;
@@ -291,9 +329,10 @@ export class InvestPropCalcContainer extends React.Component{
 					}
 				}
 			}else{
-				obj.vmes = vmes;
-				obj.validEntry = false;
-				obj.showVmes = true;
+				obj.validation.vmes = vmes;
+				obj.validation.invalidValue = obj.value.preEntry + newValue + obj.value.postEntry;
+				obj.validation.validEntry = false;
+				obj.validation.showVmes = true;
 			}
 			return obj;
 		}

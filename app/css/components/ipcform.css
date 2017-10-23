@@ -72,6 +72,12 @@
 	display:inline-block;
 	margin-right:5%;
 	border-radius:0.3rem;
+	-webkit-transition: all 0.2s ease 0s;
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.ipc-form-container form .content .content-section .form-group-container .form-group:hover{
 	background-color: rgb(235, 235, 235);
 }
 
@@ -161,40 +167,69 @@
 
 
 .ipc-form-container form .content .content-section .inputs-container{
-	display:block;
 	-webkit-transition: all 0.35s ease 0s;
 	-moz-transition: all 0.35s ease 0s;
 	transition: all 0.35s ease 0s;
 }
 
-.ipc-form-container form .content .content-section .inputs-cont-closed{
+.ipc-form-container form .content .content-section .closed{
 	height:0;
 	display:none;
+}
+
+.ipc-form-container form .content .content-section .inputs-container input{
+	display:block;
+	box-sizing: border-box;
+	font-size:0.8rem;
+	padding: 0.3rem;
+	border:none;
+	border-bottom: 0.08rem solid rgba(35, 15, 35, 0.5);
+	color: rgba(0, 0, 0, 1);
+	background-color: rgba(255, 255, 255, 1);
+	-webkit-transition: all 0.35s ease 0s;
+	-moz-transition: all 0.35s ease 0s;
+	transition: all 0.35s ease 0s;
+}
+
+.ipc-form-container form .content .content-section .inputs-container .label-span{
+	font-size:0.67rem;
+}
+
+.ipc-form-container form .content .content-section .inputs-container .section-name .name-input-container{
 }
 
 .ipc-form-container form .content .content-section .inputs-container .section-name .alerts{
 	overflow:auto;
 }
 
-
-
-
-.ipc-form-container form .content .input-container .top{
-	background-color:black;
-	color:white;
-	border-radius: 0.35rem 0.35rem 0 0;
+.ipc-form-container form .content .content-section .inputs-container .section-value-wrapper{
+	background-color: white;
+	border-bottom: 0.08rem solid rgba(35, 15, 35, 0.5);
+	-webkit-transition: all 0.2s ease 0s;
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
 }
 
-.ipc-form-container form .content .input-container .bottom{
-	background-color:purple;
-	color:white;
-	border-radius: 0 0 0.35rem 0.35rem;
+.ipc-form-container form .content .content-section .inputs-container .section-value-wrapper input{
+	border:none;
+}
+
+.ipc-form-container form .content .content-section .inputs-container .svw-highlighted{
+	box-shadow: 0 0 0.35rem 0.15rem rgba(82, 195, 29, 0.9);
+
+}
+
+.ipc-form-container form .content .content-section .inputs-container .section-value-wrapper .contents{
+	display:inline-block;
+
 }
 
 
 
 
-.ipc-form-container form .content input{
+
+
+/*.ipc-form-container form .content input{
 	display: block;
 	margin: 0 auto;
 	width: 90%;
@@ -202,7 +237,7 @@
 	font-size: 16px;
 	padding: 5px;
 	border: 1px solid rgba(235, 215, 235, 1);
-	-webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
+	-webkit-transition: all 0.35s ease 0s;
 	-moz-transition: all 0.35s ease 0s;
 	transition: all 0.35s ease 0s;
 }
@@ -223,7 +258,7 @@
 	margin: 0 auto;
 	width: 90%;
 	font-size:12px;
-}
+}*/
 
 .ipc-form-container form .content .form-group .val-mes{
 	background-color:red;

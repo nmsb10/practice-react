@@ -9,25 +9,27 @@ export class InvestPropCalcContainer extends React.Component{
 		this.state = {
 			onView: 'search',//while searching on search form, is 'search'. otherwise 'loading'. after loading, if results are found, is 'stats' to show stats
 			validationMessages:{
+				positive: ['please enter a positive number','positive numbers only please','sorry, no negative numbers here'],
 				number: ['please enter a number','numbers only please'],
-				integer: ['please enter whole numbers only'],
+				integer: ['please enter whole numbers only','no decimals please'],
 				float: ['enter a decimal'],
 				percentage: ['enter a percentage'],
-				string:['letters only please']
+				string:['']
 			},
 			formFields:{
 				purchasePrice:[
 					{
 						name:'purchase price',
 						preEntry:'$',
+						hasMonthlyAnnual:false,
 						value:'',
 						postEntry:'',
 						placeholder:'-0-',
 						required:true,
-						canDelete:false,//can this field be deleted?
-						validation: ['number'],
+						validation: ['positive', 'number', 'integer'],
 						validEntry:false,
-						vmes:'validation message for the purchase price',
+						showVmes:false,
+						vmes:'',
 						tooltip:'enter the purchase price for the subject property (anticipated or actual)',
 						ttLoc:'bottom',
 						isOpen:true
@@ -37,27 +39,35 @@ export class InvestPropCalcContainer extends React.Component{
 					retail:[{
 						name:'business one',
 						preEntry:'$',
-						value:'',
+						hasMonthlyAnnual:true,
+						value:{
+							monthly: '',
+							annual:''
+						},
 						postEntry:'',
 						placeholder:'-0-',
 						required:true,
-						canDelete:true,
-						validation: ['number'],
+						validation: ['positive', 'number'],
 						validEntry:false,
-						vmes:'validation message for the income: business one',
+						showVmes:false,
+						vmes:'',
 						tooltip:'enter business one income (anticipated or actual)',
 						ttLoc:'bottom',
 						isOpen:true
 					},{
 						name:'business two',
 						preEntry:'$',
-						value:'',
+						hasMonthlyAnnual:true,
+						value:{
+							monthly: '',
+							annual:''
+						},
 						postEntry:'',
 						placeholder:'-0-',
 						required:false,
-						canDelete:true,
-						validation: ['number','chicken'],
+						validation: ['positive', 'number'],
 						validEntry:false,
+						showVmes:true,
 						vmes:'required',
 						tooltip:'enter business two income (anticipated or actual)',
 						ttLoc:'bottom',
@@ -66,28 +76,36 @@ export class InvestPropCalcContainer extends React.Component{
 					other:[{//also add other: miscellaneous: state source and amount
 						name:'laundry room',
 						preEntry:'$',
-						value:'',
+						hasMonthlyAnnual:true,
+						value:{
+							monthly: '',
+							annual:''
+						},
 						postEntry:'',
 						placeholder:'-0-',
 						required:false,
-						canDelete:true,
-						validation: ['number','kale'],
+						validation: ['positive', 'number'],
 						validEntry:false,
-						vmes:'please enter a number',
+						showVmes:false,
+						vmes:'',
 						tooltip:'enter the laundry room income for the subject property (estimated or actual)',
 						ttLoc:'bottom',
 						isOpen:true
 					},{
 						name:'vending machines',
 						preEntry:'$',
-						value:'',
+						hasMonthlyAnnual:true,
+						value:{
+							monthly: '',
+							annual:''
+						},
 						postEntry:'',
 						placeholder:'-0-',
 						required:false,
-						canDelete:true,
-						validation: ['number'],
+						validation: ['positive', 'number'],
 						validEntry:false,
-						vmes:'validation message for the vending machine income',
+						showVmes:false,
+						vmes:'',
 						tooltip:'enter vending machine income for the subject property (estimated or actual)',
 						ttLoc:'bottom',
 						isOpen:true
@@ -95,13 +113,17 @@ export class InvestPropCalcContainer extends React.Component{
 					rental:[{//state unit or lessee name, and amount
 						name:'rental income, unit one',
 						preEntry:'$',
-						value:'',
+						hasMonthlyAnnual:true,
+						value:{
+							monthly: '',
+							annual:''
+						},
 						postEntry:'',
 						placeholder:'-0-',
 						required:true,
-						canDelete:false,
-						validation: ['number','integer'],
+						validation: ['positive', 'number','integer'],
 						validEntry:false,
+						showVmes:true,
 						vmes:'validation mes for rental income',
 						tooltip:'enter the rental income for the subject property',
 						ttLoc:'bottom',
@@ -149,6 +171,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.updateFormFields = this.updateFormFields.bind(this);
 		this.validateInput = this.validateInput.bind(this);
 		this.handleClick = this.handleClick.bind(this);
+		this.randomEntry = this.randomEntry.bind(this);
 	}
 	calculate(e){
 		e.preventDefault();
@@ -169,59 +192,121 @@ export class InvestPropCalcContainer extends React.Component{
 		//'search' is the Route path from routes.js
 		this.context.router.push('search');
 	}
-	updateFormFields(e){//remember that here, e is e.target
-		//validate according to requirements in the array
-		//if change is valid, implement valid protocol, then update state
-		//if change not valid, implement correction protocol and update state
+	updateFormFields(e){
 		let {formFields} = this.state;
-		let enteredValue = e.target.value;
-		console.log('section:', e.dataset.section);
-		console.log('key: ', e.dataset.key);
-		console.log(formFields['income.retail']);
-		console.log(formFields.income.retail[e.dataset.key]);
-					// 		{review array functions including filter
-					// 	https://stackoverflow.com/questions/7206640/css-vertically-align-div-when-no-fixed-size-of-the-div-is-known
-					// }
+		let formFieldsCopy = formFields;
+		let section = e.target.dataset.section;
+		let key = e.target.dataset.key;
+		let sectionArr = section.split('.');
+		let specificObject = {};
+		//first identify the exact object being changed
+		if(sectionArr.length === 1){
+			specificObject = formFieldsCopy[sectionArr[0]][key];
+			//check if changeFieldName is e.target.dataset.propertyName
+			if(e.target.dataset.request === 'changeFieldName'){
+				specificObject.name = e.target.value;
+			}else if(e.target.dataset.request === 'changeFieldValue'){
+				//validate value
+				specificObject = this.validateInput(specificObject, e.target.value, e.target.dataset.valPeriod);
+			}
+		}else if(sectionArr.length === 2){
+			specificObject = formFieldsCopy[sectionArr[0]][sectionArr[1]][key];
+			//check if changeFieldName is e.target.dataset.propertyName
+			if(e.target.dataset.request === 'changeFieldName'){
+				specificObject.name = e.target.value;
+			}else if(e.target.dataset.request === 'changeFieldValue'){
+				//validate value
+				specificObject = this.validateInput(specificObject, e.target.value, e.target.dataset.valPeriod);
+			}
+		}
+		console.log(specificObject);
+		let newFormFields = Object.assign({}, formFields, formFieldsCopy);
+		this.setState({
+			formFields: newFormFields
+		});
 
 		//https://stackoverflow.com/questions/4260308/getting-the-objects-property-name
-
-		//console.log('selected object: ', formFields[e.dataset.section][e.dataset.key]);
-		//let validateArr = formFields.e.dataset.section[e.dataset.key].validation;
-		console.log(enteredValue);
-		//console.log(validateArr);
-
-		// for()
-		// if(typeof newValue === )
-
-		// let newObjCopy = Object.assign({}, nameObjJN, {nameArr: nameArrUpdated});
-		// 	this.setState({
-		// 		nameObjJN: newObjCopy
-		// 	});
-
-		// let newState = {};
-		// newState.e.target.dataset.propertyName = e.target.value;
-		// let objCopy = Object.assign({}, formFields, newState);
-		// console.log('huh');
-		// console.log('object copy: ',objCopy);
-		// this.setState({
-		// 	formFields: objCopy
-		// });
 	}
-	validateInput(input){
-		//https://www.w3schools.com/js/js_datatypes.asp
-		// validationMessages:{
-		// 		number: ['please enter a number','numbers only please'],
-		// 		integer: ['whole numbers only'],
-		// 		float: ['enter a decimal'],
-		// 		percentage: ['enter a percentage'],
-		// 		string:['letters only please']
-		// 	},
+	validateInput(obj, newValue, period){
+		let {validationMessages} = this.state;
+		//first check if e.target.value==='' then set all values to ''
+		if(newValue === ''){
+			obj.validEntry = true;
+			obj.showVmes = false;
+			if(!obj.hasMonthlyAnnual){
+				//update selection which has no monthly annual
+				obj.value = '';
+			}else{
+				obj.value.monthly = '';
+				obj.value.annual = '';
+			}
+			return obj;
+		}else{
+			//validate according to requirements in individual object
+			let validationArr = obj.validation;
+			let passedValidations = 0;
+			let vmes = '';
+			for(let i = 0; i<validationArr.length; i++){
+				if(validationArr[i] === 'number'){
+					if(isNaN(newValue)){
+						vmes += this.randomEntry(validationMessages.number);
+					}else{
+						passedValidations++;
+					}
+				}
+				if(validationArr[i] === 'positive'){
+					if((parseInt(newValue, 10)<=0 && !isNaN(newValue)) || isNaN(newValue)){
+						vmes += this.randomEntry(validationMessages.positive);
+					}else{
+						passedValidations++;
+					}
+				}
+				if(validationArr[i] === 'integer'){
+					if(newValue % 1 !== 0){
+						vmes += this.randomEntry(validationMessages.integer);
+					}else{
+						passedValidations++;
+					}
+				}
+				if(validationArr[i] === 'string'){
+
+				}
+			}
+			//validations complete.
+			//update the obj accordingly to pass / fail of the validations:
+			if(passedValidations === validationArr.length){
+				console.log('input successfully passes validations');
+				obj.validEntry = true;
+				obj.showVmes = false;
+				if(!obj.hasMonthlyAnnual){
+					//update selection which has no monthly annual
+					obj.value = newValue;
+				}else{
+					if(period === 'monthly'){
+						obj.value.monthly = newValue;
+						obj.value.annual = parseInt(newValue) * 12;
+					}else{//period === 'annual'
+						obj.value.annual = newValue;
+						obj.value.monthly = (parseInt(newValue) / 12).toFixed(2);
+					}
+				}
+			}else{
+				obj.vmes = vmes;
+				obj.validEntry = false;
+				obj.showVmes = true;
+			}
+			return obj;
+		}
 
 		//http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 		// function withCommas(x) {
 		// 	return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		// }
 
+		//review array functions including filter
+	}
+	randomEntry(arr){
+		return arr[Math.floor(Math.random()*arr.length)];
 	}
 	handleClick(e){
 		let {formFields} = this.state;

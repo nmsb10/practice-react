@@ -17,8 +17,8 @@
 
 .word-line-centered .wl-text{
 	position: relative;
-	/*top = 1/2 * (parent height + word-line height)*/
-	top: -1.225rem;
+	/*top = -top of word-line top because normal position has top aligned with top of the word-line*/
+	top: -1.025rem;
 	display: inline-block;
 	font-size:1rem;
 	/*line-height = parent height*/

@@ -35,51 +35,94 @@ export class FormGroup extends React.Component {
 								>
 								</i>
 							</div>
-							<div className = {contents.isOpen ? 'ttt-container inputs-container' : 'inputs-container inputs-cont-closed'}>
+							<div className = {contents.isOpen ? 'ttt-container inputs-container' : 'inputs-container closed'}>
 								<Tooltip
 									location = {contents.ttLoc}
 									text = {contents.tooltip}
 								/>
 								<div className = 'section-name'>
-									<div>
+									<div className = 'name-input-container'>
 										<input
 											className = ''
 											type='text'
 											id={contents.name}
+											data-key = {i}
+											data-request = 'changeFieldName'
+											data-section = {section}
 											value = {contents.name}
 											placeholder = {contents.name}
 											onChange = {onChange}
 										/>
 										<label htmlFor = {contents.name}>
-											<span>{contents.name}:</span>
+											<span className = 'label-span'>{contents.name}</span>
 										</label>
 									</div>
 									<div className = 'alerts'>
-										<span className = {!contents.validEntry ? 'val-mes': 'hidden'}>{contents.vmes}</span>
+										<span className = {contents.showVmes ? 'val-mes': 'hidden'}>{contents.vmes}</span>
 									</div>
 								</div>
-								<div className = 'top'>
-									<label htmlFor = {contents.name}>
-										<span>{contents.name}:</span>
-										<span className = {!contents.validEntry ? 'val-mes': 'hidden'}>{contents.vmes}</span>
-									</label>
-								</div>
-								<div className = 'bottom input-wrapper'>
-									<span className = 'input-contents'>{contents.preEntry}</span>
-									<span className = 'input-contents'>
-										<input
-											type='text'
-											id={contents.name}
-											data-key = {i}
-											data-property-name = {contents.name}
-											data-section = {section}
-											value = {contents.value}
-											placeholder = {contents.placeholder}
-											onChange = {onChange}
-										/>
-									</span>
-									<span className = 'input-contents'>{contents.postEntry}</span>
-								</div>
+								{
+									contents.hasMonthlyAnnual === false ?
+									<div className = {contents.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
+										<span className = 'contents'>{contents.preEntry}</span>
+										<span className = 'contents'>
+											<input
+												type='text'
+												id={contents.name + '-value'}
+												data-key = {i}
+												data-request = 'changeFieldValue'
+												data-section = {section}
+												value = {contents.value}
+												placeholder = {contents.placeholder}
+												onChange = {onChange}
+											/>
+										</span>
+										<span className = 'contents'>{contents.postEntry}</span>
+									</div>
+									:
+									<div>
+										<div className = {contents.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
+											<span className = 'contents'>{contents.preEntry}</span>
+											<span className = 'contents'>
+												<input
+													type='text'
+													id={contents.name + '-valueMonthly'}
+													data-key = {i}
+													data-request = 'changeFieldValue'
+													data-val-period = 'monthly'
+													data-section = {section}
+													value = {contents.value.monthly}
+													placeholder = {contents.placeholder}
+													onChange = {onChange}
+												/>
+											</span>
+											<span className = 'contents'>{contents.postEntry}</span>
+										</div>
+										<label htmlFor = {contents.name + '-valueMonthly'}>
+											<span className = 'label-span'>monthly</span>
+										</label>
+										<div className = {contents.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
+											<span className = 'contents'>{contents.preEntry}</span>
+											<span className = 'contents'>
+												<input
+													type='text'
+													id={contents.name + '-valueAnnual'}
+													data-key = {i}
+													data-request = 'changeFieldValue'
+													data-val-period = 'annual'
+													data-section = {section}
+													value = {contents.value.annual}
+													placeholder = {contents.placeholder}
+													onChange = {onChange}
+												/>
+											</span>
+											<span className = 'contents'>{contents.postEntry}</span>
+										</div>
+										<label htmlFor = {contents.name + '-valueAnnual'}>
+											<span className = 'label-span'>annual</span>
+										</label>
+									</div>
+								}
 							</div>
 						</div>
 					);

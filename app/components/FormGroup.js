@@ -82,42 +82,46 @@ export class FormGroup extends React.Component {
 									</div>
 									:
 									<div>
-										<div className = {contents.validation.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
-											<span className = 'contents'>{contents.value.preEntry}</span>
-											<span className = 'contents'>
-												<input
-													type='text'
-													id={contents.name + '-valueMonthly'}
-													data-key = {i}
-													data-request = 'changeFieldValue'
-													data-val-period = 'monthly'
-													data-section = {section}
-													value = {contents.value.monthly}
-													placeholder = {contents.value.placeholder}
-													onChange = {onChange}
-												/>
-											</span>
-											<span className = 'contents'>{contents.value.postEntry}</span>
+										<div className = 'input-label-container'>
+											<div className = {contents.validation.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
+												<span className = 'contents'>{contents.value.preEntry}</span>
+												<span className = 'contents'>
+													<input
+														type='text'
+														id={contents.name + '-valueMonthly'}
+														data-key = {i}
+														data-request = 'changeFieldValue'
+														data-val-period = 'monthly'
+														data-section = {section}
+														value = {contents.value.monthly}
+														placeholder = {contents.value.placeholder}
+														onChange = {onChange}
+													/>
+												</span>
+												<span className = 'contents'>{contents.value.postEntry}</span>
+											</div>
+											<label htmlFor = {contents.name + '-valueMonthly'}>
+												<span className = 'label-span'>monthly</span>
+											</label>
 										</div>
-										<label htmlFor = {contents.name + '-valueMonthly'}>
-											<span className = 'label-span'>monthly</span>
-										</label>
-										<div className = {contents.validation.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
-											<span className = 'contents'>{contents.value.preEntry}</span>
-											<span className = 'contents'>
-												<input
-													type='text'
-													id={contents.name + '-valueAnnual'}
-													data-key = {i}
-													data-request = 'changeFieldValue'
-													data-val-period = 'annual'
-													data-section = {section}
-													value = {contents.value.annual}
-													placeholder = {contents.value.placeholder}
-													onChange = {onChange}
-												/>
-											</span>
-											<span className = 'contents'>{contents.value.postEntry}</span>
+										<div className = 'input-label-container'>
+											<div className = {contents.validation.validEntry ? 'section-value-wrapper svw-highlighted' : 'section-value-wrapper'}>
+												<span className = 'contents'>{contents.value.preEntry}</span>
+												<span className = 'contents'>
+													<input
+														type='text'
+														id={contents.name + '-valueAnnual'}
+														data-key = {i}
+														data-request = 'changeFieldValue'
+														data-val-period = 'annual'
+														data-section = {section}
+														value = {contents.value.annual}
+														placeholder = {contents.value.placeholder}
+														onChange = {onChange}
+													/>
+												</span>
+												<span className = 'contents'>{contents.value.postEntry}</span>
+											</div>
 										</div>
 										<label htmlFor = {contents.name + '-valueAnnual'}>
 											<span className = 'label-span'>annual</span>

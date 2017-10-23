@@ -9,9 +9,9 @@ export class InvestPropCalcContainer extends React.Component{
 		this.state = {
 			onView: 'search',//while searching on search form, is 'search'. otherwise 'loading'. after loading, if results are found, is 'stats' to show stats
 			validationMessages:{
-				positive: ['a positive number','> 0','positive','non-negative'],
 				number: ['an actual number'],
 				integer: ['a whole number','an integer','without decimals'],
+				positive: ['a positive number','> 0','positive','non-negative'],
 				float: ['have a decimal'],
 				percentage: ['a percentage'],
 				string:['a string']
@@ -27,9 +27,8 @@ export class InvestPropCalcContainer extends React.Component{
 							postEntry:'',
 							placeholder:'-0-'
 						},
-						required:true,
 						validation:{
-							arr: ['positive', 'number', 'integer'],
+							arr: ['number', 'positive', 'integer'],
 							validEntry:false,
 							vmes:[],
 							showVmes:false,
@@ -40,6 +39,7 @@ export class InvestPropCalcContainer extends React.Component{
 							text:'enter the purchase price for the subject property (anticipated or actual)',
 							location: 'bottom'
 						},
+						required:true,
 						isOpen:true
 					}
 				],
@@ -54,9 +54,8 @@ export class InvestPropCalcContainer extends React.Component{
 							postEntry:'',
 							placeholder:'-0-'
 						},
-						required:true,
 						validation:{
-							arr: ['positive', 'number'],
+							arr: ['number', 'positive'],
 							validEntry:false,
 							vmes:[],
 							showVmes:false,
@@ -67,7 +66,8 @@ export class InvestPropCalcContainer extends React.Component{
 							text:'enter business one income (anticipated or actual)',
 							location: 'bottom'
 						},
-						isOpen:true
+						required:true,
+						isOpen:false
 					},{
 						name:'business two',
 						hasMonthlyAnnual:true,
@@ -78,9 +78,8 @@ export class InvestPropCalcContainer extends React.Component{
 							postEntry:'',
 							placeholder:'-0-'
 						},
-						required:false,
 						validation:{
-							arr: ['positive', 'number'],
+							arr: ['number', 'positive'],
 							validEntry:false,
 							vmes:[],
 							showVmes:false,
@@ -91,6 +90,7 @@ export class InvestPropCalcContainer extends React.Component{
 							text:'enter business two income (anticipated or actual)',
 							location: 'bottom'
 						},
+						required:false,
 						isOpen:true
 					}],
 					other:[{//also add other: miscellaneous: state source and amount
@@ -103,9 +103,8 @@ export class InvestPropCalcContainer extends React.Component{
 							postEntry:'',
 							placeholder:'-0-'
 						},
-						required:false,
 						validation:{
-							arr: ['positive', 'number'],
+							arr: ['number', 'positive'],
 							validEntry:false,
 							vmes:[],
 							showVmes:false,
@@ -116,6 +115,7 @@ export class InvestPropCalcContainer extends React.Component{
 							text:'enter the laundry room income for the subject property (estimated or actual)',
 							location: 'bottom'
 						},
+						required:false,
 						isOpen:true
 					},{
 						name:'vending machines',
@@ -127,9 +127,8 @@ export class InvestPropCalcContainer extends React.Component{
 							postEntry:'',
 							placeholder:'-0-'
 						},
-						required:false,
 						validation:{
-							arr: ['positive', 'number'],
+							arr: ['number', 'positive'],
 							validEntry:false,
 							vmes:[],
 							showVmes:false,
@@ -140,6 +139,7 @@ export class InvestPropCalcContainer extends React.Component{
 							text:'enter vending machine income for the subject property (estimated or actual)',
 							location: 'bottom'
 						},
+						required:false,
 						isOpen:true
 					}],
 					rental:[{//state unit or lessee name, and amount
@@ -152,9 +152,8 @@ export class InvestPropCalcContainer extends React.Component{
 							postEntry:'',
 							placeholder:'-0-'
 						},
-						required:true,
 						validation:{
-							arr: ['positive', 'number', 'integer'],
+							arr: ['number', 'integer', 'positive'],
 							validEntry:false,
 							vmes:[],
 							showVmes:true,
@@ -165,6 +164,7 @@ export class InvestPropCalcContainer extends React.Component{
 							text:'enter the rental income for the subject property',
 							location: 'bottom'
 						},
+						required:true,
 						isOpen:true
 					}]
 				}
@@ -257,7 +257,6 @@ export class InvestPropCalcContainer extends React.Component{
 				specificObject = this.validateInput(specificObject, e.target.value, e.target.dataset.valPeriod);
 			}
 		}
-		console.log(specificObject);
 		let newFormFields = Object.assign({}, formFields, formFieldsCopy);
 		this.setState({
 			formFields: newFormFields
@@ -313,7 +312,6 @@ export class InvestPropCalcContainer extends React.Component{
 			//validations complete.
 			//update the obj accordingly to pass / fail of the validations:
 			if(passedValidations === validationArr.length){
-				console.log('input successfully passes validations');
 				obj.validation.validEntry = true;
 				obj.validation.showVmes = false;
 				if(!obj.hasMonthlyAnnual){

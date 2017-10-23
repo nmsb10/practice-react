@@ -198,7 +198,15 @@
 .ipc-form-container form .content .content-section .inputs-container .section-name .name-input-container{
 }
 
+.ipc-form-container form .content .content-section .inputs-container .input-label-container{
+	display:inline-block;
+	box-sizing: border-box;
+	width:50%;
+	vertical-align: top;
+}
+
 .ipc-form-container form .content .content-section .inputs-container .section-value-wrapper{
+	width:100%;
 	background-color: white;
 	border-bottom: 0.08rem solid rgba(35, 15, 35, 0.5);
 	-webkit-transition: all 0.2s ease 0s;
@@ -208,6 +216,7 @@
 
 .ipc-form-container form .content .content-section .inputs-container .section-value-wrapper input{
 	border:none;
+	width:100%;
 }
 
 .ipc-form-container form .content .content-section .inputs-container .svw-highlighted{
@@ -217,7 +226,7 @@
 
 .ipc-form-container form .content .content-section .inputs-container .section-value-wrapper .contents{
 	display:inline-block;
-
+	width:33%;
 }
 
 

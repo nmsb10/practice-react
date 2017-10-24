@@ -8,6 +8,7 @@ export class IPCForm extends React.Component{
 	render(){
 		let {
 			fields,
+			assumptions,
 			handleInputChange,
 			handleSubmit,
 			onClick
@@ -15,8 +16,8 @@ export class IPCForm extends React.Component{
 		return(
 			<div className = 'ipc-form-container'>
 				<IPCOtherTermsBox
-				/>
-				<IPCOtherTermsBox
+					assumptions = {assumptions}
+					onChange = {handleInputChange}
 				/>
 				<form onSubmit = {(event) => handleSubmit(event)}>
 					<div className = 'content'>

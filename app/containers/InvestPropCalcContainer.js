@@ -66,7 +66,7 @@ export class InvestPropCalcContainer extends React.Component{
 							text:'enter business one income (anticipated or actual)',
 							location: 'bottom'
 						},
-						required:true,
+						required:false,
 						isOpen:true
 					},{
 						name:'business two',
@@ -622,10 +622,10 @@ export class InvestPropCalcContainer extends React.Component{
 		let fieldsCopy = formFields;
 		let request = e.target.dataset.itemClicked;
 		let section = e.target.dataset.section;
+		let sectionArr = section.split('.');
+		let specificObject = fieldsCopy[sectionArr[0]];
 		let key = e.target.dataset.key;
 		if(request === 'minimizeSection'){
-			let sectionArr = section.split('.');
-			let specificObject = fieldsCopy[sectionArr[0]];
 			if(sectionArr.length === 1){
 				specificObject = specificObject[key];
 				specificObject.isOpen = !specificObject.isOpen;
@@ -633,17 +633,48 @@ export class InvestPropCalcContainer extends React.Component{
 				specificObject = specificObject[sectionArr[1]][key];
 				specificObject.isOpen = !specificObject.isOpen;
 			}
-			let objCopy = Object.assign({}, formFields, fieldsCopy);
-			this.setState({
-				formFields: objCopy
-			});
+		}else if(request === 'removeSection'){
+			if(sectionArr.length === 1){
+				specificObject.splice(key, 1);
+			}else if(sectionArr.length === 2){
+				specificObject[sectionArr[1]].splice(key, 1);
+			}
+		}else if(request === 'addToSection'){
+			let basicEntry = {
+				name:'new field',
+				hasMonthlyAnnual:true,
+				value:{
+					preEntry:'$',
+					monthly: '',
+					annual:'',
+					postEntry:'',
+					placeholder:'-0-'
+				},
+				validation:{
+					arr: ['number', 'positive'],
+					validEntry:false,
+					vmes:[],
+					showVmes:false,
+					invalidValue:'',
+					location:'right-alert'
+				},
+				tooltip:{
+					text:'enter new values here',
+					location: 'bottom'
+				},
+				required:false,
+				isOpen:true
+			};
+			if(sectionArr.length === 1){
+				specificObject.push(basicEntry);
+			}else if(sectionArr.length === 2){
+				specificObject[sectionArr[1]].push(basicEntry);
+			}
 		}
-		if(request === 'removeSection'){
-			console.log('please remove section in:', section,' with key',key);
-		}
-		if(request === 'addToSection'){
-			console.log('section to which to add an object:',section);
-		}
+		let objCopy = Object.assign({}, formFields, fieldsCopy);
+		this.setState({
+			formFields: objCopy
+		});
 	}
 	render(){
 		let {

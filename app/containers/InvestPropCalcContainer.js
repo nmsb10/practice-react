@@ -67,7 +67,7 @@ export class InvestPropCalcContainer extends React.Component{
 							location: 'bottom'
 						},
 						required:true,
-						isOpen:false
+						isOpen:true
 					},{
 						name:'business two',
 						hasMonthlyAnnual:true,
@@ -91,7 +91,7 @@ export class InvestPropCalcContainer extends React.Component{
 							location: 'bottom'
 						},
 						required:false,
-						isOpen:false
+						isOpen:true
 					}],
 					other:[{//also add other: miscellaneous: state source and amount
 						name:'laundry room',
@@ -156,7 +156,7 @@ export class InvestPropCalcContainer extends React.Component{
 							arr: ['number', 'integer', 'positive'],
 							validEntry:false,
 							vmes:[],
-							showVmes:true,
+							showVmes:false,
 							invalidValue:'',
 							location:'right-alert'
 						},
@@ -167,43 +167,315 @@ export class InvestPropCalcContainer extends React.Component{
 						required:true,
 						isOpen:true
 					}]
+				},
+				expenses:{
+					carryingCosts:[{
+						name:'real estate property taxes',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter the real estate property taxes here',
+							location: 'bottom'
+						},
+						required:true,
+						isOpen:true
+					},{
+						name:'property insurance',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter the property insurance premiums here',
+							location: 'bottom'
+						},
+						required:true,
+						isOpen:true
+					},{
+						name:'assessments',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter the condomimium, subdivision, or other property assessments here',
+							location: 'bottom'
+						},
+						required:false,
+						isOpen:true
+					}],
+					utilities:[{
+						name:'gas (common hot water)',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter costs for gas to heat the common hot water',
+							location: 'bottom'
+						},
+						required:false,
+						isOpen:true
+					},{
+						name:'gas (heat)',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter heating gas expenses',
+							location: 'bottom'
+						},
+						required:false,
+						isOpen:true
+					},{
+						name:'electricity (common areas)',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter electricity costs',
+							location: 'bottom'
+						},
+						required:false,
+						isOpen:true
+					},{
+						name:'water',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter expenses for water',
+							location: 'bottom'
+						},
+						required:true,
+						isOpen:true
+					},{
+						name:'scavenger',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter scavenger, refuse and waste pickup, recycling costs',
+							location: 'bottom'
+						},
+						required:false,
+						isOpen:true
+					}],
+					other:[{
+						name:'repairs | decor',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter repairs and decor expenses',
+							location: 'bottom'
+						},
+						required:false,
+						isOpen:true
+					},{
+						name:'property management',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter property management expenses',
+							location: 'bottom'
+						},
+						required:false,
+						isOpen:true
+					},{
+						name:'reserves',
+						hasMonthlyAnnual:true,
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							text:'enter reserves fund dollar amount here',
+							location: 'bottom'
+						},
+						required:true,
+						isOpen:true
+					}]
 				}
 			},
-				// expenses:{
-				// 	carryingCosts:{
-				// 		taxes:0,//real estate property taxes
-				// 		insurance:0,//property insurance
-				// 		assessments:0//condominium or property assessments
-				// 	},
-				// 	utilities:{
-				// 		gasCHW:0,//common hot water
-				// 		gasHeat:0,
-				// 		electricity:0,//common areas
-				// 		water:0,
-				// 		scavenger:0
-				// 	},
-				// 	other:{
-				// 		repairs:0,//repairs and decor
-				// 		management:0,//property managements
-				// 		reserves:0//reserves fund
-				// 	}
-				// },
-				// finTerms:{//financing terms
-				// 	downPayment:0,
-				// 	intAnnual:0,//annual interest rate NB APR is higher
-				// 	term:0//in years
-				// },
-				// assumptions:{
-				// 	vaa:3.00,//(property) value appreciation annually
-				// 	retia:5.00,//real estate tax increase annually
-				// 	aia:3.00,//assessments increase annual
-				// 	ria:2.00,//rent increase annual
-				// 	vf:8.00,//vacancy factor
-				// 	collections:2.00,//collections
-				// 	management:6.00,//property management fee
-				// 	reserves:5.00//reserves fund
-				// }
-			// ],
+			assumptions:{
+				financing:[
+					{
+						field: 'down payment',
+						amount:''
+					},
+					{//NB APR is higher
+						field: 'interest rate (annual)',
+						amount:''
+					},
+					{
+						field: 'term of mortgage (years)',
+						amount:''
+					}
+				],
+				other:[
+					{//1 month
+						field: 'vacancy factor',
+						amount:8.00
+					},
+					{//rent you will be unable to collect
+						field: 'collections',
+						amount:2.00
+					},
+					{//property management; brokerage fee also?
+						field: 'property management fee',
+						amount:6.00
+					},
+					{
+						field: 'reserves fund',
+						amount:5.00
+					}
+					// 	vaa:3.00,//(property) value appreciation annually
+					// 	retia:5.00,//real estate tax increase annually
+					// 	aia:3.00,//assessments increase annual
+					// 	ria:2.00,//rent increase annual
+				]
+			}
 		};
 		this.calculate = this.calculate.bind(this);
 		this.updateFormFields = this.updateFormFields.bind(this);
@@ -374,13 +646,17 @@ export class InvestPropCalcContainer extends React.Component{
 		}
 	}
 	render(){
-		let { formFields } = this.state;
+		let {
+				formFields,
+				assumptions
+			} = this.state;
 		return(
 			<div className = 'fit-95'>
 				<IPCForm
 					handleSubmit = {this.calculate}
 					handleInputChange = {this.updateFormFields}
 					fields = {formFields}
+					assumptions = {assumptions}
 					onClick = {this.handleClick}
 				/>
 				<IPCAnalysis

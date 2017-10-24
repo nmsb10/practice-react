@@ -1,6 +1,8 @@
 import React from 'react';
 import {FormGroup} from './FormGroup';
 import {WordLine} from './WordLine';
+import {IPCOtherTermsBox} from './IpcOtherTermsBox';
+import {IpcFormSubsection} from './IpcFormSubsection';
 
 export class IPCForm extends React.Component{
 	render(){
@@ -12,6 +14,10 @@ export class IPCForm extends React.Component{
 		} = this.props;
 		return(
 			<div className = 'ipc-form-container'>
+				<IPCOtherTermsBox
+				/>
+				<IPCOtherTermsBox
+				/>
 				<form onSubmit = {(event) => handleSubmit(event)}>
 					<div className = 'content'>
 						<div className = 'content-section'>
@@ -31,68 +37,66 @@ export class IPCForm extends React.Component{
 								location = 'ipcForm'
 								content = 'income'
 							/>
-							<div className = 'subtitle-container'>
-								<span className = 'subtitle'>Rental: Retail</span>
-								<i
-									className= 'fa fa-plus fai-add-more'
-									aria-hidden="true"
-									data-item-clicked = 'addToSection'
-									data-section = 'income.retail'
-									title = 'add a source of retail rental income'
-									onClick = {onClick}
-								>
-								</i>
-							</div>
-							<FormGroup
-								info = {fields.income.retail}
+							<IpcFormSubsection
+								subtitle = 'Rental: Retail'
 								section = 'income.retail'
-								onChange = {handleInputChange}
+								enableAdd = 'true'
+								enableAddTitle = 'add a source of retail rental income'
 								onClick = {onClick}
+								onChange = {handleInputChange}
+								contentArr = {fields.income.retail}
 							/>
-							<div className = 'subtitle-container'>
-								<span className = 'subtitle'>Other</span>
-								<i
-									className= 'fa fa-plus fai-add-more'
-									aria-hidden="true"
-									data-item-clicked = 'addToSection'
-									data-section = 'income.other'
-									title = 'add a source of other income'
-									onClick = {onClick}
-								>
-								</i>
-							</div>
-							<FormGroup
-								info = {fields.income.other}
+							<IpcFormSubsection
+								subtitle = 'Other'
 								section = 'income.other'
-								onChange = {handleInputChange}
+								enableAdd = 'true'
+								enableAddTitle = 'add a source of other income'
 								onClick = {onClick}
+								onChange = {handleInputChange}
+								contentArr = {fields.income.other}
 							/>
-							<div className = 'subtitle-container'>
-								<span className = 'subtitle'>Rental: Residential</span>
-								<i
-									className= 'fa fa-plus fai-add-more'
-									aria-hidden="true"
-									data-item-clicked = 'addToSection'
-									data-section = 'income.rental'
-									title = 'add a source of (residential) rental income'
-									onClick = {onClick}
-								>
-								</i>
-							</div>
-							<FormGroup
-								info = {fields.income.rental}
+							<IpcFormSubsection
+								subtitle = 'Rental: Residential'
 								section = 'income.rental'
-								onChange = {handleInputChange}
+								enableAdd = 'true'
+								enableAddTitle = 'add a source of (residential) rental income'
 								onClick = {onClick}
+								onChange = {handleInputChange}
+								contentArr = {fields.income.rental}
 							/>
 						</div>
 						<div className = 'content-section'>
-							<div className = 'word-line-centered'>
-								<div className = 'word-line'>
-									<div className = 'capitalize wl-text wl-ipc-form'>expenses
-									</div>
-								</div>
-							</div>
+							<WordLine
+								location = 'ipcForm'
+								content = 'expenses'
+							/>
+							<IpcFormSubsection
+								subtitle = 'Carrying Costs'
+								section = 'expenses.carryingCosts'
+								enableAdd = 'true'
+								enableAddTitle = 'add a different carrying cost'
+								onClick = {onClick}
+								onChange = {handleInputChange}
+								contentArr = {fields.expenses.carryingCosts}
+							/>
+							<IpcFormSubsection
+								subtitle = 'Utilities'
+								section = 'expenses.utilities'
+								enableAdd = 'true'
+								enableAddTitle = 'add another utilities expense'
+								onClick = {onClick}
+								onChange = {handleInputChange}
+								contentArr = {fields.expenses.utilities}
+							/>
+							<IpcFormSubsection
+								subtitle = 'Other'
+								section = 'expenses.other'
+								enableAdd = 'true'
+								enableAddTitle = 'add a miscellaneous expense'
+								onClick = {onClick}
+								onChange = {handleInputChange}
+								contentArr = {fields.expenses.other}
+							/>
 						</div>
 						{/*
 							<div className = 'form-group'>
@@ -109,27 +113,18 @@ export class IPCForm extends React.Component{
 								</select>
 							</div>
 						*/}
-						{/*
-							when a label has attribute 'for' this makes the input with which it is associated clickable
-							htmlFor is necessary because in React, the for attribute in a label is htmlFor (like an html element has className instead of class)
-							for the inputs attributes, use defaultValue instead of value because defaultValue allows you to edit the default values
-							(otherwise if you use value, must have an onchange handler)
-							onChange function: cannot write only `this.updateInput(event)` because in updateInput, this is not defined. As a result, must bind this function to the input. es5 would be this.updateInput(event).bind(this)
-							so need to use the es6 syntax and use the "fat arrow" to find this onChange function to this input
-							as a result, need to have onChange = {(event) => this.updateInput(event)}
-							the first `(event) =>` is passed into the function from the input element
-						*/}
 					{/*
 						http://fontawesome.io/examples/#animated
 						http://fontawesome.io/icons/
-					*/}
+					
 						<i className ="fa fa-spinner fa-pulse fa-3x" aria-hidden = 'true'></i>
+					*/}	
 						<button
 							type="submit"
 							className=''
 							id="runSearch"
 							>
-							get answers
+							verify & calculate
 						</button>	
 					</div>
 				</form>

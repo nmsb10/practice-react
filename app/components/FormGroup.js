@@ -7,6 +7,7 @@ export class FormGroup extends React.Component {
 		return(
 			<div className = 'form-group-container'>
 				{info.map( (contents, i) => {
+					let removeSpanTitle = 'remove section: ' + contents.name;
 					return(
 						<div className="form-group"
 							key = {i}
@@ -14,7 +15,7 @@ export class FormGroup extends React.Component {
 						>
 							<span
 								className = {contents.required ? 'hidden' : 'close'}
-								title = 'remove this section'
+								title = {removeSpanTitle}
 								data-item-clicked = {contents.required ? 'invalid' : 'removeSection'}
 								data-key = {i}
 								data-section = {section}
@@ -57,6 +58,16 @@ export class FormGroup extends React.Component {
 											placeholder = {contents.name}
 											onChange = {onChange}
 										/>
+									{/*
+										when a label has attribute 'for' this makes the input with which it is associated clickable
+										htmlFor is necessary because in React, the for attribute in a label is htmlFor (like an html element has className instead of class)
+										for the inputs attributes, use defaultValue instead of value because defaultValue allows you to edit the default values
+										(otherwise if you use value, must have an onchange handler)
+										onChange function: cannot write only `this.updateInput(event)` because in updateInput, this is not defined. As a result, must bind this function to the input. es5 would be this.updateInput(event).bind(this)
+										so need to use the es6 syntax and use the "fat arrow" to find this onChange function to this input
+										as a result, need to have onChange = {(event) => this.updateInput(event)}
+										the first `(event) =>` is passed into the function from the input element
+									*/}
 									{/*
 										<label htmlFor = {contents.name}>
 											<span className = 'label-span'>{contents.name}</span>

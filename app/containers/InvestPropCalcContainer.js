@@ -1,6 +1,7 @@
 import React from 'react';
 import {IPCForm} from '../components/IpcForm';
 import {IPCAnalysis} from '../components/IpcAnalysis';
+import {IPCOtherTermsBox} from '../components/IpcOtherTermsBox';
 import * as axios from 'axios';
 
 export class InvestPropCalcContainer extends React.Component{
@@ -482,6 +483,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.validateInput = this.validateInput.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 		this.randomEntry = this.randomEntry.bind(this);
+		this.updateAssumptions = this.updateAssumptions.bind(this);
 	}
 	calculate(e){
 		e.preventDefault();
@@ -501,6 +503,9 @@ export class InvestPropCalcContainer extends React.Component{
 	redirectToSearch(){
 		//'search' is the Route path from routes.js
 		this.context.router.push('search');
+	}
+	updateAssumptions(e){
+
 	}
 	updateFormFields(e){
 		let {formFields} = this.state;
@@ -682,16 +687,22 @@ export class InvestPropCalcContainer extends React.Component{
 				assumptions
 			} = this.state;
 		return(
-			<div className = 'fit-95'>
-				<IPCForm
-					handleSubmit = {this.calculate}
-					handleInputChange = {this.updateFormFields}
-					fields = {formFields}
+			<div className = 'ipc-component'>
+				<IPCOtherTermsBox
 					assumptions = {assumptions}
-					onClick = {this.handleClick}
+					onChange = {this.updateAssumptions}
 				/>
-				<IPCAnalysis
-				/>
+				<div className = 'fit-95 form-and-analysis'>
+					<IPCForm
+						handleSubmit = {this.calculate}
+						handleInputChange = {this.updateFormFields}
+						fields = {formFields}
+						assumptions = {assumptions}
+						onClick = {this.handleClick}
+					/>
+					<IPCAnalysis
+					/>
+				</div>
 			</div>
 		);
 	}

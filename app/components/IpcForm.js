@@ -1,24 +1,18 @@
 import React from 'react';
 import {FormGroup} from './FormGroup';
 import {WordLine} from './WordLine';
-import {IPCOtherTermsBox} from './IpcOtherTermsBox';
 import {IpcFormSubsection} from './IpcFormSubsection';
 
 export class IPCForm extends React.Component{
 	render(){
 		let {
 			fields,
-			assumptions,
 			handleInputChange,
 			handleSubmit,
 			onClick
 		} = this.props;
 		return(
 			<div className = 'ipc-form-container'>
-				<IPCOtherTermsBox
-					assumptions = {assumptions}
-					onChange = {handleInputChange}
-				/>
 				<form onSubmit = {(event) => handleSubmit(event)}>
 					<div className = 'content'>
 						<div className = 'content-section'>
@@ -114,12 +108,6 @@ export class IPCForm extends React.Component{
 								</select>
 							</div>
 						*/}
-					{/*
-						http://fontawesome.io/examples/#animated
-						http://fontawesome.io/icons/
-					
-						<i className ="fa fa-spinner fa-pulse fa-3x" aria-hidden = 'true'></i>
-					*/}	
 						<button
 							type="submit"
 							className=''

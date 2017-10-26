@@ -12,34 +12,25 @@ export const OtherTermsForm = (props) => {
 							<label htmlFor = {content.field}>
 								<span className = 'label-span'>{content.field}</span>
 							</label>
-							<input
-								className = ''
-								type='text'
-								id={content.field}
-								data-key = {i}
-								data-section = {section}
-								data-validate = {content.valueType}
-								value = ''
-								placeholder = ''
-							/>
-						{/*
-							<input
-								className = ''
-								type='text'
-								id={content.field}
-								data-key = {i}
-								data-section = {section}
-								data-validate = {content.valueType}
-								value = {content.amount}
-								placeholder = ''
-								onChange = {onChange}
-							/>
-						*/}
+							<div className = 'input-wrapper'>
+								<span className = ''>{content.preEntry}</span>
+								<input
+									className = ''
+									type='text'
+									id={content.field}
+									data-key = {i}
+									data-section = {section}
+									data-validate = {content.valueType}
+									value = {content.amount}
+									placeholder = {content.field}
+									onChange = {onChange}
+								/>
+								<span className = ''>{content.postEntry}</span>
+							</div>
 						</div>
 					);
 				})
 				}
-
 			</form>
 		</div>
 	);

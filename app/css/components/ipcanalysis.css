@@ -2,3 +2,7 @@
 	display: inline-block;
 	vertical-align: top;
 }
+
+.ipc-analysis-container .calc-tooltip{
+	text-align: left;
+}

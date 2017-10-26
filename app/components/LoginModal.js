@@ -48,10 +48,11 @@ export const LoginModal = (props) => {
 							className=''
 						>enter
 						</button>
+						<Link to = '/userpage'>visit without credentials</Link>
 					</form>
 				</div>
 				<div className="modal-footer">
-					<span><Link to = '/userpage'>click here to represent signing in...</Link>thank you</span>
+					<span>thank you</span>
 				</div>
 			</div>
 		</div>

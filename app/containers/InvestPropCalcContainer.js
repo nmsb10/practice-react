@@ -460,45 +460,61 @@ export class InvestPropCalcContainer extends React.Component{
 				financing:[
 					{
 						field: 'down payment %',
+						preEntry:'',
 						amount:'',
-						valueType: 'percentage'
+						postEntry:'%',
+						valueType: ['percentage',2]
 					},
 					{
 						field: 'down payment $',
-						amount:'$',
-						valueType: 'dollars'
+						preEntry:'$',
+						amount:'',
+						postEntry:'',
+						valueType: ['dollars']
 					},
 					{//NB APR is higher
 						field: 'interest rate (annual)',
-						amount:'0.000%',
-						valueType: 'interest'
+						preEntry:'',
+						amount:'',
+						postEntry:'%',
+						valueType: ['interest',3]
 					},
 					{
-						field: 'term of mortgage (years)',
+						field: 'term of mortgage',
+						preEntry:'',
 						amount:'',
-						valuetype: 'integer'
+						postEntry:'years',
+						valuetype: ['integer']
 					}
 				],
 				other:[
 					{//1 month
 						field: 'vacancy factor',
-						amount:'8.00%',
-						valueType: 'percentage'
+						preEntry:'',
+						amount:'8.00',
+						postEntry:'%',
+						valueType: ['percentage',2]
 					},
 					{//rent you will be unable to collect
 						field: 'collections',
-						amount:'2.00%',
-						valueType: 'percentage'
+						preEntry:'',
+						amount:'2.00',
+						postEntry:'%',
+						valueType: ['percentage',2]
 					},
 					{//property management; brokerage fee also?
 						field: 'property management fee',
-						amount:'6.00%',
-						valueType: 'percentage'
+						preEntry:'',
+						amount:'6.00',
+						postEntry:'%',
+						valueType: ['percentage',2]
 					},
 					{
 						field: 'reserves fund',
-						amount:'5.00%',
-						valueType: 'percentage'
+						preEntry:'',
+						amount:'5.00',
+						postEntry:'%',
+						valueType: ['percentage',2]
 					}
 					// 	vaa:3.00,//(property) value appreciation annually
 					// 	retia:5.00,//real estate tax increase annually
@@ -536,43 +552,48 @@ export class InvestPropCalcContainer extends React.Component{
 	updateAssumptions(e){
 		let{assumptions} = this.state;
 		let newState = assumptions;
-		let valueType = newState[e.target.dataset.section][e.target.dataset.key].valueType;
+		let selected = newState[e.target.dataset.section][e.target.dataset.key];
+		let valueType = selected.valueType;
 		//remove $, % and , from the inputted value
 		let newValue = parseInt(e.target.value.replace(/[$%,]/g, ''));
 		let changeValue = false;//ensure is number
-		console.log(newValue);
 		if(isNaN(newValue)){
 			return;
 		}else{
-			switch(valueType){
-				case 'integer':
-					newValue % 1 === 0 ? changeValue = true: changeValue = false;
-					break;
-				case 'percentage':
-					console.log('percentage!');
-					newValue = newValue.toFixed(2) + '%';
-					console.log(newValue);
-					changeValue = true;
-					break;
-				case 'interest':
-					newValue = newValue.toFixed(3) + '%';
-					changeValue = true;
-					break;
-				case 'dollars'://if dollars, add dollar sign to beginning
-					newValue = '$' + newValue
-					changeValue = true;
-					break;
-				default:
-					break;
-			}
-		}
-		if(changeValue){
-			newState[e.target.dataset.section][e.target.dataset.key].amount = newValue;
+			selected.amount = newValue;
 			let newAssumptions = Object.assign({}, assumptions, newState);
 			this.setState({
 				assumptions: newAssumptions
 			});
+			// switch(valueType){
+			// 	case 'integer':
+			// 		newValue % 1 === 0 ? changeValue = true: changeValue = false;
+			// 		break;
+			// 	case 'percentage':
+			// 		console.log('percentage!');
+			// 		newValue = newValue.toFixed(2) + '%';
+			// 		console.log(newValue);
+			// 		changeValue = true;
+			// 		break;
+			// 	case 'interest':
+			// 		newValue = newValue.toFixed(3) + '%';
+			// 		changeValue = true;
+			// 		break;
+			// 	case 'dollars'://if dollars, add dollar sign to beginning
+			// 		newValue = '$' + newValue
+			// 		changeValue = true;
+			// 		break;
+			// 	default:
+			// 		break;
+			// }
 		}
+		// if(changeValue){
+		// 	newState[e.target.dataset.section][e.target.dataset.key].amount = newValue;
+		// 	let newAssumptions = Object.assign({}, assumptions, newState);
+		// 	this.setState({
+		// 		assumptions: newAssumptions
+		// 	});
+		// }
 	}
 	updateFormFields(e){
 		let {formFields} = this.state;
@@ -581,6 +602,7 @@ export class InvestPropCalcContainer extends React.Component{
 		let key = e.target.dataset.key;
 		let sectionArr = section.split('.');
 		let specificObject = {};
+		//https://stackoverflow.com/questions/4260308/getting-the-objects-property-name	
 		//first identify the exact object being changed
 		if(sectionArr.length === 1){
 			specificObject = formFieldsCopy[sectionArr[0]][key];
@@ -605,8 +627,6 @@ export class InvestPropCalcContainer extends React.Component{
 		this.setState({
 			formFields: newFormFields
 		});
-
-		//https://stackoverflow.com/questions/4260308/getting-the-objects-property-name
 	}
 	validateInput(obj, newValue, period){
 		let {validationMessages} = this.state;
@@ -678,13 +698,6 @@ export class InvestPropCalcContainer extends React.Component{
 			}
 			return obj;
 		}
-
-		//http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
-		// function withCommas(x) {
-		// 	return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		// }
-
-		//review array functions including filter
 	}
 	randomEntry(arr){
 		return arr[Math.floor(Math.random()*arr.length)];
@@ -703,11 +716,10 @@ export class InvestPropCalcContainer extends React.Component{
 		if(request === 'minimizeSection'){
 			if(sectionArr.length === 1){
 				specificObject = specificObject[key];
-				specificObject.isOpen = !specificObject.isOpen;
 			}else if(sectionArr.length === 2){
 				specificObject = specificObject[sectionArr[1]][key];
-				specificObject.isOpen = !specificObject.isOpen;
 			}
+			specificObject.isOpen = !specificObject.isOpen;
 		}else if(request === 'removeSection'){
 			if(sectionArr.length === 1){
 				specificObject.splice(key, 1);
@@ -756,11 +768,10 @@ export class InvestPropCalcContainer extends React.Component{
 		}else if(request === 'closeAlertTT'){
 			if(sectionArr.length === 1){
 				specificObject = specificObject[key];
-				specificObject.validation.showVmes = false;
 			}else if(sectionArr.length === 2){
 				specificObject = specificObject[sectionArr[1]][key];
-				specificObject.validation.showVmes = false;
 			}
+			specificObject.validation.showVmes = false;
 		}
 		let objCopy = Object.assign({}, formFields, fieldsCopy);
 		this.setState({
@@ -787,6 +798,8 @@ export class InvestPropCalcContainer extends React.Component{
 						onClick = {this.handleClick}
 					/>
 					<IPCAnalysis
+						fields = {formFields}
+						assumptions = {assumptions}
 					/>
 				</div>
 			</div>

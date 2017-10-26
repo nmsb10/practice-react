@@ -9,6 +9,7 @@ export const Tooltip = (props) => {
 			break;
 		case 'top':
 			cssClass += ' ttt-top';
+			content.cssClassAdd === 'calc' ? cssClass += ' calc-tooltip' : ''; 
 			break;
 		case 'right':
 			cssClass += ' ttt-right';
@@ -18,7 +19,7 @@ export const Tooltip = (props) => {
 			content.showVmes ? cssClass += ' alert-visible' : '';
 			break;
 		default:
-			return;
+			break;
 	}
 	return(
 		<span className= {cssClass}>
@@ -42,6 +43,13 @@ export const Tooltip = (props) => {
 					data-section = {alertTooltip.section}
 				>okay
 				</span>
+			</div>
+			:
+			displayType === 'calculation' ?
+			<div>
+				<span>you tried entering:</span>
+				<span className = 'invalid-value'>{content.invalidValue}</span>
+				<span>this value must be:</span>
 			</div>
 			:
 			content.textStart + ' ' + inputName + ' ' + content.textEnd

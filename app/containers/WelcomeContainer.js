@@ -195,6 +195,7 @@ export class WelcomeContainer extends React.Component{
 	}
 	handleSubmit(e){
 		e.preventDefault();
+		//console.log(this.state.loginForm);
 	}
 	handleClick(e){
 		if(e.target.id === 'showTestimonialsButton'){

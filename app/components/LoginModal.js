@@ -28,9 +28,16 @@ export const LoginModal = (props) => {
 						<label htmlFor = 'password'>
 							<span>password</span>
 						</label>
-					*/}
 						<input
 							type = 'text'
+							id = 'password'
+							value = {loginForm.passwordHidden}
+							placeholder = 'password'
+							onChange = {onChange}
+						/>
+					*/}
+						<input
+							type = 'password'
 							id = 'password'
 							value = {loginForm.passwordHidden}
 							placeholder = 'password'

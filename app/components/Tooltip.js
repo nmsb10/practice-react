@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const Tooltip = (props) => {
-	let { content, displayType } = props;
+	let { content, inputName, displayType, alertTooltip} = props;
 	let cssClass = 'tooltiptext';
 	switch(content.location){
 		case 'bottom':
@@ -35,9 +35,16 @@ export const Tooltip = (props) => {
 				})
 				}
 				</ul>
+				<span
+					className = 'close-alert'
+					data-item-clicked = {alertTooltip.request}
+					data-key = {alertTooltip.key}
+					data-section = {alertTooltip.section}
+				>okay
+				</span>
 			</div>
 			:
-			content.text
+			content.textStart + ' ' + inputName + ' ' + content.textEnd
 			}
 		</span>
 	);

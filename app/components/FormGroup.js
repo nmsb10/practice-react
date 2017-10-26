@@ -8,6 +8,11 @@ export class FormGroup extends React.Component {
 			<div className = 'form-group-container'>
 				{info.map( (contents, i) => {
 					let removeSpanTitle = 'remove section: ' + contents.name;
+					let alertTooltip = {
+						request: 'closeAlertTT',
+						key: i,
+						section: section
+					};
 					return(
 						<div className="form-group"
 							key = {i}
@@ -39,11 +44,13 @@ export class FormGroup extends React.Component {
 							<div className = {contents.isOpen ? 'ttt-container inputs-container' : 'inputs-container closed'}>
 								<Tooltip
 									content = {contents.tooltip}
+									inputName = {contents.name}
 									displayType = 'normal'
 								/>
 								<Tooltip
 									content = {contents.validation}
 									displayType = 'alert'
+									alertTooltip = {alertTooltip}
 								/>
 								<div className = 'section-name'>
 									<div className = 'name-input-container'>

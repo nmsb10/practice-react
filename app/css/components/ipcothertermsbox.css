@@ -9,6 +9,7 @@
 }
 
 .ipc-component .ipc-other-terms .term-container{
+	position:relative;
 	background-color: rgba(100, 100, 100, 0.9);
 	color:white;
 	box-sizing: border-box;

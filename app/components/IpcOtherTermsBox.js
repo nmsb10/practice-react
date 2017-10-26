@@ -1,4 +1,5 @@
 import React from 'react';
+import {OtherTermsForm} from './OtherTermsForm';
 
 export const IPCOtherTermsBox  = (props) => {
 	let {assumptions, onChange} = props;
@@ -8,55 +9,24 @@ export const IPCOtherTermsBox  = (props) => {
 				<div className = 'show-inputs' title = 'financing terms'>
 					<i className="fa fa-university" aria-hidden="true">
 					</i>
-					<div className = 'terms-form-container'>
-						<form>
-							<input
-								className = ''
-								type='text'
-								id='firstInput'
-								data-key = ''
-								data-request = ''
-								data-section = ''
-								value = ''
-								placeholder = ''
-							/>
-							<label htmlFor = 'firstInput'>
-								<span className = 'label-span'>here's the label</span>
-							</label>
-							<input
-								className = ''
-								type='text'
-								id='firstInput'
-								data-key = ''
-								data-request = ''
-								data-section = ''
-								value = ''
-								placeholder = ''
-							/>
-							<label htmlFor = 'firstInput'>
-								<span className = 'label-span'>here's the label</span>
-							</label>
-							<input
-								className = ''
-								type='text'
-								id='firstInput'
-								data-key = ''
-								data-request = ''
-								data-section = ''
-								value = ''
-								placeholder = ''
-							/>
-							<label htmlFor = 'firstInput'>
-								<span className = 'label-span'>here's the label</span>
-							</label>
-						</form>
-					</div>
+					<OtherTermsForm
+						terms = {assumptions.financing}
+						section = 'financing'
+						title = 'financing terms'
+						onChange = {onChange}
+					/>
 				</div>
 			</div>
 			<div className = 'term-container'>
 				<div className = 'show-inputs' title = 'other assumptions'>
 					<i className="fa fa-check-square-o" aria-hidden="true">
 					</i>
+					<OtherTermsForm
+						terms = {assumptions.other}
+						section = 'other'
+						title = 'other assumptions'
+						onChange = {onChange}
+					/>
 				</div>
 			</div>
 		</div>

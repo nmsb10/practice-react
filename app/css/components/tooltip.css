@@ -42,6 +42,23 @@ https://www.w3schools.com/css/css_tooltip.asp*/
     padding: 0;
 }
 
+.ttt-alert .close-alert{
+    display:inline-block;
+    cursor: pointer;
+    padding:0.3rem;
+    border-radius: 0.35rem;
+    color:white;
+    background-color:purple;
+    -webkit-transition: all 0.25s ease 0s;
+    -moz-transition: all 0.25s ease 0s;
+    transition: all 0.25s ease 0s;
+}
+
+.ttt-alert .close-alert:hover{
+    color:black;
+    background-color:lime;
+}
+
 .alert-visible {
     visibility: visible;
     opacity: 1;

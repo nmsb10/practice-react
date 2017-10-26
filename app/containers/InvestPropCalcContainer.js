@@ -37,7 +37,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'//location of the alert tooltip
 						},
 						tooltip:{
-							text:'enter the purchase price for the subject property (anticipated or actual)',
+							textStart:'please enter the',
+							textEnd: 'for the subject property (anticipated or actual)',
 							location: 'bottom'
 						},
 						required:true,
@@ -64,7 +65,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter business one income (anticipated or actual)',
+							textStart:'please enter',
+							textEnd: 'income (anticipated or actual)',
 							location: 'bottom'
 						},
 						required:false,
@@ -88,7 +90,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter business two income (anticipated or actual)',
+							textStart:'please enter',
+							textEnd: 'income (anticipated or actual)',
 							location: 'bottom'
 						},
 						required:false,
@@ -113,7 +116,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter the laundry room income for the subject property (estimated or actual)',
+							textStart:'please enter',
+							textEnd: 'income for the subject property (estimated or actual)',
 							location: 'bottom'
 						},
 						required:false,
@@ -137,7 +141,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter vending machine income for the subject property (estimated or actual)',
+							textStart:'please enter',
+							textEnd: 'income for the subject property (estimated or actual)',
 							location: 'bottom'
 						},
 						required:false,
@@ -162,7 +167,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter the rental income for the subject property',
+							textStart:'please enter',
+							textEnd: 'income for the subject property',
 							location: 'bottom'
 						},
 						required:true,
@@ -189,13 +195,14 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter the real estate property taxes here',
+							textStart:'please enter',
+							textEnd: 'here',
 							location: 'bottom'
 						},
 						required:true,
 						isOpen:true
 					},{
-						name:'property insurance',
+						name:'property insurance premium',
 						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
@@ -213,7 +220,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter the property insurance premiums here',
+							textStart:'please enter',
+							textEnd: 'expenses here',
 							location: 'bottom'
 						},
 						required:true,
@@ -237,7 +245,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter the condomimium, subdivision, or other property assessments here',
+							textStart:'please enter condomimium, subdivision, or other property',
+							textEnd: 'here',
 							location: 'bottom'
 						},
 						required:false,
@@ -262,7 +271,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter costs for gas to heat the common hot water',
+							textStart:'please enter',
+							textEnd: 'expenses',
 							location: 'bottom'
 						},
 						required:false,
@@ -286,7 +296,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter heating gas expenses',
+							textStart:'please enter',
+							textEnd: 'expenses',
 							location: 'bottom'
 						},
 						required:false,
@@ -310,7 +321,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter electricity costs',
+							textStart:'please enter',
+							textEnd: 'expenses',
 							location: 'bottom'
 						},
 						required:false,
@@ -334,7 +346,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter expenses for water',
+							textStart:'please enter expenses for ',
+							textEnd: '',
 							location: 'bottom'
 						},
 						required:true,
@@ -358,7 +371,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter scavenger, refuse and waste pickup, recycling costs',
+							textStart:'please enter',
+							textEnd: 'expenses',
 							location: 'bottom'
 						},
 						required:false,
@@ -383,7 +397,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter repairs and decor expenses',
+							textStart:'please enter',
+							textEnd: 'expenses',
 							location: 'bottom'
 						},
 						required:false,
@@ -407,13 +422,14 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter property management expenses',
+							textStart:'please enter',
+							textEnd: 'expenses',
 							location: 'bottom'
 						},
 						required:false,
 						isOpen:true
 					},{
-						name:'reserves',
+						name:'reserves fund',
 						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
@@ -431,7 +447,8 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							text:'enter reserves fund dollar amount here',
+							textStart:'please enter',
+							textEnd: 'dollar amount here',
 							location: 'bottom'
 						},
 						required:true,
@@ -442,34 +459,46 @@ export class InvestPropCalcContainer extends React.Component{
 			assumptions:{
 				financing:[
 					{
-						field: 'down payment',
-						amount:''
+						field: 'down payment %',
+						amount:'',
+						valueType: 'percentage'
+					},
+					{
+						field: 'down payment $',
+						amount:'$',
+						valueType: 'dollars'
 					},
 					{//NB APR is higher
 						field: 'interest rate (annual)',
-						amount:''
+						amount:'0.000%',
+						valueType: 'interest'
 					},
 					{
 						field: 'term of mortgage (years)',
-						amount:''
+						amount:'',
+						valuetype: 'integer'
 					}
 				],
 				other:[
 					{//1 month
 						field: 'vacancy factor',
-						amount:8.00
+						amount:'8.00%',
+						valueType: 'percentage'
 					},
 					{//rent you will be unable to collect
 						field: 'collections',
-						amount:2.00
+						amount:'2.00%',
+						valueType: 'percentage'
 					},
 					{//property management; brokerage fee also?
 						field: 'property management fee',
-						amount:6.00
+						amount:'6.00%',
+						valueType: 'percentage'
 					},
 					{
 						field: 'reserves fund',
-						amount:5.00
+						amount:'5.00%',
+						valueType: 'percentage'
 					}
 					// 	vaa:3.00,//(property) value appreciation annually
 					// 	retia:5.00,//real estate tax increase annually
@@ -490,7 +519,7 @@ export class InvestPropCalcContainer extends React.Component{
 		let{formFields} = this.state;
 		//validate all fields. if any have validEntry === false, print summary of input fields which need corrections
 		axios.post('/calculate-investment-property', formFields).then(function(response){
-			console.log(response.data);
+			//console.log(response.data);
 		});
 		// }.bind(this));
 		// .then(() => {
@@ -505,7 +534,45 @@ export class InvestPropCalcContainer extends React.Component{
 		this.context.router.push('search');
 	}
 	updateAssumptions(e){
-
+		let{assumptions} = this.state;
+		let newState = assumptions;
+		let valueType = newState[e.target.dataset.section][e.target.dataset.key].valueType;
+		//remove $, % and , from the inputted value
+		let newValue = parseInt(e.target.value.replace(/[$%,]/g, ''));
+		let changeValue = false;//ensure is number
+		console.log(newValue);
+		if(isNaN(newValue)){
+			return;
+		}else{
+			switch(valueType){
+				case 'integer':
+					newValue % 1 === 0 ? changeValue = true: changeValue = false;
+					break;
+				case 'percentage':
+					console.log('percentage!');
+					newValue = newValue.toFixed(2) + '%';
+					console.log(newValue);
+					changeValue = true;
+					break;
+				case 'interest':
+					newValue = newValue.toFixed(3) + '%';
+					changeValue = true;
+					break;
+				case 'dollars'://if dollars, add dollar sign to beginning
+					newValue = '$' + newValue
+					changeValue = true;
+					break;
+				default:
+					break;
+			}
+		}
+		if(changeValue){
+			newState[e.target.dataset.section][e.target.dataset.key].amount = newValue;
+			let newAssumptions = Object.assign({}, assumptions, newState);
+			this.setState({
+				assumptions: newAssumptions
+			});
+		}
 	}
 	updateFormFields(e){
 		let {formFields} = this.state;
@@ -626,6 +693,9 @@ export class InvestPropCalcContainer extends React.Component{
 		let {formFields} = this.state;
 		let fieldsCopy = formFields;
 		let request = e.target.dataset.itemClicked;
+		if(!request){//address situation when the component is clicked but not on a minimize, remove, or addtosection request
+			return;
+		}
 		let section = e.target.dataset.section;
 		let sectionArr = section.split('.');
 		let specificObject = fieldsCopy[sectionArr[0]];
@@ -664,16 +734,32 @@ export class InvestPropCalcContainer extends React.Component{
 					location:'right-alert'
 				},
 				tooltip:{
-					text:'enter new values here',
+					textStart:'',
+					textEnd: '',
 					location: 'bottom'
 				},
 				required:false,
 				isOpen:true
 			};
+			if(sectionArr[0]==='income'){//income section
+				basicEntry.tooltip.textStart = 'please enter';
+				basicEntry.tooltip.textEnd = 'income for the subject property (estimated or actual)';
+			}else if(sectionArr[0]==='expenses'){//expense section
+				basicEntry.tooltip.textStart = 'please enter';
+				basicEntry.tooltip.textEnd = 'expenses';
+			}
 			if(sectionArr.length === 1){
 				specificObject.push(basicEntry);
 			}else if(sectionArr.length === 2){
 				specificObject[sectionArr[1]].push(basicEntry);
+			}
+		}else if(request === 'closeAlertTT'){
+			if(sectionArr.length === 1){
+				specificObject = specificObject[key];
+				specificObject.validation.showVmes = false;
+			}else if(sectionArr.length === 2){
+				specificObject = specificObject[sectionArr[1]][key];
+				specificObject.validation.showVmes = false;
 			}
 		}
 		let objCopy = Object.assign({}, formFields, fieldsCopy);

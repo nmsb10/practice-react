@@ -491,28 +491,28 @@ export class InvestPropCalcContainer extends React.Component{
 					{//1 month
 						field: 'vacancy factor',
 						preEntry:'',
-						amount:'8.00',
+						amount:'',//8.00
 						postEntry:'%',
 						valueType: ['percentage',2]
 					},
 					{//rent you will be unable to collect
 						field: 'collections',
 						preEntry:'',
-						amount:'2.00',
+						amount:'',//2.00
 						postEntry:'%',
 						valueType: ['percentage',2]
 					},
 					{//property management; brokerage fee also?
 						field: 'property management fee',
 						preEntry:'',
-						amount:'6.00',
+						amount:'',//6.00
 						postEntry:'%',
 						valueType: ['percentage',2]
 					},
 					{
 						field: 'reserves fund',
 						preEntry:'',
-						amount:'5.00',
+						amount:'',//5.00
 						postEntry:'%',
 						valueType: ['percentage',2]
 					}
@@ -529,6 +529,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.handleClick = this.handleClick.bind(this);
 		this.randomEntry = this.randomEntry.bind(this);
 		this.updateAssumptions = this.updateAssumptions.bind(this);
+		this.withCommas = this.withCommas.bind(this);
 	}
 	calculate(e){
 		e.preventDefault();
@@ -683,8 +684,8 @@ export class InvestPropCalcContainer extends React.Component{
 					obj.value.amount = newValue;
 				}else{
 					if(period === 'monthly'){
-						obj.value.monthly = newValue;
-						obj.value.annual = parseInt(newValue) * 12;
+						obj.value.monthly = newValue + '';
+						obj.value.annual = parseInt(newValue) * 12 + '';
 					}else{//period === 'annual'
 						obj.value.annual = newValue;
 						obj.value.monthly = (parseInt(newValue) / 12).toFixed(2);
@@ -778,6 +779,10 @@ export class InvestPropCalcContainer extends React.Component{
 			formFields: objCopy
 		});
 	}
+	withCommas(num){
+		//http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+		return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	render(){
 		let {
 				formFields,
@@ -800,6 +805,7 @@ export class InvestPropCalcContainer extends React.Component{
 					<IPCAnalysis
 						fields = {formFields}
 						assumptions = {assumptions}
+						withCommas = {this.withCommas}
 					/>
 				</div>
 			</div>

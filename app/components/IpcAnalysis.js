@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Tooltip} from './Tooltip';
 
 export const IPCAnalysis = (props) => {
-	let { fields, assumptions } = props;
+	let { fields, assumptions, withCommas} = props;
 	let tooltip = {
 		location: 'top',
 		cssClassAdd:'calc'
@@ -32,17 +33,49 @@ export const IPCAnalysis = (props) => {
 		// }
 
 
-
-		//http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
-		// function withCommas(x) {
-		// 	return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		// }
-
 		//review array functions including filter
 	return(
 		<div className = 'ipc-analysis-container'>
-			<div>hello</div>
+			<div>
+				<span>purchase price:</span>
+				<span>{fields.purchasePrice[0].value.preEntry}{fields.purchasePrice[0].value.amount === '' ? '-0-' : withCommas(fields.purchasePrice[0].value.amount)}</span>
+			</div>
 			<i className="fa fa-home" aria-hidden="true"></i>
+			<div>
+				<span>capitalization rate:</span>
+				<span>7.83%</span>
+			</div>
+			<div className = 'results-container'>
+				<div className = ''>
+					<span>income</span>
+				</div>
+				<table>
+					<tbody>
+						<tr>
+							<th>Retail Rental</th>
+							<th>unit #</th>
+							<th>sqft</th>
+							<th>lease start</th>
+							<th>lease end</th>
+							<th>monthly</th>
+							<th>annual</th>
+						</tr>
+						<tr></tr>
+						<tr>
+							<td>{fields.income.retail[0].name}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{fields.income.retail[0].value.preEntry}{fields.income.retail[0].value.monthly === '' ? '--0--' : withCommas(fields.income.retail[0].value.monthly)}</td>
+							<td>{fields.income.retail[0].value.preEntry}{fields.income.retail[0].value.annual === '' ? ':)' : withCommas(fields.income.retail[0].value.annual)}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+
 			<div className = 'ttt-container'>
 				<span>hover here to see sample calculation tooltip</span>
 				<Tooltip
@@ -59,3 +92,10 @@ export const IPCAnalysis = (props) => {
 		</div>
 	);
 }
+
+//https://github.com/facebook/prop-types#prop-types
+IPCAnalysis.propTypes = {
+	fields: PropTypes.object,
+	assumptions: PropTypes.object,
+	withCommas: PropTypes.func
+};

@@ -789,7 +789,27 @@ export class InvestPropCalcContainer extends React.Component{
 				assumptions
 			} = this.state;
 		let tierOne = ['income', 'expenses'];
-		let tierTwo = [['retail', 'other', 'rental'],['carryingCosts', 'utilities', 'other']];
+		let tierTwo = [
+			[{
+				obj:'retail',
+				display:'Retail Rental'
+			},{
+				obj: 'other',
+				display: 'Other'
+			},{
+				obj: 'rental',
+				display: 'Residential Rental'
+			}],[{
+				obj: 'carryingCosts',
+				display: 'Carrying Costs'
+			},{
+				obj: 'utilities',
+				display: 'Utilities'
+			},{
+				obj: 'other',
+				display: 'Other'
+			}]
+		];
 		return(
 			<div className = 'ipc-component'>
 				<IPCOtherTermsBox

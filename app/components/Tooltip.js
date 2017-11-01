@@ -6,6 +6,7 @@ export const Tooltip = (props) => {
 	switch(content.location){
 		case 'bottom':
 			cssClass += ' ttt-bottom';
+			content.cssClassAdd === 'calc' ? cssClass += ' calc-tooltip' : '';
 			break;
 		case 'top':
 			cssClass += ' ttt-top';
@@ -47,9 +48,13 @@ export const Tooltip = (props) => {
 			:
 			displayType === 'calculation' ?
 			<div>
-				<span>you tried entering:</span>
-				<span className = 'invalid-value'>{content.invalidValue}</span>
-				<span>this value must be:</span>
+				{content.figures.map((number, i) => {
+					let sign = i !== 0 ? '+' : '';
+					return(
+						<span key = {i}>{sign}{number}</span>
+					);
+				})}
+				<span>{content.total}</span>
 			</div>
 			:
 			content.textStart + ' ' + inputName + ' ' + content.textEnd

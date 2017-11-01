@@ -4,10 +4,6 @@ import {Tooltip} from './Tooltip';
 
 export const IPCAnalysis = (props) => {
 	let { fields, assumptions, withCommas, tierOne, tierTwo } = props;
-	let tooltip = {
-		location: 'top',
-		cssClassAdd:'calc'
-	};
 
 		//https://www.mtgprofessor.com/formulas.htm
 		//P = L[c(1 + c)^n]/[(1 + c)^n - 1]
@@ -52,12 +48,27 @@ export const IPCAnalysis = (props) => {
 							<span>{tierOneName}</span>
 						</div>
 						{tierTwo[i].map( (tierTwoName, j) => {
+							let total = {monthly:[], annual:[]};
+							let tooltip = {
+								monthly:{
+									location: 'bottom',
+									cssClassAdd:'calc',
+									figures:[],
+									total:'total'
+								},
+								annual:{
+									location: 'bottom',
+									cssClassAdd:'calc',
+									figures:[],
+									total:''
+								}
+							};
 							return(
 								<div className = 'table-container' key = {j}>
 									<table>
 										<tbody>
 											<tr>
-												<th>{tierTwoName}</th>
+												<th>{tierTwoName.display}</th>
 												<th>unit #</th>
 												<th>sqft</th>
 												<th>lease start</th>
@@ -66,7 +77,11 @@ export const IPCAnalysis = (props) => {
 												<th>annual</th>
 											</tr>
 											<tr></tr>
-											{fields[tierOneName][tierTwoName].map( (contents, k) => {
+											{fields[tierOneName][tierTwoName.obj].map( (contents, k) => {
+												total.monthly.push(contents.value.monthly===''?0:contents.value.monthly);
+												total.annual.push(contents.value.annual===''?0:contents.value.annual);
+												tooltip.monthly.figures.push(contents.value.monthly);
+												tooltip.annual.figures.push(contents.value.annual);
 												return(
 													<tr key = {k}>
 														<td>{contents.name}</td>
@@ -79,6 +94,20 @@ export const IPCAnalysis = (props) => {
 													</tr>
 												);
 											})}
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>{tierTwoName.display} {tierOneName} Total:</td>
+												<td className = 'ttt-container'>${total.monthly.reduce((total, num) => parseInt(total) + parseInt(num))}
+													<Tooltip
+														content = {tooltip.monthly}
+														displayType = 'calculation'
+													/>
+												</td>
+												<td className = 'ttt-container'>${total.annual.reduce((total, num) => total + parseInt(num), 0)}</td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -88,17 +117,6 @@ export const IPCAnalysis = (props) => {
 					</div>
 				);
 			})}
-			
-
-
-
-			<div className = 'ttt-container'>
-				<span>hover here to see sample calculation tooltip</span>
-				<Tooltip
-					content = {tooltip}
-					displayType = 'calculation'
-				/>
-			</div>
 		{/*
 			https://javascriptweblog.wordpress.com/2010/07/26/no-more-ifs-alternatives-to-statement-branching-in-javascript/
 			http://fontawesome.io/examples/#animated

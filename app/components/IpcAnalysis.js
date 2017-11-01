@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Tooltip} from './Tooltip';
 
 export const IPCAnalysis = (props) => {
-	let { fields, assumptions, withCommas} = props;
+	let { fields, assumptions, withCommas, tierOne, tierTwo } = props;
 	let tooltip = {
 		location: 'top',
 		cssClassAdd:'calc'
@@ -45,34 +45,50 @@ export const IPCAnalysis = (props) => {
 				<span>capitalization rate:</span>
 				<span>7.83%</span>
 			</div>
-			<div className = 'results-container'>
-				<div className = ''>
-					<span>income</span>
-				</div>
-				<table>
-					<tbody>
-						<tr>
-							<th>Retail Rental</th>
-							<th>unit #</th>
-							<th>sqft</th>
-							<th>lease start</th>
-							<th>lease end</th>
-							<th>monthly</th>
-							<th>annual</th>
-						</tr>
-						<tr></tr>
-						<tr>
-							<td>{fields.income.retail[0].name}</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>{fields.income.retail[0].value.preEntry}{fields.income.retail[0].value.monthly === '' ? '--0--' : withCommas(fields.income.retail[0].value.monthly)}</td>
-							<td>{fields.income.retail[0].value.preEntry}{fields.income.retail[0].value.annual === '' ? ':)' : withCommas(fields.income.retail[0].value.annual)}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			{tierOne.map( (tierOneName, i) => {
+				return(
+					<div className = 'results-container' key = {i}>
+						<div className = 'rc-side-header'>
+							<span>{tierOneName}</span>
+						</div>
+						{tierTwo[i].map( (tierTwoName, j) => {
+							return(
+								<div className = 'table-container' key = {j}>
+									<table>
+										<tbody>
+											<tr>
+												<th>{tierTwoName}</th>
+												<th>unit #</th>
+												<th>sqft</th>
+												<th>lease start</th>
+												<th>lease end</th>
+												<th>monthly</th>
+												<th>annual</th>
+											</tr>
+											<tr></tr>
+											{fields[tierOneName][tierTwoName].map( (contents, k) => {
+												return(
+													<tr key = {k}>
+														<td>{contents.name}</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td>{contents.value.preEntry}{contents.value.monthly === '' ? '-0-' : withCommas(contents.value.monthly)}</td>
+														<td>{contents.value.preEntry}{contents.value.annual === '' ? ':)' : withCommas(contents.value.annual)}</td>
+													</tr>
+												);
+											})}
+										</tbody>
+									</table>
+								</div>
+							);
+							
+						})}						
+					</div>
+				);
+			})}
+			
 
 
 
@@ -84,6 +100,7 @@ export const IPCAnalysis = (props) => {
 				/>
 			</div>
 		{/*
+			https://javascriptweblog.wordpress.com/2010/07/26/no-more-ifs-alternatives-to-statement-branching-in-javascript/
 			http://fontawesome.io/examples/#animated
 			http://fontawesome.io/icons/
 		
@@ -97,5 +114,7 @@ export const IPCAnalysis = (props) => {
 IPCAnalysis.propTypes = {
 	fields: PropTypes.object,
 	assumptions: PropTypes.object,
-	withCommas: PropTypes.func
+	withCommas: PropTypes.func,
+	tierOne: PropTypes.array,
+	tierTwo: PropTypes.array
 };

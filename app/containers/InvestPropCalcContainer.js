@@ -788,6 +788,8 @@ export class InvestPropCalcContainer extends React.Component{
 				formFields,
 				assumptions
 			} = this.state;
+		let tierOne = ['income', 'expenses'];
+		let tierTwo = [['retail', 'other', 'rental'],['carryingCosts', 'utilities', 'other']];
 		return(
 			<div className = 'ipc-component'>
 				<IPCOtherTermsBox
@@ -806,6 +808,8 @@ export class InvestPropCalcContainer extends React.Component{
 						fields = {formFields}
 						assumptions = {assumptions}
 						withCommas = {this.withCommas}
+						tierOne = {tierOne}
+						tierTwo = {tierTwo}
 					/>
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 .ipc-analysis-container{
 	display: inline-block;
 	vertical-align: top;
+	width:60%;
 }
 
 .ipc-analysis-container .calc-tooltip{

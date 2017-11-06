@@ -811,6 +811,239 @@ export class InvestPropCalcContainer extends React.Component{
 				display: 'Other'
 			}]
 		];
+		let incomeSummary = {
+			gpi:{
+				total: {
+					monthly:0,
+					annual:0
+				},
+				totals: {
+					retail:{
+						monthly:[],
+						annual:[]
+					},
+					other:{
+						monthly:[],
+						annual:[]
+					},
+					rental:{
+						monthly:[],
+						annual:[]
+					}
+				},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign:'plus',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'bottom',
+						cssClassAdd:'calc',
+						sign: 'plus',
+						figures:[],
+						total:''
+					}
+				}
+			},
+			vacancy:{
+				total: {monthly:0, annual:0},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign: 'multiply',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'bottom',
+						cssClassAdd:'calc',
+						sign: 'multiply',
+						figures:[],
+						total:''
+					}
+				}
+			},
+			collections:{
+				total: {monthly:0, annual:0},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign: 'multiply',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'bottom',
+						cssClassAdd:'calc',
+						sign: 'multiply',
+						figures:[],
+						total:''
+					}
+				}
+			},
+			egi:{
+				total: {monthly:0, annual:0},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign: 'subtract',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'bottom',
+						cssClassAdd:'calc',
+						sign: 'subtract',
+						figures:[],
+						total:''
+					}
+				}
+			}
+		};
+		let incomeSummaryOrder = [
+			{
+				obj:'gpi',
+				display: 'Gross Potential Income (GPI)'
+			},{
+				obj: 'vacancy',
+				display: 'Vacancy'
+			},{
+				obj: 'collections',
+				display: 'Collections'
+			},{
+				obj: 'egi',
+				display: 'Effective Gross Income (EGI)'
+			}
+		];
+		let expensesSummary = {
+			oe:{//operating expenses
+				total: {
+					monthly:0,
+					annual:0
+				},
+				totals: {
+					carryingCosts:{
+						monthly:[],
+						annual:[]
+					},
+					utilities:{
+						monthly:[],
+						annual:[]
+					},
+					other:{
+						monthly:[],
+						annual:[]
+					}
+				},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign:'plus',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'bottom',
+						cssClassAdd:'calc',
+						sign: 'plus',
+						figures:[],
+						total:''
+					}
+				}
+			},
+			carryingCosts:{
+				total: {monthly:0, annual:0},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign: 'add',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'bottom',
+						cssClassAdd:'calc',
+						sign: 'add',
+						figures:[],
+						total:''
+					}
+				}
+			},
+			utilities:{
+				total: {monthly:0, annual:0},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign: 'add',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'bottom',
+						cssClassAdd:'calc',
+						sign: 'add',
+						figures:[],
+						total:''
+					}
+				}
+			},
+			other:{
+				total: {monthly:0, annual:0},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign: 'add',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'bottom',
+						cssClassAdd:'calc',
+						sign: 'add',
+						figures:[],
+						total:''
+					}
+				}
+			}
+		};
+		let expensesSummaryOrder = [
+			{
+				obj:'oe',
+				display: 'Operating Expenses'
+			}
+		];
+		let noiSummary = [{
+			total: {
+				monthly:0,
+				annual:0					
+			},
+			tooltip:{
+				monthly:{
+					location: 'left',
+					cssClassAdd:'calc',
+					sign:'subtract',
+					figures:[],
+					total:''
+				},
+				annual:{
+					location: 'left',
+					cssClassAdd:'calc',
+					sign: 'subtract',
+					figures:[],
+					total:''
+				}
+			}
+		}];
 		return(
 			<div className = 'ipc-component'>
 				<IPCOtherTermsBox
@@ -831,6 +1064,11 @@ export class InvestPropCalcContainer extends React.Component{
 						withCommas = {this.withCommas}
 						tierOne = {tierOne}
 						tierTwo = {tierTwo}
+						incomeSummary = {incomeSummary}
+						incomeSummaryOrder = {incomeSummaryOrder}
+						expensesSummary = {expensesSummary}
+						expensesSummaryOrder = {expensesSummaryOrder}
+						noiSummary = {noiSummary}
 					/>
 				</div>
 			</div>

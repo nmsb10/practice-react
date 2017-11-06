@@ -3,7 +3,19 @@ import PropTypes from 'prop-types';
 import {Tooltip} from './Tooltip';
 
 export const IPCAnalysis = (props) => {
-	let { fields, assumptions, withCommas, tierOne, tierTwo } = props;
+	let {
+		fields,
+		assumptions,
+		withCommas,
+		tierOne,
+		tierTwo,
+		incomeSummary,
+		incomeSummaryOrder,
+		expensesSummary,
+		expensesSummaryOrder,
+		noiSummary
+	} = props;
+	let capRate = 0;
 
 		//https://www.mtgprofessor.com/formulas.htm
 		//P = L[c(1 + c)^n]/[(1 + c)^n - 1]
@@ -30,7 +42,6 @@ export const IPCAnalysis = (props) => {
 
 
 		//review array functions including filter
-	let capRate = 7.83;
 	return(
 		<div className = 'ipc-analysis-container'>
 			<div>
@@ -42,117 +53,6 @@ export const IPCAnalysis = (props) => {
 				<span className = {capRate > 0 ? 'green' : 'red'}>{capRate}%</span>
 			</div>
 			{tierOne.map( (tierOneName, i) => {
-				let testArr = [];
-				let incomeSummary = {
-					gpi:{
-						total: {
-							monthly:0,
-							annual:0
-						},
-						totals: {
-							retail:{
-								monthly:[],
-								annual:[]
-							},
-							other:{
-								monthly:[],
-								annual:[]
-							},
-							rental:{
-								monthly:[],
-								annual:[]
-							}
-						},
-						tooltip:{
-							monthly:{
-								location: 'left',
-								cssClassAdd:'calc',
-								sign:'plus',
-								figures:[],
-								total:''
-							},
-							annual:{
-								location: 'bottom',
-								cssClassAdd:'calc',
-								sign: 'plus',
-								figures:[],
-								total:''
-							}
-						}
-					},
-					vacancy:{
-						total: {monthly:0, annual:0},
-						tooltip:{
-							monthly:{
-								location: 'left',
-								cssClassAdd:'calc',
-								sign: 'multiply',
-								figures:[],
-								total:''
-							},
-							annual:{
-								location: 'bottom',
-								cssClassAdd:'calc',
-								sign: 'multiply',
-								figures:[],
-								total:''
-							}
-						}
-					},
-					collections:{
-						total: {monthly:0, annual:0},
-						tooltip:{
-							monthly:{
-								location: 'left',
-								cssClassAdd:'calc',
-								sign: 'multiply',
-								figures:[],
-								total:''
-							},
-							annual:{
-								location: 'bottom',
-								cssClassAdd:'calc',
-								sign: 'multiply',
-								figures:[],
-								total:''
-							}
-						}
-					},
-					egi:{
-						total: {monthly:0, annual:0},
-						tooltip:{
-							monthly:{
-								location: 'left',
-								cssClassAdd:'calc',
-								sign: 'subtract',
-								figures:[],
-								total:''
-							},
-							annual:{
-								location: 'bottom',
-								cssClassAdd:'calc',
-								sign: 'subtract',
-								figures:[],
-								total:''
-							}
-						}
-					}
-				};
-				let incomeSummaryOrder = [
-					{
-						obj:'gpi',
-						display: 'Gross Potential Income (GPI)'
-					},{
-						obj: 'vacancy',
-						display: 'Vacancy'
-					},{
-						obj: 'collections',
-						display: 'Collections'
-					},{
-						obj: 'egi',
-						display: 'Effective Gross Income (EGI)'
-					}
-				];
 				return(
 					<div className = 'results-container' key = {i}>
 						<div className = 'rc-side-header'>
@@ -164,6 +64,7 @@ export const IPCAnalysis = (props) => {
 								<div className = 'table-container' key = {j}>
 									<table>
 										<tbody>
+											{tierOneName === 'income' ?
 											<tr>
 												<th>{tierTwoName.display}</th>
 												<th>unit #</th>
@@ -173,35 +74,60 @@ export const IPCAnalysis = (props) => {
 												<th>monthly</th>
 												<th>annual</th>
 											</tr>
+											:
+											<tr>
+												<th>{tierTwoName.display}</th>
+												<th>monthly</th>
+												<th>annual</th>
+											</tr>
+											}
 											<tr></tr>
 											{fields[tierOneName][tierTwoName.obj].map( (contents, k) => {
 												total.monthly.push(contents.value.monthly===''?0:contents.value.monthly);
 												total.annual.push(contents.value.annual===''?0:contents.value.annual);
-												if(tierOneName==='income'){
+												if(tierOneName === 'income'){
 													incomeSummary.gpi.totals[tierTwoName.obj].monthly.push(contents.value.monthly===''?0:contents.value.monthly);
 													incomeSummary.gpi.totals[tierTwoName.obj].annual.push(contents.value.annual === '' ? 0 : contents.value.annual);
+													return(
+														<tr key = {k}>
+															<td>{contents.name}</td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td>{contents.value.monthly === '' ? '-' : contents.value.preEntry + withCommas(contents.value.monthly)}</td>
+															<td>{contents.value.annual === '' ? '-' : contents.value.preEntry+withCommas(contents.value.annual)}</td>
+														</tr>
+													);
+												}else if(tierOneName === 'expenses'){
+													expensesSummary.oe.totals[tierTwoName.obj].monthly.push(contents.value.monthly===''?0:contents.value.monthly);
+													expensesSummary.oe.totals[tierTwoName.obj].annual.push(contents.value.annual === '' ? 0 : contents.value.annual);
+													return(
+														<tr key = {k}>
+															<td>{contents.name}</td>
+															<td>{contents.value.monthly === '' ? '-' : contents.value.preEntry + withCommas(contents.value.monthly)}</td>
+															<td>{contents.value.annual === '' ? '-' : contents.value.preEntry+withCommas(contents.value.annual)}</td>
+														</tr>
+													);
 												}
-												return(
-													<tr key = {k}>
-														<td>{contents.name}</td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td>{contents.value.monthly === '' ? '-' : contents.value.preEntry + withCommas(contents.value.monthly)}</td>
-														<td>{contents.value.annual === '' ? '-' : contents.value.preEntry+withCommas(contents.value.annual)}</td>
-													</tr>
-												);
 											})}
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td className = 'capitalize'>{tierTwoName.display} {tierOneName} Total:</td>
-												<td className = 'ttt-container'>${withCommas(''+total.monthly.reduce((total, num) => total + parseInt(num), 0))}</td>
-												<td className = 'ttt-container'>${withCommas(''+total.annual.reduce((total, num) => total + parseInt(num), 0))}</td>
-											</tr>
+											{tierOneName === 'income'?
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td className = 'capitalize'>{tierTwoName.display} {tierOneName} Total:</td>
+													<td className = 'ttt-container'>${withCommas(''+total.monthly.reduce((total, num) => total + parseInt(num), 0))}</td>
+													<td className = 'ttt-container'>${withCommas(''+total.annual.reduce((total, num) => total + parseInt(num), 0))}</td>
+												</tr>
+											:
+												<tr>
+													<td className = 'capitalize'>{tierTwoName.display} {tierOneName} Total:</td>
+													<td className = 'ttt-container'>${withCommas(''+total.monthly.reduce((total, num) => total + parseInt(num), 0))}</td>
+													<td className = 'ttt-container'>${withCommas(''+total.annual.reduce((total, num) => total + parseInt(num), 0))}</td>
+												</tr>
+											}
 										</tbody>
 									</table>
 								</div>
@@ -245,10 +171,10 @@ export const IPCAnalysis = (props) => {
 									incomeSummary.egi.tooltip.annual.total = (incomeSummary.gpi.total.annual - incomeSummary.vacancy.total.annual - incomeSummary.collections.total.annual).toFixed(2);
 									if(m===0){
 										incomeSummary.gpi.tooltip.monthly.figures.push('total retail rental income: $'+ retailTotalMonthly);
-										incomeSummary.gpi.tooltip.monthly.figures.push('total other income total: $'+ otherTotalMonthly);
+										incomeSummary.gpi.tooltip.monthly.figures.push('total other income: $'+ otherTotalMonthly);
 										incomeSummary.gpi.tooltip.monthly.figures.push('total residential rental income: $'+ resTotalMonthly);
 										incomeSummary.gpi.tooltip.annual.figures.push('total retail rental income: $'+ retailTotalAnnual);
-										incomeSummary.gpi.tooltip.annual.figures.push('total other income total: $'+ otherTotalAnnual);
+										incomeSummary.gpi.tooltip.annual.figures.push('total other income: $'+ otherTotalAnnual);
 										incomeSummary.gpi.tooltip.annual.figures.push('total residential rental income: $'+ resTotalAnnual);
 										//vacancy tooltip
 										incomeSummary.vacancy.tooltip.monthly.figures.push('GPI: $'+ incomeSummary.gpi.total.monthly,'Vacancy Factor: '+ assumptions.other[0].amount + '%');
@@ -285,12 +211,101 @@ export const IPCAnalysis = (props) => {
 							</tbody>
 						</table>
 						:
-						<div>hello more practicing please thanks. (insert final income or expenses analysis here_)
-						</div>
+						<table>
+							<tbody>
+								<tr>
+									<th></th>
+									<th>monthly</th>
+									<th>annual</th>
+								</tr>
+								<tr></tr>
+								{expensesSummaryOrder.map( (contents, i) => {
+									let carryingCostsTotalMonthly = expensesSummary.oe.totals.carryingCosts.monthly.reduce((total, num) => total + parseInt(num), 0);
+									let utilitiesTotalMonthly = expensesSummary.oe.totals.utilities.monthly.reduce((total, num) => total + parseInt(num), 0);
+									let otherTotalMonthly = expensesSummary.oe.totals.other.monthly.reduce((total, num) => total + parseInt(num), 0);
+									expensesSummary.oe.total.monthly = (carryingCostsTotalMonthly + utilitiesTotalMonthly + otherTotalMonthly).toFixed(2);
+									let carryingCostsTotalAnnual = expensesSummary.oe.totals.carryingCosts.annual.reduce((total, num) => total + parseInt(num), 0);
+									let utilitiesTotalAnnual = expensesSummary.oe.totals.utilities.annual.reduce((total, num) => total + parseInt(num), 0);
+									let otherTotalAnnual = expensesSummary.oe.totals.other.annual.reduce((total, num) => total + parseInt(num), 0);
+									expensesSummary.oe.total.annual = (carryingCostsTotalAnnual + utilitiesTotalAnnual + otherTotalAnnual).toFixed(2);
+									//gpi tooltip calculations
+									expensesSummary.oe.tooltip.monthly.total = expensesSummary.oe.total.monthly;
+									expensesSummary.oe.tooltip.annual.total = expensesSummary.oe.total.annual;
+									if(i===0){
+										expensesSummary.oe.tooltip.monthly.figures.push('total carrying costs: $'+ carryingCostsTotalMonthly);
+										expensesSummary.oe.tooltip.monthly.figures.push('total utilities costs: $'+ utilitiesTotalMonthly);
+										expensesSummary.oe.tooltip.monthly.figures.push('total other costs: $'+ otherTotalMonthly);
+										expensesSummary.oe.tooltip.annual.figures.push('total carrying costs: $'+ carryingCostsTotalAnnual);
+										expensesSummary.oe.tooltip.annual.figures.push('total utilities costs: $'+ utilitiesTotalAnnual);
+										expensesSummary.oe.tooltip.annual.figures.push('total other costs: $'+ otherTotalAnnual);
+									}
+									return(
+										<tr key = {i}>
+											<td className = 'capitalize'>{contents.display}</td>
+											<td className = 'ttt-container'>${withCommas(''+expensesSummary[contents.obj].total.monthly)}
+												<Tooltip
+													content = {expensesSummary[contents.obj].tooltip.monthly}
+													displayType = 'calculation'
+												/>
+											</td>
+											<td className = 'ttt-container'>${withCommas(''+expensesSummary[contents.obj].total.annual)}
+												<Tooltip
+													content = {expensesSummary[contents.obj].tooltip.annual}
+													displayType = 'calculation'
+												/>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
 						}
 					</div>
 				);
 			})}
+			<table>
+				<tbody>
+					<tr>
+						<th></th>
+						<th>monthly</th>
+						<th>annual</th>
+					</tr>
+					<tr></tr>
+					{noiSummary.map( (content, i) => {
+						noiSummary[0].total.monthly = (incomeSummary.egi.total.monthly - expensesSummary.oe.total.monthly).toFixed(2);
+						noiSummary[0].total.annual = (incomeSummary.egi.total.annual - expensesSummary.oe.total.annual).toFixed(2)	
+						//tooltip calculations
+						noiSummary[0].tooltip.monthly.total = noiSummary[0].total.monthly;
+						noiSummary[0].tooltip.annual.total = noiSummary[0].total.annual;
+						capRate = 100 * noiSummary[0].total.annual / fields.purchasePrice[0].value.amount;
+						console.log(capRate);
+						if(i===0){
+							noiSummary[0].tooltip.monthly.figures.push('EGI: $'+ incomeSummary.egi.total.monthly);
+							noiSummary[0].tooltip.monthly.figures.push('total operating expenses: $'+ expensesSummary.oe.total.monthly);
+							noiSummary[0].tooltip.annual.figures.push('EGI: $'+ incomeSummary.egi.total.annual);
+							noiSummary[0].tooltip.annual.figures.push('total operating expenses: $'+ expensesSummary.oe.total.annual);
+						}
+						return(
+							<tr key = {i}>
+								<td className = 'capitalize'>Net Operating Income</td>
+								<td className = 'ttt-container'>${withCommas(''+content.total.monthly)}
+									<Tooltip
+										content = {content.tooltip.monthly}
+										displayType = 'calculation'
+									/>
+								</td>
+								<td className = 'ttt-container'>${withCommas(''+content.total.annual)}
+									<Tooltip
+										content = {content.tooltip.annual}
+										displayType = 'calculation'
+									/>
+								</td>
+							</tr>
+						);
+					})}
+		
+				</tbody>
+			</table>
 		{/*
 			https://javascriptweblog.wordpress.com/2010/07/26/no-more-ifs-alternatives-to-statement-branching-in-javascript/
 			http://fontawesome.io/examples/#animated

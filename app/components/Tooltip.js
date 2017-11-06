@@ -5,19 +5,19 @@ export const Tooltip = (props) => {
 	let cssClass = 'tooltiptext';
 	switch(content.location){
 		case 'bottom':
+			content.cssClassAdd === 'calc' ? cssClass = 'calc-tooltip' : '';
 			cssClass += ' ttt-bottom';
-			content.cssClassAdd === 'calc' ? cssClass += ' calc-tooltip' : '';
 			break;
 		case 'top':
+			content.cssClassAdd === 'calc' ? cssClass = 'calc-tooltip' : ''; 
 			cssClass += ' ttt-top';
-			content.cssClassAdd === 'calc' ? cssClass += ' calc-tooltip' : ''; 
 			break;
 		case 'right':
 			cssClass += ' ttt-right';
 			break;
 		case 'left':
+			content.cssClassAdd === 'calc' ? cssClass = 'calc-tooltip' : ''; 
 			cssClass += ' ttt-left';
-			content.cssClassAdd === 'calc' ? cssClass += ' calc-tooltip' : ''; 
 			break;
 		case 'right-alert':
 			cssClass =  'ttt-alert ttt-right';
@@ -67,7 +67,7 @@ export const Tooltip = (props) => {
 						<span key = {i} className = 'figures'>{number ? sign+number : ''}</span>
 					);
 				})}
-				<span>${content.total}</span>
+				<span className = 'total'>${content.total}</span>
 			</div>
 			:
 			content.textStart + ' ' + inputName + ' ' + content.textEnd

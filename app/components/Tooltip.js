@@ -15,6 +15,10 @@ export const Tooltip = (props) => {
 		case 'right':
 			cssClass += ' ttt-right';
 			break;
+		case 'left':
+			cssClass += ' ttt-left';
+			content.cssClassAdd === 'calc' ? cssClass += ' calc-tooltip' : ''; 
+			break;
 		case 'right-alert':
 			cssClass =  'ttt-alert ttt-right';
 			content.showVmes ? cssClass += ' alert-visible' : '';
@@ -49,12 +53,21 @@ export const Tooltip = (props) => {
 			displayType === 'calculation' ?
 			<div>
 				{content.figures.map((number, i) => {
-					let sign = i !== 0 ? '+' : '';
+					let sign = '';
+					if(i!==0){
+						if(content.sign === 'plus'){
+							sign = '+ ';
+						}else if(content.sign === 'multiply'){
+							sign = 'x ';
+						}else if(content.sign === 'subtract'){
+							sign = '- ';
+						}
+					}
 					return(
 						<span key = {i} className = 'figures'>{number ? sign+number : ''}</span>
 					);
 				})}
-				<span>{content.total}</span>
+				<span>${content.total}</span>
 			</div>
 			:
 			content.textStart + ' ' + inputName + ' ' + content.textEnd

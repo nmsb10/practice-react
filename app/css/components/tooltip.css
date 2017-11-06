@@ -87,6 +87,12 @@ https://www.w3schools.com/css/css_tooltip.asp*/
     transform: translateY(-50%);
 }
 
+.ttt-left{
+    right:105%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 /* Tooltip arrows */
 .tooltiptext::after {
     content: "";
@@ -120,6 +126,12 @@ https://www.w3schools.com/css/css_tooltip.asp*/
     right: 100%;
     top: 50%;
     border-color: transparent rgba(255, 0, 0, 0.8) transparent transparent;
+}
+
+.ttt-left::after {
+    left: 100%;
+    top: 50%;
+    border-color: transparent transparent transparent #555;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */

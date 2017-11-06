@@ -30,22 +30,23 @@ export const IPCAnalysis = (props) => {
 
 
 		//review array functions including filter
+	let capRate = 7.83;
 	return(
 		<div className = 'ipc-analysis-container'>
 			<div>
 				<span>purchase price:</span>
 				<span>{fields.purchasePrice[0].value.preEntry}{fields.purchasePrice[0].value.amount === '' ? '-0-' : withCommas(fields.purchasePrice[0].value.amount)}</span>
 			</div>
-			<div>
+			<div className = 'cap-rate-cont'>
 				<span>capitalization rate:</span>
-				<span>7.83%</span>
+				<span className = {capRate > 0 ? 'green' : 'red'}>{capRate}%</span>
 			</div>
 			{tierOne.map( (tierOneName, i) => {
 				let testArr = [];
 				let incomeSummary = {
 					gpi:{
 						total: {
-							monthly:50,
+							monthly:0,
 							annual:0
 						},
 						totals: {
@@ -64,16 +65,18 @@ export const IPCAnalysis = (props) => {
 						},
 						tooltip:{
 							monthly:{
-								location: 'bottom',
+								location: 'left',
 								cssClassAdd:'calc',
+								sign:'plus',
 								figures:[],
-								total:'total monthly'
+								total:''
 							},
 							annual:{
 								location: 'bottom',
 								cssClassAdd:'calc',
+								sign: 'plus',
 								figures:[],
-								total:'total annual'
+								total:''
 							}
 						}
 					},
@@ -81,17 +84,18 @@ export const IPCAnalysis = (props) => {
 						total: {monthly:0, annual:0},
 						tooltip:{
 							monthly:{
-								location: 'bottom',
+								location: 'left',
 								cssClassAdd:'calc',
-								figures:['GPI: '+ 'incomeSummary.gpi.total.monthly','x Vacancy Factor: '+assumptions.other[0].amount],
-								//figures:['GPI: '+ incomeSummary.gpi.total.monthly,'x Vacancy Factor: '+assumptions.other[0].amount],
-								total:'vacancy total monthly'
+								sign: 'multiply',
+								figures:[],
+								total:''
 							},
 							annual:{
 								location: 'bottom',
 								cssClassAdd:'calc',
-								figures:['GPI: '+ 'incomeSummary.gpi.total.annual', 'x Vacancy Factor: '+assumptions.other[0].amount],
-								total:'vacancy total annual'
+								sign: 'multiply',
+								figures:[],
+								total:''
 							}
 						}
 					},
@@ -99,16 +103,18 @@ export const IPCAnalysis = (props) => {
 						total: {monthly:0, annual:0},
 						tooltip:{
 							monthly:{
-								location: 'bottom',
+								location: 'left',
 								cssClassAdd:'calc',
+								sign: 'multiply',
 								figures:[],
-								total:'total monthly'
+								total:''
 							},
 							annual:{
 								location: 'bottom',
 								cssClassAdd:'calc',
+								sign: 'multiply',
 								figures:[],
-								total:'total annual'
+								total:''
 							}
 						}
 					},
@@ -116,16 +122,18 @@ export const IPCAnalysis = (props) => {
 						total: {monthly:0, annual:0},
 						tooltip:{
 							monthly:{
-								location: 'bottom',
+								location: 'left',
 								cssClassAdd:'calc',
+								sign: 'subtract',
 								figures:[],
-								total:'total monthly'
+								total:''
 							},
 							annual:{
 								location: 'bottom',
 								cssClassAdd:'calc',
+								sign: 'subtract',
 								figures:[],
-								total:'total annual'
+								total:''
 							}
 						}
 					}
@@ -173,8 +181,6 @@ export const IPCAnalysis = (props) => {
 													incomeSummary.gpi.totals[tierTwoName.obj].monthly.push(contents.value.monthly===''?0:contents.value.monthly);
 													incomeSummary.gpi.totals[tierTwoName.obj].annual.push(contents.value.annual === '' ? 0 : contents.value.annual);
 												}
-												//tooltip.monthly.figures.push(contents.value.monthly);
-												//tooltip.annual.figures.push(contents.value.annual);
 												return(
 													<tr key = {k}>
 														<td>{contents.name}</td>
@@ -214,16 +220,50 @@ export const IPCAnalysis = (props) => {
 									let retailTotalMonthly = incomeSummary.gpi.totals.retail.monthly.reduce((total, num) => total + parseInt(num), 0);
 									let otherTotalMonthly = incomeSummary.gpi.totals.other.monthly.reduce((total, num) => total + parseInt(num), 0);
 									let resTotalMonthly = incomeSummary.gpi.totals.rental.monthly.reduce((total, num) => total + parseInt(num), 0);
-									incomeSummary.gpi.tooltip.monthly.total = retailTotalMonthly + otherTotalMonthly + resTotalMonthly;
-									incomeSummary.gpi.total.monthly = retailTotalMonthly + otherTotalMonthly + resTotalMonthly;
+									incomeSummary.gpi.total.monthly = (retailTotalMonthly + otherTotalMonthly + resTotalMonthly).toFixed(2);
+									let retailTotalAnnual = incomeSummary.gpi.totals.retail.annual.reduce((total, num) => total + parseInt(num), 0);
+									let otherTotalAnnual = incomeSummary.gpi.totals.other.annual.reduce((total, num) => total + parseInt(num), 0);
+									let resTotalAnnual = incomeSummary.gpi.totals.rental.annual.reduce((total, num) => total + parseInt(num), 0);
+									incomeSummary.gpi.total.annual = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual).toFixed(2);
+									//gpi tooltip calculations
+									incomeSummary.gpi.tooltip.monthly.total = (retailTotalMonthly + otherTotalMonthly + resTotalMonthly).toFixed(2);
+									incomeSummary.gpi.tooltip.annual.total = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual).toFixed(2);
+									//vacancy totals and tooltip totals
+									incomeSummary.vacancy.total.monthly = (assumptions.other[0].amount * 0.01 * incomeSummary.gpi.total.monthly).toFixed(2);
+									incomeSummary.vacancy.total.annual = (assumptions.other[0].amount * 0.01 * incomeSummary.gpi.total.annual).toFixed(2);
+									incomeSummary.vacancy.tooltip.monthly.total = (assumptions.other[0].amount * 0.01 * incomeSummary.gpi.total.monthly).toFixed(2);
+									incomeSummary.vacancy.tooltip.annual.total = (assumptions.other[0].amount * 0.01 * incomeSummary.gpi.total.annual).toFixed(2);
+									//collections totals and tooltip totals
+									incomeSummary.collections.total.monthly = (assumptions.other[1].amount * 0.01 * incomeSummary.gpi.total.monthly).toFixed(2);
+									incomeSummary.collections.total.annual = (assumptions.other[1].amount * 0.01 * incomeSummary.gpi.total.annual).toFixed(2);
+									incomeSummary.collections.tooltip.monthly.total = (assumptions.other[1].amount * 0.01 * incomeSummary.gpi.total.monthly).toFixed(2);
+									incomeSummary.collections.tooltip.annual.total = (assumptions.other[1].amount * 0.01 * incomeSummary.gpi.total.annual).toFixed(2);
+									//egi totals and tooltip totals
+									incomeSummary.egi.total.monthly = (incomeSummary.gpi.total.monthly - incomeSummary.vacancy.total.monthly - incomeSummary.collections.total.monthly).toFixed(2);
+									incomeSummary.egi.total.annual = (incomeSummary.gpi.total.annual - incomeSummary.vacancy.total.annual - incomeSummary.collections.total.annual).toFixed(2);
+									incomeSummary.egi.tooltip.monthly.total = (incomeSummary.gpi.total.monthly - incomeSummary.vacancy.total.monthly - incomeSummary.collections.total.monthly).toFixed(2);
+									incomeSummary.egi.tooltip.annual.total = (incomeSummary.gpi.total.annual - incomeSummary.vacancy.total.annual - incomeSummary.collections.total.annual).toFixed(2);
 									if(m===0){
-										incomeSummary.gpi.tooltip.monthly.figures.push('totalretail rental income: $'+ retailTotalMonthly);
+										incomeSummary.gpi.tooltip.monthly.figures.push('total retail rental income: $'+ retailTotalMonthly);
 										incomeSummary.gpi.tooltip.monthly.figures.push('total other income total: $'+ otherTotalMonthly);
 										incomeSummary.gpi.tooltip.monthly.figures.push('total residential rental income: $'+ resTotalMonthly);
+										incomeSummary.gpi.tooltip.annual.figures.push('total retail rental income: $'+ retailTotalAnnual);
+										incomeSummary.gpi.tooltip.annual.figures.push('total other income total: $'+ otherTotalAnnual);
+										incomeSummary.gpi.tooltip.annual.figures.push('total residential rental income: $'+ resTotalAnnual);
+										//vacancy tooltip
+										incomeSummary.vacancy.tooltip.monthly.figures.push('GPI: $'+ incomeSummary.gpi.total.monthly,'Vacancy Factor: '+ assumptions.other[0].amount + '%');
+										incomeSummary.vacancy.tooltip.annual.figures.push('GPI: $'+ incomeSummary.gpi.total.annual,'Vacancy Factor: '+ assumptions.other[0].amount + '%');
+										//collections tooltip
+										incomeSummary.collections.tooltip.monthly.figures.push('GPI: $'+ incomeSummary.gpi.total.monthly,'Collections Factor: '+ assumptions.other[1].amount + '%');
+										incomeSummary.collections.tooltip.annual.figures.push('GPI: $'+ incomeSummary.gpi.total.annual,'Collections Factor: '+ assumptions.other[1].amount + '%');
+										//egi tooltip
+										incomeSummary.egi.tooltip.monthly.figures.push('GPI: $'+ incomeSummary.gpi.total.monthly);
+										incomeSummary.egi.tooltip.monthly.figures.push('Vacancy total: $'+ incomeSummary.vacancy.total.monthly);
+										incomeSummary.egi.tooltip.monthly.figures.push('Collections total: $'+ incomeSummary.collections.total.monthly);
+										incomeSummary.egi.tooltip.annual.figures.push('GPI: $'+ incomeSummary.gpi.total.annual);
+										incomeSummary.egi.tooltip.annual.figures.push('Vacancy total: $'+ incomeSummary.vacancy.total.annual);
+										incomeSummary.egi.tooltip.annual.figures.push('Collections: $'+ incomeSummary.collections.total.annual);
 									}
-									incomeSummary.vacancy.total.monthly = (assumptions.other[0].amount * 0.01 * incomeSummary.gpi.total.monthly).toFixed(2);
-									incomeSummary.collections.total.monthly = (assumptions.other[1].amount * 0.01 * incomeSummary.gpi.total.monthly).toFixed(2);
-									incomeSummary.egi.total.monthly = (incomeSummary.gpi.total.monthly - incomeSummary.vacancy.total.monthly - incomeSummary.collections.total.monthly).toFixed(2);
 									return(
 										<tr key = {m}>
 											<td className = 'capitalize'>{contents.display}</td>

@@ -51,7 +51,7 @@ export const Tooltip = (props) => {
 				{content.figures.map((number, i) => {
 					let sign = i !== 0 ? '+' : '';
 					return(
-						<span key = {i}>{sign}{number}</span>
+						<span key = {i} className = 'figures'>{number ? sign+number : ''}</span>
 					);
 				})}
 				<span>{content.total}</span>

@@ -799,7 +799,8 @@ export class InvestPropCalcContainer extends React.Component{
 			},{
 				obj: 'rental',
 				display: 'Residential Rental'
-			}],[{
+			}],
+			[{
 				obj: 'carryingCosts',
 				display: 'Carrying Costs'
 			},{

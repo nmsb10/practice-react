@@ -35,9 +35,11 @@ export const LoginModal = (props) => {
 							placeholder = 'password'
 							onChange = {onChange}
 						/>
+						NB: input type should be "password" for a password input
+						(see below)
 					*/}
 						<input
-							type = 'password'
+							type = 'text'
 							id = 'password'
 							value = {loginForm.passwordHidden}
 							placeholder = 'password'

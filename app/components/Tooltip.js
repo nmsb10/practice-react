@@ -67,7 +67,7 @@ export const Tooltip = (props) => {
 						<span key = {i} className = 'figures'>{number ? sign+number : ''}</span>
 					);
 				})}
-				<span className = 'total'>${content.total}</span>
+				<span className = 'total'>= ${content.total}</span>
 			</div>
 			:
 			content.textStart + ' ' + inputName + ' ' + content.textEnd

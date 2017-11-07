@@ -15,7 +15,15 @@ export const IPCAnalysis = (props) => {
 		expensesSummaryOrder,
 		noiSummary,
 	} = props;
-	let capRate = 100 * noiSummary[0].total.annual / fields.purchasePrice[0].value.amount || 0;
+	let capRate = {
+		value: 100 * noiSummary[0].total.annual / fields.purchasePrice[0].value.amount || 0,
+		tooltip:{
+			textStart: '',
+			location: 'top',
+			textEnd:'%'
+		}
+	};
+
 		//https://www.mtgprofessor.com/formulas.htm
 		//P = L[c(1 + c)^n]/[(1 + c)^n - 1]
 		//P = monthly payment
@@ -49,7 +57,14 @@ export const IPCAnalysis = (props) => {
 			</div>
 			<div className = 'cap-rate-cont'>
 				<span>capitalization rate:</span>
-				<span className = {capRate > 0 ? 'green' : 'red'}>{capRate}%</span>
+				<span className = {capRate.value > 0 ? 'ttt-container green' : 'ttt-container red'}>
+					{capRate.value.toFixed(2)}%
+					<Tooltip
+						content = {capRate.tooltip}
+						inputName = {capRate.value}
+						displayType = 'normal'
+					/>
+				</span>
 			</div>
 			{tierOne.map( (tierOneName, i) => {
 				return(

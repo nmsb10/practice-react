@@ -17,6 +17,29 @@ export class InvestPropCalcContainer extends React.Component{
 				percentage: ['a percentage'],
 				string:['a string']
 			},
+			tierOne: ['income', 'expenses'],
+			tierTwo: [
+				[{
+					obj:'retail',
+					display:'Retail Rental'
+				},{
+					obj: 'other',
+					display: 'Other'
+				},{
+					obj: 'rental',
+					display: 'Residential Rental'
+				}],
+				[{
+					obj: 'carryingCosts',
+					display: 'Carrying Costs'
+				},{
+					obj: 'utilities',
+					display: 'Utilities'
+				},{
+					obj: 'other',
+					display: 'Other'
+				}]
+			],
 			formFields:{
 				purchasePrice:[
 					{
@@ -521,7 +544,240 @@ export class InvestPropCalcContainer extends React.Component{
 					// 	aia:3.00,//assessments increase annual
 					// 	ria:2.00,//rent increase annual
 				]
-			}
+			},
+			incomeSummary: {
+				gpi:{
+					total: {
+						monthly:0,
+						annual:0
+					},
+					totals: {
+						retail:{
+							monthly:0,
+							annual:0
+						},
+						other:{
+							monthly:0,
+							annual:0
+						},
+						rental:{
+							monthly:0,
+							annual:0
+						}
+					},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign:'plus',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'plus',
+							figures:[],
+							total:''
+						}
+					}
+				},
+				vacancy:{
+					total: {monthly:0, annual:0},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign: 'multiply',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'multiply',
+							figures:[],
+							total:''
+						}
+					}
+				},
+				collections:{
+					total: {monthly:0, annual:0},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign: 'multiply',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'multiply',
+							figures:[],
+							total:''
+						}
+					}
+				},
+				egi:{
+					total: {monthly:0, annual:0},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign: 'subtract',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'subtract',
+							figures:[],
+							total:''
+						}
+					}
+				}
+			},
+			expensesSummary: {
+				oe:{//operating expenses
+					total: {
+						monthly:0,
+						annual:0
+					},
+					totals: {
+						carryingCosts:{
+							monthly:[],
+							annual:[]
+						},
+						utilities:{
+							monthly:[],
+							annual:[]
+						},
+						other:{
+							monthly:[],
+							annual:[]
+						}
+					},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign:'plus',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'plus',
+							figures:[],
+							total:''
+						}
+					}
+				},
+				carryingCosts:{
+					total: {monthly:0, annual:0},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign: 'add',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'add',
+							figures:[],
+							total:''
+						}
+					}
+				},
+				utilities:{
+					total: {monthly:0, annual:0},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign: 'add',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'add',
+							figures:[],
+							total:''
+						}
+					}
+				},
+				other:{
+					total: {monthly:0, annual:0},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign: 'add',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'add',
+							figures:[],
+							total:''
+						}
+					}
+				}
+			},
+			noiSummary: [{
+				total: {
+					monthly:0,
+					annual:0					
+				},
+				tooltip:{
+					monthly:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign:'subtract',
+						figures:[],
+						total:''
+					},
+					annual:{
+						location: 'left',
+						cssClassAdd:'calc',
+						sign: 'subtract',
+						figures:[],
+						total:''
+					}
+				}
+			}],
+			incomeSummaryOrder: [
+				{
+					obj:'gpi',
+					display: 'Gross Potential Income (GPI)'
+				},{
+					obj: 'vacancy',
+					display: 'Vacancy'
+				},{
+					obj: 'collections',
+					display: 'Collections'
+				},{
+					obj: 'egi',
+					display: 'Effective Gross Income (EGI)'
+				}
+			],
+			expensesSummaryOrder: [
+				{
+					obj:'oe',
+					display: 'Operating Expenses'
+				}
+			]
 		};
 		this.calculate = this.calculate.bind(this);
 		this.updateFormFields = this.updateFormFields.bind(this);
@@ -530,6 +786,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.randomEntry = this.randomEntry.bind(this);
 		this.updateAssumptions = this.updateAssumptions.bind(this);
 		this.withCommas = this.withCommas.bind(this);
+		this.updateSummaryContents = this.updateSummaryContents.bind(this);
 	}
 	calculate(e){
 		e.preventDefault();
@@ -566,6 +823,7 @@ export class InvestPropCalcContainer extends React.Component{
 			this.setState({
 				assumptions: newAssumptions
 			});
+			this.updateSummaryContents();
 			// switch(valueType){
 			// 	case 'integer':
 			// 		newValue % 1 === 0 ? changeValue = true: changeValue = false;
@@ -628,6 +886,164 @@ export class InvestPropCalcContainer extends React.Component{
 		this.setState({
 			formFields: newFormFields
 		});
+		if(e.target.dataset.request !== 'changeFieldName'){
+			this.updateSummaryContents();
+		}
+	}
+	updateSummaryContents(){
+		let {
+			tierOne,
+			tierTwo,
+			formFields,
+			assumptions,
+			incomeSummary,
+			expensesSummary,
+			noiSummary,
+			incomeSummaryOrder,
+			expensesSummaryOrder
+		} = this.state;
+		//first must reset values
+		let incomeSummaryCopy = incomeSummary;
+		let expensesSummaryCopy = expensesSummary;
+		let noiSummaryCopy = noiSummary;
+		tierOne.map((tierOneName, i) => {
+				tierTwo[i].map( (tierTwoName, j) => {
+					//first must reset values
+					if(tierOneName === 'income'){
+						incomeSummaryCopy.gpi.totals[tierTwoName.obj].monthly = 0;
+						incomeSummaryCopy.gpi.totals[tierTwoName.obj].annual = 0;
+					}else if(tierOneName === 'expenses'){
+						expensesSummaryCopy.oe.totals[tierTwoName.obj].monthly = 0;
+						expensesSummaryCopy.oe.totals[tierTwoName.obj].annual = 0;
+					}
+						formFields[tierOneName][tierTwoName.obj].map( (contents, k) => {
+							let monthlyValue = contents.value.monthly === '' ? 0 : parseInt(contents.value.monthly);
+							let annualValue = contents.value.annual === '' ? 0 : parseInt(contents.value.annual);
+							if(tierOneName === 'income'){
+								incomeSummaryCopy.gpi.totals[tierTwoName.obj].monthly += monthlyValue;
+								incomeSummaryCopy.gpi.totals[tierTwoName.obj].annual += annualValue;
+							}else if(tierOneName === 'expenses'){
+								expensesSummaryCopy.oe.totals[tierTwoName.obj].monthly += monthlyValue;
+								expensesSummaryCopy.oe.totals[tierTwoName.obj].annual += annualValue;
+							}
+						});
+				});
+		});
+		//former method when the totals for each section were separate integers in an array
+		//let retailTotalMonthly = incomeSummaryCopy.gpi.totals.retail.monthly.reduce((total, num) => total + parseInt(num), 0);
+		//let otherTotalMonthly = incomeSummaryCopy.gpi.totals.other.monthly.reduce((total, num) => total + parseInt(num), 0);
+		//let resTotalMonthly = incomeSummaryCopy.gpi.totals.rental.monthly.reduce((total, num) => total + parseInt(num), 0);
+		let retailTotalMonthly = incomeSummaryCopy.gpi.totals.retail.monthly;
+		let otherTotalMonthly = incomeSummaryCopy.gpi.totals.other.monthly;
+		let resTotalMonthly = incomeSummaryCopy.gpi.totals.rental.monthly;
+		incomeSummaryCopy.gpi.total.monthly = (retailTotalMonthly + otherTotalMonthly + resTotalMonthly).toFixed(2);
+		let retailTotalAnnual = incomeSummaryCopy.gpi.totals.retail.annual;
+		let otherTotalAnnual = incomeSummaryCopy.gpi.totals.other.annual;
+		let resTotalAnnual = incomeSummaryCopy.gpi.totals.rental.annual;
+		incomeSummaryCopy.gpi.total.annual = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual).toFixed(2);
+		//gpi tooltip calculations
+		incomeSummaryCopy.gpi.tooltip.monthly.total = (retailTotalMonthly + otherTotalMonthly + resTotalMonthly).toFixed(2);
+		incomeSummaryCopy.gpi.tooltip.annual.total = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual).toFixed(2);
+		//vacancy totals and tooltip totals
+		incomeSummaryCopy.vacancy.total.monthly = (assumptions.other[0].amount * 0.01 * incomeSummaryCopy.gpi.total.monthly).toFixed(2);
+		incomeSummaryCopy.vacancy.total.annual = (assumptions.other[0].amount * 0.01 * incomeSummaryCopy.gpi.total.annual).toFixed(2);
+		incomeSummaryCopy.vacancy.tooltip.monthly.total = (assumptions.other[0].amount * 0.01 * incomeSummaryCopy.gpi.total.monthly).toFixed(2);
+		incomeSummaryCopy.vacancy.tooltip.annual.total = (assumptions.other[0].amount * 0.01 * incomeSummaryCopy.gpi.total.annual).toFixed(2);
+		//collections totals and tooltip totals
+		incomeSummaryCopy.collections.total.monthly = (assumptions.other[1].amount * 0.01 * incomeSummaryCopy.gpi.total.monthly).toFixed(2);
+		incomeSummaryCopy.collections.total.annual = (assumptions.other[1].amount * 0.01 * incomeSummaryCopy.gpi.total.annual).toFixed(2);
+		incomeSummaryCopy.collections.tooltip.monthly.total = (assumptions.other[1].amount * 0.01 * incomeSummaryCopy.gpi.total.monthly).toFixed(2);
+		incomeSummaryCopy.collections.tooltip.annual.total = (assumptions.other[1].amount * 0.01 * incomeSummaryCopy.gpi.total.annual).toFixed(2);
+		//egi totals and tooltip totals
+		incomeSummaryCopy.egi.total.monthly = (incomeSummaryCopy.gpi.total.monthly - incomeSummaryCopy.vacancy.total.monthly - incomeSummaryCopy.collections.total.monthly).toFixed(2);
+		incomeSummaryCopy.egi.total.annual = (incomeSummaryCopy.gpi.total.annual - incomeSummaryCopy.vacancy.total.annual - incomeSummaryCopy.collections.total.annual).toFixed(2);
+		incomeSummaryCopy.egi.tooltip.monthly.total = (incomeSummaryCopy.gpi.total.monthly - incomeSummaryCopy.vacancy.total.monthly - incomeSummaryCopy.collections.total.monthly).toFixed(2);
+		incomeSummaryCopy.egi.tooltip.annual.total = (incomeSummaryCopy.gpi.total.annual - incomeSummaryCopy.vacancy.total.annual - incomeSummaryCopy.collections.total.annual).toFixed(2);
+		//gpi tooltip contents:
+		incomeSummaryCopy.gpi.tooltip.monthly.figures = [];
+		incomeSummaryCopy.gpi.tooltip.monthly.figures.push(
+			'total retail rental income: $'+ retailTotalMonthly,
+			'total other income: $'+ otherTotalMonthly,
+			'total residential rental income: $'+ resTotalMonthly);
+		incomeSummaryCopy.gpi.tooltip.annual.figures = [];
+		incomeSummaryCopy.gpi.tooltip.annual.figures.push(
+			'total retail rental income: $'+ retailTotalAnnual,
+			'total other income: $'+ otherTotalAnnual,
+			'total residential rental income: $'+ resTotalAnnual);
+		//vacancy tooltip
+		incomeSummaryCopy.vacancy.tooltip.monthly.figures = [];
+		incomeSummaryCopy.vacancy.tooltip.monthly.figures.push(
+			'GPI: $'+ incomeSummaryCopy.gpi.total.monthly,
+			'Vacancy Factor: '+ assumptions.other[0].amount + '%');
+		incomeSummaryCopy.vacancy.tooltip.annual.figures = [];
+		incomeSummaryCopy.vacancy.tooltip.annual.figures.push(
+			'GPI: $'+ incomeSummaryCopy.gpi.total.annual,
+			'Vacancy Factor: '+ assumptions.other[0].amount + '%');
+		//collections tooltip
+		incomeSummaryCopy.collections.tooltip.monthly.figures = [];
+		incomeSummaryCopy.collections.tooltip.monthly.figures.push(
+			'GPI: $'+ incomeSummaryCopy.gpi.total.monthly,
+			'Collections Factor: '+ assumptions.other[1].amount + '%');
+		incomeSummaryCopy.collections.tooltip.annual.figures = [];
+		incomeSummaryCopy.collections.tooltip.annual.figures.push(
+			'GPI: $'+ incomeSummaryCopy.gpi.total.annual,
+			'Collections Factor: '+ assumptions.other[1].amount + '%');
+		//egi tooltip
+		incomeSummaryCopy.egi.tooltip.monthly.figures = [];
+		incomeSummaryCopy.egi.tooltip.monthly.figures.push(
+			'GPI: $'+ incomeSummaryCopy.gpi.total.monthly,
+			'Vacancy total: $'+ incomeSummaryCopy.vacancy.total.monthly,
+			'Collections total: $'+ incomeSummaryCopy.collections.total.monthly);
+		incomeSummaryCopy.egi.tooltip.annual.figures = [];
+		incomeSummaryCopy.egi.tooltip.annual.figures.push(
+			'GPI: $'+ incomeSummaryCopy.gpi.total.annual,
+			'Vacancy total: $'+ incomeSummaryCopy.vacancy.total.annual,
+			'Collections: $'+ incomeSummaryCopy.collections.total.annual);
+		//for expenses summary data======================================
+		let carryingCostsTotalMonthly = expensesSummaryCopy.oe.totals.carryingCosts.monthly;
+		let utilitiesTotalMonthly = expensesSummaryCopy.oe.totals.utilities.monthly;
+		let otherExpensesTotalMonthly = expensesSummaryCopy.oe.totals.other.monthly;
+		expensesSummaryCopy.oe.total.monthly = (carryingCostsTotalMonthly + utilitiesTotalMonthly + otherExpensesTotalMonthly).toFixed(2);
+		let carryingCostsTotalAnnual = expensesSummaryCopy.oe.totals.carryingCosts.annual;
+		let utilitiesTotalAnnual = expensesSummaryCopy.oe.totals.utilities.annual;
+		let otherExpensesTotalAnnual = expensesSummaryCopy.oe.totals.other.annual;
+		expensesSummaryCopy.oe.total.annual = (carryingCostsTotalAnnual + utilitiesTotalAnnual + otherExpensesTotalAnnual).toFixed(2);
+		//gpi tooltip calculations
+		expensesSummaryCopy.oe.tooltip.monthly.total = expensesSummaryCopy.oe.total.monthly;
+		expensesSummaryCopy.oe.tooltip.annual.total = expensesSummaryCopy.oe.total.annual;
+		expensesSummaryCopy.oe.tooltip.monthly.figures = [];
+		expensesSummaryCopy.oe.tooltip.monthly.figures.push(
+			'total carrying costs: $'+ carryingCostsTotalMonthly,
+			'total utilities costs: $'+ utilitiesTotalMonthly,
+			'total other costs: $'+ otherExpensesTotalMonthly);
+		expensesSummaryCopy.oe.tooltip.annual.figures = [];
+		expensesSummaryCopy.oe.tooltip.annual.figures.push(
+			'total carrying costs: $'+ carryingCostsTotalAnnual,
+			'total utilities costs: $'+ utilitiesTotalAnnual,
+			'total other costs: $'+ otherExpensesTotalAnnual);
+		//noi calculations=====================================
+		noiSummaryCopy[0].total.monthly = (incomeSummaryCopy.egi.total.monthly - expensesSummaryCopy.oe.total.monthly).toFixed(2);
+		noiSummaryCopy[0].total.annual = (incomeSummaryCopy.egi.total.annual - expensesSummaryCopy.oe.total.annual).toFixed(2);
+		//tooltip calculations
+		noiSummaryCopy[0].tooltip.monthly.total = noiSummaryCopy[0].total.monthly;
+		noiSummaryCopy[0].tooltip.annual.total = noiSummaryCopy[0].total.annual;
+		//insert content of the tooltips
+		noiSummaryCopy[0].tooltip.monthly.figures = [];
+		noiSummaryCopy[0].tooltip.monthly.figures.push(
+			'EGI: $'+ incomeSummaryCopy.egi.total.monthly,
+			'total operating expenses: $'+ expensesSummaryCopy.oe.total.monthly);
+		noiSummaryCopy[0].tooltip.annual.figures = [];
+		noiSummaryCopy[0].tooltip.annual.figures.push(
+			'EGI: $'+ incomeSummaryCopy.egi.total.annual,
+			'total operating expenses: $'+ expensesSummaryCopy.oe.total.annual);
+		let newIncomeSummary = Object.assign({}, incomeSummary, incomeSummaryCopy);
+		let newExpensesSummary = Object.assign({}, expensesSummary, expensesSummaryCopy);
+		//let newNoiSummary = Object.assign({}, noiSummary, noiSummaryCopy);
+		this.setState({
+			incomeSummary: newIncomeSummary,
+			expensesSummary: newExpensesSummary//,
+			//noiSummary: newNoiSummary
+		});
 	}
 	validateInput(obj, newValue, period){
 		let {validationMessages} = this.state;
@@ -684,6 +1100,7 @@ export class InvestPropCalcContainer extends React.Component{
 					obj.value.amount = newValue;
 				}else{
 					if(period === 'monthly'){
+						//must make value a string so the withCommas function may be called on this value
 						obj.value.monthly = newValue + '';
 						obj.value.annual = parseInt(newValue) * 12 + '';
 					}else{//period === 'annual'
@@ -785,265 +1202,16 @@ export class InvestPropCalcContainer extends React.Component{
 	}
 	render(){
 		let {
-				formFields,
-				assumptions
-			} = this.state;
-		let tierOne = ['income', 'expenses'];
-		let tierTwo = [
-			[{
-				obj:'retail',
-				display:'Retail Rental'
-			},{
-				obj: 'other',
-				display: 'Other'
-			},{
-				obj: 'rental',
-				display: 'Residential Rental'
-			}],
-			[{
-				obj: 'carryingCosts',
-				display: 'Carrying Costs'
-			},{
-				obj: 'utilities',
-				display: 'Utilities'
-			},{
-				obj: 'other',
-				display: 'Other'
-			}]
-		];
-		let incomeSummary = {
-			gpi:{
-				total: {
-					monthly:0,
-					annual:0
-				},
-				totals: {
-					retail:{
-						monthly:[],
-						annual:[]
-					},
-					other:{
-						monthly:[],
-						annual:[]
-					},
-					rental:{
-						monthly:[],
-						annual:[]
-					}
-				},
-				tooltip:{
-					monthly:{
-						location: 'left',
-						cssClassAdd:'calc',
-						sign:'plus',
-						figures:[],
-						total:''
-					},
-					annual:{
-						location: 'bottom',
-						cssClassAdd:'calc',
-						sign: 'plus',
-						figures:[],
-						total:''
-					}
-				}
-			},
-			vacancy:{
-				total: {monthly:0, annual:0},
-				tooltip:{
-					monthly:{
-						location: 'left',
-						cssClassAdd:'calc',
-						sign: 'multiply',
-						figures:[],
-						total:''
-					},
-					annual:{
-						location: 'bottom',
-						cssClassAdd:'calc',
-						sign: 'multiply',
-						figures:[],
-						total:''
-					}
-				}
-			},
-			collections:{
-				total: {monthly:0, annual:0},
-				tooltip:{
-					monthly:{
-						location: 'left',
-						cssClassAdd:'calc',
-						sign: 'multiply',
-						figures:[],
-						total:''
-					},
-					annual:{
-						location: 'bottom',
-						cssClassAdd:'calc',
-						sign: 'multiply',
-						figures:[],
-						total:''
-					}
-				}
-			},
-			egi:{
-				total: {monthly:0, annual:0},
-				tooltip:{
-					monthly:{
-						location: 'left',
-						cssClassAdd:'calc',
-						sign: 'subtract',
-						figures:[],
-						total:''
-					},
-					annual:{
-						location: 'bottom',
-						cssClassAdd:'calc',
-						sign: 'subtract',
-						figures:[],
-						total:''
-					}
-				}
-			}
-		};
-		let incomeSummaryOrder = [
-			{
-				obj:'gpi',
-				display: 'Gross Potential Income (GPI)'
-			},{
-				obj: 'vacancy',
-				display: 'Vacancy'
-			},{
-				obj: 'collections',
-				display: 'Collections'
-			},{
-				obj: 'egi',
-				display: 'Effective Gross Income (EGI)'
-			}
-		];
-		let expensesSummary = {
-			oe:{//operating expenses
-				total: {
-					monthly:0,
-					annual:0
-				},
-				totals: {
-					carryingCosts:{
-						monthly:[],
-						annual:[]
-					},
-					utilities:{
-						monthly:[],
-						annual:[]
-					},
-					other:{
-						monthly:[],
-						annual:[]
-					}
-				},
-				tooltip:{
-					monthly:{
-						location: 'left',
-						cssClassAdd:'calc',
-						sign:'plus',
-						figures:[],
-						total:''
-					},
-					annual:{
-						location: 'bottom',
-						cssClassAdd:'calc',
-						sign: 'plus',
-						figures:[],
-						total:''
-					}
-				}
-			},
-			carryingCosts:{
-				total: {monthly:0, annual:0},
-				tooltip:{
-					monthly:{
-						location: 'left',
-						cssClassAdd:'calc',
-						sign: 'add',
-						figures:[],
-						total:''
-					},
-					annual:{
-						location: 'bottom',
-						cssClassAdd:'calc',
-						sign: 'add',
-						figures:[],
-						total:''
-					}
-				}
-			},
-			utilities:{
-				total: {monthly:0, annual:0},
-				tooltip:{
-					monthly:{
-						location: 'left',
-						cssClassAdd:'calc',
-						sign: 'add',
-						figures:[],
-						total:''
-					},
-					annual:{
-						location: 'bottom',
-						cssClassAdd:'calc',
-						sign: 'add',
-						figures:[],
-						total:''
-					}
-				}
-			},
-			other:{
-				total: {monthly:0, annual:0},
-				tooltip:{
-					monthly:{
-						location: 'left',
-						cssClassAdd:'calc',
-						sign: 'add',
-						figures:[],
-						total:''
-					},
-					annual:{
-						location: 'bottom',
-						cssClassAdd:'calc',
-						sign: 'add',
-						figures:[],
-						total:''
-					}
-				}
-			}
-		};
-		let expensesSummaryOrder = [
-			{
-				obj:'oe',
-				display: 'Operating Expenses'
-			}
-		];
-		let noiSummary = [{
-			total: {
-				monthly:0,
-				annual:0					
-			},
-			tooltip:{
-				monthly:{
-					location: 'left',
-					cssClassAdd:'calc',
-					sign:'subtract',
-					figures:[],
-					total:''
-				},
-				annual:{
-					location: 'left',
-					cssClassAdd:'calc',
-					sign: 'subtract',
-					figures:[],
-					total:''
-				}
-			}
-		}];
+			tierOne,
+			tierTwo,
+			formFields,
+			assumptions,
+			incomeSummary,
+			expensesSummary,
+			noiSummary,
+			incomeSummaryOrder,
+			expensesSummaryOrder,
+		} = this.state;
 		return(
 			<div className = 'ipc-component'>
 				<IPCOtherTermsBox

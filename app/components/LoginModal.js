@@ -50,7 +50,9 @@ export const LoginModal = (props) => {
 							className=''
 						>enter
 						</button>
-						<Link to = '/userpage'>visit without credentials</Link>
+						<div className = 'visit'>
+							<Link to = '/userpage'>visit without credentials</Link>
+						</div>
 					</form>
 				</div>
 				<div className="modal-footer">

@@ -61,13 +61,15 @@ export const Tooltip = (props) => {
 							sign = 'x ';
 						}else if(content.sign === 'subtract'){
 							sign = '- ';
+						}else if(content.sign === 'divide'){
+							sign = '/ ';
 						}
 					}
 					return(
 						<span key = {i} className = 'figures'>{number ? sign+number : ''}</span>
 					);
 				})}
-				<span className = 'total'>= ${content.total}</span>
+				<span className = 'total'>{content.textEnd !== '%' ? '= $' : '= '}{content.total}{content.textEnd === '%' ? '%' : ''}</span>
 			</div>
 			:
 			content.textStart + ' ' + inputName + ' ' + content.textEnd

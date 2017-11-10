@@ -68,7 +68,8 @@ export class UserPageContainer extends React.Component{
 			clearInterval(nameObjJN.nameInterval);
 		}
 	}
-	animateName(letter){
+	animateName(e){
+		let letter = parseInt(e.target.dataset.letterPosition);
 		let{nameObjJN} = this.state;
 		let newNameArr = nameObjJN.nameArr;
 		newNameArr[letter].class += ' letter-animated';
@@ -112,7 +113,8 @@ export class UserPageContainer extends React.Component{
 			}, 7000);
 		}
 	}
-	changeCurrentPage(page){
+	changeCurrentPage(e){
+		let page = e.target.dataset.pageName;
 		this.setState({
 			activePage: page
 		});

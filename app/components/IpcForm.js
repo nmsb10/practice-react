@@ -33,6 +33,15 @@ export class IPCForm extends React.Component{
 								content = 'income'
 							/>
 							<IpcFormSubsection
+								subtitle = 'Rental: Residential'
+								section = 'income.rental'
+								enableAdd = 'true'
+								enableAddTitle = 'add a source of (residential) rental income'
+								onClick = {onClick}
+								onChange = {handleInputChange}
+								contentArr = {fields.income.rental}
+							/>
+							<IpcFormSubsection
 								subtitle = 'Rental: Retail'
 								section = 'income.retail'
 								enableAdd = 'true'
@@ -49,15 +58,6 @@ export class IPCForm extends React.Component{
 								onClick = {onClick}
 								onChange = {handleInputChange}
 								contentArr = {fields.income.other}
-							/>
-							<IpcFormSubsection
-								subtitle = 'Rental: Residential'
-								section = 'income.rental'
-								enableAdd = 'true'
-								enableAddTitle = 'add a source of (residential) rental income'
-								onClick = {onClick}
-								onChange = {handleInputChange}
-								contentArr = {fields.income.rental}
 							/>
 						</div>
 						<div className = 'content-section'>

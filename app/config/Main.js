@@ -7,8 +7,6 @@ import { RealEstate } from '../components/RealEstate';
 import { InvestPropCalcContainer } from '../containers/InvestPropCalcContainer';
 
 export class Main extends React.Component{
-	componentDidMount(){
-	}
 	render(){
 		return(
 			<main>

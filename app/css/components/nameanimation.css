@@ -1,6 +1,6 @@
 #primary-name{
 	font-family: 'Georgia', Times, "Times New Roman", serif;
-	letter-spacing: 0.27rem;
+	vertical-align:top;
 	font-size:1.1rem;
 	padding: 0.5rem;
 	cursor: default;
@@ -15,7 +15,9 @@
 	animation: fadeinletter 2s linear 0s;
 }
 
-#primary-name .letter, .letter-initial{
+#primary-name .letter,
+#primary-name .letter-initial{
+	letter-spacing: 0.27rem;
 	color: rgba(35, 35, 35, 0.9);
 /*	text-shadow: 0 0 0.125rem rgba(235, 235, 235, 0.8), 0 0 3.5px rgba(190, 190, 190, 0.8);
 */	-webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
@@ -23,7 +25,8 @@
 	transition: all 0.2s ease 0s;
 }
 
-#primary-name .letter:hover, .letter-initial:hover{
+#primary-name .letter:hover,
+#primary-name .letter-initial:hover{
 	color: rgba(255, 255, 255, 1);
 	text-shadow: 0 0 0.1rem rgba(35, 35, 35, 0.9);
 }

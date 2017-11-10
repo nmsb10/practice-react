@@ -2,7 +2,7 @@ header nav{
 	display:inline-block;
     /*need line-height, vertical-align and padding to match #primary-name*/
     line-height: 2rem;
-    /*vertical-align: top;*/
+    vertical-align: top;
     padding: 0.5rem;
 }
 header nav ul{

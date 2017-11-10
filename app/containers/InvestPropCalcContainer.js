@@ -20,14 +20,14 @@ export class InvestPropCalcContainer extends React.Component{
 			tierOne: ['income', 'expenses'],
 			tierTwo: [
 				[{
+					obj: 'rental',
+					display: 'Residential Rental'
+				},{
 					obj:'retail',
 					display:'Retail Rental'
 				},{
 					obj: 'other',
 					display: 'Other'
-				},{
-					obj: 'rental',
-					display: 'Residential Rental'
 				}],
 				[{
 					obj: 'carryingCosts',
@@ -70,7 +70,7 @@ export class InvestPropCalcContainer extends React.Component{
 				],
 				income:{
 					retail:[{
-						name:'business one',
+						name:'business one name',
 						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
@@ -95,7 +95,7 @@ export class InvestPropCalcContainer extends React.Component{
 						required:false,
 						isOpen:true
 					},{
-						name:'business two',
+						name:'business two name',
 						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
@@ -552,15 +552,15 @@ export class InvestPropCalcContainer extends React.Component{
 						annual:0
 					},
 					totals: {
+						rental:{
+							monthly:0,
+							annual:0
+						},
 						retail:{
 							monthly:0,
 							annual:0
 						},
 						other:{
-							monthly:0,
-							annual:0
-						},
-						rental:{
 							monthly:0,
 							annual:0
 						}
@@ -574,7 +574,7 @@ export class InvestPropCalcContainer extends React.Component{
 							total:''
 						},
 						annual:{
-							location: 'bottom',
+							location: 'left',
 							cssClassAdd:'calc',
 							sign: 'plus',
 							figures:[],
@@ -593,7 +593,7 @@ export class InvestPropCalcContainer extends React.Component{
 							total:''
 						},
 						annual:{
-							location: 'bottom',
+							location: 'left',
 							cssClassAdd:'calc',
 							sign: 'multiply',
 							figures:[],
@@ -612,7 +612,7 @@ export class InvestPropCalcContainer extends React.Component{
 							total:''
 						},
 						annual:{
-							location: 'bottom',
+							location: 'left',
 							cssClassAdd:'calc',
 							sign: 'multiply',
 							figures:[],
@@ -688,7 +688,7 @@ export class InvestPropCalcContainer extends React.Component{
 							total:''
 						},
 						annual:{
-							location: 'bottom',
+							location: 'left',
 							cssClassAdd:'calc',
 							sign: 'add',
 							figures:[],
@@ -749,7 +749,7 @@ export class InvestPropCalcContainer extends React.Component{
 						total:''
 					},
 					annual:{
-						location: 'left',
+						location: 'bottom',
 						cssClassAdd:'calc',
 						sign: 'subtract',
 						figures:[],
@@ -962,14 +962,14 @@ export class InvestPropCalcContainer extends React.Component{
 		//gpi tooltip contents:
 		incomeSummaryCopy.gpi.tooltip.monthly.figures = [];
 		incomeSummaryCopy.gpi.tooltip.monthly.figures.push(
+			'total residential rental income: $'+ resTotalMonthly,
 			'total retail rental income: $'+ retailTotalMonthly,
-			'total other income: $'+ otherTotalMonthly,
-			'total residential rental income: $'+ resTotalMonthly);
+			'total other income: $'+ otherTotalMonthly);
 		incomeSummaryCopy.gpi.tooltip.annual.figures = [];
 		incomeSummaryCopy.gpi.tooltip.annual.figures.push(
+			'total residential rental income: $'+ resTotalAnnual,
 			'total retail rental income: $'+ retailTotalAnnual,
-			'total other income: $'+ otherTotalAnnual,
-			'total residential rental income: $'+ resTotalAnnual);
+			'total other income: $'+ otherTotalAnnual);
 		//vacancy tooltip
 		incomeSummaryCopy.vacancy.tooltip.monthly.figures = [];
 		incomeSummaryCopy.vacancy.tooltip.monthly.figures.push(

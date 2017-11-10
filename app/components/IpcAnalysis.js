@@ -18,8 +18,11 @@ export const IPCAnalysis = (props) => {
 	let capRate = {
 		value: 100 * noiSummary[0].total.annual / fields.purchasePrice[0].value.amount || 0,
 		tooltip:{
-			textStart: '',
-			location: 'top',
+			figures:['annual NOI: $'+withCommas(noiSummary[0].total.annual.toString()), 'Purchase Price: $'+withCommas(fields.purchasePrice[0].value.amount)],
+			total: 100 * noiSummary[0].total.annual / fields.purchasePrice[0].value.amount || 0,
+			sign:'divide',
+			location: 'bottom',
+			cssClassAdd: 'calc',
 			textEnd:'%'
 		}
 	};
@@ -51,27 +54,32 @@ export const IPCAnalysis = (props) => {
 		//review array functions including filter
 	return(
 		<div className = 'ipc-analysis-container'>
-			<div>
-				<span>purchase price:</span>
-				<span>{fields.purchasePrice[0].value.preEntry}{fields.purchasePrice[0].value.amount === '' ? '-0-' : withCommas(fields.purchasePrice[0].value.amount)}</span>
-			</div>
-			<div className = 'cap-rate-cont'>
-				<span>capitalization rate:</span>
-				<span className = {capRate.value > 0 ? 'ttt-container green' : 'ttt-container red'}>
-					{capRate.value.toFixed(2)}%
-					<Tooltip
-						content = {capRate.tooltip}
-						inputName = {capRate.value}
-						displayType = 'normal'
-					/>
-				</span>
+			<div className = 'imp-cont-container'>
+				<div className = 'imp-cont pp-cont'>
+					<span>purchase price: </span>
+					<span className = 'figure'>{fields.purchasePrice[0].value.preEntry}{fields.purchasePrice[0].value.amount === '' ? '-0-' : withCommas(fields.purchasePrice[0].value.amount)}</span>
+				</div>
+				<div className = 'cap-rate-cont imp-cont'>
+					<span>capitalization rate: </span>
+					<span className = {capRate.value > 0 ? 'ttt-container figure green' : 'ttt-container figure red'}>
+						{capRate.value.toFixed(2)}%
+						<Tooltip
+							content = {capRate.tooltip}
+							inputName = {capRate.value}
+							displayType = 'calculation'
+						/>
+					</span>
+				</div>
 			</div>
 			{tierOne.map( (tierOneName, i) => {
 				return(
 					<div className = 'results-container' key = {i}>
 						<div className = 'rc-side-header'>
-							<span>{tierOneName}</span>
+							<div className = 'title'>
+								<span>{tierOneName}</span>
+							</div>
 						</div>
+						<div className = 'rc-table-cont'>
 						{tierTwo[i].map( (tierTwoName, j) => {
 							let total = {monthly:[], annual:[]};
 							return(
@@ -91,6 +99,7 @@ export const IPCAnalysis = (props) => {
 											:
 											<tr>
 												<th>{tierTwoName.display}</th>
+												<th>notes</th>
 												<th>monthly</th>
 												<th>annual</th>
 											</tr>
@@ -115,6 +124,7 @@ export const IPCAnalysis = (props) => {
 													return(
 														<tr key = {k}>
 															<td>{contents.name}</td>
+															<td></td>
 															<td>{contents.value.monthly === '' ? '-' : contents.value.preEntry + withCommas(contents.value.monthly)}</td>
 															<td>{contents.value.annual === '' ? '-' : contents.value.preEntry+withCommas(contents.value.annual)}</td>
 														</tr>
@@ -127,13 +137,14 @@ export const IPCAnalysis = (props) => {
 													<td></td>
 													<td></td>
 													<td></td>
-													<td className = 'capitalize'>{tierTwoName.display} {tierOneName} Total:</td>
+													<td className = 'capitalize td-total-header'><span className = 'section-total-header'>{tierTwoName.display} {tierOneName} Total:</span></td>
 													<td className = 'ttt-container'>${withCommas(''+total.monthly.reduce((total, num) => total + parseInt(num), 0))}</td>
 													<td className = 'ttt-container'>${withCommas(''+total.annual.reduce((total, num) => total + parseInt(num), 0))}</td>
 												</tr>
 											:
 												<tr>
-													<td className = 'capitalize'>{tierTwoName.display} {tierOneName} Total:</td>
+													<td></td>
+													<td className = 'capitalize td-total-header'><span className = 'section-total-header'>{tierTwoName.display} {tierOneName} Total:</span></td>
 													<td className = 'ttt-container'>${withCommas(''+total.monthly.reduce((total, num) => total + parseInt(num), 0))}</td>
 													<td className = 'ttt-container'>${withCommas(''+total.annual.reduce((total, num) => total + parseInt(num), 0))}</td>
 												</tr>
@@ -204,6 +215,7 @@ export const IPCAnalysis = (props) => {
 							</tbody>
 						</table>
 						}
+						</div>
 					</div>
 				);
 			})}
@@ -218,7 +230,7 @@ export const IPCAnalysis = (props) => {
 					{noiSummary.map( (content, i) => {
 						return(
 							<tr key = {i}>
-								<td className = 'capitalize'>Net Operating Income</td>
+								<td className = 'capitalize'>Net Operating Income (NOI)</td>
 								<td className = 'ttt-container'>${withCommas(''+content.total.monthly)}
 									<Tooltip
 										content = {content.tooltip.monthly}

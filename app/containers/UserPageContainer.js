@@ -115,9 +115,12 @@ export class UserPageContainer extends React.Component{
 	}
 	changeCurrentPage(e){
 		let page = e.target.dataset.pageName;
-		this.setState({
-			activePage: page
-		});
+		if(page){
+			this.setState({
+				activePage: page
+			});
+		}
+		
 	}
 	render(){
 		let{

@@ -127,7 +127,8 @@ export class WelcomeContainer extends React.Component{
 		let { imageURLs } = this.state;
 		let orderArr = [], directory = [];
 		let d = new Date();
-		let finalImageURLs = d.getMonth() >= 11 || d.getMonth() <= 3 ? imageURLs.regular.concat(imageURLs.winter) : imageURLs.regular;
+		//JavaScript counts months from 0 to 11. January is 0. December is 11.
+		let finalImageURLs = d.getMonth() >= 10 || d.getMonth() <= 2 ? imageURLs.regular.concat(imageURLs.winter) : imageURLs.regular;
 		finalImageURLs = this.shuffleByKnuth(finalImageURLs);
 		for(let i = 0; i < 5; i++){
 			directory.push({backgroundImage: "url('https://jonathonn.herokuapp.com/assets/images/" + finalImageURLs[i] + "')"});

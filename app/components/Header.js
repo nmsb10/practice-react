@@ -10,6 +10,59 @@ export class Header extends React.Component{
 			animateName,
 			handleClick
 		} = this.props;
+		let headerNav = [
+			{
+				linkTo:'/userpage',
+				selectedClass:'home',
+				dataPageName:'home',
+				name: 'Home',
+				dropdown:null
+			},{
+				linkTo:'/userpage/about',
+				selectedClass:'about',
+				dataPageName:'about',
+				name: 'About',
+				dropdown:[
+					{
+						type: 'a',
+						href:'https://www.linkedin.com/in/jonathonnagatani',
+						title:'Jonathon on LinkedIn',
+						name:'LinkedIn'
+					},
+					{
+						type: 'a',
+						href:'https://www.youtube.com/user/JonathonNagatani',
+						title:'Jonathon on YouTube',
+						name:'YouTube'
+					},
+					{
+						type: 'a',
+						href:'https://github.com/nmsb10',
+						title:'Jonathon on github | nmsb10',
+						name:'github'
+					}
+				]
+			},{
+				linkTo:'/userpage/projects',
+				selectedClass:'projects',
+				dataPageName:'projects',
+				name: 'Projects',
+				dropdown:null
+			},{
+				linkTo:'/userpage/real-estate',
+				selectedClass:'real estate',
+				dataPageName:'real estate',
+				name: 'Real Estate',
+				dropdown:[
+					{
+						type: 'reactLink',
+						linkTo:'/userpage/investment-property-calculator',
+						title:'investment property cap rate calculator',
+						name:'property calculator'
+					}
+				]
+			}
+		];
 		return(
 			<header>
 				< NameAnimation 
@@ -18,20 +71,45 @@ export class Header extends React.Component{
 				/>
 				<nav>
 					<ul>
-						<li><Link to = '/userpage' className={currentPage==='home'?'current-page':''} data-page-name = 'home' onClick = {handleClick} >Home</Link></li>
-						<li className = 'dropdown'><Link to = '/userpage/about' className={currentPage==='about'?'current-page':''} data-page-name = 'about' onClick = {handleClick}>About</Link>
-							<div className = 'dropdown-content' onClick = {handleClick}>
-								<a href='https://www.linkedin.com/in/jonathonnagatani' target='_blank' title='Jonathon on LinkedIn'>LinkedIn</a>
-								<a href = 'https://www.youtube.com/user/JonathonNagatani' target='_blank' title='Jonathon on YouTube'>YouTube</a>
-								<a href="https://github.com/nmsb10" target="_blank" title="Jonathon on github | nmsb10">github</a>
-							</div>
-						</li>
-						<li><Link to = '/userpage/projects' className={currentPage==='projects'?'current-page':''} data-page-name = 'projects' onClick = {handleClick}>Projects</Link></li>
-						<li className = 'dropdown'><Link to = '/userpage/real-estate' className={currentPage==='real estate'?'current-page':''} data-page-name = 'real estate' onClick = {handleClick}>Real Estate</Link>
-							<div className = 'dropdown-content' onClick = {handleClick}>
-								<Link to = '/userpage/investment-property-calculator' data-page-name = 'real estate' >property calculator</Link>
-							</div>
-						</li>
+						{headerNav.map((contents, i) => {
+							return(
+								<li className = {contents.dropdown ? 'dropdown': ''} key = {i}>
+									<Link
+										to = {contents.linkTo}
+										className= {currentPage === contents.selectedClass ? 'current-page' : '' }
+										data-page-name = {contents.dataPageName}
+										onClick = {handleClick}
+									>{contents.name}
+									</Link>
+									{contents.dropdown !== null ?
+										<div className = 'dropdown-content' onClick = {handleClick}>
+											{contents.dropdown.map( (dd, j) => {
+												return(
+													dd.type === 'a' ? 
+														<a
+															href = {dd.href}
+															target = '_blank'
+															title = {dd.title}
+															key = {j}
+														>{dd.name}
+														</a>
+													:
+														<Link
+															to = {dd.linkTo}
+															data-page-name = {contents.dataPageName}
+															title = {dd.title}
+															key = {j}
+														>{dd.name}
+														</Link>
+												);
+											})}
+										</div>
+										:
+										''
+									}
+								</li>
+							);
+						})}
 					</ul>
 				</nav>
 			</header>

@@ -48,7 +48,7 @@
 	position: absolute;
 	width:2rem;
 	height:100%;
-	border:0.1rem solid black;
+	border:0.1rem solid rgb(75, 75, 75);
 	color:rgb(75, 75, 75);
 }
 

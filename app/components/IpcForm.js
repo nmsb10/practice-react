@@ -98,13 +98,13 @@ export class IPCForm extends React.Component{
 								<label htmlFor = 'typ'>property type:</label>
 								{/* use value attribute to set the default select html element value
 								<select
-									value = {spfields.typ}
+									value = {fields.value}
 									className=''
 									id="typ"
 									onChange = {(event) => this.handleInputChange(event)}
 								>
-									<option value='AT'>attached (condo, townhome)</option>
-									<option value='DE'>detached (single family home)</option>
+									<option value='spaghetti'>spaghetti</option>
+									<option value='gnocchi'>gnocchi</option>
 								</select>
 							</div>
 						*/}

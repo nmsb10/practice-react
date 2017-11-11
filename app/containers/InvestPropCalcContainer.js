@@ -2,6 +2,7 @@ import React from 'react';
 import {IPCForm} from '../components/IpcForm';
 import {IPCAnalysis} from '../components/IpcAnalysis';
 import {IPCOtherTermsBox} from '../components/IpcOtherTermsBox';
+import {InfoAlert} from '../components/InfoAlert';
 import * as axios from 'axios';
 
 export class InvestPropCalcContainer extends React.Component{
@@ -777,7 +778,11 @@ export class InvestPropCalcContainer extends React.Component{
 					obj:'oe',
 					display: 'Operating Expenses'
 				}
-			]
+			],
+			infoAlert:{
+				cssClass:'ipc-vc-alert',
+				text:[]
+			}
 		};
 		this.calculate = this.calculate.bind(this);
 		this.updateFormFields = this.updateFormFields.bind(this);
@@ -787,21 +792,69 @@ export class InvestPropCalcContainer extends React.Component{
 		this.updateAssumptions = this.updateAssumptions.bind(this);
 		this.withCommas = this.withCommas.bind(this);
 		this.updateSummaryContents = this.updateSummaryContents.bind(this);
+		this.closeInfoAlert = this.closeInfoAlert.bind(this);
 	}
 	calculate(e){
 		e.preventDefault();
-		let{formFields} = this.state;
-		//validate all fields. if any have validEntry === false, print summary of input fields which need corrections
-		axios.post('/calculate-investment-property', formFields).then(function(response){
-			//console.log(response.data);
+		let{formFields, tierOne, tierTwo, infoAlert, noiSummary} = this.state;
+		let submission = {
+			fields: formFields,
+			tierOne: tierOne,
+			tierTwo: tierTwo
+		};
+		let cr = {
+			noiAnnual: noiSummary[0].total.annual,
+			purchasePrice: formFields.purchasePrice[0].value.amount
+		};
+		let capRate = (100 * cr.noiAnnual / cr.purchasePrice) || 0;
+		let newInfoAlert = infoAlert;
+		newInfoAlert.text = [];
+		newInfoAlert.cssClass = 'ipc-vc-alert';
+		this.setState({
+			infoAlert: newInfoAlert
 		});
-		// }.bind(this));
+		axios.post('/calculate-investment-property', submission).then(function(response){
+			newInfoAlert.cssClass += ' ipc-vc-alert-displayed';
+			newInfoAlert.text.push({
+				content: 'The details you provided on your submission correspond to a capitalization rate of ' + capRate.toFixed(2) + '%.',
+				css:''
+			});
+			if(response.data.length === 0){
+				newInfoAlert.text.push({
+					content: 'You provided figures for all recommended fields.',
+					css:''
+				});
+				newInfoAlert.cssClass += ' ipc-vc-alert-hidden';
+			}else{
+				newInfoAlert.text.push({
+					content: 'For the most complete analysis, we recommend you consider providing figures for:',
+					css:''
+				});
+				response.data.map((contents, i) =>{
+					newInfoAlert.text.push({
+						content: i+1 + '. ' + contents,
+						css:''
+					});
+				});
+			}
+			this.setState({
+				infoAlert: newInfoAlert
+			});
+		}.bind(this));//must include .bind(this) so this.setState refers to this component
 		// .then(() => {
 		// 	this.redirectToSearch();
 		// })
 		// .catch((error) => {
 		// 	console.log('search didn\'t work. darn.');
 		// });
+	}
+	closeInfoAlert(){
+		let {infoAlert} = this.state;
+		let aiCopy = infoAlert;
+		aiCopy.cssClass = 'ipc-vc-alert';
+		this.setState({
+			infoAlert: aiCopy
+		});
 	}
 	redirectToSearch(){
 		//'search' is the Route path from routes.js
@@ -1111,7 +1164,8 @@ export class InvestPropCalcContainer extends React.Component{
 			}else{
 				obj.validation.vmes = vmes;
 				obj.validation.invalidValue = obj.value.preEntry + newValue + obj.value.postEntry;
-				obj.validation.validEntry = false;
+				//do not set validEntry to false here; validEntry is false by default, only made true if valid entry is entered, and validations never allows an invalid value to be assigned
+				//obj.validation.validEntry = false;
 				obj.validation.showVmes = true;
 			}
 			return obj;
@@ -1211,6 +1265,7 @@ export class InvestPropCalcContainer extends React.Component{
 			noiSummary,
 			incomeSummaryOrder,
 			expensesSummaryOrder,
+			infoAlert
 		} = this.state;
 		return(
 			<div className = 'ipc-component'>
@@ -1239,6 +1294,10 @@ export class InvestPropCalcContainer extends React.Component{
 						noiSummary = {noiSummary}
 					/>
 				</div>
+				<InfoAlert
+					content = {infoAlert}
+					onClick = {this.closeInfoAlert}
+				/>
 			</div>
 		);
 	}

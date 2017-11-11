@@ -23,10 +23,25 @@ app.use(express.static('./public'));
 
 //route to send POST requests to conduct a property search
 app.post('/calculate-investment-property', function(request, response){
-	console.log('/search route in server.js: request.body', request.body);
 	let rb = request.body;
-	let results = 'here';
-	response.send(results);
+	let formFields = rb.fields;
+	let tierOne = rb.tierOne;
+	let tierTwo = rb.tierTwo;
+	let unresolved = [];
+	let suggestionObject = {};
+	if(!formFields.purchasePrice[0].validation.validEntry){
+		unresolved.push(formFields.purchasePrice[0].name);
+	}
+	tierOne.map((tierOneName, i) => {
+		tierTwo[i].map( (tierTwoName, j) => {
+			formFields[tierOneName][tierTwoName.obj].map( (contents, k) => {
+				if(contents.required && !contents.validation.validEntry){
+					unresolved.push(contents.name);
+				}
+			});
+		});
+	});
+	response.send(unresolved);
 });
 
 // Main "/" Route. This will redirect the user to the rendered React application

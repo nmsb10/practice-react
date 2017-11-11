@@ -88,9 +88,9 @@ https://www.w3schools.com/Css/tryit.asp?filename=trycss_dropdown_text*/
 	position: absolute;
 	/*left 0 so left side of dropdown-content aligns with left side of dropdown*/
 	left: 0;
-	top: 1.2rem;
+	top: 100%;
 	opacity:0;
-	z-index:1;
+	z-index:3;
 	-webkit-transition: all 0.5s ease 0s;
 	-moz-transition: all 0.5s ease 0s;
 	transition: all 0.5s ease 0s;
@@ -98,7 +98,7 @@ https://www.w3schools.com/Css/tryit.asp?filename=trycss_dropdown_text*/
 
 .dropdown:hover .dropdown-content{
 /*	display: block;
-*/	opacity: 0.8;
+*/	opacity: 1;
 	/*top:30px because dropdown is 30px height*/
 	/*top:30px;*/
 }

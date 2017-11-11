@@ -96,7 +96,7 @@ export class Header extends React.Component{
 							return(
 								<li className = {contents.dropdown ? 'dropdown': ''} key = {i}>
 							
-									<div className = 'header-link-container' onClick = {handleClick}>
+									<div className = {currentPage === contents.selectedClass ? 'current-page header-link-container' : 'header-link-container'} onClick = {handleClick}>
 										<ExpandingBorder
 											content = {contents}
 										/>

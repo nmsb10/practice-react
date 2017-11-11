@@ -51,7 +51,7 @@ export const LoginModal = (props) => {
 						>enter
 						</button>
 						<div className = 'visit'>
-							<Link to = '/userpage'>visit without credentials</Link>
+							<Link to = '/user'>visit without credentials</Link>
 						</div>
 					</form>
 				</div>

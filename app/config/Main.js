@@ -11,11 +11,11 @@ export class Main extends React.Component{
 		return(
 			<main>
 				<Switch>
-					<Route exact path = '/userpage' component = {Home}/>
-					<Route path = '/userpage/about' component = {About}/>
-					<Route path = '/userpage/projects' component = {Projects}/>
-					<Route path = '/userpage/real-estate' component = {RealEstate}/>
-					<Route path = '/userpage/investment-property-calculator' component = {InvestPropCalcContainer}/>
+					<Route exact path = '/user' component = {Home}/>
+					<Route path = '/user/about' component = {About}/>
+					<Route path = '/user/projects' component = {Projects}/>
+					<Route path = '/user/real-estate' component = {RealEstate}/>
+					<Route path = '/user/investment-property-calculator' component = {InvestPropCalcContainer}/>
 				</Switch>
 			</main>
 		);

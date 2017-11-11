@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NameAnimation } from './NameAnimation';
+import { ExpandingBorder } from './ExpandingBorder';
 
 export class Header extends React.Component{
 	render(){
@@ -12,16 +13,26 @@ export class Header extends React.Component{
 		} = this.props;
 		let headerNav = [
 			{
-				linkTo:'/userpage',
+				elementType: 'Link',
+				linkTo:'/user',
 				selectedClass:'home',
 				dataPageName:'home',
 				name: 'Home',
-				dropdown:null
+				dropdown:null,
+				cssClass:{
+					content:'eb-content',
+					border:'eb-border'
+				}
 			},{
-				linkTo:'/userpage/about',
+				elementType: 'Link',
+				linkTo:'/user/about',
 				selectedClass:'about',
 				dataPageName:'about',
 				name: 'About',
+				cssClass:{
+					content:'eb-content',
+					border:'eb-border'
+				},
 				dropdown:[
 					{
 						type: 'a',
@@ -43,20 +54,30 @@ export class Header extends React.Component{
 					}
 				]
 			},{
-				linkTo:'/userpage/projects',
+				elementType: 'Link',
+				linkTo:'/user/projects',
 				selectedClass:'projects',
 				dataPageName:'projects',
 				name: 'Projects',
-				dropdown:null
+				dropdown:null,
+				cssClass:{
+					content:'eb-content',
+					border:'eb-border'
+				}
 			},{
-				linkTo:'/userpage/real-estate',
+				elementType: 'Link',
+				linkTo:'/user/real-estate',
 				selectedClass:'real estate',
 				dataPageName:'real estate',
 				name: 'Real Estate',
+				cssClass:{
+					content:'eb-content',
+					border:'eb-border'
+				},
 				dropdown:[
 					{
 						type: 'reactLink',
-						linkTo:'/userpage/investment-property-calculator',
+						linkTo:'/user/investment-property-calculator',
 						title:'investment property cap rate calculator',
 						name:'property calculator'
 					}
@@ -74,6 +95,13 @@ export class Header extends React.Component{
 						{headerNav.map((contents, i) => {
 							return(
 								<li className = {contents.dropdown ? 'dropdown': ''} key = {i}>
+							
+									<div className = 'header-link-container' onClick = {handleClick}>
+										<ExpandingBorder
+											content = {contents}
+										/>
+									</div>
+							{/*
 									<Link
 										to = {contents.linkTo}
 										className= {currentPage === contents.selectedClass ? 'current-page' : '' }
@@ -81,6 +109,7 @@ export class Header extends React.Component{
 										onClick = {handleClick}
 									>{contents.name}
 									</Link>
+							*/}
 									{contents.dropdown !== null ?
 										<div className = 'dropdown-content' onClick = {handleClick}>
 											{contents.dropdown.map( (dd, j) => {

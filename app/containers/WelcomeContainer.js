@@ -84,6 +84,11 @@ export class WelcomeContainer extends React.Component{
 				username:'',
 				password:'',
 				passwordHidden:''
+			},
+			loginButton:{
+				elementType:'button',
+				text: 'log in',
+				cssClass: ''
 			}
 		};
 		this.setBackgroundImages = this.setBackgroundImages.bind(this);
@@ -264,7 +269,8 @@ export class WelcomeContainer extends React.Component{
 			loginModal,
 			loginForm,
 			thoughts,
-			testimonials
+			testimonials,
+			loginButton
 		} = this.state;
 		return(
 			<div className = 'welcome-content'>
@@ -273,8 +279,7 @@ export class WelcomeContainer extends React.Component{
 					</div>
 					<div id = 'button-container' onClick = {this.handleShowLoginModal}>
 						< ExpandingBorder
-							elementType = 'button'
-							text = 'log in'
+							content = {loginButton}
 						/>
 					</div>
 					<LoginModal

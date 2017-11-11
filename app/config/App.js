@@ -9,7 +9,7 @@ export class App extends React.Component{
 			<div id = 'wel-user-switch'>
 				<Switch>
 					<Route exact path = '/' component = {WelcomeContainer}/>
-					<Route path = '/userpage' component = {UserPageContainer}/>
+					<Route path = '/user' component = {UserPageContainer}/>
 				</Switch>
 			</div>
 		);

@@ -17,22 +17,57 @@ header nav ul li{
     line-height:initial;
 }
 
-header nav ul li a{
-	text-decoration: none;
-    padding: 0 0.45rem;
-    color: rgba(15, 5, 15, 1);
-    background-color: rgba(255, 255, 255, 1);
-    border-radius:5px;
-    display: inline-block;
-    -webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
-    -moz-transition: all 0.35s ease 0s;
-    transition: all 0.35s ease 0s;
+header nav ul li .header-link-container{
+    position: relative;
 }
 
+header nav ul li .header-link-container .eb-content{
+    position:relative;
+    z-index:2;
+    box-sizing: border-box;
+    color: purple;
+    line-height:1.8rem;
+    font-weight:600;
+    font-size:1.2rem;
+    padding: 0.2rem 0.75rem;
+    -webkit-transition: all 0.75s ease 0s;
+    -moz-transition: all 0.75s ease 0s;
+    transition: all 0.75s ease 0s;
+}
+
+header nav ul li .header-link-container .eb-border{
+    z-index: 1;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width:0%;
+    height:85%;
+    left:50%;
+    -webkit-transition: all 0.75s ease 0s;
+    -moz-transition: all 0.75s ease 0s;
+    transition: all 0.75s ease 0s;
+    border: 0.1rem solid rgba(50, 50, 50, 0.2);
+    border-left: none;
+    border-right: none;
+}
+
+header nav ul li .header-link-container .ex-bor-container:hover .eb-border{
+    width:100%;
+    height:100%;
+    left: 0%;
+    border: 0.25rem solid rgba(50, 50, 50, 0.85);
+}
+
+header nav ul li a{
+	text-decoration: none;
+    display: inline-block;
+}
+/*
 header nav ul li a:hover, .current-page{
     background-color: rgba(35, 25, 35, 0.9);
     color: rgba(255, 255, 255, 0.9);
-    /*position relative means when this is hovered, the box shadow will appear on top of nearby elements*/
+    /*position relative means when this is hovered, the box shadow will appear on top of nearby elements
     position:relative;
     box-shadow: 0.2rem 0.2rem 0.2rem rgba(80, 80, 80, 0.5);
 }
@@ -45,4 +80,4 @@ header nav ul li .current-page{
 
 header nav ul li a:active{
     background-color: lime
-}
+}*/

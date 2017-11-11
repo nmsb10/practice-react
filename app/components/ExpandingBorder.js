@@ -1,20 +1,29 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const ExpandingBorder = (props) => {
-	let { elementType, text } = props;
+	let { content } = props;
 	return(
 		<div className = 'ex-bor-container'>
-			{elementType === 'button' &&
-				<button className = 'ex-bor-content'>
-					{text}
+			{content.elementType === 'button' &&
+				<button className = {content.cssClass.content ? content.cssClass.content : 'ex-bor-content'}>
+					{content.text}
 				</button>
 			}
-			{elementType === 'li' &&
-				<li className = 'ex-bor-content'>
-					{text}
+			{content.elementType === 'li' &&
+				<li className = {content.cssClass.content ? content.cssClass.content : 'ex-bor-content'}>
+					{content.text}
 				</li>
 			}
-			<div className = 'expanding-border'>
+			{content.elementType === 'Link' &&
+				<Link
+					to = {content.linkTo}
+					className = {content.cssClass.content ? content.cssClass.content : 'ex-bor-content'}
+					data-page-name = {content.dataPageName}
+				>{content.name}
+				</Link>
+			}
+			<div className = {content.cssClass.border ? content.cssClass.border : 'expanding-border'}>
 			</div>
 		</div>
 	);

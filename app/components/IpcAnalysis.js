@@ -84,15 +84,15 @@ export const IPCAnalysis = (props) => {
 							let total = {monthly:[], annual:[]};
 							return(
 								<div className = 'table-container' key = {j}>
-									<table>
+									<table className = {tierOneName === 'income' ? '' : 'expenses-table'}>
 										<tbody>
 											{tierOneName === 'income' ?
 											<tr>
 												<th>{tierTwoName.display}</th>
-												<th>unit #</th>
-												<th>sqft</th>
-												<th>lease start</th>
-												<th>lease end</th>
+												<th className = 'unit'>unit #</th>
+												<th className = 'sqft'>sqft</th>
+												<th className = 'lease-start'>lease start</th>
+												<th className = 'lease-end'>lease end</th>
 												<th>monthly</th>
 												<th>annual</th>
 											</tr>
@@ -112,10 +112,10 @@ export const IPCAnalysis = (props) => {
 													return(
 														<tr key = {k}>
 															<td>{contents.name}</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
+															<td>-</td>
+															<td>-</td>
+															<td>-</td>
+															<td>-</td>
 															<td>{contents.value.monthly === '' ? '-' : contents.value.preEntry + withCommas(contents.value.monthly)}</td>
 															<td>{contents.value.annual === '' ? '-' : contents.value.preEntry+withCommas(contents.value.annual)}</td>
 														</tr>
@@ -185,7 +185,7 @@ export const IPCAnalysis = (props) => {
 							</tbody>
 						</table>
 						:
-						<table>
+						<table className = 'expenses-table'>
 							<tbody>
 								<tr>
 									<th></th>

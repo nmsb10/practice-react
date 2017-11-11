@@ -962,13 +962,13 @@ export class InvestPropCalcContainer extends React.Component{
 		//gpi tooltip contents:
 		incomeSummaryCopy.gpi.tooltip.monthly.figures = [];
 		incomeSummaryCopy.gpi.tooltip.monthly.figures.push(
-			'total residential rental income: $'+ resTotalMonthly,
-			'total retail rental income: $'+ retailTotalMonthly,
+			'total rental income (res.): $'+ resTotalMonthly,
+			'total rental income (retail): $'+ retailTotalMonthly,
 			'total other income: $'+ otherTotalMonthly);
 		incomeSummaryCopy.gpi.tooltip.annual.figures = [];
 		incomeSummaryCopy.gpi.tooltip.annual.figures.push(
-			'total residential rental income: $'+ resTotalAnnual,
-			'total retail rental income: $'+ retailTotalAnnual,
+			'total rental income (res.): $'+ resTotalAnnual,
+			'total rental income (retail): $'+ retailTotalAnnual,
 			'total other income: $'+ otherTotalAnnual);
 		//vacancy tooltip
 		incomeSummaryCopy.vacancy.tooltip.monthly.figures = [];

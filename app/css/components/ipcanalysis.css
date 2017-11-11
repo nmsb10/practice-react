@@ -70,26 +70,76 @@
 .ipc-analysis-container table{
 	border-collapse: collapse;
 	white-space: nowrap;
+	margin-bottom: 0.5rem;
+}
+
+.ipc-analysis-container table th,
+.ipc-analysis-container table td{
+	padding: 0.25rem;
+	border-bottom: 0.07rem solid rgb(200, 200, 200);
 }
 
 .ipc-analysis-container table th{
 	background-color:rgb(125, 125, 125);
+	background: -webkit-linear-gradient(180deg, rgba(135, 135, 135, 0.9), rgb(85, 85, 85)); /*Safari 5.1-6*/
+	background: -o-linear-gradient(180deg, rgba(135, 135, 135, 0.9), rgb(85, 85, 85)); /*Opera 11.1-12*/
+	background: -moz-linear-gradient(180deg, rgba(135, 135, 135, 0.9), rgb(85, 85, 85)); /*Fx 3.6-15*/
+	background: linear-gradient(180deg, rgba(135, 135, 135, 0.9), rgb(85, 85, 85)); /*Standard*/
 	color: white;
+	text-align: center;
 }
 
-.ipc-analysis-container table th, td{
-	padding: 5px;
-/*	text-align: left;
-*/	border-bottom: 1px solid rgb(200, 200, 200);
+.ipc-analysis-container table td{
+	text-align: center;
+}
+
+.ipc-analysis-container table td:first-child{
+	text-align: left;
+}
+
+.ipc-analysis-container table td:nth-last-child(2),
+.ipc-analysis-container table td:nth-last-child(1){
+	text-align: right;
+}
+
+.ipc-analysis-container table tr:not(:first-child){
+	-webkit-transition: all 0.25s ease 0s;
+	-moz-transition: all 0.25s ease 0s;
+	transition: all 0.25s ease 0s;
+}
+
+.ipc-analysis-container table tr:hover:not(:first-child){
+	background-color: rgba(247, 247, 247, 0.9);
+}
+
+.ipc-analysis-container table tr:last-child{
+	background-color: rgba(65, 205, 32, 0.9);
+	color:white;
+}
+
+.ipc-analysis-container table tr:hover:last-child{
+	background-color: rgb(65, 205, 32);
+}
+
+.ipc-analysis-container .expenses-table tr:last-child{
+	background-color: rgba(83, 11, 110, 0.79);
+	color:white;
+}
+
+.ipc-analysis-container .expenses-table tr:hover:last-child{
+	background-color: rgba(83, 11, 110, 0.89);
 }
 
 .ipc-analysis-container table tr .td-total-header{
-	/*position relative so inner text expands outside
-	https://colorlib.com/wp/css3-table-templates/*/
+	/*position relative so inner text expands outside*/
 	position: relative;
-	text-align:right;
 }
 
 .ipc-analysis-container table tr td .section-total-header{
-
+	position: absolute;
+	padding: 5px;
+	right: 0%;
+	padding: 5px;
+	top: 50%;
+	transform: translateY(-50%);
 }

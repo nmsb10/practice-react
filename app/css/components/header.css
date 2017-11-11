@@ -57,6 +57,8 @@ header nav ul li .header-link-container .ex-bor-container:hover .eb-border{
     height:100%;
     left: 0%;
     border: 0.25rem solid rgba(50, 50, 50, 0.85);
+    border-left: none;
+    border-right: none;
 }
 
 header nav ul li a{

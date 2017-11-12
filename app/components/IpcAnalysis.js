@@ -28,6 +28,10 @@ export const IPCAnalysis = (props) => {
 			textEnd:'%'
 		}
 	};
+	let resultsOrder = [
+		{obj: 'noi'},
+		{obj: 'cashFlowSummary'}
+	];
 	return(
 		<div className = 'ipc-analysis-container'>
 			<div className = 'imp-cont-container'>
@@ -195,64 +199,97 @@ export const IPCAnalysis = (props) => {
 					</div>
 				);
 			})}
-			<table>
-				<tbody>
-					<tr>
-						<th></th>
-						<th>monthly</th>
-						<th>annual</th>
-					</tr>
-					<tr></tr>
-					{noiSummary.map( (content, i) => {
-						return(
-							<tr key = {i}>
-								<td className = 'capitalize'>Net Operating Income (NOI)</td>
-								<td className = 'ttt-container'>${withCommas(''+content.total.monthly)}
-									<Tooltip
-										content = {content.tooltip.monthly}
-										displayType = 'calculation'
-									/>
-								</td>
-								<td className = 'ttt-container'>${withCommas(''+content.total.annual)}
-									<Tooltip
-										content = {content.tooltip.annual}
-										displayType = 'calculation'
-									/>
-								</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
-			<table>
-				<tbody>
-					<tr>
-						<th></th>
-						<th>monthly</th>
-						<th>annual</th>
-					</tr>
-					<tr></tr>
-					{cashFlowSummaryOrder.map( (contents, i) => {
-						return(
-							<tr key = {i}>
-								<td className = 'capitalize'>{contents.display}</td>
-								<td className = 'ttt-container'>{contents.obj === 'dscr' ? '' : '$'}{withCommas(''+cashFlowSummary[contents.obj].total.monthly)}
-									<Tooltip
-										content = {cashFlowSummary[contents.obj].tooltip.monthly}
-										displayType = 'calculation'
-									/>
-								</td>
-								<td className = 'ttt-container'>{contents.obj === 'dscr' ? '' : '$'}{withCommas(''+cashFlowSummary[contents.obj].total.annual)}
-									<Tooltip
-										content = {cashFlowSummary[contents.obj].tooltip.annual}
-										displayType = 'calculation'
-									/>
-								</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
+
+	{/*
+			{resultsOrder.map( (section, i) => {
+				return(
+					<div className = 'results-container' key = {i}>
+						<div className = 'rc-side-header'>
+							<div className = 'title'>
+								<span>results</span>
+							</div>
+						</div>
+						<div className = 'rc-table-cont'>
+						{section[i].map( (tierTwoName, j) => {
+							return(
+								<div className = 'table-container' key = {j}>
+									<table className = {tierOneName === 'income' ? '' : 'expenses-table'}>
+										<tbody>
+
+	*/}
+			<div className = 'results-container'>
+				<div className = 'rc-side-header'>
+					<div className = 'title'>
+						<span>results</span>
+					</div>
+				</div>
+				<div className = 'rc-table-cont'>
+					<div className = 'table-container'>
+						<table>
+							<tbody>
+								<tr>
+									<th></th>
+									<th>monthly</th>
+									<th>annual</th>
+								</tr>
+								<tr></tr>
+								{noiSummary.map( (content, i) => {
+									return(
+										<tr key = {i}>
+											<td className = 'capitalize'>Net Operating Income (NOI)</td>
+											<td className = 'ttt-container'>${withCommas(''+content.total.monthly)}
+												<Tooltip
+													content = {content.tooltip.monthly}
+													displayType = 'calculation'
+												/>
+											</td>
+											<td className = 'ttt-container'>${withCommas(''+content.total.annual)}
+												<Tooltip
+													content = {content.tooltip.annual}
+													displayType = 'calculation'
+												/>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div className = 'rc-table-cont'>
+					<div className = 'table-container'>
+						<table>
+							<tbody>
+								<tr>
+									<th></th>
+									<th>monthly</th>
+									<th>annual</th>
+								</tr>
+								<tr></tr>
+								{cashFlowSummaryOrder.map( (contents, i) => {
+									return(
+										<tr key = {i}>
+											<td className = 'capitalize'>{contents.display}</td>
+											<td className = 'ttt-container'>{contents.obj === 'dscr' ? '' : '$'}{withCommas(''+cashFlowSummary[contents.obj].total.monthly)}
+												<Tooltip
+													content = {cashFlowSummary[contents.obj].tooltip.monthly}
+													displayType = 'calculation'
+												/>
+											</td>
+											<td className = 'ttt-container'>{contents.obj === 'dscr' ? '' : '$'}{withCommas(''+cashFlowSummary[contents.obj].total.annual)}
+												<Tooltip
+													content = {cashFlowSummary[contents.obj].tooltip.annual}
+													displayType = 'calculation'
+												/>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		{/*
 			http://fontawesome.io/examples/#animated
 			http://fontawesome.io/icons/

@@ -508,7 +508,7 @@ export class InvestPropCalcContainer extends React.Component{
 						preEntry:'',
 						amount:'',
 						postEntry:'years',
-						valuetype: ['integer']
+						valueType: ['integer']
 					}
 				],
 				other:[
@@ -861,51 +861,80 @@ export class InvestPropCalcContainer extends React.Component{
 		this.context.router.push('search');
 	}
 	updateAssumptions(e){
-		let{assumptions} = this.state;
+		let{assumptions, formFields, incomeSummary} = this.state;
 		let newState = assumptions;
+		let formFieldsCopy = formFields;
+		let specObj = {};
 		let selected = newState[e.target.dataset.section][e.target.dataset.key];
 		let valueType = selected.valueType;
 		//remove $, % and , from the inputted value
-		let newValue = parseInt(e.target.value.replace(/[$%,]/g, ''));
-		let changeValue = false;//ensure is number
+		let newValue = e.target.value.replace(/[$%,]/g, '');
+		//if selected is property management fee OR reserves fund, updateformfields for corresponding object in form fields
 		if(isNaN(newValue)){
 			return;
 		}else{
+			if(valueType[0] === 'percentage' || valueType[0] === 'interest'){
+				if(Math.pow(10, valueType[1]) * newValue % 1 > 0){
+					newValue = parseFloat(newValue).toFixed(valueType[1]);
+				}
+				if(newValue > 100){
+					newValue = 100;
+				}else if(newValue < 0){
+					newValue = 0;
+				}
+			}else if(valueType[0] === 'dollars' || valueType[0] === 'integer'){
+				if(newValue === ''){
+					newValue = '';
+				}else if(newValue < 0){
+					newValue = 0;
+				}else{
+					newValue = parseInt(newValue);
+				}
+			}
+			let purchasePrice = formFields.purchasePrice[0].value.amount;
+			let egi = incomeSummary.egi.total.annual;
+			let propertyManagementIndex;
+			let reservesIndex;
+			for(let i = 0; i<formFields.expenses.other.length; i++){
+				if(formFields.expenses.other[i].name === 'property management'){
+					propertyManagementIndex = i;
+				}else if(formFields.expenses.other[i].name === 'reserves fund'){
+					reservesIndex = i;
+				}
+			}
+			//now check for selected field
+			if(selected.field === 'down payment %'){
+				if(purchasePrice === ''){
+					newState.financing[1].amount = 'enter a purchase price';
+				}else{
+					newState.financing[1].amount = 0.01 * newValue * purchasePrice;
+				}
+			}else if(selected.field === 'down payment $'){
+				if(purchasePrice === ''){
+					newState.financing[0].amount = 'enter a purchase price';
+				}else{
+					newState.financing[0].amount = (100 * newValue / purchasePrice).toFixed(2);
+				}
+			// }else if(selected.field === 'property management fee'){
+			// 	specObj = formFieldsCopy.expenses.other[propertyManagementIndex];
+			// 	console.log(specObj);
+			// 	console.log(0.01 * newValue * egi);
+			// 	specObj = this.validateInput(specObj, 0.01 * newValue * egi, 'annual');
+			// }else if(selected.field === 'reserves fund'){
+			// 	specObj = formFieldsCopy.expenses.other[reservesIndex];
+			// 	console.log(specObj);
+			// 	console.log(0.01 * newValue * egi);
+			// 	specObj = this.validateInput(specObj, 0.01 * newValue * egi, 'annual');
+			}
 			selected.amount = newValue;
 			let newAssumptions = Object.assign({}, assumptions, newState);
+			let newFormFields = Object.assign({}, formFields, formFieldsCopy);
 			this.setState({
-				assumptions: newAssumptions
+				assumptions: newAssumptions,
+				formFields: newFormFields
 			});
 			this.updateSummaryContents();
-			// switch(valueType){
-			// 	case 'integer':
-			// 		newValue % 1 === 0 ? changeValue = true: changeValue = false;
-			// 		break;
-			// 	case 'percentage':
-			// 		console.log('percentage!');
-			// 		newValue = newValue.toFixed(2) + '%';
-			// 		console.log(newValue);
-			// 		changeValue = true;
-			// 		break;
-			// 	case 'interest':
-			// 		newValue = newValue.toFixed(3) + '%';
-			// 		changeValue = true;
-			// 		break;
-			// 	case 'dollars'://if dollars, add dollar sign to beginning
-			// 		newValue = '$' + newValue
-			// 		changeValue = true;
-			// 		break;
-			// 	default:
-			// 		break;
-			// }
 		}
-		// if(changeValue){
-		// 	newState[e.target.dataset.section][e.target.dataset.key].amount = newValue;
-		// 	let newAssumptions = Object.assign({}, assumptions, newState);
-		// 	this.setState({
-		// 		assumptions: newAssumptions
-		// 	});
-		// }
 	}
 	updateFormFields(e){
 		let {formFields} = this.state;

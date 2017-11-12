@@ -36,7 +36,7 @@ app.post('/calculate-investment-property', function(request, response){
 		tierTwo[i].map( (tierTwoName, j) => {
 			formFields[tierOneName][tierTwoName.obj].map( (contents, k) => {
 				if(contents.required && !contents.validation.validEntry){
-					unresolved.push(contents.name);
+					unresolved.push(contents.name + ' (' + tierOneName + ')');
 				}
 			});
 		});

@@ -758,6 +758,88 @@ export class InvestPropCalcContainer extends React.Component{
 					}
 				}
 			}],
+			cashFlowSummary: {
+				debtService:{
+					total: {
+						monthly:0,
+						annual:0					
+					},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign:'multiply',
+							figures:['mortgage Principal + Interest payment'],
+							total:''
+						},
+						annual:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign: 'multiply',
+							figures:[],
+							total:''
+						}
+					}
+				},
+				dscr:{
+					total: {
+						monthly:0,
+						annual:0					
+					},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign:'divide',
+							figures:[],
+							total:'',
+							textEnd: '%'
+						},
+						annual:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign: 'divide',
+							figures:[],
+							total:'',
+							textEnd: '%'
+						}
+					}
+				},
+				cashFlow:{
+					total: {
+						monthly:0,
+						annual:0					
+					},
+					tooltip:{
+						monthly:{
+							location: 'left',
+							cssClassAdd:'calc',
+							sign:'subtract',
+							figures:[],
+							total:''
+						},
+						annual:{
+							location: 'bottom',
+							cssClassAdd:'calc',
+							sign: 'subtract',
+							figures:[],
+							total:''
+						}
+					}
+				}
+			},
+			cashFlowSummaryOrder: [
+				{
+					obj:'debtService',
+					display: 'Debt Service'
+				},{
+					obj: 'dscr',
+					display: 'Debt Service Coverage Ratio (DSCR) *1.25+*'
+				},{
+					obj: 'cashFlow',
+					display: 'Cash Flow'
+				}
+			],
 			incomeSummaryOrder: [
 				{
 					obj:'gpi',
@@ -793,6 +875,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.withCommas = this.withCommas.bind(this);
 		this.updateSummaryContents = this.updateSummaryContents.bind(this);
 		this.closeInfoAlert = this.closeInfoAlert.bind(this);
+		this.mortgagePayment = this.mortgagePayment.bind(this);
 	}
 	calculate(e){
 		e.preventDefault();
@@ -982,12 +1065,15 @@ export class InvestPropCalcContainer extends React.Component{
 			expensesSummary,
 			noiSummary,
 			incomeSummaryOrder,
-			expensesSummaryOrder
+			expensesSummaryOrder,
+			cashFlowSummary,
+			cashFlowSummaryOrder
 		} = this.state;
 		//first must reset values
 		let incomeSummaryCopy = incomeSummary;
 		let expensesSummaryCopy = expensesSummary;
 		let noiSummaryCopy = noiSummary;
+		let cfSummaryCopy = cashFlowSummary;
 		tierOne.map((tierOneName, i) => {
 				tierTwo[i].map( (tierTwoName, j) => {
 					//first must reset values
@@ -1118,6 +1204,49 @@ export class InvestPropCalcContainer extends React.Component{
 		noiSummaryCopy[0].tooltip.annual.figures.push(
 			'EGI: $'+ incomeSummaryCopy.egi.total.annual,
 			'total operating expenses: $'+ expensesSummaryCopy.oe.total.annual);
+		//cash flow calculations=====================================
+		//purchase formFields.purchasePrice[0].value.amount
+		let loanAmount = formFields.purchasePrice[0].value.amount - assumptions.financing[1].amount;
+		let debtServiceMonthlyOrig = this.mortgagePayment(loanAmount, assumptions.financing[3].amount * 12, assumptions.financing[2].amount / 100 / 12) || 0;
+		let debtServiceAnnual = debtServiceMonthlyOrig * 12;
+		let debtServiceMonthly = this.withCommas(debtServiceMonthlyOrig.toFixed(2));
+		cfSummaryCopy.debtService.total.monthly = debtServiceMonthly;
+		cfSummaryCopy.debtService.total.annual = this.withCommas(debtServiceAnnual.toFixed(2));
+		cfSummaryCopy.debtService.tooltip.monthly.total = debtServiceMonthly;
+		cfSummaryCopy.debtService.tooltip.annual.total = this.withCommas(debtServiceAnnual.toFixed(2));
+		//annual debt service tooltip contents:
+		cfSummaryCopy.debtService.tooltip.annual.figures = [];
+		cfSummaryCopy.debtService.tooltip.annual.figures.push(
+			'monthly P + I payment: $'+ debtServiceMonthly,
+			'12 months');
+		//dscr contents
+		cfSummaryCopy.dscr.tooltip.monthly.total = (noiSummary[0].total.monthly / debtServiceMonthlyOrig) || 0;
+		cfSummaryCopy.dscr.tooltip.annual.total = (noiSummary[0].total.annual / debtServiceAnnual) || 0;
+		cfSummaryCopy.dscr.total.monthly = cfSummaryCopy.dscr.tooltip.monthly.total.toFixed(3);
+		cfSummaryCopy.dscr.total.annual = cfSummaryCopy.dscr.tooltip.annual.total.toFixed(3);
+		cfSummaryCopy.dscr.tooltip.monthly.figures = [];
+		cfSummaryCopy.dscr.tooltip.monthly.figures.push(
+			'monthly NOI: $'+ this.withCommas(noiSummary[0].total.monthly),
+			'monthly debt service: $'+debtServiceMonthly);
+		cfSummaryCopy.dscr.tooltip.annual.figures = [];
+		cfSummaryCopy.dscr.tooltip.annual.figures.push(
+			'annual NOI: $'+ this.withCommas(noiSummary[0].total.annual),
+			'annual debt service: $'+ this.withCommas(debtServiceAnnual.toFixed(2)));
+		//cash flow contents
+		let cashFlowMonthly = noiSummary[0].total.monthly - (debtServiceMonthlyOrig || 0);
+		let cashFlowAnnual = noiSummary[0].total.annual - (debtServiceAnnual || 0);
+		cfSummaryCopy.cashFlow.total.monthly = this.withCommas(cashFlowMonthly.toFixed(2));
+		cfSummaryCopy.cashFlow.total.annual = this.withCommas(cashFlowAnnual.toFixed(2));
+		cfSummaryCopy.cashFlow.tooltip.monthly.total = cfSummaryCopy.cashFlow.total.monthly;
+		cfSummaryCopy.cashFlow.tooltip.annual.total = cfSummaryCopy.cashFlow.total.annual;
+		cfSummaryCopy.cashFlow.tooltip.monthly.figures = [];
+		cfSummaryCopy.cashFlow.tooltip.monthly.figures.push(
+			'monthly NOI: $'+ this.withCommas(noiSummary[0].total.monthly),
+			'monthly debt service: $'+debtServiceMonthly);
+		cfSummaryCopy.cashFlow.tooltip.annual.figures = [];
+		cfSummaryCopy.cashFlow.tooltip.annual.figures.push(
+			'annual NOI: $'+ this.withCommas(noiSummary[0].total.annual),
+			'annual debt service: $'+ this.withCommas(debtServiceAnnual.toFixed(2)));
 		let newIncomeSummary = Object.assign({}, incomeSummary, incomeSummaryCopy);
 		let newExpensesSummary = Object.assign({}, expensesSummary, expensesSummaryCopy);
 		//let newNoiSummary = Object.assign({}, noiSummary, noiSummaryCopy);
@@ -1227,6 +1356,7 @@ export class InvestPropCalcContainer extends React.Component{
 			}else if(sectionArr.length === 2){
 				specificObject[sectionArr[1]].splice(key, 1);
 			}
+			this.updateSummaryContents();
 		}else if(request === 'addToSection'){
 			let basicEntry = {
 				name:'new field',
@@ -1283,6 +1413,29 @@ export class InvestPropCalcContainer extends React.Component{
 		//http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 		return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+	mortgagePayment(p, n, i){
+		//https://www.mtgprofessor.com/formulas.htm
+		//P = L[c(1 + c)^n]/[(1 + c)^n - 1]
+		//P = monthly payment
+		//L = loan amount
+		//n = months of the loan
+		//c = monthly interest rate of c. [If the quoted rate is 6%, for example, c is .06/12 or .005]. 
+
+		// https://stackoverflow.com/questions/17101442/how-to-calculate-mortgage-in-javascript
+		// 		var M; //monthly mortgage payment
+		// var P = 400000; //principle / initial amount borrowed
+		// var I = 3.5 / 100 / 12; //monthly interest rate
+		// var N = 30 * 12; //number of payments months
+
+		// //monthly mortgage payment
+		// M = monthlyPayment(P, N, I);
+
+		// console.log(M);
+
+		// function monthlyPayment(p, n, i) {
+		return p * i * (Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+		// }
+	}
 	render(){
 		let {
 			tierOne,
@@ -1294,6 +1447,8 @@ export class InvestPropCalcContainer extends React.Component{
 			noiSummary,
 			incomeSummaryOrder,
 			expensesSummaryOrder,
+			cashFlowSummary,
+			cashFlowSummaryOrder,
 			infoAlert
 		} = this.state;
 		return(
@@ -1321,6 +1476,8 @@ export class InvestPropCalcContainer extends React.Component{
 						expensesSummary = {expensesSummary}
 						expensesSummaryOrder = {expensesSummaryOrder}
 						noiSummary = {noiSummary}
+						cashFlowSummary = {cashFlowSummary}
+						cashFlowSummaryOrder = {cashFlowSummaryOrder}
 					/>
 				</div>
 				<InfoAlert

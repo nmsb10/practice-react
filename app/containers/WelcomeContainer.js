@@ -11,8 +11,8 @@ export class WelcomeContainer extends React.Component{
 		this.state = {
 			currentYear: '',
 			imageURLs:{
-				regular:['001.JPG', '01.JPG', '002.jpg', '3053p.jpg', '4067p.jpg', '4301p.jpg', '4336p.jpg', '4636p.jpg', 'one.JPG'],
-				winter:['0323p.jpg', '0324p.jpg', '4162p.jpg', '4168p.jpg']
+				regular:['image-1', 'image-2', 'image-3', 'image-4', 'image-5', 'image-6', 'image-7', 'image-8', 'image-9'],
+				winter:['image-10', 'image-11', 'image-12', 'image-13']
 			},
 			backgroundImageDir:[],
 			thoughts:{
@@ -136,7 +136,7 @@ export class WelcomeContainer extends React.Component{
 		let finalImageURLs = d.getMonth() >= 10 || d.getMonth() <= 2 ? imageURLs.regular.concat(imageURLs.winter) : imageURLs.regular;
 		finalImageURLs = this.shuffleByKnuth(finalImageURLs);
 		for(let i = 0; i < 5; i++){
-			directory.push({backgroundImage: "url('https://jonathonn.herokuapp.com/assets/images/" + finalImageURLs[i] + "')"});
+			directory.push(finalImageURLs[i]);
 		}
 		this.setState({
 			currentYear: d.getFullYear(),
@@ -290,18 +290,18 @@ export class WelcomeContainer extends React.Component{
 						onChange = {this.handleInputChange}
 					/>
 				</div>	
-				<div className = 'pax' style = {backgroundImageDir[0]}>
+				<div className = 'pax' id = {backgroundImageDir[0]}>
 				</div>
-				<div className = 'pax' style = {backgroundImageDir[1]}>
+				<div className = 'pax' id = {backgroundImageDir[1]}>
 				</div>
-				<div className = 'pax' style = {backgroundImageDir[2]}>
+				<div className = 'pax' id = {backgroundImageDir[2]}>
 					<Thoughts
 						thoughts = {thoughts}
 					/>
 				</div>
-				<div className = 'pax' style = {backgroundImageDir[3]}>
+				<div className = 'pax' id = {backgroundImageDir[3]}>
 				</div>
-				<div className = 'pax' style = {backgroundImageDir[4]}>
+				<div className = 'pax' id = {backgroundImageDir[4]}>
 					<Testimonials
 						content = {testimonials}
 						onClick = {this.handleClick}

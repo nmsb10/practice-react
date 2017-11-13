@@ -36,3 +36,55 @@
     position: sticky;
     top: 1.25rem;
 }
+
+#wel-user-switch .welcome-content #image-1{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/001.JPG');
+}
+
+#wel-user-switch .welcome-content #image-2{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/01.JPG');
+}
+
+#wel-user-switch .welcome-content #image-3{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/002.jpg');
+}
+
+#wel-user-switch .welcome-content #image-4{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/3053p.jpg');
+}
+
+#wel-user-switch .welcome-content #image-5{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/4067p.jpg');
+}
+
+#wel-user-switch .welcome-content #image-6{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/4301p.jpg');
+}
+
+#wel-user-switch .welcome-content #image-7{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/4336p.jpg');
+}
+
+#wel-user-switch .welcome-content #image-8{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/4636p.jpg');
+}
+
+#wel-user-switch .welcome-content #image-9{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/one.JPG');
+}
+
+#wel-user-switch .welcome-content #image-10{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/0323p.jpg');
+}
+
+#wel-user-switch .welcome-content #image-11{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/0324p.jpg');
+}
+
+#wel-user-switch .welcome-content #image-12{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/4162p.jpg');
+}
+
+#wel-user-switch .welcome-content #image-13{
+    background-image: url('https://jonathonn.herokuapp.com/assets/images/4168p.jpg');
+}

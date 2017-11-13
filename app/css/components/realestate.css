@@ -1,0 +1,14 @@
+.real-estate-component{
+	box-sizing: border-box;
+	position: relative;
+	width: 100%;
+	margin: 1rem auto;
+	padding: 0.5rem;
+	max-width: 62rem;
+	min-width: 22rem;
+	border: 0.09rem solid rgb(247, 247, 247);
+	border-radius: 0.3rem;
+	background-color: rgb(252, 252, 252);
+	/*overflow auto for the clearfix of the floated children*/
+	overflow: hidden;
+}

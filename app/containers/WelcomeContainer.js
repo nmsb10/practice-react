@@ -130,7 +130,7 @@ export class WelcomeContainer extends React.Component{
 	}
 	setBackgroundImages(){
 		let { imageURLs } = this.state;
-		let orderArr = [], directory = [];
+		let directory = [];
 		let d = new Date();
 		//JavaScript counts months from 0 to 11. January is 0. December is 11.
 		let finalImageURLs = d.getMonth() >= 10 || d.getMonth() <= 2 ? imageURLs.regular.concat(imageURLs.winter) : imageURLs.regular;

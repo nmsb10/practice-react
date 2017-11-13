@@ -2,7 +2,7 @@ import React from 'react';
 import {OtherTermsForm} from './OtherTermsForm';
 
 export const IPCOtherTermsBox  = (props) => {
-	let {assumptions, onChange} = props;
+	let {assumptions, handleChange} = props;
 	return(
 		<div className = 'ipc-other-terms'>
 			<div className = 'term-container'>
@@ -13,7 +13,7 @@ export const IPCOtherTermsBox  = (props) => {
 						terms = {assumptions.financing}
 						section = 'financing'
 						title = 'financing terms'
-						onChange = {onChange}
+						handleChange = {handleChange}
 					/>
 				</div>
 			</div>
@@ -25,7 +25,7 @@ export const IPCOtherTermsBox  = (props) => {
 						terms = {assumptions.other}
 						section = 'other'
 						title = 'other assumptions'
-						onChange = {onChange}
+						handleChange = {handleChange}
 					/>
 				</div>
 			</div>

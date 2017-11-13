@@ -9,7 +9,7 @@ export class IPCForm extends React.Component{
 			fields,
 			handleInputChange,
 			handleSubmit,
-			onClick
+			handleClick
 		} = this.props;
 		return(
 			<div className = 'ipc-form-container'>
@@ -23,8 +23,8 @@ export class IPCForm extends React.Component{
 							<FormGroup
 								info = {fields.purchasePrice}
 								section = 'purchasePrice'
-								onChange = {handleInputChange}
-								onClick = {onClick}
+								handleChange = {handleInputChange}
+								handleClick = {handleClick}
 							/>
 						</div>
 						<div className = 'content-section'>
@@ -37,8 +37,8 @@ export class IPCForm extends React.Component{
 								section = 'income.rental'
 								enableAdd = 'true'
 								enableAddTitle = 'add a source of (residential) rental income'
-								onClick = {onClick}
-								onChange = {handleInputChange}
+								handleClick = {handleClick}
+								handleChange = {handleInputChange}
 								contentArr = {fields.income.rental}
 							/>
 							<IpcFormSubsection
@@ -46,8 +46,8 @@ export class IPCForm extends React.Component{
 								section = 'income.retail'
 								enableAdd = 'true'
 								enableAddTitle = 'add a source of retail rental income'
-								onClick = {onClick}
-								onChange = {handleInputChange}
+								handleClick = {handleClick}
+								handleChange = {handleInputChange}
 								contentArr = {fields.income.retail}
 							/>
 							<IpcFormSubsection
@@ -55,8 +55,8 @@ export class IPCForm extends React.Component{
 								section = 'income.other'
 								enableAdd = 'true'
 								enableAddTitle = 'add a source of other income'
-								onClick = {onClick}
-								onChange = {handleInputChange}
+								handleClick = {handleClick}
+								handleChange = {handleInputChange}
 								contentArr = {fields.income.other}
 							/>
 						</div>
@@ -70,8 +70,8 @@ export class IPCForm extends React.Component{
 								section = 'expenses.carryingCosts'
 								enableAdd = 'true'
 								enableAddTitle = 'add a different carrying cost'
-								onClick = {onClick}
-								onChange = {handleInputChange}
+								handleClick = {handleClick}
+								handleChange = {handleInputChange}
 								contentArr = {fields.expenses.carryingCosts}
 							/>
 							<IpcFormSubsection
@@ -79,8 +79,8 @@ export class IPCForm extends React.Component{
 								section = 'expenses.utilities'
 								enableAdd = 'true'
 								enableAddTitle = 'add another utilities expense'
-								onClick = {onClick}
-								onChange = {handleInputChange}
+								handleClick = {handleClick}
+								handleChange = {handleInputChange}
 								contentArr = {fields.expenses.utilities}
 							/>
 							<IpcFormSubsection
@@ -88,8 +88,8 @@ export class IPCForm extends React.Component{
 								section = 'expenses.other'
 								enableAdd = 'true'
 								enableAddTitle = 'add a miscellaneous expense'
-								onClick = {onClick}
-								onChange = {handleInputChange}
+								handleClick = {handleClick}
+								handleChange = {handleInputChange}
 								contentArr = {fields.expenses.other}
 							/>
 						</div>

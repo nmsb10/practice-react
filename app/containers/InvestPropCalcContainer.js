@@ -992,13 +992,17 @@ export class InvestPropCalcContainer extends React.Component{
 			//now check for selected field
 			if(selected.field === 'down payment %'){
 				if(purchasePrice === ''){
+					newState.financing[0].notice = 'enter a purchase price';
 					newState.financing[1].notice = 'enter a purchase price';
+					newValue = '';
 				}else{
 					newState.financing[1].amount = parseInt(0.01 * newValue * purchasePrice);
 				}
 			}else if(selected.field === 'down payment $'){
 				if(purchasePrice === ''){
 					newState.financing[0].notice = 'enter a purchase price';
+					newState.financing[1].notice = 'enter a purchase price';
+					newValue = '';
 				}else{
 					newState.financing[0].amount = (100 * newValue / purchasePrice).toFixed(2);
 				}
@@ -1459,7 +1463,7 @@ export class InvestPropCalcContainer extends React.Component{
 			<div className = 'ipc-component'>
 				<IPCOtherTermsBox
 					assumptions = {assumptions}
-					onChange = {this.updateAssumptions}
+					handleChange = {this.updateAssumptions}
 				/>
 				<div className = 'fit-95 form-and-analysis'>
 					<IPCForm
@@ -1467,7 +1471,7 @@ export class InvestPropCalcContainer extends React.Component{
 						handleInputChange = {this.updateFormFields}
 						fields = {formFields}
 						assumptions = {assumptions}
-						onClick = {this.handleClick}
+						handleClick = {this.handleClick}
 					/>
 					<IPCAnalysis
 						fields = {formFields}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const OtherTermsForm = (props) => {
-	let{terms, section, title, onChange} = props;
+	let{terms, section, title, handleChange} = props;
 	return(
 		<div className = 'form-container'>
 			<span className = 'capitalize'>{title}</span>
@@ -24,7 +24,7 @@ export const OtherTermsForm = (props) => {
 										data-validate = {content.valueType}
 										value = {content.amount}
 										placeholder = {content.notice || content.field}
-										onChange = {onChange}
+										onChange = {handleChange}
 									/>
 								</span>
 								<span className = 'contents'>{content.postEntry}</span>

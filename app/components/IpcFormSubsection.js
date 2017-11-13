@@ -2,7 +2,7 @@ import React from 'react';
 import {FormGroup} from './FormGroup';
 
 export const IpcFormSubsection = (props) => {
-	let{subtitle, enableAdd, enableAddTitle, section, onClick, onChange, contentArr} = props;
+	let{subtitle, enableAdd, enableAddTitle, section, handleClick, handleChange, contentArr} = props;
 	return(
 		<div>
 			<div className = 'subtitle-container'>
@@ -14,7 +14,7 @@ export const IpcFormSubsection = (props) => {
 						data-item-clicked = 'addToSection'
 						data-section = {section}
 						title = {enableAddTitle}
-						onClick = {onClick}
+						onClick = {handleClick}
 					>
 					</i>:
 					<i className = 'hidden'></i>
@@ -23,8 +23,8 @@ export const IpcFormSubsection = (props) => {
 			<FormGroup
 				info = {contentArr}
 				section = {section}
-				onChange = {onChange}
-				onClick = {onClick}
+				handleChange = {handleChange}
+				handleClick = {handleClick}
 			/>
 		</div>
 	);

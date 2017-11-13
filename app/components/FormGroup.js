@@ -3,7 +3,7 @@ import { Tooltip } from './Tooltip';
 
 export class FormGroup extends React.Component {
 	render(){
-		let { info, section, onChange, onClick} =this.props;//think of section as the path of the formFields object. then key = which array is displayed in that object following that path
+		let { info, section, handleChange, handleClick} =this.props;//think of section as the path of the formFields object. then key = which array is displayed in that object following that path
 		return(
 			<div className = 'form-group-container'>
 				{info.map( (contents, i) => {
@@ -16,7 +16,7 @@ export class FormGroup extends React.Component {
 					return(
 						<div className="form-group"
 							key = {i}
-							onClick = {onClick}
+							onClick = {handleClick}
 						>
 							<span
 								className = {contents.required ? 'hidden' : 'close'}
@@ -63,7 +63,7 @@ export class FormGroup extends React.Component {
 											data-section = {section}
 											value = {contents.name}
 											placeholder = {contents.name}
-											onChange = {onChange}
+											onChange = {handleChange}
 										/>
 									{/*
 										when a label has attribute 'for' this makes the input with which it is associated clickable
@@ -95,7 +95,7 @@ export class FormGroup extends React.Component {
 												data-section = {section}
 												value = {contents.value.amount}
 												placeholder = {contents.value.placeholder}
-												onChange = {onChange}
+												onChange = {handleChange}
 											/>
 										</span>
 										<span className = 'contents'>{contents.value.postEntry}</span>
@@ -115,7 +115,7 @@ export class FormGroup extends React.Component {
 														data-section = {section}
 														value = {contents.value.monthly}
 														placeholder = {contents.value.placeholder}
-														onChange = {onChange}
+														onChange = {handleChange}
 													/>
 												</span>
 												<span className = 'contents'>{contents.value.postEntry}</span>
@@ -137,7 +137,7 @@ export class FormGroup extends React.Component {
 														data-section = {section}
 														value = {contents.value.annual}
 														placeholder = {contents.value.placeholder}
-														onChange = {onChange}
+														onChange = {handleChange}
 													/>
 												</span>
 												<span className = 'contents'>{contents.value.postEntry}</span>

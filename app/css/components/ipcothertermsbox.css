@@ -30,11 +30,6 @@
     transform-origin: 100% 100%;*/
 }
 
-.ipc-component .ipc-other-terms .term-container:hover{
-	color: rgb(100, 100, 100);
-	background-color: rgb(251, 251, 251);
-}
-
 .ipc-component .ipc-other-terms .term-container i{
 	position: relative;
 	top: 50%;
@@ -49,23 +44,67 @@
 	position:relative;
 }
 
-.ipc-component .ipc-other-terms .term-container .terms-form-container{
+.ipc-component .ipc-other-terms .term-container .form-container{
 	position:absolute;
-	width:15rem;
+	box-sizing: border-box;
+	width:13.5rem;
 	top: 0;
-	left: -15rem;
+	left: -13.5rem;
 	opacity:0;
 	z-index:2;
-	border: 0.15rem solid black;
-	padding: 0.7rem 0.35rem;
+	border: 0.15rem solid rgba(45, 45, 45, 0.9);
+	padding: 0.7rem 0.95rem;
 	-webkit-transition: all 0.5s ease 0s;
 	-moz-transition: all 0.5s ease 0s;
 	transition: all 0.5s ease 0s;
 }
 
-.ipc-component .ipc-other-terms .term-container .show-inputs:hover .terms-form-container{
-	opacity:0.9;
+.ipc-component .ipc-other-terms .term-container .show-inputs:hover .form-container{
+	opacity:1;
 	left:0;
-	background-color:black;
+	background-color: rgb(71, 71, 71);;
 }
 
+.ipc-component .ipc-other-terms .term-container .form-container .input-container{
+	text-align:left;
+	margin-bottom:0.5rem;
+}
+
+.ipc-component .ipc-other-terms .term-container .form-container .input-container label{
+	font-size:0.88rem;
+}
+
+.ipc-component .ipc-other-terms .term-container .form-container .input-container input{
+	display:block;
+	box-sizing: border-box;
+	padding: 0.15rem;
+	border:none;
+	color: rgba(0, 0, 0, 1);
+	background-color: rgba(255, 255, 255, 1);
+	max-width: 7.5rem;
+	-webkit-transition: all 0.35s ease 0s;
+	-moz-transition: all 0.35s ease 0s;
+	transition: all 0.35s ease 0s;
+}
+
+.ipc-component .ipc-other-terms .term-container .form-container .input-container .contents-wrapper{
+	color: black;
+	background-color:rgb(255, 255, 255);
+	font-size:0.9rem;
+}
+
+.ipc-component .ipc-other-terms .term-container .form-container .input-container .ta-left{
+	text-align: left;
+}
+
+.ipc-component .ipc-other-terms .term-container .form-container .input-container .ta-right{
+	text-align: right;
+}
+
+.ipc-component .ipc-other-terms .term-container .form-container .input-container .contents-wrapper span{
+	display: inline-block;
+}
+
+.ipc-component .ipc-other-terms .term-container .form-container .input-container .contents-wrapper .contents{
+	cursor: default;
+}

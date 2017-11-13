@@ -3,29 +3,31 @@ import React from 'react';
 export const OtherTermsForm = (props) => {
 	let{terms, section, title, onChange} = props;
 	return(
-		<div className = 'terms-form-container'>
+		<div className = 'form-container'>
 			<span className = 'capitalize'>{title}</span>
 			<form>
 				{terms.map( (content, i) => {
-					return(
-						<div key = {i} className = '' title = {content.field}>
+					return(							
+						<div className = 'input-container' key = {i} title = {content.title || content.field}>
 							<label htmlFor = {content.field}>
 								<span className = 'label-span'>{content.field}</span>
 							</label>
-							<div className = 'input-wrapper'>
-								<span className = ''>{content.preEntry}</span>
-								<input
-									className = ''
-									type='text'
-									id={content.field}
-									data-key = {i}
-									data-section = {section}
-									data-validate = {content.valueType}
-									value = {content.amount}
-									placeholder = {content.field}
-									onChange = {onChange}
-								/>
-								<span className = ''>{content.postEntry}</span>
+							<div className = {content.preEntry ? 'contents-wrapper ta-left' : content.postEntry ? 'contents-wrapper ta-right' : 'contents-wrapper'}>
+								<span className = 'contents'>{content.preEntry}</span>
+								<span className = 'input-span'>
+									<input
+										className = {content.preEntry ? 'ta-left' : content.postEntry ? 'ta-right' : ''}
+										type='text'
+										id={content.field}
+										data-key = {i}
+										data-section = {section}
+										data-validate = {content.valueType}
+										value = {content.amount}
+										placeholder = {content.notice || content.field}
+										onChange = {onChange}
+									/>
+								</span>
+								<span className = 'contents'>{content.postEntry}</span>
 							</div>
 						</div>
 					);

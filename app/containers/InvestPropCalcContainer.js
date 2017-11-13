@@ -484,20 +484,24 @@ export class InvestPropCalcContainer extends React.Component{
 				financing:[
 					{
 						field: 'down payment %',
+						title: 'down payment % (remember: LTV = 100% - down payment %)',
 						preEntry:'',
 						amount:'',
 						postEntry:'%',
-						valueType: ['percentage',2]
+						valueType: ['percentage',2],
+						notice:false
 					},
 					{
 						field: 'down payment $',
 						preEntry:'$',
 						amount:'',
 						postEntry:'',
-						valueType: ['dollars']
+						valueType: ['dollars'],
+						notice:false
 					},
 					{//NB APR is higher
 						field: 'interest rate (annual)',
+						title: 'interest rate (annual) NB: APR is higher',
 						preEntry:'',
 						amount:'',
 						postEntry:'%',
@@ -988,13 +992,13 @@ export class InvestPropCalcContainer extends React.Component{
 			//now check for selected field
 			if(selected.field === 'down payment %'){
 				if(purchasePrice === ''){
-					newState.financing[1].amount = 'enter a purchase price';
+					newState.financing[1].notice = 'enter a purchase price';
 				}else{
-					newState.financing[1].amount = 0.01 * newValue * purchasePrice;
+					newState.financing[1].amount = parseInt(0.01 * newValue * purchasePrice);
 				}
 			}else if(selected.field === 'down payment $'){
 				if(purchasePrice === ''){
-					newState.financing[0].amount = 'enter a purchase price';
+					newState.financing[0].notice = 'enter a purchase price';
 				}else{
 					newState.financing[0].amount = (100 * newValue / purchasePrice).toFixed(2);
 				}

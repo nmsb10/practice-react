@@ -26,7 +26,7 @@ export class RealEstate extends React.Component{
 		let{adjectives} = this.state;
 		let newState = adjectives;
 		//this.rotateServiceAdjs();
-		let interval = setInterval(this.rotateServiceAdjs, 5000);
+		let interval = setInterval(this.rotateServiceAdjs, 15000);
 		let mixedArr = this.shuffleByKnuth(adjectives.array);
 		let objCopy = Object.assign({}, adjectives, {interval: interval, array: mixedArr});
 		this.setState({
@@ -44,6 +44,9 @@ export class RealEstate extends React.Component{
 		this.setState({
 			adjectives: objCopy
 		});
+		if(current>adjectives.array.length){
+			clearInterval(adjectives.interval);
+		}
 
 	}
 	// showTestimonials(){
@@ -90,9 +93,9 @@ export class RealEstate extends React.Component{
 		return(
 			<div className = 'fit-95'>
 				<div className = 'real-estate-component'>
-					<div>
+					<div className = 'services'>
 						<span>now offering</span>
-						<span> {adjectives.current} </span>
+						<span className = 'adj'> {adjectives.current} </span>
 						<span>real estate services</span>
 					</div>
 					<i className="fa fa-home" aria-hidden="true"></i>

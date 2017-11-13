@@ -11,4 +11,92 @@
 	background-color: rgb(252, 252, 252);
 	/*overflow auto for the clearfix of the floated children*/
 	overflow: hidden;
+	padding-top:200px;
+}
+
+.real-estate-component .services .adj{
+	position:relative;
+	display:inline-block;
+	background-color: purple;
+	color: white;
+	overflow:hidden;
+	width:15rem;
+	padding:1.5rem;
+	-webkit-transition: all 2.5s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: all 2.5s ease 0s;
+	transition: all 2.5s ease 0s;
+    -webkit-animation: rotatein 2.5s ease 0s; /* Safari and Chrome */
+    -moz-animation: rotatein 2.5s ease 0s; /* Firefox */
+    -ms-animation: rotatein 2.5s ease 0s; /* Internet Explorer */
+    -o-animation: rotatein 2.5s ease 0s; /* Opera */
+    animation: rotatein 2.5s ease 0s infinite;
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes rotatein {
+	0% {
+		-webkit-transform:rotateX(90deg) scale(0.9);
+		top:-100px;
+		box-shadow: 2px 2px 1px black;
+	}
+    100% {
+    	-webkit-transform:rotateX(0deg) scale(1);
+    	top: 0;
+    	box-shadow: 7px 8px 5px black;
+    }
+}
+
+/* Firefox */
+@-moz-keyframes rotatein {
+	0% {
+		transform:rotateX(90deg) scale(0.9);
+		top:-100px;
+		box-shadow: 2px 2px 1px black;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    	box-shadow: 7px 8px 5px black;
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes rotatein {
+	0% {
+		-ms-transform:rotateX(90deg) scale(0.9);
+		top:-100px;
+		box-shadow: 2px 2px 1px black;
+	}
+    100% {
+    	-ms-transform:rotateX(0deg) scale(1);
+    	top: 0;
+    	box-shadow: 7px 8px 5px black;
+    }
+}
+
+/* Opera */
+@-o-keyframes rotatein {
+    0% {
+		transform:rotateX(90deg) scale(0.9);
+		top:-100px;
+		box-shadow: 2px 2px 1px black;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    	box-shadow: 7px 8px 5px black;
+    }
+}
+
+@keyframes rotatein {
+	0% {
+		transform:rotateX(90deg) scale(0.9);
+		top:-100px;
+		box-shadow: 2px 2px 1px black;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    	box-shadow: 7px 8px 5px black;
+    }
 }

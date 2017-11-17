@@ -2,16 +2,266 @@
 	box-sizing: border-box;
 	position: relative;
 	width: 100%;
-	margin: 1rem auto;
-	padding: 0.5rem;
+	margin: 1rem auto 2rem;
 	max-width: 62rem;
 	min-width: 22rem;
-	border: 0.09rem solid rgb(247, 247, 247);
+	/*border: 0.09rem solid rgb(247, 247, 247);
 	border-radius: 0.3rem;
-	background-color: rgb(252, 252, 252);
+	background-color: rgb(252, 252, 252);*/
 }
 
-.projects{
-	/*	this time should be the same as the interval defined when calling the bcChange function*/
-	transition: background-color 3s linear;
+.projects-component .projects-container{
+	margin: 0 auto;
+	width:100%;
+	max-width: 50rem;
+	padding: 0 0.5%;
+	/*need font-size 0 because children are inline-block elements. need to eliminate white space*/
+	font-size: 0;
+}
+
+.projects-component .projects-container .project{
+	display:inline-block;
+	font-size:1rem;
+	width: 33%;
+	/*https://www.w3schools.com/howto/howto_css_aspect_ratio.asp*/
+	padding-top: 33%; /* 1:1 Aspect Ratio */
+    position: relative; /* If you want text inside of it */
+    -webkit-transition: all 1s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: all 1s ease 0s;
+	transition: font-size 1s ease 0s;
+    /*	this time should be the same as the interval defined when calling the bcChange function*/
+    -webkit-transition: background-color 5s linear; /* For Safari 3.1 to 6.0 */
+	-moz-transition: background-color 5s linear;
+	transition: background-color 5s linear;
+}
+
+.projects-component .projects-container .project:hover{
+	opacity:1;
+	font-size:2rem;
+}
+
+
+.projects-component .projects-container .project:first-child{
+	border-radius: 1rem 0 0 0;
+}
+
+.projects-component .projects-container .project:nth-child(3){
+	border-radius: 0 1rem 0 0;
+}
+
+.projects-component .projects-container .project:nth-last-child(3){
+	border-radius: 0 0 0 1rem;
+}
+
+.projects-component .projects-container .project:nth-last-child(1){
+	border-radius: 0 0 1rem 0;
+}
+
+.projects-component .projects-container .project .title-container{
+	position:relative;
+	top:50%;
+	transform: translateY(-50%);
+	max-height:100%;
+	overflow:hidden;
+	padding:0.5rem;
+}
+
+.projects-component .projects-container .from-top{
+	-webkit-animation: projfromtop 2.5s ease 0s; /* Safari and Chrome */
+    -moz-animation: projfromtop 2.5s ease 0s; /* Firefox */
+    -ms-animation: projfromtop 2.5s ease 0s; /* Internet Explorer */
+    -o-animation: projfromtop 2.5s ease 0s; /* Opera */
+    animation: projfromtop 2.5s ease 0s;
+}
+
+.projects-component .projects-container .from-left{
+	-webkit-animation: projfromleft 2.5s ease 0s; /* Safari and Chrome */
+    -moz-animation: projfromleft 2.5s ease 0s; /* Firefox */
+    -ms-animation: projfromleft 2.5s ease 0s; /* Internet Explorer */
+    -o-animation: projfromleft 2.5s ease 0s; /* Opera */
+    animation: projfromleft 2.5s ease 0s;
+}
+
+.projects-component .projects-container .scale-in{
+	-webkit-animation: projscalein 2.5s ease 0s; /* Safari and Chrome */
+    -moz-animation: projscalein 2.5s ease 0s; /* Firefox */
+    -ms-animation: projscalein 2.5s ease 0s; /* Internet Explorer */
+    -o-animation: projscalein 2.5s ease 0s; /* Opera */
+    animation: projscalein 2.5s ease 0s;
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes projfromtop {
+	0% {
+		-webkit-transform:rotateX(90deg) scale(0.5);
+		top:-100%;
+	}
+    100% {
+    	-webkit-transform:rotateX(0deg) scale(1);
+    	top: 0;
+    }
+}
+
+/* Firefox */
+@-moz-keyframes projfromtop {
+	0% {
+		transform:rotateX(90deg) scale(0.5);
+		top:-100%;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes projfromtop {
+	0% {
+		-ms-transform:rotateX(90deg) scale(0.5);
+		top:-100%;
+	}
+    100% {
+    	-ms-transform:rotateX(0deg) scale(1);
+    	top: 0;
+    }
+}
+
+/* Opera */
+@-o-keyframes projfromtop {
+    0% {
+		transform:rotateX(90deg) scale(0.5);
+		top:-100%;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    }
+}
+
+@keyframes projfromtop {
+	0% {
+		transform:rotateX(90deg) scale(0.5);
+		top:-100%;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    }
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes projfromleft {
+	0% {
+		-webkit-transform:rotateX(90deg) scale(0.9);
+		left:-100%;
+	}
+    100% {
+    	-webkit-transform:rotateX(0deg) scale(1);
+    	left: 0;
+    }
+}
+
+/* Firefox */
+@-moz-keyframes projfromleft {
+	0% {
+		transform:rotateX(90deg) scale(0.9);
+		left:-100%;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	left: 0;
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes projfromleft {
+	0% {
+		-ms-transform:rotateX(90deg) scale(0.9);
+		left:-100%;
+	}
+    100% {
+    	-ms-transform:rotateX(0deg) scale(1);
+    	left: 0;
+    }
+}
+
+/* Opera */
+@-o-keyframes projfromleft {
+    0% {
+		transform:rotateX(90deg) scale(0.9);
+		left:-100%;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	left: 0;
+    }
+}
+
+@keyframes projfromleft {
+	0% {
+		transform:rotateX(90deg) scale(0.9);
+		left:-100%;
+	}
+    100% {
+    	transform:rotateX(0deg) scale(1);
+    	left: 0;
+    }
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes projscalein {
+	0% {
+		-webkit-transform: scale(0);
+	}
+    100% {
+    	-webkit-transform: scale(1);
+    }
+}
+
+/* Firefox */
+@-moz-keyframes projscalein {
+	0% {
+		transform: scale(0);
+	}
+    100% {
+    	transform: scale(1);
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes projscalein {
+	0% {
+		-ms-transform: scale(0);
+	}
+    100% {
+    	-ms-transform: scale(1);
+    }
+}
+
+/* Opera */
+@-o-keyframes projscalein {
+    0% {
+		transform: scale(0);
+	}
+    100% {
+    	transform: scale(1);
+    }
+}
+
+@keyframes projscalein {
+	0% {
+		transform: scale(0);
+	}
+    100% {
+    	transform: scale(1);
+    }
+}
+
+.projects-component .projects-container .project .contents{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align:center;
 }

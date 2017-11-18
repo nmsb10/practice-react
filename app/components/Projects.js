@@ -243,9 +243,9 @@ export class Projects extends React.Component{
 					</div>
 					<div className = 'contents description'>
 						<div className = 'content'>
-							<div>{contents.desc}</div>
+							<div className = 'desc-content'>{contents.desc}</div>
 							<div className = 'technologies'>
-								<span>technologies used: </span>
+								<h3>technologies used:</h3>
 								<ul>
 								{contents.tech.map((te, j) => {
 									return(
@@ -257,16 +257,15 @@ export class Projects extends React.Component{
 								})}
 								</ul>
 							</div>
-							<br/>
-							<a
-								className = ''
-								href = {contents.staticlink}
-								target = '_blank'
-								title = {'view ' + contents.name + ' in a new browser window'}
-							>see {contents.name}
-							</a>
-							<br/>
-							<br/>
+							<div className = 'anchor-container'>
+								<a
+									className = ''
+									href = {contents.staticlink}
+									target = '_blank'
+									title = {'view ' + contents.name + ' in a new browser window'}
+								>see {contents.name}
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>

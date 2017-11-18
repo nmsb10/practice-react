@@ -393,6 +393,55 @@
     }
 }
 
+/* Safari and Chrome */
+@-webkit-keyframes scalein1510 {
+	0% {
+		-webkit-transform: scale(1.5);
+	}
+    100% {
+    	-webkit-transform: scale(1);
+    }
+}
+
+/* Firefox */
+@-moz-keyframes scalein1510 {
+	0% {
+		transform: scale(1.5);
+	}
+    100% {
+    	transform: scale(1);
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes scalein1510 {
+	0% {
+		-ms-transform: scale(1.5);
+	}
+    100% {
+    	-ms-transform: scale(1);
+    }
+}
+
+/* Opera */
+@-o-keyframes scalein1510 {
+    0% {
+		transform: scale(1.5);
+	}
+    100% {
+    	transform: scale(1);
+    }
+}
+
+@keyframes scalein1510 {
+	0% {
+		transform: scale(1.5);
+	}
+    100% {
+    	transform: scale(1);
+    }
+}
+
 .projects-component .projects-container .project .contents{
     position: absolute;
     top: 0;
@@ -415,7 +464,7 @@
 
 .projects-component .projects-container .project .description .content{
 	overflow: auto;
-	text-align: justify;
+	text-align: center;
 }
 
 .projects-component .projects-container .project .description .content ul{
@@ -434,10 +483,6 @@
 	white-space: pre-wrap;
 }
 
-.projects-component .projects-container .project .description .content a{
-	padding-bottom:1rem;
-}
-
 .projects-component .projects-container .project .project-name{
 	-webkit-transition: all 1s ease 0s; /* For Safari 3.1 to 6.0 */
 	-moz-transition: all 1s ease 0s;
@@ -453,6 +498,35 @@
 	transition: all 2s ease 0s;
 }
 
+.projects-component .projects-container .project .description .desc-content{
+	text-align: justify;
+	margin-top:0.3rem;
+}
+
+.projects-component .projects-container .project .description .technologies{
+	margin: 0.5rem 0;
+}
+
+.projects-component .projects-container .project .description .anchor-container{
+	padding-bottom:1.5rem;
+}
+
+.projects-component .projects-container .project .description .anchor-container a{
+	font-size:1.15rem;
+	text-decoration: underline;
+	color: rgb(50, 255, 0);
+}
+
+.projects-component .projects-container .project .description .anchor-container a:hover{
+	text-decoration: none;
+	color: rgb(100, 255, 0);
+}
+
+.projects-component .projects-container .project .description .technologies h3{
+	margin: 0.2rem 0;
+	text-decoration: underline;
+}
+
 .projects-component .projects-container .project:hover .project-name{
 	font-size: 2rem;
 	color: rgba(255, 255, 255, 0.2);
@@ -463,9 +537,9 @@
 	z-index:2;
 	opacity: 1;
 	color:white;
-	-webkit-animation: waterdrop 1.9s ease 0s; /* Safari and Chrome */
-    -moz-animation: waterdrop 1.9s ease 0s; /* Firefox */
-    -ms-animation: waterdrop 1.9s ease 0s; /* Internet Explorer */
-    -o-animation: waterdrop 1.9s ease 0s; /* Opera */
-    animation: waterdrop 1.9s ease 0s;
+	-webkit-animation: scalein1510 1.2s ease 0s; /* Safari and Chrome */
+    -moz-animation: scalein1510 1.2s ease 0s; /* Firefox */
+    -ms-animation: scalein1510 1.2s ease 0s; /* Internet Explorer */
+    -o-animation: scalein1510 1.2s ease 0s; /* Opera */
+    animation: scalein1510 1.2s ease 0s;
 }

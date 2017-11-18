@@ -91,7 +91,7 @@ export class Projects extends React.Component{
 				},{
 					name: "mySQL CLI app",
 					staticlink: 'https://youtu.be/M3w1Te47G5o',
-					desc: 'This homework involved "creating an Amazon-like storefront with mySQL. The application takes in orders from customers and depletes stock from the store\'s inventory. The application also tracks product sales across departments and can provide a summary of the highest-grossing departments in the store." Preliminary steps included creating a package.json file and installing and saving the NPM packages (libraries) "mysql" for creating a mySQL connection, "inquirer" for the CLI interface, and "cli-table" for the "Supervisor View." I also added a .gitignore file so when pushing updates to github, the node_modules repository was not added. In MySQL Workbench, I created a database, specified using that particular database, then created a table with columns including an item_id primary key auto_incremented column, as well as product name, department name, price, and stock quantity columns. The JavaScript code first created a mySQL connection using the mysql object, then used inquirer and the mysql packages to obtain data from the products table and allow the user through the CLI to manipulate the table data in various ways, as demonstrated in the video. A second table was added to the same database which reflected total department sales and "profit," which would be updated whenever a change occured in the first products table. Success on this homework required extensive use of promises, anonymous functions, and callback functions, in addition to crafting appropriate mySQL queries and utilizing placeholders when necessary.',
+					desc: 'This homework involved "creating an Amazon-like storefront" with mySQL. The application takes in orders from customers and depletes stock from the store\'s inventory. The application also tracks product sales across departments and can provide a summary of the highest-grossing departments in the store." Preliminary steps included creating a package.json file and installing and saving the NPM packages (libraries) "mysql" for creating a mySQL connection, "inquirer" for the CLI interface, and "cli-table" for the "Supervisor View." I also added a .gitignore file so when pushing updates to github, the node_modules repository was not added. In MySQL Workbench, I created a database, specified using that particular database, then created a table with columns including an item_id primary key auto_incremented column, as well as product name, department name, price, and stock quantity columns. The JavaScript code first created a mySQL connection using the mysql object, then used inquirer and the mysql packages to obtain data from the products table and allow the user through the CLI to manipulate the table data in various ways, as demonstrated in the video. A second table was added to the same database which reflected total department sales and "profit," which would be updated whenever a change occured in the first products table. Success on this homework required extensive use of promises, anonymous functions, and callback functions, in addition to crafting appropriate mySQL queries and utilizing placeholders when necessary.',
 					tech: ['JavaScript', 'Node.js', 'NPM libraries/packages: inquirer, mysql, cli-table', 'mySQL'],
 					cssStyle:{
 						backgroundColor:null
@@ -242,7 +242,32 @@ export class Projects extends React.Component{
 						</div>
 					</div>
 					<div className = 'contents description'>
-						<div className = 'content'>{contents.desc}</div>
+						<div className = 'content'>
+							<div>{contents.desc}</div>
+							<div className = 'technologies'>
+								<span>technologies used: </span>
+								<ul>
+								{contents.tech.map((te, j) => {
+									return(
+										<li key = {j}>
+											<span>{te}</span>
+											<span className = 'divider'>{j < contents.tech.length-1 ? ' | ': ''}</span>
+										</li>
+									);
+								})}
+								</ul>
+							</div>
+							<br/>
+							<a
+								className = ''
+								href = {contents.staticlink}
+								target = '_blank'
+								title = {'view ' + contents.name + ' in a new browser window'}
+							>see {contents.name}
+							</a>
+							<br/>
+							<br/>
+						</div>
 					</div>
 				</div>
 			);

@@ -418,6 +418,26 @@
 	text-align: justify;
 }
 
+.projects-component .projects-container .project .description .content ul{
+	list-style-type: none;
+	padding: 0;
+	border: 0;
+	margin: 0;
+}
+
+.projects-component .projects-container .project .description .content ul li{
+	display: inline-block;
+	line-height: initial;
+}
+
+.projects-component .projects-container .project .description .content ul li .divider{
+	white-space: pre-wrap;
+}
+
+.projects-component .projects-container .project .description .content a{
+	padding-bottom:1rem;
+}
+
 .projects-component .projects-container .project .project-name{
 	-webkit-transition: all 1s ease 0s; /* For Safari 3.1 to 6.0 */
 	-moz-transition: all 1s ease 0s;

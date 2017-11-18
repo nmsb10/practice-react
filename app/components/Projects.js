@@ -236,10 +236,13 @@ export class Projects extends React.Component{
 			style.push({backgroundColor: contents.cssStyle.backgroundColor});
 			return(
 				<div key = {i} className = {contents.cssClass} style = {style[i]}>
-					<div className = 'contents'>
+					<div className = 'contents project-name'>
 						<div className = 'title-container'>
 							<span>{contents.name}</span>
 						</div>
+					</div>
+					<div className = 'contents description'>
+						<div className = 'content'>{contents.desc}</div>
 					</div>
 				</div>
 			);

@@ -142,7 +142,8 @@ export class Projects extends React.Component{
 				counter:null,
 				magnitude:null
 			},
-			projectsDisplayed:[]
+			projectsDisplayed:[],
+			projDispCounter:null
 		};
 		this.changeBC = this.changeBC.bind(this);
 		this.convertToRGBAString = this.convertToRGBAString.bind(this);
@@ -157,6 +158,7 @@ export class Projects extends React.Component{
 	}
 	componentWillUnmount(){
 		clearInterval(this.state.projects.counter);
+		clearInterval(this.state.projDispCounter);
 	}
 	changeBC(initialRGBA, mag, interval){//change background-color
 		let{projects} = this.state;
@@ -218,7 +220,7 @@ export class Projects extends React.Component{
 		let {projects, projectsDisplayed} = this.state;
 		let pdCopy = projectsDisplayed;
 		let count = 0;
-		setInterval(()=>{
+		let dptCounter = setInterval(()=>{
 			if(count < projects.arr.length){
 				pdCopy.push(projects.arr[count]);
 				this.setState({
@@ -227,6 +229,9 @@ export class Projects extends React.Component{
 				count++;
 			}
 		}, 350);
+		this.setState({
+			projDispCounter: dptCounter
+		});
 	}
 	render(){
 		let{projectsDisplayed} = this.state;

@@ -30,19 +30,19 @@ app.use(express.static('./public'));
 // ======================================================
 // MongoDB Configuration
 // database configuration with mongoose using the mongodb database
-mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/20171120reactPractice");
+// mongoose.Promise = global.Promise;
+// mongoose.connect("mongodb://localhost/20171120reactPractice");
 
-//save the mongoose connection to db
-const db = mongoose.connection;
+// //save the mongoose connection to db
+// const db = mongoose.connection;
 
-db.on("error", function(err) {
-	console.log("Mongoose Error: ", err);
-});
+// db.on("error", function(err) {
+// 	console.log("Mongoose Error: ", err);
+// });
 
-db.once("open", function() {
-	console.log("Mongoose connection successful.");
-});
+// db.once("open", function() {
+// 	console.log("Mongoose connection successful.");
+// });
 
 // ======================================================
 //routes:

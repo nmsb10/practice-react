@@ -10,6 +10,10 @@
 	background-color: rgb(252, 252, 252);
 }
 
+.about-component span{
+	padding-left:0.3rem;
+}
+
 .about-component ul{
 	list-style-type: none;
 	padding: 0;

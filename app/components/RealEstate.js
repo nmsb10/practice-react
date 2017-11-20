@@ -6,7 +6,7 @@ export class RealEstate extends React.Component{
 		this.state = {
 			adjectives: {
 				array: ['organic', 'gluten-free', 'cage-free', 'cruelty-free', 'bisphenol-A-free', 'HFCS-free', 'GMO-free', 'conflict-free', 'fair trade', 'ethically sourced', 'sustainably grown','sustainably sourced'],
-				count:-1,
+				count:0,
 				current: null,
 				interval:null,
 				displaying: false,
@@ -14,7 +14,7 @@ export class RealEstate extends React.Component{
 			},
 			protectedClasses:{
 				federal:['race', 'color', 'religion', 'national origin', 'sex', 'familial status', 'handicap'],
-				illinois:['race', 'color', 'religion', 'national origin', 'sex', 'familial status (with regard to housing)', 'citizenship status (with regard to employment)', 'ancestry', 'age', 'sexual orientation', 'order of protection status', 'marital status', 'physical and mental disability', 'arrest record', 'military status', 'unfavorable discharge from military service']
+				illinois:['race', 'color', 'religion', 'national origin', 'sex', 'familial status (with regard to housing)', 'physical and mental disability', 'age', 'ancestry', 'arrest record', 'citizenship status (with regard to employment)', 'marital status', 'military status', 'order of protection status', 'sexual orientation', 'unfavorable discharge from military service']
 				//Illinois Human Rights Act
 				//https://www.illinois.gov/ihrc/Pages/default.aspx
 			}
@@ -24,11 +24,9 @@ export class RealEstate extends React.Component{
 	}
 	componentDidMount(){
 		let{adjectives} = this.state;
-		let newState = adjectives;
-		//this.rotateServiceAdjs();
-		let interval = setInterval(this.rotateServiceAdjs, 15000);
+		let interval = setInterval(this.rotateServiceAdjs, 5000);
 		let mixedArr = this.shuffleByKnuth(adjectives.array);
-		let objCopy = Object.assign({}, adjectives, {interval: interval, array: mixedArr});
+		let objCopy = Object.assign({}, adjectives, {count: 0, interval: interval, array: mixedArr});
 		this.setState({
 			adjectives: objCopy
 		});
@@ -38,40 +36,28 @@ export class RealEstate extends React.Component{
 	}
 	rotateServiceAdjs(){
 		let{adjectives} = this.state;
-		let current = adjectives.count + 1;
+		let objCopy = {};
+		let current = adjectives.count;
 		let selection = adjectives.array[current];
-		let objCopy = Object.assign({}, adjectives, {count:current, current: selection,});
+		if(current===adjectives.array.length-1){
+			clearInterval(adjectives.interval);
+			let interval = setInterval(this.rotateServiceAdjs, 5000);
+			let mixedAdjectives = this.shuffleByKnuth(adjectives.array);
+			objCopy = Object.assign({}, adjectives, {current: selection, count: 0, interval: interval, array: mixedAdjectives});
+			
+		}else{
+			objCopy = Object.assign({}, adjectives, {count:current + 1, current: selection, cssClass: 're-adj-rotatein'});
+		}
 		this.setState({
 			adjectives: objCopy
 		});
-		if(current>adjectives.array.length){
-			clearInterval(adjectives.interval);
-		}
-
+		setTimeout(() => {
+			let newCssClass = Object.assign({}, adjectives, {cssClass: 're-adj-rotateout'});
+			this.setState({
+				adjectives: newCssClass
+			});
+		}, 3500);
 	}
-	// showTestimonials(){
-	// 	let { testimonials } = this.state;
-	// 	let objCopy = {};
-	// 	if(testimonials.displaying && testimonials.fullArray.length > 0){
-	// 		let nextCount = testimonials.count + 1;
-	// 		if(nextCount < testimonials.fullArray.length){
-	// 			objCopy = Object.assign({}, testimonials, {currentSelection: testimonials.fullArray[nextCount], count: nextCount});
-	// 			this.setState({
-	// 				testimonials: objCopy
-	// 			});
-	// 		}else{//just completed displaying final fullArray element
-	// 			this.clearTheIntervals(['testimonials']);
-	// 		}
-	// 	}else if(testimonials.fullArray.length > 0 && !testimonials.displaying){
-	// 		let interval = setInterval(this.showTestimonials, 19000);
-	// 		let mixedTestimonials = this.shuffleByKnuth(testimonials.fullArray);
-	// 		let current = mixedTestimonials[0];
-	// 		objCopy = Object.assign({}, testimonials, {fullArray: mixedTestimonials, count:0, currentSelection: current, interval: interval, displaying: true, cssClass: 'testimonial-content tes-con-reg-animation'});
-	// 		this.setState({
-	// 			testimonials: objCopy
-	// 		});
-	// 	}
-	// }
 	shuffleByKnuth(array){
 		let currentIndex = array.length, temporaryValue, randomIndex;
 		while (0 !== currentIndex) {
@@ -95,7 +81,7 @@ export class RealEstate extends React.Component{
 				<div className = 'real-estate-component'>
 					<div className = 'services'>
 						<span>now offering</span>
-						<span className = 'adj'> {adjectives.current} </span>
+						<span className = {'adj ' +(adjectives.cssClass ? adjectives.cssClass : '')}>{adjectives.current ? adjectives.current : '...'}</span>
 						<span>real estate services</span>
 					</div>
 					<i className="fa fa-home" aria-hidden="true"></i>

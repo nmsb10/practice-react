@@ -6,9 +6,9 @@
 	padding: 0.5rem;
 	max-width: 62rem;
 	min-width: 22rem;
-	border: 0.09rem solid rgb(247, 247, 247);
+	border: 0.09rem solid rgb(252, 252, 252);
 	border-radius: 0.3rem;
-	background-color: rgb(252, 252, 252);
+	background-color: rgb(254, 254, 254);
 	/*overflow auto for the clearfix of the floated children*/
 	overflow: hidden;
 	padding-top:200px;
@@ -25,16 +25,23 @@
 	-webkit-transition: all 2.5s ease 0s; /* For Safari 3.1 to 6.0 */
 	-moz-transition: all 2.5s ease 0s;
 	transition: all 2.5s ease 0s;
-    -webkit-animation: rotatein 2.5s ease 0s; /* Safari and Chrome */
-    -moz-animation: rotatein 2.5s ease 0s; /* Firefox */
-    -ms-animation: rotatein 2.5s ease 0s; /* Internet Explorer */
-    -o-animation: rotatein 2.5s ease 0s; /* Opera */
-    animation: rotatein 2.5s ease 0s infinite;
+}
+
+.real-estate-component .services .re-adj-rotatein{
+    -webkit-animation: rotatein 1.5s ease 0s; /* Safari and Chrome */
+    -moz-animation: rotatein 1.5s ease 0s; /* Firefox */
+    -ms-animation: rotatein 1.5s ease 0s; /* Internet Explorer */
+    -o-animation: rotatein 1.5s ease 0s; /* Opera */
+    animation: rotatein 1.5s ease 0s;
 }
 
 /* Safari and Chrome */
 @-webkit-keyframes rotatein {
 	0% {
+		-webkit-transform:rotateX(180deg) scale(0.8);
+		top:0;
+	}
+	50% {
 		-webkit-transform:rotateX(90deg) scale(0.9);
 		top:-100px;
 		box-shadow: 2px 2px 1px black;
@@ -49,6 +56,11 @@
 /* Firefox */
 @-moz-keyframes rotatein {
 	0% {
+		transform:rotateX(180deg) scale(0.8);
+		top:0;
+		box-shadow: 2px 2px 1px black;
+	}
+	50% {
 		transform:rotateX(90deg) scale(0.9);
 		top:-100px;
 		box-shadow: 2px 2px 1px black;
@@ -63,6 +75,11 @@
 /* Internet Explorer */
 @-ms-keyframes rotatein {
 	0% {
+		-ms-transform:rotateX(180deg) scale(0.8);
+		top:0;
+		box-shadow: 2px 2px 1px black;
+	}
+	50% {
 		-ms-transform:rotateX(90deg) scale(0.9);
 		top:-100px;
 		box-shadow: 2px 2px 1px black;
@@ -77,6 +94,11 @@
 /* Opera */
 @-o-keyframes rotatein {
     0% {
+		transform:rotateX(180deg) scale(0.8);
+		top:0;
+		box-shadow: 2px 2px 1px black;
+	}
+	50% {
 		transform:rotateX(90deg) scale(0.9);
 		top:-100px;
 		box-shadow: 2px 2px 1px black;
@@ -90,13 +112,132 @@
 
 @keyframes rotatein {
 	0% {
+		transform:rotateX(180deg) scale(0.8);
+		top:0;
+		background-color: rgb(150, 150, 150);
+	}
+	50% {
 		transform:rotateX(90deg) scale(0.9);
 		top:-100px;
 		box-shadow: 2px 2px 1px black;
+		background-color: rgb(50, 50, 50);
 	}
     100% {
     	transform:rotateX(0deg) scale(1);
     	top: 0;
     	box-shadow: 7px 8px 5px black;
+    	background-color: purple;
     }
+}
+
+.real-estate-component .services .re-adj-rotateout{
+    -webkit-animation: rotateout 1.5s ease 0s; /* Safari and Chrome */
+    -moz-animation: rotateout 1.5s ease 0s; /* Firefox */
+    -ms-animation: rotateout 1.5s ease 0s; /* Internet Explorer */
+    -o-animation: rotateout 1.5s ease 0s; /* Opera */
+    animation: rotateout 1.5s ease 0s;
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes rotateout {
+	0% {
+		-webkit-transform:rotateX(0deg) scale(1);
+		top:0;
+		box-shadow: 7px 8px 5px black;
+    	background-color: purple;
+	}
+	50% {
+		-webkit-transform:rotateX(90deg) scale(0.9);
+		top:100px;
+		box-shadow: 2px 2px 1px black;
+		background-color: rgb(50, 50, 50);
+	}
+    100% {
+    	-webkit-transform:rotateX(-180deg) scale(0.8);
+    	top: 0;
+    	background-color: rgb(150, 150, 150);
+    }
+}
+
+/* Firefox */
+@-moz-keyframes rotateout {
+	0% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    	box-shadow: 7px 8px 5px black;
+    	background-color: purple;
+    }
+    50% {
+		transform:rotateX(-90deg) scale(0.9);
+		top:100px;
+		box-shadow: 2px 2px 1px black;
+		background-color: rgb(50, 50, 50);
+	}
+	100% {
+		transform:rotateX(-180deg) scale(0.8);
+		top:0;
+		background-color: rgb(150, 150, 150);
+	}
+}
+
+/* Internet Explorer */
+@-ms-keyframes rotateout {
+	0% {
+		-ms-transform:rotateX(0deg) scale(1);
+		top:0;
+		box-shadow: 2px 2px 1px black;
+		background-color: purple;
+	}
+	50% {
+		-ms-transform:rotateX(-90deg) scale(0.9);
+		top:100px;
+		box-shadow: 2px 2px 1px black;
+		background-color: rgb(50, 50, 50);
+	}
+    100% {
+    	-ms-transform:rotateX(-180deg) scale(0.8);
+    	top: 0;
+    	background-color: rgb(150, 150, 150);
+    }
+}
+
+/* Opera */
+@-o-keyframes rotateout {
+    0% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    	box-shadow: 7px 8px 5px black;
+    	background-color: purple;
+    }
+    50% {
+		transform:rotateX(-90deg) scale(0.9);
+		top:100px;
+		box-shadow: 2px 2px 1px black;
+		background-color: rgb(50, 50, 50);
+	}
+	100% {
+		transform:rotateX(-180deg) scale(0.8);
+		top:0;
+		background-color: rgb(150, 150, 150);
+	}
+}
+
+@keyframes rotateout {
+    0% {
+    	transform:rotateX(0deg) scale(1);
+    	top: 0;
+    	box-shadow: 7px 8px 5px black;
+    	background-color: purple;
+    }
+    50% {
+		transform:rotateX(-90deg) scale(0.9);
+		top:100px;
+		box-shadow: 2px 2px 1px black;
+		background-color: rgb(50, 50, 50);
+	}
+	100% {
+		transform:rotateX(-180deg) scale(0.8);
+		top:0;
+		background-color: rgb(150, 150, 150);
+	}
 }

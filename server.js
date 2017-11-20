@@ -3,10 +3,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 //can only use es2015 once NodeJS supports it
 // import express from 'express';
 // import bodyParser from 'body-parser';
 // import logger from 'morgan';
+
+//require the model schemas:
+const RenterQA = require('./models/QARenter.js');
+
 
 //create instance of express
 let app = express();
@@ -21,6 +26,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 //app.use(express.static(path.join(__dirname, 'public')));
 
+//to run locally; mongod; mongo; webpack -w; node server.js
+// ======================================================
+// MongoDB Configuration
+// database configuration with mongoose using the mongodb database
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost/20171120reactPractice");
+
+//save the mongoose connection to db
+const db = mongoose.connection;
+
+db.on("error", function(err) {
+	console.log("Mongoose Error: ", err);
+});
+
+db.once("open", function() {
+	console.log("Mongoose connection successful.");
+});
+
+// ======================================================
+//routes:
 //route to send POST requests to conduct a property search
 app.post('/calculate-investment-property', function(request, response){
 	let rb = request.body;

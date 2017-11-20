@@ -227,6 +227,8 @@ export class Projects extends React.Component{
 					projectsDisplayed: pdCopy
 				});
 				count++;
+			}else{
+				clearInterval(this.state.projDispCounter);
 			}
 		}, 350);
 		this.setState({

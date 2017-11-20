@@ -11,20 +11,37 @@
 	background-color: rgb(254, 254, 254);
 	/*overflow auto for the clearfix of the floated children*/
 	overflow: hidden;
-	padding-top:200px;
+}
+
+.real-estate-component .services{
+	text-align:center;
+	-webkit-transition: all 2.5s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: all 2.5s ease 0s;
+	transition: all 2.5s ease 0s;
+}
+
+.real-estate-component .services .services-container span{
+	display: block;
 }
 
 .real-estate-component .services .adj{
 	position:relative;
-	display:inline-block;
-	background-color: purple;
-	color: white;
 	overflow:hidden;
-	width:15rem;
-	padding:1.5rem;
-	-webkit-transition: all 2.5s ease 0s; /* For Safari 3.1 to 6.0 */
-	-moz-transition: all 2.5s ease 0s;
-	transition: all 2.5s ease 0s;
+	-webkit-transition-timing-function: linear; /* Safari and Chrome */
+    transition-timing-function: linear;
+}
+
+.real-estate-component .display-list-component{
+	display:inline-block;
+	vertical-align:top;
+}
+
+.real-estate-component .display-list-component .scale-in{
+	-webkit-animation: projscalein 2.5s ease 0s; /* Safari and Chrome */
+    -moz-animation: projscalein 2.5s ease 0s; /* Firefox */
+    -ms-animation: projscalein 2.5s ease 0s; /* Internet Explorer */
+    -o-animation: projscalein 2.5s ease 0s; /* Opera */
+    animation: projscalein 2.5s ease 0s;
 }
 
 .real-estate-component .services .re-adj-rotatein{
@@ -239,5 +256,219 @@
 		transform:rotateX(-180deg) scale(0.8);
 		top:0;
 		background-color: rgb(150, 150, 150);
+	}
+}
+
+.real-estate-component .services .re-adj-flip{
+    -webkit-animation: reflip 5s ease 0s; /* Safari and Chrome */
+    -moz-animation: reflip 5s ease 0s; /* Firefox */
+    -ms-animation: reflip 5s ease 0s; /* Internet Explorer */
+    -o-animation: reflip 5s ease 0s; /* Opera */
+    animation: reflip 5s ease 0s;
+}
+
+.real-estate-component .services .re-adj-flip2{
+    -webkit-animation: refliptwo 5s ease 0s; /* Safari and Chrome */
+    -moz-animation: refliptwo 5s ease 0s; /* Firefox */
+    -ms-animation: refliptwo 5s ease 0s; /* Internet Explorer */
+    -o-animation: refliptwo 5s ease 0s; /* Opera */
+    animation: refliptwo 5s ease 0s;
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes reflip {
+	0% {
+		-webkit-transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		-webkit-transform:rotateX(360deg);
+		color:black;
+	}
+	90% {
+		-webkit-transform:rotateX(360deg);
+		color:black;
+	}
+    100% {
+    	-webkit-transform:rotateX(540deg);
+    	color:rgb(254, 254, 254);
+    }
+}
+
+/* Firefox */
+@-moz-keyframes reflip {
+	0% {
+		transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		transform:rotateX(360deg);
+		color:black;
+	}
+    90% {
+    	transform:rotateX(360deg);
+    	color:black;
+    }
+    100% {
+		transform:rotateX(540deg);
+		color:rgb(254, 254, 254);
+	}
+}
+
+/* Internet Explorer */
+@-ms-keyframes reflip {
+	0% {
+		-ms-transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		-ms-transform:rotateX(360deg);
+		color:black;
+	}
+	90% {
+		-ms-transform:rotateX(360deg);
+		color:black;
+	}
+    100% {
+    	-ms-transform:rotateX(540deg);
+		color:rgb(254, 254, 254);
+    }
+}
+
+/* Opera */
+@-o-keyframes reflip {
+    0% {
+		transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		transform:rotateX(360deg);
+		color:black;
+	}
+    90% {
+    	transform:rotateX(360deg);
+    	color:black;
+    }
+    100% {
+		transform:rotateX(540deg);
+		color:rgb(254, 254, 254);
+	}
+}
+
+@keyframes reflip {
+	0% {
+		transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		transform:rotateX(360deg);
+		color:black;
+	}
+    90% {
+    	transform:rotateX(360deg);
+    	color:black;
+    }
+    100% {
+		transform:rotateX(540deg);
+		color:rgb(254, 254, 254);
+	}
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes refliptwo {
+	0% {
+		-webkit-transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		-webkit-transform:rotateX(360deg);
+		color:black;
+	}
+	90% {
+		-webkit-transform:rotateX(360deg);
+		color:black;
+	}
+    100% {
+    	-webkit-transform:rotateX(540deg);
+    	color:rgb(254, 254, 254);
+    }
+}
+
+/* Firefox */
+@-moz-keyframes refliptwo {
+	0% {
+		transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		transform:rotateX(360deg);
+		color:black;
+	}
+    90% {
+    	transform:rotateX(360deg);
+    	color:black;
+    }
+    100% {
+		transform:rotateX(540deg);
+		color:rgb(254, 254, 254);
+	}
+}
+
+/* Internet Explorer */
+@-ms-keyframes refliptwo {
+	0% {
+		-ms-transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		-ms-transform:rotateX(360deg);
+		color:black;
+	}
+	90% {
+		-ms-transform:rotateX(360deg);
+		color:black;
+	}
+    100% {
+    	-ms-transform:rotateX(540deg);
+		color:rgb(254, 254, 254);
+    }
+}
+
+/* Opera */
+@-o-keyframes refliptwo {
+    0% {
+		transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		transform:rotateX(360deg);
+		color:black;
+	}
+    90% {
+    	transform:rotateX(360deg);
+    	color:black;
+    }
+    100% {
+		transform:rotateX(540deg);
+		color:rgb(254, 254, 254);
+	}
+}
+
+@keyframes refliptwo {
+	0% {
+		transform:rotateX(180deg);
+		color:rgb(254, 254, 254);
+	}
+	10% {
+		transform:rotateX(360deg);
+		color:black;
+	}
+    90% {
+    	transform:rotateX(360deg);
+    	color:black;
+    }
+    100% {
+		transform:rotateX(540deg);
+		color:rgb(254, 254, 254);
 	}
 }

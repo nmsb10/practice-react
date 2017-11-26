@@ -1003,6 +1003,9 @@ export class InvestPropCalcContainer extends React.Component{
 					newState.financing[0].notice = 'enter a purchase price';
 					newState.financing[1].notice = 'enter a purchase price';
 					newValue = '';
+				}else if(newValue > purchasePrice){
+					newValue = purchasePrice;
+					newState.financing[0].amount = (100 * newValue / purchasePrice).toFixed(2);
 				}else{
 					newState.financing[0].amount = (100 * newValue / purchasePrice).toFixed(2);
 				}

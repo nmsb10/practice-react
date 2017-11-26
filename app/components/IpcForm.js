@@ -15,6 +15,12 @@ export class IPCForm extends React.Component{
 			<div className = 'ipc-form-container'>
 				<form onSubmit = {(event) => handleSubmit(event)}>
 					<div className = 'content'>
+						<a
+							href = 'https://youtu.be/pEM41vtIT4Y'
+							target = '_blank'
+							title = 'view the calculator demo on YouTube'
+						>view calculator demonstration
+						</a>
 						<div className = 'content-section'>
 							<WordLine
 								location = 'ipcForm'

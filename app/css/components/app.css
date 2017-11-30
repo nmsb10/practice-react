@@ -131,41 +131,6 @@ https://www.w3schools.com/Css/tryit.asp?filename=trycss_dropdown_text*/
 	background-color:rgb(15, 15, 15);
 }
 
-/* The Close Button */
-.closeSpan {
-	position: absolute;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    right: -17px;
-    top: -17px;
-    text-align: center;
-    border: 2px solid white;
-    border-radius: 17px;
-    box-shadow: 0px 0px 7px 3px rgba(73, 62, 71, 0.65);
-    background-color: rgba(79, 0, 79, 0.7);
-    -webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
-	-moz-transition: all 0.2s ease 0s;
-	transition: all 0.2s ease 0s;
-}
-
-.closeSpan:hover,
-.closeSpan:focus {
-    color: rgb(79, 0, 79);
-    background-color: rgb(255, 255, 255);
-    border-color: rgb(79, 0, 79);
-    box-shadow: 0px 0px 7px 5px rgba(73, 62, 71, 0.65);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.closeSpan:active{
-	background-color: rgba(79, 0, 79, 0.5);
-}
-
 /*@media screen and (max-width:480px) and (orientation:landscape OR portrait){
 }*/
 

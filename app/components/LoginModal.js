@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CloseButton } from './CloseButton';
 
 export const LoginModal = (props) => {
-	let {loginModal, loginForm, onClick, onChange, onSubmit} = props;
+	let {loginModal, loginForm, handleClick, onChange, onSubmit} = props;
 	return(
-		<div className={loginModal.containerClass} id = 'modal-container' onClick = {onClick}>
+		<div className={loginModal.containerClass} data-item-clicked = 'modal-container' onClick = {handleClick}>
 			<div className={loginModal.animateClass} id = 'login-modal-content'>
-				<span className="closeSpan" id = 'login-close-span'>&times;</span>
+				<CloseButton
+					itemClicked = 'login-close'
+					handleClick = ''
+				/>
 				<div className="modal-header">
 					<span>welcome</span>
 				</div>

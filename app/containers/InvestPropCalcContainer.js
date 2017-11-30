@@ -3,13 +3,14 @@ import {IPCForm} from '../components/IpcForm';
 import {IPCAnalysis} from '../components/IpcAnalysis';
 import {IPCOtherTermsBox} from '../components/IpcOtherTermsBox';
 import {InfoAlert} from '../components/InfoAlert';
+import {IpcFormDD} from '../components/IpcFormDD';
 import * as axios from 'axios';
 
 export class InvestPropCalcContainer extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			onView: 'search',//while searching on search form, is 'search'. otherwise 'loading'. after loading, if results are found, is 'stats' to show stats
+			currentView: '',//while searching on search form, is 'search'. otherwise 'loading'. after loading, if results are found, is 'stats' to show stats
 			validationMessages:{
 				number: ['an actual number'],
 				integer: ['a whole number','an integer','without decimals'],
@@ -881,6 +882,11 @@ export class InvestPropCalcContainer extends React.Component{
 		this.closeInfoAlert = this.closeInfoAlert.bind(this);
 		this.mortgagePayment = this.mortgagePayment.bind(this);
 	}
+	componentDidMount(){
+		this.setState({
+			currentView: 'showForm'
+		});
+	}
 	calculate(e){
 		e.preventDefault();
 		let{formFields, tierOne, tierTwo, infoAlert, noiSummary} = this.state;
@@ -1350,6 +1356,18 @@ export class InvestPropCalcContainer extends React.Component{
 		if(!request){//address situation when the component is clicked but not on a minimize, remove, or addtosection request
 			return;
 		}
+		if(request === 'closeForm'){
+			this.setState({
+				currentView: 'showResults'
+			});
+			return;
+		}
+		if(request=== 'showForm'){
+			this.setState({
+				currentView: 'showForm'
+			});
+			return;
+		}
 		let section = e.target.dataset.section;
 		let sectionArr = section.split('.');
 		let specificObject = fieldsCopy[sectionArr[0]];
@@ -1449,6 +1467,7 @@ export class InvestPropCalcContainer extends React.Component{
 	}
 	render(){
 		let {
+			currentView,
 			tierOne,
 			tierTwo,
 			formFields,
@@ -1469,6 +1488,14 @@ export class InvestPropCalcContainer extends React.Component{
 					handleChange = {this.updateAssumptions}
 				/>
 				<div className = 'fit-95 form-and-analysis'>
+					<IpcFormDD
+						view = {currentView}
+						handleSubmit = {this.calculate}
+						handleInputChange = {this.updateFormFields}
+						fields = {formFields}
+						assumptions = {assumptions}
+						handleClick = {this.handleClick}
+					/>
 					<IPCForm
 						handleSubmit = {this.calculate}
 						handleInputChange = {this.updateFormFields}

@@ -171,8 +171,8 @@ export class WelcomeContainer extends React.Component{
 	}
 	handleCloseLoginModal(e){
 		let{ loginModal } = this.state;
-		let clicked = e.target.id;
-		if(clicked === 'modal-container' || clicked === 'login-close-span'){
+		let clicked = e.target.dataset.itemClicked;
+		if(clicked === 'modal-container' || clicked === 'login-close'){
 			let objCopy = Object.assign({}, loginModal, {containerClass: 'modal modal-closing', animateClass: 'modal-content animate-up'});
 			this.setState({
 				loginModal: objCopy
@@ -285,7 +285,7 @@ export class WelcomeContainer extends React.Component{
 					<LoginModal
 						loginModal = {loginModal}
 						loginForm = {loginForm}
-						onClick = {this.handleCloseLoginModal}
+						handleClick = {this.handleCloseLoginModal}
 						onSubmit = {this.handleSubmit}
 						onChange = {this.handleInputChange}
 					/>

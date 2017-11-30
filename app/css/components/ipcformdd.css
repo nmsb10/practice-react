@@ -1,0 +1,43 @@
+.ipc-form-ad{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: white; /* Fallback color */
+    background-color: rgba(255, 255, 255, 0.65); /* white w/ opacity */
+}
+
+.ipc-form-ad.open{
+    display: block;
+}
+
+.test-content{
+    -webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
+    -moz-transition: all 0.35s ease 0s;
+    transition: all 0.35s ease 0s;
+}
+
+.ipc-form-ad .content{
+    box-sizing: border-box;
+    position: relative;
+    /*top: 50%;
+    transform: translateY(-50%);*/
+    margin:2.5rem auto;
+    width: 50%;
+    max-width:35rem;
+    min-width:21.5rem;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border: 0.08rem solid rgba(170, 170, 170, 0.85);
+/*    removed overflow auto so close X could appear outside the modal content
+*/    /*overflow: auto;*/
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(0,0,0,0.2),0 0.375rem 1.25rem 0 rgba(0,0,0,0.19);
+}
+
+.ipc-form-ad .content .inside{
+
+}

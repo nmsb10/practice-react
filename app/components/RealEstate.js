@@ -193,6 +193,13 @@ export class RealEstate extends React.Component{
 						content = {protectedClasses.illinois}
 						handleClick = {this.handleClick}
 					/>
+					<div>
+						The ADA information line: 800.514.0301, MWF 9:30AM - 5:30PM, Th 12:30PM - 5:30PM (Eastern Time) to speak with a ADA specialist confidentially
+						<br/>
+						HUD / state of illinois?
+						<br/>
+						add link to HUD website; material explaining service animals, support / emotional support animals; ADA accessibility articles
+					</div>
 				</div>
 			</div>
 		);

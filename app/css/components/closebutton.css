@@ -1,0 +1,62 @@
+/* The Close Button */
+.closeButton {
+	position: absolute;
+    color: rgb(255, 255, 255);
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-sizing: border-box;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    top: -0.75rem;
+    right: -0.75rem;
+    padding: 0;
+    outline:none;
+    text-align: center;
+    border: 0.12rem solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0.2rem 0.13rem rgba(73, 62, 71, 0.65);
+    background-color: rgba(79, 0, 79, 0.7);
+    -webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.close-button{
+	position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    padding: 0;
+    outline:none;
+    background-color:transparent;
+}
+
+.close-button .close-content{
+	box-sizing: border-box;
+	width: 1.5rem;
+	height: 1.5rem;
+	line-height: 1.12rem;
+	font-size: 1rem;
+	color: white;
+	font-weight: bold;
+	border: 0.12rem solid white;
+	border-radius: 50%;
+	text-align: center;
+	box-shadow: 0 0 0.2rem 0.13rem rgba(73, 62, 71, 0.65);
+	background-color: rgba(79, 0, 79, 0.7);
+	-webkit-transition: all 0.2s ease 0s;
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.close-button:hover .close-content,
+.close-button:focus .close-content {
+    color: rgb(79, 0, 79);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-color: rgb(79, 0, 79);
+    box-shadow: 0 0 0.2rem 0.18rem rgba(73, 62, 71, 0.65);
+}
+
+.close-button:active .close-content{
+	background-color: rgba(79, 0, 79, 0.5);
+}

@@ -1488,6 +1488,7 @@ export class InvestPropCalcContainer extends React.Component{
 					handleChange = {this.updateAssumptions}
 				/>
 				<div className = 'fit-95 form-and-analysis'>
+			{/*
 					<IpcFormDD
 						view = {currentView}
 						handleSubmit = {this.calculate}
@@ -1496,6 +1497,7 @@ export class InvestPropCalcContainer extends React.Component{
 						assumptions = {assumptions}
 						handleClick = {this.handleClick}
 					/>
+			*/}
 					<IPCForm
 						handleSubmit = {this.calculate}
 						handleInputChange = {this.updateFormFields}

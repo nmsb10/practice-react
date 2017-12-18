@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {DisplayList} from './DisplayList';
 
 export class RealEstate extends React.Component{
@@ -181,6 +182,12 @@ export class RealEstate extends React.Component{
 							<span>real estate services</span>
 						</div>
 					</div>
+					<Link
+						to = '/user/investment-property-calculator'
+						title = 'investment property cap rate calculator'
+					>Investment Property Analysis Application
+					</Link>
+			{/*
 					<DisplayList
 						type = 're'
 						title = 'federal protected classes'
@@ -200,6 +207,7 @@ export class RealEstate extends React.Component{
 						<br/>
 						add link to HUD website; material explaining service animals, support / emotional support animals; ADA accessibility articles
 					</div>
+			*/}
 				</div>
 			</div>
 		);

@@ -25,7 +25,8 @@
 	display: inline-block;
 }
 
-.about-component ul li a{
+.about-component ul li a,
+.real-estate-component a{
 	text-decoration:none;
 	color: rgb(37, 15, 37);
 	padding: 0.3rem;
@@ -43,7 +44,8 @@
 	transition: all 0.25s ease 0s;
 }
 
-.about-component ul li a:hover{
+.about-component ul li a:hover,
+.real-estate-component a:hover{
 	color: white;
 	-webkit-background-size: 100% 100%;
 	background-size: 100% 100%;

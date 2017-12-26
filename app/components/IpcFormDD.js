@@ -16,9 +16,6 @@ export const IpcFormDD = (props) => {
 			data-item-clicked = 'closeForm'
 			onClick = {handleClick}
 		>
-	{/*
-		https://css-tricks.com/what-you-should-know-about-collapsing-margins/
-	*/}
 			<div className = {'content' + (view === 'showForm' ? ' animate-down' : ' animate-up')}>
 				<CloseButton
 					itemClicked = 'closeForm'

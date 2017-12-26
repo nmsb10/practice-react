@@ -4,6 +4,7 @@ import {Tooltip} from './Tooltip';
 
 export const IPCAnalysis = (props) => {
 	let {
+		handleClick,
 		tierOne,
 		tierTwo,
 		fields,
@@ -34,6 +35,12 @@ export const IPCAnalysis = (props) => {
 	];
 	return(
 		<div className = 'ipc-analysis-container'>
+			<button
+				onClick = {handleClick}
+				data-item-clicked = 'showForm'
+				type = 'button'
+				title = 'display the calculator form'
+			>show ipc form</button>
 			<div className = 'imp-cont-container'>
 				<div className = 'imp-cont pp-cont'>
 					<span>purchase price: </span>

@@ -17,6 +17,7 @@ export class WelcomeContainer extends React.Component{
 			backgroundImageDir:[],
 			thoughts:{
 				fullArray:[//{thought , picked}
+					{q: '"In the land of the blind, the one-eyed man is king."', p: false},
 					{q: 'Do not expect anyone to hold your hand in "real life."', p: false},
 					{q: 'Nothing is sacred.', p: false},
 					{q: 'Focus on the nutrition of your mind.', p: false},

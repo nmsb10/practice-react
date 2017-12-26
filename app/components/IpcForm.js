@@ -21,12 +21,6 @@ export class IPCForm extends React.Component{
 							title = 'view the calculator demo on YouTube'
 						>view calculator demonstration
 						</a>
-			{/*
-						<span
-							onClick = {handleClick}
-							data-item-clicked = 'showForm'
-						>show new ipc form</span>
-			*/}
 						<div className = 'content-section'>
 							<WordLine
 								location = 'ipcForm'

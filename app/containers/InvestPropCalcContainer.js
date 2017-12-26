@@ -1362,7 +1362,7 @@ export class InvestPropCalcContainer extends React.Component{
 			});
 			return;
 		}
-		if(request=== 'showForm'){
+		if(request === 'showForm'){
 			this.setState({
 				currentView: 'showForm'
 			});
@@ -1488,7 +1488,6 @@ export class InvestPropCalcContainer extends React.Component{
 					handleChange = {this.updateAssumptions}
 				/>
 				<div className = 'fit-95 form-and-analysis'>
-			{/*
 					<IpcFormDD
 						view = {currentView}
 						handleSubmit = {this.calculate}
@@ -1497,7 +1496,6 @@ export class InvestPropCalcContainer extends React.Component{
 						assumptions = {assumptions}
 						handleClick = {this.handleClick}
 					/>
-			*/}
 					<IPCForm
 						handleSubmit = {this.calculate}
 						handleInputChange = {this.updateFormFields}
@@ -1506,6 +1504,7 @@ export class InvestPropCalcContainer extends React.Component{
 						handleClick = {this.handleClick}
 					/>
 					<IPCAnalysis
+						handleClick = {this.handleClick}
 						fields = {formFields}
 						assumptions = {assumptions}
 						withCommas = {this.withCommas}

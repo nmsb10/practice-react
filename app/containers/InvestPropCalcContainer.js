@@ -881,6 +881,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.updateSummaryContents = this.updateSummaryContents.bind(this);
 		this.closeInfoAlert = this.closeInfoAlert.bind(this);
 		this.mortgagePayment = this.mortgagePayment.bind(this);
+		this.updateIncomeSummary = this.updateIncomeSummary.bind(this);
 	}
 	componentDidMount(){
 		this.setState({
@@ -1092,43 +1093,47 @@ export class InvestPropCalcContainer extends React.Component{
 		let noiSummaryCopy = noiSummary;
 		let cfSummaryCopy = cashFlowSummary;
 		tierOne.map((tierOneName, i) => {
-				tierTwo[i].map( (tierTwoName, j) => {
-					//first must reset values
-					if(tierOneName === 'income'){
-						incomeSummaryCopy.gpi.totals[tierTwoName.obj].monthly = 0;
-						incomeSummaryCopy.gpi.totals[tierTwoName.obj].annual = 0;
-					}else if(tierOneName === 'expenses'){
-						expensesSummaryCopy.oe.totals[tierTwoName.obj].monthly = 0;
-						expensesSummaryCopy.oe.totals[tierTwoName.obj].annual = 0;
-					}
-						formFields[tierOneName][tierTwoName.obj].map( (contents, k) => {
-							let monthlyValue = contents.value.monthly === '' ? 0 : parseInt(contents.value.monthly);
-							let annualValue = contents.value.annual === '' ? 0 : parseInt(contents.value.annual);
-							if(tierOneName === 'income'){
-								incomeSummaryCopy.gpi.totals[tierTwoName.obj].monthly += monthlyValue;
-								incomeSummaryCopy.gpi.totals[tierTwoName.obj].annual += annualValue;
-							}else if(tierOneName === 'expenses'){
-								expensesSummaryCopy.oe.totals[tierTwoName.obj].monthly += monthlyValue;
-								expensesSummaryCopy.oe.totals[tierTwoName.obj].annual += annualValue;
-							}
-						});
-				});
+			tierTwo[i].map( (tierTwoName, j) => {
+				//first must reset values
+				if(tierOneName === 'income'){
+					incomeSummaryCopy.gpi.totals[tierTwoName.obj].monthly = 0;
+					incomeSummaryCopy.gpi.totals[tierTwoName.obj].annual = 0;
+				}else if(tierOneName === 'expenses'){
+					expensesSummaryCopy.oe.totals[tierTwoName.obj].monthly = 0;
+					expensesSummaryCopy.oe.totals[tierTwoName.obj].annual = 0;
+				}
+					formFields[tierOneName][tierTwoName.obj].map( (contents, k) => {
+						let monthlyValue = contents.value.monthly === '' ? 0 : parseFloat(contents.value.monthly);
+						let annualValue = contents.value.annual === '' ? 0 : parseFloat(contents.value.annual);
+						if(tierOneName === 'income'){
+							incomeSummaryCopy.gpi.totals[tierTwoName.obj].monthly += monthlyValue;
+							incomeSummaryCopy.gpi.totals[tierTwoName.obj].annual += annualValue;
+						}else if(tierOneName === 'expenses'){
+							expensesSummaryCopy.oe.totals[tierTwoName.obj].monthly += monthlyValue;
+							expensesSummaryCopy.oe.totals[tierTwoName.obj].annual += annualValue;
+						}
+					});
+			});
 		});
 		//former method when the totals for each section were separate integers in an array
 		//let retailTotalMonthly = incomeSummaryCopy.gpi.totals.retail.monthly.reduce((total, num) => total + parseInt(num), 0);
 		//let otherTotalMonthly = incomeSummaryCopy.gpi.totals.other.monthly.reduce((total, num) => total + parseInt(num), 0);
 		//let resTotalMonthly = incomeSummaryCopy.gpi.totals.rental.monthly.reduce((total, num) => total + parseInt(num), 0);
-		let retailTotalMonthly = incomeSummaryCopy.gpi.totals.retail.monthly;
-		let otherTotalMonthly = incomeSummaryCopy.gpi.totals.other.monthly;
-		let resTotalMonthly = incomeSummaryCopy.gpi.totals.rental.monthly;
-		incomeSummaryCopy.gpi.total.monthly = (retailTotalMonthly + otherTotalMonthly + resTotalMonthly).toFixed(2);
-		let retailTotalAnnual = incomeSummaryCopy.gpi.totals.retail.annual;
-		let otherTotalAnnual = incomeSummaryCopy.gpi.totals.other.annual;
-		let resTotalAnnual = incomeSummaryCopy.gpi.totals.rental.annual;
-		incomeSummaryCopy.gpi.total.annual = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual).toFixed(2);
+		let retailTotalMonthly = incomeSummaryCopy.gpi.totals.retail.monthly.toFixed(2);
+		let otherTotalMonthly = incomeSummaryCopy.gpi.totals.other.monthly.toFixed(2);
+		let resTotalMonthly = incomeSummaryCopy.gpi.totals.rental.monthly.toFixed(2);
+		incomeSummaryCopy.gpi.total.monthly = retailTotalMonthly + otherTotalMonthly + resTotalMonthly;
+		let retailTotalAnnual = incomeSummaryCopy.gpi.totals.retail.annual.toFixed(2);
+		let otherTotalAnnual = incomeSummaryCopy.gpi.totals.other.annual.toFixed(2);
+		let resTotalAnnual = incomeSummaryCopy.gpi.totals.rental.annual.toFixed(2);
+		incomeSummaryCopy.gpi.total.annual = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual);
+		//incomeSummaryCopy = this.updateIncomeSummary(incomeSummaryCopy, retailTotalMonthly, otherTotalMonthly, resTotalMonthly);
+		
+
+
 		//gpi tooltip calculations
-		incomeSummaryCopy.gpi.tooltip.monthly.total = (retailTotalMonthly + otherTotalMonthly + resTotalMonthly).toFixed(2);
-		incomeSummaryCopy.gpi.tooltip.annual.total = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual).toFixed(2);
+		incomeSummaryCopy.gpi.tooltip.monthly.total = this.withCommas(retailTotalMonthly + otherTotalMonthly + resTotalMonthly);
+		incomeSummaryCopy.gpi.tooltip.annual.total = this.withCommas(retailTotalAnnual + otherTotalAnnual + resTotalAnnual);
 		//vacancy totals and tooltip totals
 		incomeSummaryCopy.vacancy.total.monthly = (assumptions.other[0].amount * 0.01 * incomeSummaryCopy.gpi.total.monthly).toFixed(2);
 		incomeSummaryCopy.vacancy.total.annual = (assumptions.other[0].amount * 0.01 * incomeSummaryCopy.gpi.total.annual).toFixed(2);
@@ -1272,6 +1277,10 @@ export class InvestPropCalcContainer extends React.Component{
 			expensesSummary: newExpensesSummary//,
 			//noiSummary: newNoiSummary
 		});
+	}
+	updateIncomeSummary(income, monthlyRetail, monthlyOther, monthlyRes){
+		income.gpi.tooltip.monthly.total = (monthlyRetail + monthlyOther + monthlyRes).toFixed(2);
+		return income;
 	}
 	validateInput(obj, newValue, period){
 		let {validationMessages} = this.state;

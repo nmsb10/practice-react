@@ -88,7 +88,7 @@ export class WelcomeContainer extends React.Component{
 			},
 			loginButton:{
 				elementType:'button',
-				text: 'log in',
+				text: 'about Jonathon',
 				cssClass: ''
 			}
 		};

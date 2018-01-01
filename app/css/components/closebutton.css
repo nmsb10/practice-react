@@ -29,13 +29,15 @@
     padding: 0;
     outline:none;
     background-color:transparent;
+    z-index:2;
 }
 
 .close-button .close-content{
+    z-index:1;
 	box-sizing: border-box;
 	width: 1.5rem;
 	height: 1.5rem;
-	line-height: 1.12rem;
+	line-height: 1.26rem;
 	font-size: 1rem;
 	color: white;
 	font-weight: bold;
@@ -52,7 +54,7 @@
 .close-button:hover .close-content,
 .close-button:focus .close-content {
     color: rgb(79, 0, 79);
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(255, 255, 255, 0.85);
     border-color: rgb(79, 0, 79);
     box-shadow: 0 0 0.2rem 0.18rem rgba(73, 62, 71, 0.65);
 }

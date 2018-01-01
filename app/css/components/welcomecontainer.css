@@ -18,8 +18,10 @@
     /*height must equal sum of all 5 pax elements on this page. 100*3 + 75*2*/
     height:450%;
     left: 50%;
-    /*margin-left due to button container being about 6.875rem wide*/
-    margin-left: -3.4375rem;
+    /*margin-left due to button container being about 6.875rem wide
+    margin-left: -3.4375rem;*/
+    margin-left: -9rem;
+    /*transform: translateX(-50%);*/
     z-index:1;
 }
 

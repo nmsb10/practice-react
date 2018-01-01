@@ -5,14 +5,20 @@ export const CloseButton = (props) => {
 		itemClicked,
 		handleClick
 	} = props;
+	//need to have data-item-clicked attribute for both parent and child element because chrome and firefox register a different element when clicked
 	return(
 		<button
 			type = 'button'
 			className = 'close-button'
-			data-item-clicked = {itemClicked}
 			onClick = {handleClick}
+			data-item-clicked = {itemClicked}
 			title = 'close'
-		><div className = 'close-content'>&times;</div>
+		>
+			<div
+				className = 'close-content'
+				data-item-clicked = {itemClicked}
+			>&times;
+			</div>
 		</button>
 	);
 }

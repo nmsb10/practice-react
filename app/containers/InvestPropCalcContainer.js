@@ -882,6 +882,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.closeInfoAlert = this.closeInfoAlert.bind(this);
 		this.mortgagePayment = this.mortgagePayment.bind(this);
 		this.updateIncomeSummary = this.updateIncomeSummary.bind(this);
+		this.updateExpensesSummary = this.updateExpensesSummary.bind(this);
 	}
 	componentDidMount(){
 		this.setState({
@@ -1130,9 +1131,6 @@ export class InvestPropCalcContainer extends React.Component{
 		incomeSummaryCopy.gpi.total.annual = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual).toFixed(2);
 		incomeSummaryCopy = this.updateIncomeSummary(incomeSummaryCopy, retailTotalMonthly, otherTotalMonthly, resTotalMonthly, retailTotalAnnual, otherTotalAnnual, resTotalAnnual, assumptions);
 
-
-
-
 		//for expenses summary data======================================
 		let carryingCostsTotalMonthly = expensesSummaryCopy.oe.totals.carryingCosts.monthly;
 		let utilitiesTotalMonthly = expensesSummaryCopy.oe.totals.utilities.monthly;
@@ -1142,19 +1140,10 @@ export class InvestPropCalcContainer extends React.Component{
 		let utilitiesTotalAnnual = expensesSummaryCopy.oe.totals.utilities.annual;
 		let otherExpensesTotalAnnual = expensesSummaryCopy.oe.totals.other.annual;
 		expensesSummaryCopy.oe.total.annual = (carryingCostsTotalAnnual + utilitiesTotalAnnual + otherExpensesTotalAnnual).toFixed(2);
-		//gpi tooltip calculations
-		expensesSummaryCopy.oe.tooltip.monthly.total = expensesSummaryCopy.oe.total.monthly;
-		expensesSummaryCopy.oe.tooltip.annual.total = expensesSummaryCopy.oe.total.annual;
-		expensesSummaryCopy.oe.tooltip.monthly.figures = [];
-		expensesSummaryCopy.oe.tooltip.monthly.figures.push(
-			'total carrying costs: $'+ carryingCostsTotalMonthly,
-			'total utilities costs: $'+ utilitiesTotalMonthly,
-			'total other costs: $'+ otherExpensesTotalMonthly);
-		expensesSummaryCopy.oe.tooltip.annual.figures = [];
-		expensesSummaryCopy.oe.tooltip.annual.figures.push(
-			'total carrying costs: $'+ carryingCostsTotalAnnual,
-			'total utilities costs: $'+ utilitiesTotalAnnual,
-			'total other costs: $'+ otherExpensesTotalAnnual);
+		expensesSummaryCopy.oe.tooltip.monthly.total = this.withCommas(expensesSummaryCopy.oe.total.monthly);
+		expensesSummaryCopy.oe.tooltip.annual.total = this.withCommas(expensesSummaryCopy.oe.total.annual);
+		expensesSummaryCopy = this.updateExpensesSummary(expensesSummaryCopy, carryingCostsTotalMonthly, utilitiesTotalMonthly, otherExpensesTotalMonthly, carryingCostsTotalAnnual, utilitiesTotalAnnual, otherExpensesTotalAnnual);
+		
 		//noi calculations=====================================
 		noiSummaryCopy[0].total.monthly = (incomeSummaryCopy.egi.total.monthly - expensesSummaryCopy.oe.total.monthly).toFixed(2);
 		noiSummaryCopy[0].total.annual = (incomeSummaryCopy.egi.total.annual - expensesSummaryCopy.oe.total.annual).toFixed(2);
@@ -1170,6 +1159,7 @@ export class InvestPropCalcContainer extends React.Component{
 		noiSummaryCopy[0].tooltip.annual.figures.push(
 			'EGI: $'+ incomeSummaryCopy.egi.total.annual,
 			'total operating expenses: $'+ expensesSummaryCopy.oe.total.annual);
+		
 		//cash flow calculations=====================================
 		//purchase formFields.purchasePrice[0].value.amount
 		let loanAmount = formFields.purchasePrice[0].value.amount - assumptions.financing[1].amount;
@@ -1213,6 +1203,7 @@ export class InvestPropCalcContainer extends React.Component{
 		cfSummaryCopy.cashFlow.tooltip.annual.figures.push(
 			'annual NOI: $'+ this.withCommas(noiSummary[0].total.annual),
 			'annual debt service: $'+ this.withCommas(debtServiceAnnual.toFixed(2)));
+		
 		let newIncomeSummary = Object.assign({}, incomeSummary, incomeSummaryCopy);
 		let newExpensesSummary = Object.assign({}, expensesSummary, expensesSummaryCopy);
 		//let newNoiSummary = Object.assign({}, noiSummary, noiSummaryCopy);
@@ -1282,6 +1273,20 @@ export class InvestPropCalcContainer extends React.Component{
 			'Vacancy total: $'+ this.withCommas(income.vacancy.total.annual),
 			'Collections total: $'+ this.withCommas(income.collections.total.annual));
 		return income;
+	}
+	updateExpensesSummary(expenses, carryMo, utilMo, otherMo, carryAnn, utilAnn, otherAnn){
+		//oe tooltip calculations
+		expenses.oe.tooltip.monthly.figures = [];
+		expenses.oe.tooltip.monthly.figures.push(
+			'total carrying costs: $'+ this.withCommas(carryMo.toFixed(2)),
+			'total utilities costs: $'+ this.withCommas(utilMo.toFixed(2)),
+			'total other costs: $'+ this.withCommas(otherMo.toFixed(2)));
+		expenses.oe.tooltip.annual.figures = [];
+		expenses.oe.tooltip.annual.figures.push(
+			'total carrying costs: $'+ this.withCommas(carryAnn.toFixed(2)),
+			'total utilities costs: $'+ this.withCommas(utilAnn.toFixed(2)),
+			'total other costs: $'+ this.withCommas(otherAnn.toFixed(2)));
+		return expenses;
 	}
 	validateInput(obj, newValue, period){
 		let {validationMessages} = this.state;

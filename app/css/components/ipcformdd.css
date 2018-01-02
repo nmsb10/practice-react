@@ -21,7 +21,7 @@
     transition: all 0.35s ease 0s;
 }
 
-.ipc-form-ad .content{
+.ipc-form-ad .cover{
     box-sizing: border-box;
     position: relative;
     /*top: 50%;
@@ -38,6 +38,79 @@
     box-shadow: 0 0.25rem 0.5rem 0 rgba(0,0,0,0.2),0 0.375rem 1.25rem 0 rgba(0,0,0,0.19);
 }
 
-.ipc-form-ad .content .inside{
+.ipc-form-ad .cover .content{
 
+}
+
+.ipc-form-ad .display-ipcform{
+    -webkit-animation: showipcform 0.35s ease-in-out 0s;
+    animation: showipcform 0.35s ease-in-out 0s;
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes showipcform {
+    from {top:-50%; opacity:0;} 
+    to {top:0; opacity:1;}
+}
+
+/* Firefox */
+@-moz-keyframes showipcform {
+    0% {top:-50%; opacity:0;} 
+    100% {top:0; opacity:1;}
+}
+
+/* Internet Explorer */
+@-ms-keyframes showipcform {
+    0% {top:-50%; opacity:0;} 
+    100% {top:0; opacity:1;}
+}
+
+/* Opera */
+@-o-keyframes showipcform {
+    0% {top:-50%; opacity:0;} 
+    100% {top:0; opacity:1;}
+}
+
+@keyframes showipcform {
+    0% {top:-50%; opacity:0;} 
+    100% {top:0; opacity:1;}
+}
+
+.ipc-form-ad .remove-ipcform{
+    -webkit-animation: animateupipcform 0.35s ease-in-out 0s;
+    animation: animateupipcform 0.35s ease-in-out 0s;
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes animateupipcform {
+    0% {top:0%; opacity:1;}
+    15% {top:15%;}
+    100% {top:-50%; opacity:0;} 
+}
+
+/* Firefox */
+@-moz-keyframes animateupipcform {
+    0% {top:0%; opacity:1;}
+    15% {top:15%;}
+    100% {top:-50%; opacity:0;} 
+}
+
+/* Internet Explorer */
+@-ms-keyframes animateupipcform {
+    0% {top:0%; opacity:1;}
+    15% {top:15%;}
+    100% {top:-50%; opacity:0;} 
+}
+
+/* Opera */
+@-o-keyframes animateupipcform {
+    0% {top:0%; opacity:1;}
+    15% {top:15%;}
+    100% {top:-50%; opacity:0;} 
+}
+
+@keyframes animateupipcform {
+    0% {top:0%; opacity:1;}
+    15% {top:15%;}
+    100% {top:-50%; opacity:0;} 
 }

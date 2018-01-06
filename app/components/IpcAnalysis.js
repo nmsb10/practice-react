@@ -19,10 +19,10 @@ export const IPCAnalysis = (props) => {
 		cashFlowSummaryOrder
 	} = props;
 	let capRate = {
-		value: 100 * noiSummary[0].total.annual / fields.purchasePrice[0].value.amount || 0,
+		value: 100 * noiSummary[0].total.annual / fields.price.purchasePrice[0].value.amount || 0,
 		tooltip:{
-			figures:['annual NOI: $'+withCommas(noiSummary[0].total.annual.toString()), 'Purchase Price: $'+withCommas(fields.purchasePrice[0].value.amount)],
-			total: 100 * noiSummary[0].total.annual / fields.purchasePrice[0].value.amount || 0,
+			figures:['annual NOI: $'+withCommas(noiSummary[0].total.annual.toString()), 'Purchase Price: $'+withCommas(fields.price.purchasePrice[0].value.amount)],
+			total: 100 * noiSummary[0].total.annual / fields.price.purchasePrice[0].value.amount || 0,
 			sign:'divide',
 			location: 'bottom',
 			cssClassAdd: 'calc',
@@ -44,7 +44,7 @@ export const IPCAnalysis = (props) => {
 			<div className = 'imp-cont-container'>
 				<div className = 'imp-cont pp-cont'>
 					<span>purchase price: </span>
-					<span className = 'figure'>{fields.purchasePrice[0].value.preEntry}{fields.purchasePrice[0].value.amount === '' ? '-0-' : withCommas(fields.purchasePrice[0].value.amount)}</span>
+					<span className = 'figure'>{fields.price.purchasePrice[0].value.preEntry}{fields.price.purchasePrice[0].value.amount === '' ? '-0-' : withCommas(fields.price.purchasePrice[0].value.amount)}</span>
 				</div>
 				<div className = 'cap-rate-cont imp-cont'>
 					<span>capitalization rate: </span>

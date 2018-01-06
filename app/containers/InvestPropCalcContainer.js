@@ -43,8 +43,8 @@ export class InvestPropCalcContainer extends React.Component{
 				}]
 			],
 			formFields:{
-				purchasePrice:[
-					{
+				price:{
+					purchasePrice:[{
 						name:'purchase price',
 						hasMonthlyAnnual:false,
 						value:{
@@ -68,8 +68,8 @@ export class InvestPropCalcContainer extends React.Component{
 						},
 						required:true,
 						isOpen:true
-					}
-				],
+					}]
+				},
 				income:{
 					retail:[{
 						name:'business one name',
@@ -482,7 +482,8 @@ export class InvestPropCalcContainer extends React.Component{
 				}
 			},
 			assumptions:{
-				financing:[
+				financing:{
+					terms:[
 					{
 						field: 'down payment %',
 						title: 'down payment % (remember: LTV = 100% - down payment %)',
@@ -515,8 +516,10 @@ export class InvestPropCalcContainer extends React.Component{
 						postEntry:'years',
 						valueType: ['integer']
 					}
-				],
-				other:[
+					]
+				},
+				other:{
+					terms:[
 					{//1 month
 						field: 'vacancy factor',
 						preEntry:'',
@@ -549,7 +552,8 @@ export class InvestPropCalcContainer extends React.Component{
 					// 	retia:5.00,//real estate tax increase annually
 					// 	aia:3.00,//assessments increase annual
 					// 	ria:2.00,//rent increase annual
-				]
+					]
+				}
 			},
 			incomeSummary: {
 				gpi:{
@@ -899,7 +903,7 @@ export class InvestPropCalcContainer extends React.Component{
 		};
 		let cr = {
 			noiAnnual: noiSummary[0].total.annual,
-			purchasePrice: formFields.purchasePrice[0].value.amount
+			purchasePrice: formFields.price.purchasePrice[0].value.amount
 		};
 		let capRate = (100 * cr.noiAnnual / cr.purchasePrice) || 0;
 		let newInfoAlert = infoAlert;
@@ -986,7 +990,7 @@ export class InvestPropCalcContainer extends React.Component{
 					newValue = parseInt(newValue);
 				}
 			}
-			let purchasePrice = formFields.purchasePrice[0].value.amount;
+			let purchasePrice = formFields.price.purchasePrice[0].value.amount;
 			let egi = incomeSummary.egi.total.annual;
 			let propertyManagementIndex;
 			let reservesIndex;
@@ -1162,7 +1166,7 @@ export class InvestPropCalcContainer extends React.Component{
 		
 		//cash flow calculations=====================================
 		//purchase formFields.purchasePrice[0].value.amount
-		let loanAmount = formFields.purchasePrice[0].value.amount - assumptions.financing[1].amount;
+		let loanAmount = formFields.price.purchasePrice[0].value.amount - assumptions.financing[1].amount;
 		let debtServiceMonthlyOrig = this.mortgagePayment(loanAmount, assumptions.financing[3].amount * 12, assumptions.financing[2].amount / 100 / 12) || 0;
 		let debtServiceAnnual = debtServiceMonthlyOrig * 12;
 		let debtServiceMonthly = this.withCommas(debtServiceMonthlyOrig.toFixed(2));
@@ -1499,10 +1503,12 @@ export class InvestPropCalcContainer extends React.Component{
 		} = this.state;
 		return(
 			<div className = 'ipc-component'>
+		{/*
 				<IPCOtherTermsBox
 					assumptions = {assumptions}
 					handleChange = {this.updateAssumptions}
 				/>
+		*/}
 				<div className = 'fit-95 form-and-analysis'>
 					<IpcFormDD
 						view = {currentView}

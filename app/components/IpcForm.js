@@ -27,7 +27,7 @@ export class IPCForm extends React.Component{
 								content = 'purchase price details'
 							/>
 							<FormGroup
-								info = {fields.purchasePrice}
+								info = {fields.price.purchasePrice}
 								section = 'purchasePrice'
 								handleChange = {handleInputChange}
 								handleClick = {handleClick}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { CloseButton } from './CloseButton';
+import { Section } from './ipcFormComponents/Section';
 
 export const IpcFormDD = (props) => {
 	let {
@@ -11,8 +12,100 @@ export const IpcFormDD = (props) => {
 		handleSubmit
 	} = props;
 	let tierOne = ['fields', 'assumptions'];
-	let tierTwo = [['purchasePrice', 'income', 'expenses'],['financing', 'other']];
-	let tierThree = [[[],['rental', 'retail', 'other'],['carryingCosts', 'utilities', 'other']],[]];
+	let tierTwo = [[{
+						objectName: 'price',
+						displayName: 'purchase price'
+					},{
+						objectName: 'income',
+						displayName: 'income'
+					},{
+						objectName: 'expenses',
+						displayName: 'expenses'
+					}],[
+					{
+						objectName: 'financing',
+						displayName: 'financing'
+					},{
+						objectName: 'other',
+						displayName: 'other'
+					}]];
+	let tierThree =
+		[
+			[
+				['purchasePrice'],
+				['rental', 'retail', 'other'],
+				['carryingCosts', 'utilities', 'other']
+			],[
+				['terms'],
+				['terms']
+			]
+		];
+	let formContents =
+		tierOne.map((mainObj, i) => {
+			return(
+				tierTwo[i].map((section, j) => {
+					return(
+						<Section
+							name = {section.displayName}
+							fields = {fields}
+							assumptions = {assumptions}
+						/>
+						// <div key = {j}>{section.displayName}
+						// 	tierThree[i][j].map((content, k) => {
+						// 			mainObj === 'fields' ?
+						// 			fields[section.objectName][content].map((specific, l) => {
+						// 				return(
+						// 				<div>
+						// 					<i className="fa fa-question-circle-o" aria-hidden="true"></i>
+						// 					<p>{specific.name}</p>
+						// 				</div>
+						// 				);
+						// 			})
+						// 			:
+						// 			assumptions[section.objectName][content].map((specific, m) => {
+						// 				return(
+						// 				<div key = {m}>
+						// 					<i className="fa fa-question-circle-o" aria-hidden="true"></i>
+						// 					<p>{specific.field}</p>
+						// 				</div>
+						// 				);
+						// 			})
+						// 	})
+						// </div>
+					);
+			}));
+		});
+			// tierTwo[i].map((section, j) => {
+			// 	return(
+			// 		<div key = {j}>{section.displayName}
+			// 		</div>
+				// );
+				// tierThree[i][j].map((content, k) => {
+				// 	mainObj === 'fields' ?
+				// 	fields[section.objectName][content].map((specific, l) => {
+				// 		console.log(specific);
+				// 		return(
+				// 		<div key = {l}>
+				// 			<p>hello</p>
+				// 		{/*
+				// 			<i className="fa fa-question-circle-o" aria-hidden="true"></i>
+				// 			<p>{specific.name}</p>
+				// 		*/}
+				// 		</div>
+				// 		);
+				// 	})
+				// 	:
+				// 	assumptions[section.objectName][content].map((specific, m) => {
+				// 		return(
+				// 		<div key = {m}>
+				// 			<i className="fa fa-question-circle-o" aria-hidden="true"></i>
+				// 			<p>{specific.field}</p>
+				// 		</div>
+				// 		);
+				// 	})
+				// })
+		// 	})
+		// });
 	return(
 		<div
 			className = {'ipc-form-ad' + (view === 'showForm' ? ' open' : '')}
@@ -27,7 +120,7 @@ export const IpcFormDD = (props) => {
 				<div className = 'content'>
 					<div>
 						<p>
-							welcome to Jonathon Nagatani's
+							welcome to the
 							<br/>
 							Investment Property Capitalization Rate Calculator
 						</p>
@@ -37,7 +130,16 @@ export const IpcFormDD = (props) => {
 					</div>
 					<div>
 						<form onSubmit = {(event) => handleSubmit(event)}>
-							<i className="fa fa-question-circle-o" aria-hidden="true"></i>
+							<div>
+								{formContents}
+								<button
+									type="submit"
+									className=''
+									id="runSearch"
+									>
+									verify & calculate
+								</button>
+							</div>
 						</form>
 					</div>
 				</div>

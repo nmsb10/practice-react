@@ -487,34 +487,46 @@ export class InvestPropCalcContainer extends React.Component{
 					{
 						field: 'down payment %',
 						title: 'down payment % (remember: LTV = 100% - down payment %)',
-						preEntry:'',
-						amount:'',
-						postEntry:'%',
 						valueType: ['percentage',2],
-						notice:false
+						notice:false,
+						value:{
+							preEntry:'',
+							amount:'',
+							postEntry:'%',
+							placeholder:''
+						},
 					},
 					{
 						field: 'down payment $',
-						preEntry:'$',
-						amount:'',
-						postEntry:'',
 						valueType: ['dollars'],
-						notice:false
+						notice:false,
+						value:{
+							preEntry:'$',
+							amount:'',
+							postEntry:'',
+							placeholder:''
+						}
 					},
 					{//NB APR is higher
 						field: 'interest rate (annual)',
 						title: 'interest rate (annual) NB: APR is higher',
-						preEntry:'',
-						amount:'',
-						postEntry:'%',
-						valueType: ['interest',3]
+						valueType: ['interest',3],
+						value:{
+							preEntry:'',
+							amount:'',
+							postEntry:'%',
+							placeholder:''
+						}
 					},
 					{
 						field: 'term of mortgage',
-						preEntry:'',
-						amount:'',
-						postEntry:'years',
-						valueType: ['integer']
+						valueType: ['integer'],
+						value:{
+							preEntry:'',
+							amount:'',
+							postEntry:'years',
+							placeholder:''
+						}
 					}
 					]
 				},
@@ -522,31 +534,43 @@ export class InvestPropCalcContainer extends React.Component{
 					terms:[
 					{//1 month
 						field: 'vacancy factor',
-						preEntry:'',
-						amount:'',//8.00
-						postEntry:'%',
-						valueType: ['percentage',2]
+						valueType: ['percentage',2],
+						value:{
+							preEntry:'',
+							amount:'',//8.00
+							postEntry:'%',
+							placeholder:''
+						}
 					},
 					{//rent you will be unable to collect
 						field: 'collections',
-						preEntry:'',
-						amount:'',//2.00
-						postEntry:'%',
-						valueType: ['percentage',2]
+						valueType: ['percentage',2],
+						value:{
+							preEntry:'',
+							amount:'',//2.00
+							postEntry:'%',
+							placeholder:''
+						}
 					},
 					{//property management; brokerage fee also?
 						field: 'property management fee',
-						preEntry:'',
-						amount:'',//6.00
-						postEntry:'%',
-						valueType: ['percentage',2]
+						valueType: ['percentage',2],
+						value:{
+							preEntry:'',
+							amount:'',//6.00
+							postEntry:'%',
+							placeholder:''
+						}
 					},
 					{
 						field: 'reserves fund',
-						preEntry:'',
-						amount:'',//5.00
-						postEntry:'%',
-						valueType: ['percentage',2]
+						valueType: ['percentage',2],
+						value:{
+							preEntry:'',
+							amount:'',//5.00
+							postEntry:'%',
+							placeholder:''
+						}
 					}
 					// 	vaa:3.00,//(property) value appreciation annually
 					// 	retia:5.00,//real estate tax increase annually

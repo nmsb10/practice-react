@@ -182,11 +182,23 @@ export class RealEstate extends React.Component{
 							<span>real estate services</span>
 						</div>
 					</div>
-					<Link
-						to = '/user/investment-property-calculator'
-						title = 'investment property cap rate calculator'
-					>Investment Property Analysis Application
-					</Link>
+					<ul>
+						<li>
+							<Link
+								to = '/user/investment-property-calculator'
+								title = 'investment property cap rate calculator'
+							>Investment Property Analysis Application
+							</Link>
+						</li>
+						<li>
+							<a
+								href = 'https://avm-jn.herokuapp.com/'
+								target = '_blank'
+								title = 'demonstration of the area statistics generator'
+								>area statistics generator (demo only)
+							</a>
+						</li>
+					</ul>
 			{/*
 					<DisplayList
 						type = 're'

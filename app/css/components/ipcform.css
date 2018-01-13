@@ -4,7 +4,7 @@
 
 .form-and-analysis{
 	/*this must be same as margin-top of 2rem plus total height (5rem * 2) (but not including border) of the box-sizing: border box and relatively positioned ipcothertermsbox*/
-	margin-top: -12rem;
+	/*margin-top: -12rem;*/
 }
 
 .ipc-form-container{

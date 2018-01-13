@@ -1,6 +1,6 @@
 import React from 'react';
 import { CloseButton } from './CloseButton';
-import { Section } from './ipcFormComponents/Section';
+import { MainSection } from './ipcFormComponents/MainSection';
 
 export const IpcFormDD = (props) => {
 	let {
@@ -24,33 +24,41 @@ export const IpcFormDD = (props) => {
 					}],[
 					{
 						objectName: 'financing',
-						displayName: 'financing'
+						displayName: 'financing',
+						fontAwesomeIcon: 'fa fa-university'
 					},{
 						objectName: 'other',
-						displayName: 'other'
+						displayName: 'other',
+						fontAwesomeIcon: 'fa fa-check-square-o'
 					}]];
 	let tierThree =
 		[
 			[
-				['purchasePrice'],
-				['rental', 'retail', 'other'],
-				['carryingCosts', 'utilities', 'other']
+				[{name: 'purchasePrice', allowAdd: false}],
+				[{name: 'rental', allowAdd: true}, {name: 'retail', allowAdd: true}, {name: 'other', allowAdd: true}],
+				[{name: 'carryingCosts', allowAdd: true}, {name: 'utilities', allowAdd: true}, {name: 'other', allowAdd: true}]
 			],[
-				['terms'],
-				['terms']
+				[{name: 'terms', allowAdd: false}],
+				[{name: 'terms', allowAdd: false}]
 			]
 		];
 	let formContents =
 		tierOne.map((mainObj, i) => {
 			return(
 				tierTwo[i].map((section, j) => {
+					let specificFields = mainObj === 'fields' ? fields[section.objectName] : assumptions[section.objectName];
+					let specFieldsIcon = section.fontAwesomeIcon;
+					let fieldsGuide = tierThree[i][j];
+					let fieldsBool = mainObj === 'fields' ? true : false;
 					return(
-						<Section
-							name = {section.displayName}
-							fields = {fields}
-							assumptions = {assumptions}
+						<MainSection
+							sectionTitle = {section.displayName}
+							icon = {specFieldsIcon}
+							fields = {specificFields}
+							fieldsGuide = {fieldsGuide}
+							fieldsBool = {fieldsBool}
+							handleChange = {handleInputChange}
 						/>
-						// <div key = {j}>{section.displayName}
 						// 	tierThree[i][j].map((content, k) => {
 						// 			mainObj === 'fields' ?
 						// 			fields[section.objectName][content].map((specific, l) => {
@@ -118,28 +126,27 @@ export const IpcFormDD = (props) => {
 					handleClick = {handleClick}
 				/>
 				<div className = 'content'>
-					<div>
+					<div className = 'main-title'>
 						<p>
-							welcome to the
-							<br/>
 							Investment Property Capitalization Rate Calculator
 						</p>
 						<p>
 							Please complete the following fields (if known or estimated), then click "verify & calculate."
 						</p>
+						<p>
+							You may close this box at any time to review the analysis with the figures you have already provided.
+						</p>
 					</div>
-					<div>
+					<div className = 'form-container'>
 						<form onSubmit = {(event) => handleSubmit(event)}>
-							<div>
-								{formContents}
-								<button
-									type="submit"
-									className=''
-									id="runSearch"
-									>
-									verify & calculate
-								</button>
-							</div>
+							{formContents}
+							<button
+								type="submit"
+								className=''
+								id="runSearch"
+								>
+								verify & calculate
+							</button>
 						</form>
 					</div>
 				</div>

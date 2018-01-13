@@ -62,3 +62,7 @@
 .close-button:active .close-content{
 	background-color: rgba(79, 0, 79, 0.5);
 }
+
+.close-button .close-content span{
+    z-index:0;
+}

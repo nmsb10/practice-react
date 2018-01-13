@@ -13,6 +13,10 @@
 	overflow: hidden;
 }
 
+.real-estate-component a{
+	display:block;
+}
+
 .real-estate-component .services{
 	text-align:center;
 	-webkit-transition: all 2.5s ease 0s; /* For Safari 3.1 to 6.0 */

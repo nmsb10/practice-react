@@ -1,6 +1,6 @@
 import React from 'react';
 import { WordLine } from '../WordLine';
-import { InputsSectionContainer } from './InputsSectionContainer';
+import { NameInputsContainer } from './NameInputsContainer';
 
 export const SectionBody = (props) => {
 	let{
@@ -24,7 +24,7 @@ export const SectionBody = (props) => {
 							:
 							null
 						}
-						< InputsSectionContainer
+						< NameInputsContainer
 							fields = {fields}
 							section = {content.section}
 							specificSection = {content.name}

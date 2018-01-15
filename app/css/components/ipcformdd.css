@@ -184,3 +184,50 @@
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .wl-text:hover .fa-plus{
     color:lime;
 }
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .name-container{
+    width: 30%;
+    display: inline-block;
+    vertical-align:top;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .name-container input{
+    width: 100%;
+    padding: 0;
+    border: 0;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container{
+    width: 70%;
+    display: inline-block;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label{
+    width: 50%;
+    display: inline-block;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label label{
+    /*enables user to click entire length of label to highlight input field*/
+    display:block;
+    font-size:0.75rem;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label .input-section{
+    color: black;
+    background-color: rgb(255, 255, 255);
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label .input-section input{
+    display:block;
+    box-sizing: border-box;
+    width:100%;
+    padding: 0.15rem;
+    border:none;
+    color: rgb(35, 35, 35);
+    background-color: rgb(255, 255, 255);
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label .input-section span{
+    display: inline-block;
+}

@@ -3,7 +3,7 @@ import { Tooltip } from '../Tooltip';
 import { NameContainer } from './NameContainer';
 import { InputsContainer } from './InputsContainer';
 
-export const InputsSectionContainer = (props) => {
+export const NameInputsContainer = (props) => {
 	let{
 		fields,
 		section,
@@ -20,7 +20,7 @@ export const InputsSectionContainer = (props) => {
 					section: specificSection
 				};
 				return(
-				<div className = 'inputs-section' key = {i}>
+				<div className = 'name-inputs' key = {i}>
 				{/*	
 					<span
 						className = {content.required ? 'hidden' : 'close'}
@@ -54,34 +54,6 @@ export const InputsSectionContainer = (props) => {
 						content = {content}
 						i = {i}
 					/>
-					
-					
-				{/*
-					<label htmlFor = {content.name ? content.name+i : content.field+i}>
-						<span className = 'label-span'>label span here</span>
-					</label>
-					<div className = ''>
-						<span className = 'contents'>{content.value.preEntry}{content.preEntry ? 'contents-wrapper ta-left' : content.postEntry ? 'contents-wrapper ta-right' : 'contents-wrapper'}</span>
-						<span className = 'input-span'>
-							<input
-								className = ''
-								type='text'
-								id={content.name ? content.name+i : content.field+i}
-								data-key = ''
-								data-section = ''
-								data-validate = ''
-								value = {content.value.amount? content.value.amount : content.value.monthly}
-								placeholder = {content.value.placeholder}
-								onChange = {handleChange}
-							/>
-						</span>
-						<span className = 'contents'>{content.value.postEntry}</span>
-					</div>
-				*/}
-					<i
-						className="fa fa-question-circle-o"
-						aria-hidden="true"
-					></i>
 				</div>
 				);
 			})

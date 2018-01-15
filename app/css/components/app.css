@@ -60,6 +60,14 @@ input:-webkit-autofill,textarea:-webkit-autofill, select:-webkit-autofill {
 	text-transform: capitalize;
 }
 
+.ta-left{
+	text-align: left;
+}
+
+.ta-right{
+	text-align: right;
+}
+
 .fit-95{
 	width: 95%;
 	margin: 0 auto;

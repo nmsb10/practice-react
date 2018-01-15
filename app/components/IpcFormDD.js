@@ -35,8 +35,8 @@ export const IpcFormDD = (props) => {
 		[
 			[
 				[{name: 'purchasePrice', allowAdd: false}],
-				[{name: 'rental', allowAdd: true}, {name: 'retail', allowAdd: true}, {name: 'other', allowAdd: true}],
-				[{name: 'carryingCosts', allowAdd: true}, {name: 'utilities', allowAdd: true}, {name: 'other', allowAdd: true}]
+				[{name: 'rental', displayName: 'rental: residential', allowAdd: true, title: 'add a source of (residential) rental income'}, {name: 'retail', displayName: 'rental: retail', allowAdd: true, title: 'add a source of retail rental income'}, {name: 'other', allowAdd: true, title: 'add a source of other income'}],
+				[{name: 'carryingCosts', displayName: 'carrying costs', allowAdd: true, title: 'add a different carrying cost'}, {name: 'utilities', allowAdd: true, title: 'add another utilities expense'}, {name: 'other', allowAdd: true, title:'add a miscellaneous expense'}]
 			],[
 				[{name: 'terms', allowAdd: false}],
 				[{name: 'terms', allowAdd: false}]
@@ -48,73 +48,23 @@ export const IpcFormDD = (props) => {
 				tierTwo[i].map((section, j) => {
 					let specificFields = mainObj === 'fields' ? fields[section.objectName] : assumptions[section.objectName];
 					let specFieldsIcon = section.fontAwesomeIcon;
+					let sectionT2 = section.objectName;
 					let fieldsGuide = tierThree[i][j];
-					let fieldsBool = mainObj === 'fields' ? true : false;
+					//let fieldsBool = mainObj === 'fields' ? true : false;
 					return(
 						<MainSection
 							sectionTitle = {section.displayName}
+							sectionT2 = {sectionT2}
 							icon = {specFieldsIcon}
 							fields = {specificFields}
 							fieldsGuide = {fieldsGuide}
-							fieldsBool = {fieldsBool}
 							handleChange = {handleInputChange}
 						/>
-						// 	tierThree[i][j].map((content, k) => {
-						// 			mainObj === 'fields' ?
-						// 			fields[section.objectName][content].map((specific, l) => {
-						// 				return(
-						// 				<div>
-						// 					<i className="fa fa-question-circle-o" aria-hidden="true"></i>
-						// 					<p>{specific.name}</p>
-						// 				</div>
-						// 				);
-						// 			})
-						// 			:
-						// 			assumptions[section.objectName][content].map((specific, m) => {
-						// 				return(
-						// 				<div key = {m}>
-						// 					<i className="fa fa-question-circle-o" aria-hidden="true"></i>
-						// 					<p>{specific.field}</p>
-						// 				</div>
-						// 				);
-						// 			})
-						// 	})
-						// </div>
 					);
 			}));
 		});
-			// tierTwo[i].map((section, j) => {
-			// 	return(
-			// 		<div key = {j}>{section.displayName}
-			// 		</div>
-				// );
-				// tierThree[i][j].map((content, k) => {
-				// 	mainObj === 'fields' ?
-				// 	fields[section.objectName][content].map((specific, l) => {
-				// 		console.log(specific);
-				// 		return(
-				// 		<div key = {l}>
-				// 			<p>hello</p>
-				// 		{/*
-				// 			<i className="fa fa-question-circle-o" aria-hidden="true"></i>
-				// 			<p>{specific.name}</p>
-				// 		*/}
-				// 		</div>
-				// 		);
-				// 	})
-				// 	:
-				// 	assumptions[section.objectName][content].map((specific, m) => {
-				// 		return(
-				// 		<div key = {m}>
-				// 			<i className="fa fa-question-circle-o" aria-hidden="true"></i>
-				// 			<p>{specific.field}</p>
-				// 		</div>
-				// 		);
-				// 	})
-				// })
-		// 	})
-		// });
 	return(
+		// this onClick will handle any click on the entire modal
 		<div
 			className = {'ipc-form-ad' + (view === 'showForm' ? ' open' : '')}
 			data-item-clicked = 'closeForm'

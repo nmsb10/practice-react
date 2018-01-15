@@ -140,6 +140,10 @@
     position:relative;
 }
 
+.ipc-form-ad .cover .content .form-container .main-section .ms-header .title{
+    margin: 0.75rem;
+}
+
 .ipc-form-ad .cover .content .form-container .main-section .ms-header .fa-chevron-up{
     position: absolute;
     right: 1rem;
@@ -154,6 +158,14 @@
     transition: all 0.35s ease 0s;
 }
 
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .wl-text{
+    cursor: pointer;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .wl-text span{
+    margin-left: 0.8rem;
+}
+
 .ipc-form-ad .cover .content .form-container .main-section:hover .ms-body, .wl-text{
     background-color: rgb(239, 239, 239);
 }
@@ -164,4 +176,11 @@
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .wl-text .fa-plus{
     margin: 0 0.8rem;
+    -webkit-transition: all 0.2s ease 0s;
+    -moz-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .wl-text:hover .fa-plus{
+    color:lime;
 }

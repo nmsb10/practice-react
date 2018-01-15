@@ -92,7 +92,8 @@
 }
 
 /* The Close Button */
-.ipc-form-container form .content .content-section .form-group-container .form-group .close{
+.ipc-form-container form .content .content-section .form-group-container .form-group .close,
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .input-container .close{
 	position: absolute;
 	color: white;
 	font-size: 1.1rem;
@@ -113,7 +114,9 @@
 }
 
 .ipc-form-container form .content .content-section .form-group-container .form-group .close:hover,
-.ipc-form-container form .content .content-section .form-group-container .form-group .close:focus {
+.ipc-form-container form .content .content-section .form-group-container .form-group .close:focus,
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .input-container .close:hover,
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .input-container .close:focus {
     color: rgb(79, 0, 79);
     background-color: rgb(255, 255, 255);
     border-color: rgb(79, 0, 79);
@@ -122,7 +125,8 @@
     cursor: pointer;
 }
 
-.ipc-form-container form .content .content-section .form-group-container .form-group .close:active{
+.ipc-form-container form .content .content-section .form-group-container .form-group .close:active,
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .input-container .close:active{
 	background-color: rgba(79, 0, 79, 0.5);
 }
 

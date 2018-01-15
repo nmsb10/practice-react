@@ -13,7 +13,7 @@ export const SectionHeader = (props) => {
 				:
 				null
 			}
-			{title}
+			<span className = 'title'>{title}</span>
 			<i
 				className= "fa fa-chevron-up fai-up"
 				aria-hidden="true"

@@ -35,12 +35,6 @@ export const IPCAnalysis = (props) => {
 	];
 	return(
 		<div className = 'ipc-analysis-container'>
-			<button
-				onClick = {handleClick}
-				data-item-clicked = 'showForm'
-				type = 'button'
-				title = 'display the calculator form'
-			>show ipc form</button>
 			<div className = 'imp-cont-container'>
 				<div className = 'imp-cont pp-cont'>
 					<span>purchase price: </span>
@@ -56,6 +50,14 @@ export const IPCAnalysis = (props) => {
 							displayType = 'calculation'
 						/>
 					</span>
+				</div>
+				<div>
+					<button
+						onClick = {handleClick}
+						data-item-clicked = 'showForm'
+						type = 'button'
+						title = 'display the calculator form'
+					>show ipc form</button>
 				</div>
 			</div>
 			{tierOne.map( (tierOneName, i) => {

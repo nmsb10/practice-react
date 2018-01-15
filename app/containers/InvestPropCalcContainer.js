@@ -46,7 +46,6 @@ export class InvestPropCalcContainer extends React.Component{
 				price:{
 					purchasePrice:[{
 						name:'purchase price',
-						hasMonthlyAnnual:false,
 						value:{
 							preEntry:'$',
 							amount:'',
@@ -73,7 +72,6 @@ export class InvestPropCalcContainer extends React.Component{
 				income:{
 					retail:[{
 						name:'business one name',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -98,7 +96,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'business two name',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -124,7 +121,6 @@ export class InvestPropCalcContainer extends React.Component{
 					}],
 					other:[{//also add other: miscellaneous: state source and amount
 						name:'laundry room',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -149,7 +145,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'vending machines',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -174,8 +169,7 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					}],
 					rental:[{//state unit or lessee name, and amount
-						name:'rental income, unit one',
-						hasMonthlyAnnual:true,
+						name:'unit one',//rental income, unit one
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -203,7 +197,6 @@ export class InvestPropCalcContainer extends React.Component{
 				expenses:{
 					carryingCosts:[{
 						name:'real estate property taxes',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -228,7 +221,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'property insurance premium',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -253,7 +245,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'assessments',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -279,7 +270,6 @@ export class InvestPropCalcContainer extends React.Component{
 					}],
 					utilities:[{
 						name:'gas (common hot water)',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -304,7 +294,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'gas (heat)',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -329,7 +318,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'electricity (common areas)',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -354,7 +342,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'water',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -379,7 +366,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'scavenger',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -405,7 +391,6 @@ export class InvestPropCalcContainer extends React.Component{
 					}],
 					other:[{
 						name:'repairs | decor',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -430,7 +415,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'property management',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -455,7 +439,6 @@ export class InvestPropCalcContainer extends React.Component{
 						isOpen:true
 					},{
 						name:'reserves fund',
-						hasMonthlyAnnual:true,
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -911,6 +894,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.mortgagePayment = this.mortgagePayment.bind(this);
 		this.updateIncomeSummary = this.updateIncomeSummary.bind(this);
 		this.updateExpensesSummary = this.updateExpensesSummary.bind(this);
+		this.addFormSection = this.addFormSection.bind(this);
 	}
 	componentDidMount(){
 		this.setState({
@@ -1322,7 +1306,7 @@ export class InvestPropCalcContainer extends React.Component{
 		if(newValue === ''){
 			obj.validation.validEntry = false;
 			obj.validation.showVmes = false;
-			if(!obj.hasMonthlyAnnual){
+			if(obj.value.amount || obj.value.amount === ''){
 				//update selection which has no monthly annual
 				obj.value.amount = '';
 			}else{
@@ -1366,7 +1350,7 @@ export class InvestPropCalcContainer extends React.Component{
 			if(passedValidations === validationArr.length){
 				obj.validation.validEntry = true;
 				obj.validation.showVmes = false;
-				if(!obj.hasMonthlyAnnual){
+				if(obj.value.amount || obj.value.amount === ''){
 					//update selection which has no monthly annual
 					obj.value.amount = newValue;
 				}else{
@@ -1396,21 +1380,25 @@ export class InvestPropCalcContainer extends React.Component{
 		let {formFields} = this.state;
 		let fieldsCopy = formFields;
 		let request = e.target.dataset.itemClicked;
+		console.log('request is: (item clicked):', request);
 		if(!request){//address situation when the component is clicked but not on a minimize, remove, or addtosection request
 			return;
-		}
-		if(request === 'closeForm'){
+		}else if(request === 'closeForm'){
 			this.setState({
 				currentView: 'showResults'
 			});
 			return;
-		}
-		if(request === 'showForm'){
+		}else if(request === 'showForm'){
 			this.setState({
 				currentView: 'showForm'
 			});
 			return;
+		}else if(request === 'addToSection'){
+			this.addFormSection(e.target.dataset.section.split('.'));
+			return;
 		}
+		
+		
 		let section = e.target.dataset.section;
 		let sectionArr = section.split('.');
 		let specificObject = fieldsCopy[sectionArr[0]];
@@ -1429,45 +1417,6 @@ export class InvestPropCalcContainer extends React.Component{
 				specificObject[sectionArr[1]].splice(key, 1);
 			}
 			this.updateSummaryContents();
-		}else if(request === 'addToSection'){
-			let basicEntry = {
-				name:'new field',
-				hasMonthlyAnnual:true,
-				value:{
-					preEntry:'$',
-					monthly: '',
-					annual:'',
-					postEntry:'',
-					placeholder:'-0-'
-				},
-				validation:{
-					arr: ['number', 'positive'],
-					validEntry:false,
-					vmes:[],
-					showVmes:false,
-					invalidValue:'',
-					location:'right-alert'
-				},
-				tooltip:{
-					textStart:'',
-					textEnd: '',
-					location: 'bottom'
-				},
-				required:false,
-				isOpen:true
-			};
-			if(sectionArr[0]==='income'){//income section
-				basicEntry.tooltip.textStart = 'please enter';
-				basicEntry.tooltip.textEnd = 'income for the subject property (estimated or actual)';
-			}else if(sectionArr[0]==='expenses'){//expense section
-				basicEntry.tooltip.textStart = 'please enter';
-				basicEntry.tooltip.textEnd = 'expenses';
-			}
-			if(sectionArr.length === 1){
-				specificObject.push(basicEntry);
-			}else if(sectionArr.length === 2){
-				specificObject[sectionArr[1]].push(basicEntry);
-			}
 		}else if(request === 'closeAlertTT'){
 			if(sectionArr.length === 1){
 				specificObject = specificObject[key];
@@ -1476,6 +1425,61 @@ export class InvestPropCalcContainer extends React.Component{
 			}
 			specificObject.validation.showVmes = false;
 		}
+		let objCopy = Object.assign({}, formFields, fieldsCopy);
+		this.setState({
+			formFields: objCopy
+		});
+	}
+	addFormSection(sectionArr){
+		let {formFields} = this.state;
+		let fieldsCopy = formFields;
+		let objectFirst = fieldsCopy[sectionArr[0]];
+		let basicFormFieldsEntry = {
+			name:'new field',
+			value:{
+				preEntry:'$',
+				monthly: '',
+				annual:'',
+				postEntry:'',
+				placeholder:'-0-'
+			},
+			validation:{
+				arr: ['number', 'positive'],
+				validEntry:false,
+				vmes:[],
+				showVmes:false,
+				invalidValue:'',
+				location:'right-alert'
+			},
+			tooltip:{
+				textStart:'',
+				textEnd: '',
+				location: 'bottom'
+			},
+			required:false
+		};
+		if(sectionArr[0]==='income'){//income section
+			basicFormFieldsEntry.tooltip.textStart = 'please enter';
+			basicFormFieldsEntry.tooltip.textEnd = 'income for the subject property (estimated or actual)';
+			if(sectionArr[1] === 'rental'){
+				basicFormFieldsEntry.name = 'unit ' + (objectFirst[sectionArr[1]].length + 1);
+			}else if(sectionArr[1] === 'retail'){
+				basicFormFieldsEntry.name = 'business ' + (objectFirst[sectionArr[1]].length + 1);
+			}else if(sectionArr[1] === 'other'){
+				basicFormFieldsEntry.name = 'other income ' + (objectFirst[sectionArr[1]].length + 1);
+			}
+		}else if(sectionArr[0]==='expenses'){//expense section
+			basicFormFieldsEntry.tooltip.textStart = 'please enter';
+			basicFormFieldsEntry.tooltip.textEnd = 'expenses';
+			if(sectionArr[1] === 'carryingCosts'){
+				basicFormFieldsEntry.name = 'carrying cost ' + (objectFirst[sectionArr[1]].length + 1);
+			}else if(sectionArr[1] === 'utilities'){
+				basicFormFieldsEntry.name = 'utility ' + (objectFirst[sectionArr[1]].length + 1);
+			}else if(sectionArr[1] === 'other'){
+				basicFormFieldsEntry.name = 'misc expense ' + (objectFirst[sectionArr[1]].length + 1);
+			}
+		}
+		objectFirst[sectionArr[1]].push(basicFormFieldsEntry);
 		let objCopy = Object.assign({}, formFields, fieldsCopy);
 		this.setState({
 			formFields: objCopy

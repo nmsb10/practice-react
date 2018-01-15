@@ -5,14 +5,12 @@ import { SectionBody } from './SectionBody';
 export const MainSection = (props) => {
 	let {
 		sectionTitle,
+		sectionT2,
 		icon,
 		fields,
 		fieldsGuide,
-		fieldsBool,
 		handleChange
 	} = props;
-	console.log(fields);
-	console.log(fieldsGuide);
 	return(
 		<div className = 'main-section'>
 			<SectionHeader
@@ -20,6 +18,7 @@ export const MainSection = (props) => {
 				icon = {icon}
 			/>
 			<SectionBody
+				sectionT2 = {sectionT2}
 				guide = {fieldsGuide}
 				fields = {fields}
 				handleChange = {handleChange}

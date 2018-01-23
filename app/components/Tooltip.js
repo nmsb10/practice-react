@@ -28,7 +28,7 @@ export const Tooltip = (props) => {
 	}
 	return(
 		<span className= {cssClass}>
-			{displayType === 'alert' ?
+			{displayType === 'alert' && content.vmes ?
 			<div>
 				<span>you tried entering:</span>
 				<span className = 'invalid-value'>{content.invalidValue}</span>

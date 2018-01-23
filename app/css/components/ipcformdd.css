@@ -213,6 +213,7 @@
 .ipc-form-ad .cover .content .form-container .main-section .ms-body.closed{
     max-height: 0;
     opacity: 0;
+    padding: 0;
     overflow: hidden;
 }
 
@@ -243,6 +244,10 @@
     color:lime;
 }
 
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs{
+    position: relative;
+}
+
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .name-container{
     width: 30%;
     display: inline-block;
@@ -260,7 +265,6 @@
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container{
     width: 70%;
     display: inline-block;
-    position: relative;
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label{
@@ -294,8 +298,8 @@
 }
 
 /* The Close Button */
-.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .close,
-.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .close{
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .close,
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .close{
     position: absolute;
     color: white;
     font-size: 1.1rem;
@@ -315,8 +319,8 @@
     transition: all 0.2s ease 0s;
 }
 
-.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .close:hover,
-.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .close:focus {
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .close:hover,
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .close:focus {
     color: rgb(79, 0, 79);
     background-color: rgb(255, 255, 255);
     border-color: rgb(79, 0, 79);
@@ -325,10 +329,12 @@
     cursor: pointer;
 }
 
-.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .close:active{
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .close:active{
     background-color: rgba(79, 0, 79, 0.5);
 }
 /* END of The Close Button */
+
+
 
 /*what to do:
 ? icon works onHover AND onClick

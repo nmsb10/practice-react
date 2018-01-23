@@ -46,17 +46,6 @@ export const InputsContainer = (props) => {
 			:
 			null
 		}
-			<span
-				className = {content.required || section === 'financing.terms' || section === 'other.terms' ? 'hidden' : 'close'}
-				title = {removeSpanTitle}
-				data-item-clicked = {content.required ? 'invalid' : 'removeSection'}
-				data-key = {i}
-				data-section = {section}
-			>&times;</span>
-			<i
-				className="fa fa-question-circle-o"
-				aria-hidden="true"
-			></i>
 		</div>
 	);
 }

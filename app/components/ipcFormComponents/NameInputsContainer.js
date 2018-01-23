@@ -13,23 +13,14 @@ export const NameInputsContainer = (props) => {
 	return(
 		<div>
 			{fields[specificSection].map( (content, i) => {
-				let removeSpanTitle = 'remove section: ' + content.name;
+				let removeSpanTitle = 'remove the ' + content.name + ' input field';
 				let alertTooltip = {
 					request: 'closeAlertTT',
 					key: i,
-					section: specificSection
+					section: section
 				};
 				return(
-				<div className = 'name-inputs' key = {i}>
-				{/*	
-					<span
-						className = {content.required ? 'hidden' : 'close'}
-						title = {removeSpanTitle}
-						data-item-clicked = {content.required ? 'invalid' : 'removeSection'}
-						data-key = {i}
-						data-section = {specificSection}
-					>&times;</span>
-				
+				<div className = 'name-inputs ttt-container' key = {i}>				
 					<Tooltip
 						content = {content.tooltip ? content.tooltip : ''}
 						inputName = {content.name ? content.name : ''}
@@ -40,7 +31,6 @@ export const NameInputsContainer = (props) => {
 						displayType = 'alert'
 						alertTooltip = {alertTooltip}
 					/>
-				*/}
 					< NameContainer
 						handleChange = {handleChange}
 						section = {section}
@@ -54,6 +44,17 @@ export const NameInputsContainer = (props) => {
 						content = {content}
 						i = {i}
 					/>
+					<span
+						className = {content.required || section === 'financing.terms' || section === 'other.terms' ? 'hidden' : 'close'}
+						title = {removeSpanTitle}
+						data-item-clicked = {content.required ? 'invalid' : 'removeSection'}
+						data-key = {i}
+						data-section = {section}
+					>&times;</span>
+					<i
+						className="fa fa-question-circle-o"
+						aria-hidden="true"
+					></i>
 				</div>
 				);
 			})

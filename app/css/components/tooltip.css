@@ -21,6 +21,10 @@ https://www.w3schools.com/css/css_tooltip.asp*/
 	transition: all 0.5s ease 0s;
 }
 
+.tooltiptext{
+    width: 11rem;
+}
+
 .ttt-alert{
     width: 10rem;
     background-color: rgba(255, 0, 0, 0.8);

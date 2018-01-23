@@ -1405,47 +1405,74 @@ export class InvestPropCalcContainer extends React.Component{
 		let {formFields} = this.state;
 		let fieldsCopy = formFields;
 		let request = e.target.dataset.itemClicked;
-		console.log('request is: (item clicked):', request);
-		if(!request){//address situation when the component is clicked but not on a minimize, remove, or addtosection request
-			return;
-		}else if(request === 'closeForm'){
-			this.setState({
-				currentView: 'showResults'
-			});
-			return;
-		}else if(request === 'showForm'){
-			this.setState({
-				currentView: 'showForm'
-			});
-			return;
-		}else if(request === 'addToSection'){
-			this.addFormSection(e.target.dataset.section.split('.'));
-			return;
-		}else if(request === 'minimizeSection'){
-			this.minimizeSection(e.target.dataset.key1, e.target.dataset.key2);
-			return;
+		let sectionArr, key = e.target.dataset.key;
+		switch(request){
+			case undefined:
+				break;
+			case 'closeForm':
+				this.setState({
+					currentView: 'showResults'
+				});
+				break;
+			case 'showForm':
+				this.setState({
+					currentView: 'showForm'
+				});
+				break;
+			case 'addToSection':
+				this.addFormSection(e.target.dataset.section.split('.'));
+				break;
+			case 'minimizeSection':
+				this.minimizeSection(e.target.dataset.key1, e.target.dataset.key2);
+				break;
+			case 'removeSection':
+				sectionArr = e.target.dataset.section.split('.');
+				fieldsCopy[sectionArr[0]][sectionArr[1]].splice(key, 1);
+				this.updateSummaryContents();
+				break;
+			case 'closeAlertTT':
+				sectionArr = e.target.dataset.section.split('.');
+				fieldsCopy[sectionArr[0]][sectionArr[1]].validation.showVmes = false;
+				break;
+			default:
+				console.log('unknown click request from switch statement: ', request);
+				break;
 		}
-		
-		
-		let section = e.target.dataset.section;
-		let sectionArr = section.split('.');
-		let specificObject = fieldsCopy[sectionArr[0]];
-		let key = e.target.dataset.key;
-		if(request === 'removeSection'){
-			if(sectionArr.length === 1){
-				specificObject.splice(key, 1);
-			}else if(sectionArr.length === 2){
-				specificObject[sectionArr[1]].splice(key, 1);
-			}
-			this.updateSummaryContents();
-		}else if(request === 'closeAlertTT'){
-			if(sectionArr.length === 1){
-				specificObject = specificObject[key];
-			}else if(sectionArr.length === 2){
-				specificObject = specificObject[sectionArr[1]][key];
-			}
-			specificObject.validation.showVmes = false;
-		}
+
+		// if(!request){//address situation when the component is clicked but not on a minimize, remove, or addtosection request
+		// 	return;
+		// }else if(request === 'closeForm'){
+		// 	this.setState({
+		// 		currentView: 'showResults'
+		// 	});
+		// 	return;
+		// }else if(request === 'showForm'){
+		// 	this.setState({
+		// 		currentView: 'showForm'
+		// 	});
+		// 	return;
+		// }else if(request === 'addToSection'){
+		// 	this.addFormSection(e.target.dataset.section.split('.'));
+		// 	return;
+		// }else if(request === 'minimizeSection'){
+		// 	this.minimizeSection(e.target.dataset.key1, e.target.dataset.key2);
+		// 	return;
+		// }else if(request === 'removeSection'){
+			
+		// 	if(sectionArr.length === 1){
+		// 		specificObject.splice(key, 1);
+		// 	}else if(sectionArr.length === 2){
+		// 		specificObject[sectionArr[1]].splice(key, 1);
+		// 	}
+		// 	this.updateSummaryContents();
+		// }else if(request === 'closeAlertTT'){
+		// 	if(sectionArr.length === 1){
+		// 		specificObject = specificObject[key];
+		// 	}else if(sectionArr.length === 2){
+		// 		specificObject = specificObject[sectionArr[1]][key];
+		// 	}
+		// 	specificObject.validation.showVmes = false;
+		// }
 		let objCopy = Object.assign({}, formFields, fieldsCopy);
 		this.setState({
 			formFields: objCopy

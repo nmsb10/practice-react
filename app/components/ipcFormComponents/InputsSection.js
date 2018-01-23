@@ -12,7 +12,9 @@ export const InputsSection = (props) => {
 	return(
 		<div className = 'input-label'>
 			<div className = {'input-section' + (value.preEntry ? ' ta-left' : ' ta-right')}>
-				<span className = ''>{value.preEntry}</span>
+				<label htmlFor = {id}>
+					<span className = ''>{value.preEntry}</span>
+				</label>
 				<span className = ''>
 					<input
 						type='text'
@@ -26,7 +28,10 @@ export const InputsSection = (props) => {
 						onChange = {handleChange}
 					/>
 				</span>
-				<span className = ''>{value.postEntry}</span>
+				<span className = ''>
+					<label htmlFor = {id}>{value.postEntry}
+					</label>
+				</span>
 			</div>
 			{/*
 				when a label has attribute 'for' this makes the input with which it is associated clickable
@@ -41,7 +46,7 @@ export const InputsSection = (props) => {
 			{ period ? 
 			<div className = 'label-section'>
 				<label htmlFor = {id}>
-					<span className = 'label-span'>{period}</span>
+					<span className = ''>{period}</span>
 				</label>
 			</div>
 				:

@@ -9,19 +9,23 @@ export const MainSection = (props) => {
 		icon,
 		fields,
 		fieldsGuide,
-		handleChange
+		handleChange,
+		tierTwo,
+		sectionOpen
 	} = props;
 	return(
 		<div className = 'main-section'>
 			<SectionHeader
 				title = {sectionTitle}
 				icon = {icon}
+				sectionOpen = {sectionOpen}
 			/>
 			<SectionBody
 				sectionT2 = {sectionT2}
 				guide = {fieldsGuide}
 				fields = {fields}
 				handleChange = {handleChange}
+				sectionOpen = {sectionOpen}
 			/>
 		</div>
 	);

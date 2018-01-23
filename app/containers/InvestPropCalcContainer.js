@@ -42,6 +42,44 @@ export class InvestPropCalcContainer extends React.Component{
 					display: 'Other'
 				}]
 			],
+			ipcFormDD:{
+				tierOne: ['fields', 'assumptions'],
+				tierTwo: [[{
+						objectName: 'price',
+						displayName: 'purchase price',
+						sectionOpen: true
+					},{
+						objectName: 'income',
+						displayName: 'income',
+						sectionOpen: true
+					},{
+						objectName: 'expenses',
+						displayName: 'expenses',
+						sectionOpen: true
+					}],[
+					{
+						objectName: 'financing',
+						displayName: 'financing',
+						fontAwesomeIcon: 'fa fa-university',
+						sectionOpen: true
+					},{
+						objectName: 'other',
+						displayName: 'other',
+						fontAwesomeIcon: 'fa fa-check-square-o',
+						sectionOpen: true
+					}]],
+				tierThree:
+				[
+					[
+						[{name: 'purchasePrice', allowAdd: false}],
+						[{name: 'rental', displayName: 'rental: residential', allowAdd: true, title: 'add a source of (residential) rental income'}, {name: 'retail', displayName: 'rental: retail', allowAdd: true, title: 'add a source of retail rental income'}, {name: 'other', allowAdd: true, title: 'add a source of other income'}],
+						[{name: 'carryingCosts', displayName: 'carrying costs', allowAdd: true, title: 'add a different carrying cost'}, {name: 'utilities', allowAdd: true, title: 'add another utilities expense'}, {name: 'other', allowAdd: true, title:'add a miscellaneous expense'}]
+					],[
+						[{name: 'terms', allowAdd: false}],
+						[{name: 'terms', allowAdd: false}]
+					]
+				]
+			},
 			formFields:{
 				price:{
 					purchasePrice:[{
@@ -65,13 +103,12 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'for the subject property (anticipated or actual)',
 							location: 'bottom'
 						},
-						required:true,
-						isOpen:true
+						required:true
 					}]
 				},
 				income:{
 					retail:[{
-						name:'business one name',
+						name:'business one',
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -92,10 +129,9 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'income (anticipated or actual)',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					},{
-						name:'business two name',
+						name:'business two',
 						value:{
 							preEntry:'$',
 							monthly: '',
@@ -116,8 +152,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'income (anticipated or actual)',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					}],
 					other:[{//also add other: miscellaneous: state source and amount
 						name:'laundry room',
@@ -141,8 +176,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'income for the subject property (estimated or actual)',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					},{
 						name:'vending machines',
 						value:{
@@ -165,8 +199,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'income for the subject property (estimated or actual)',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					}],
 					rental:[{//state unit or lessee name, and amount
 						name:'unit one',//rental income, unit one
@@ -190,8 +223,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'income for the subject property',
 							location: 'bottom'
 						},
-						required:true,
-						isOpen:true
+						required:true
 					}]
 				},
 				expenses:{
@@ -217,8 +249,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'here',
 							location: 'bottom'
 						},
-						required:true,
-						isOpen:true
+						required:true
 					},{
 						name:'property insurance premium',
 						value:{
@@ -241,8 +272,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'expenses here',
 							location: 'bottom'
 						},
-						required:true,
-						isOpen:true
+						required:true
 					},{
 						name:'assessments',
 						value:{
@@ -265,8 +295,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'here',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					}],
 					utilities:[{
 						name:'gas (common hot water)',
@@ -290,8 +319,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'expenses',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					},{
 						name:'gas (heat)',
 						value:{
@@ -314,8 +342,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'expenses',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					},{
 						name:'electricity (common areas)',
 						value:{
@@ -338,8 +365,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'expenses',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					},{
 						name:'water',
 						value:{
@@ -362,8 +388,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: '',
 							location: 'bottom'
 						},
-						required:true,
-						isOpen:true
+						required:true
 					},{
 						name:'scavenger',
 						value:{
@@ -386,8 +411,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'expenses',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					}],
 					other:[{
 						name:'repairs | decor',
@@ -411,8 +435,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'expenses',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					},{
 						name:'property management',
 						value:{
@@ -435,8 +458,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'expenses',
 							location: 'bottom'
 						},
-						required:false,
-						isOpen:true
+						required:false
 					},{
 						name:'reserves fund',
 						value:{
@@ -459,8 +481,7 @@ export class InvestPropCalcContainer extends React.Component{
 							textEnd: 'dollar amount here',
 							location: 'bottom'
 						},
-						required:true,
-						isOpen:true
+						required:true
 					}]
 				}
 			},
@@ -520,7 +541,7 @@ export class InvestPropCalcContainer extends React.Component{
 						valueType: ['percentage',2],
 						value:{
 							preEntry:'',
-							amount:'',//8.00
+							amount:0,//8.00
 							postEntry:'%',
 							placeholder:''
 						}
@@ -530,7 +551,7 @@ export class InvestPropCalcContainer extends React.Component{
 						valueType: ['percentage',2],
 						value:{
 							preEntry:'',
-							amount:'',//2.00
+							amount:0,//2.00
 							postEntry:'%',
 							placeholder:''
 						}
@@ -895,6 +916,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.updateIncomeSummary = this.updateIncomeSummary.bind(this);
 		this.updateExpensesSummary = this.updateExpensesSummary.bind(this);
 		this.addFormSection = this.addFormSection.bind(this);
+		this.minimizeSection = this.minimizeSection.bind(this);
 	}
 	componentDidMount(){
 		this.setState({
@@ -1174,8 +1196,8 @@ export class InvestPropCalcContainer extends React.Component{
 		
 		//cash flow calculations=====================================
 		//purchase formFields.purchasePrice[0].value.amount
-		let loanAmount = formFields.price.purchasePrice[0].value.amount - assumptions.financing[1].amount;
-		let debtServiceMonthlyOrig = this.mortgagePayment(loanAmount, assumptions.financing[3].amount * 12, assumptions.financing[2].amount / 100 / 12) || 0;
+		let loanAmount = formFields.price.purchasePrice[0].value.amount - assumptions.financing.terms[1].amount;
+		let debtServiceMonthlyOrig = this.mortgagePayment(loanAmount, assumptions.financing.terms[3].amount * 12, assumptions.financing.terms[2].amount / 100 / 12) || 0;
 		let debtServiceAnnual = debtServiceMonthlyOrig * 12;
 		let debtServiceMonthly = this.withCommas(debtServiceMonthlyOrig.toFixed(2));
 		cfSummaryCopy.debtService.total.monthly = debtServiceMonthly;
@@ -1241,33 +1263,36 @@ export class InvestPropCalcContainer extends React.Component{
 			'total retail income: $'+ this.withCommas(annRet.toFixed(2)),
 			'total other income: $'+ this.withCommas(annOth.toFixed(2)));
 		//vacancy totals and tooltip totals
-		income.vacancy.total.monthly = (assumptions.other[0].amount * 0.01 * income.gpi.total.monthly).toFixed(2);
-		income.vacancy.total.annual = (assumptions.other[0].amount * 0.01 * income.gpi.total.annual).toFixed(2);
+		
+		income.vacancy.total.monthly = (assumptions.other.terms[0].amount || 0 * 0.01 * income.gpi.total.monthly).toFixed(2);
+		income.vacancy.total.annual = (assumptions.other.terms[0].amount || 0 * 0.01 * income.gpi.total.annual).toFixed(2);
+		console.log('vacancy stuff:', assumptions.other.terms[0]);
+		console.log('vacancy totla monthly:',income.vacancy.total.monthly);
 		income.vacancy.tooltip.monthly.total = this.withCommas(income.vacancy.total.monthly);
 		income.vacancy.tooltip.annual.total = this.withCommas(income.vacancy.total.annual);
 		//vacancy tooltip
 		income.vacancy.tooltip.monthly.figures = [];
 		income.vacancy.tooltip.monthly.figures.push(
 			'GPI: $'+ income.gpi.tooltip.monthly.total,
-			'Vacancy Factor: '+ assumptions.other[0].amount + '%');
+			'Vacancy Factor: '+ assumptions.other.terms[0].amount + '%');
 		income.vacancy.tooltip.annual.figures = [];
 		income.vacancy.tooltip.annual.figures.push(
 			'GPI: $'+ income.gpi.tooltip.annual.total,
-			'Vacancy Factor: '+ assumptions.other[0].amount + '%');
+			'Vacancy Factor: '+ assumptions.other.terms[0].amount + '%');
 		//collections totals and tooltip totals
-		income.collections.total.monthly = (assumptions.other[1].amount * 0.01 * income.gpi.total.monthly).toFixed(2);
-		income.collections.total.annual = (assumptions.other[1].amount * 0.01 * income.gpi.total.annual).toFixed(2);
+		income.collections.total.monthly = (assumptions.other.terms[1].amount * 0.01 * income.gpi.total.monthly).toFixed(2);
+		income.collections.total.annual = (assumptions.other.terms[1].amount * 0.01 * income.gpi.total.annual).toFixed(2);
 		income.collections.tooltip.monthly.total = this.withCommas(income.collections.total.monthly);
 		income.collections.tooltip.annual.total = this.withCommas(income.collections.total.annual);
 		//collections tooltip
 		income.collections.tooltip.monthly.figures = [];
 		income.collections.tooltip.monthly.figures.push(
 			'GPI: $'+ income.gpi.tooltip.monthly.total,
-			'Collections Factor: '+ assumptions.other[1].amount + '%');
+			'Collections Factor: '+ assumptions.other.terms[1].amount + '%');
 		income.collections.tooltip.annual.figures = [];
 		income.collections.tooltip.annual.figures.push(
 			'GPI: $'+ income.gpi.tooltip.annual.total,
-			'Collections Factor: '+ assumptions.other[1].amount + '%');
+			'Collections Factor: '+ assumptions.other.terms[1].amount + '%');
 		//egi totals and tooltip totals
 		income.egi.total.monthly = (income.gpi.total.monthly - income.vacancy.total.monthly - income.collections.total.monthly).toFixed(2);
 		income.egi.total.annual = (income.gpi.total.annual - income.vacancy.total.annual - income.collections.total.annual).toFixed(2);
@@ -1396,6 +1421,9 @@ export class InvestPropCalcContainer extends React.Component{
 		}else if(request === 'addToSection'){
 			this.addFormSection(e.target.dataset.section.split('.'));
 			return;
+		}else if(request === 'minimizeSection'){
+			this.minimizeSection(e.target.dataset.key1, e.target.dataset.key2);
+			return;
 		}
 		
 		
@@ -1403,14 +1431,7 @@ export class InvestPropCalcContainer extends React.Component{
 		let sectionArr = section.split('.');
 		let specificObject = fieldsCopy[sectionArr[0]];
 		let key = e.target.dataset.key;
-		if(request === 'minimizeSection'){
-			if(sectionArr.length === 1){
-				specificObject = specificObject[key];
-			}else if(sectionArr.length === 2){
-				specificObject = specificObject[sectionArr[1]][key];
-			}
-			specificObject.isOpen = !specificObject.isOpen;
-		}else if(request === 'removeSection'){
+		if(request === 'removeSection'){
 			if(sectionArr.length === 1){
 				specificObject.splice(key, 1);
 			}else if(sectionArr.length === 2){
@@ -1485,6 +1506,16 @@ export class InvestPropCalcContainer extends React.Component{
 			formFields: objCopy
 		});
 	}
+	minimizeSection(one, two){
+		let{ipcFormDD} = this.state;
+		let objectCopy = ipcFormDD;
+		let changedSection = objectCopy.tierTwo[one][two];
+		changedSection.sectionOpen = !changedSection.sectionOpen;
+		let objCopy = Object.assign({}, ipcFormDD, objectCopy);
+		this.setState({
+			ipcFormDD: objCopy
+		});
+	}
 	withCommas(str){
 		//remember: the replace method works on strings, not numbers!
 		//http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
@@ -1518,6 +1549,7 @@ export class InvestPropCalcContainer extends React.Component{
 			currentView,
 			tierOne,
 			tierTwo,
+			ipcFormDD,
 			formFields,
 			assumptions,
 			incomeSummary,
@@ -1540,6 +1572,7 @@ export class InvestPropCalcContainer extends React.Component{
 				<div className = 'fit-95 form-and-analysis'>
 					<IpcFormDD
 						view = {currentView}
+						tiers = {ipcFormDD}
 						handleSubmit = {this.calculate}
 						handleInputChange = {this.updateFormFields}
 						fields = {formFields}

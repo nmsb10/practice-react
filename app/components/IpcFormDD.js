@@ -5,52 +5,22 @@ import { MainSection } from './ipcFormComponents/MainSection';
 export const IpcFormDD = (props) => {
 	let {
 		view,
+		tiers,
 		fields,
 		assumptions,
 		handleClick,
 		handleInputChange,
 		handleSubmit
 	} = props;
-	let tierOne = ['fields', 'assumptions'];
-	let tierTwo = [[{
-						objectName: 'price',
-						displayName: 'purchase price'
-					},{
-						objectName: 'income',
-						displayName: 'income'
-					},{
-						objectName: 'expenses',
-						displayName: 'expenses'
-					}],[
-					{
-						objectName: 'financing',
-						displayName: 'financing',
-						fontAwesomeIcon: 'fa fa-university'
-					},{
-						objectName: 'other',
-						displayName: 'other',
-						fontAwesomeIcon: 'fa fa-check-square-o'
-					}]];
-	let tierThree =
-		[
-			[
-				[{name: 'purchasePrice', allowAdd: false}],
-				[{name: 'rental', displayName: 'rental: residential', allowAdd: true, title: 'add a source of (residential) rental income'}, {name: 'retail', displayName: 'rental: retail', allowAdd: true, title: 'add a source of retail rental income'}, {name: 'other', allowAdd: true, title: 'add a source of other income'}],
-				[{name: 'carryingCosts', displayName: 'carrying costs', allowAdd: true, title: 'add a different carrying cost'}, {name: 'utilities', allowAdd: true, title: 'add another utilities expense'}, {name: 'other', allowAdd: true, title:'add a miscellaneous expense'}]
-			],[
-				[{name: 'terms', allowAdd: false}],
-				[{name: 'terms', allowAdd: false}]
-			]
-		];
 	let formContents =
-		tierOne.map((mainObj, i) => {
+		tiers.tierOne.map((mainObj, i) => {
 			return(
-				tierTwo[i].map((section, j) => {
+				tiers.tierTwo[i].map((section, j) => {
 					let specificFields = mainObj === 'fields' ? fields[section.objectName] : assumptions[section.objectName];
 					let specFieldsIcon = section.fontAwesomeIcon;
 					let sectionT2 = section.objectName;
-					let fieldsGuide = tierThree[i][j];
-					//let fieldsBool = mainObj === 'fields' ? true : false;
+					let fieldsGuide = tiers.tierThree[i][j];
+					let sectionOpen = {key: {t1:i, t2:j}, bool: section.sectionOpen}
 					return(
 						<MainSection
 							sectionTitle = {section.displayName}
@@ -59,6 +29,7 @@ export const IpcFormDD = (props) => {
 							fields = {specificFields}
 							fieldsGuide = {fieldsGuide}
 							handleChange = {handleInputChange}
+							sectionOpen = {sectionOpen}
 						/>
 					);
 			}));

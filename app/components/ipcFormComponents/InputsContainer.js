@@ -8,6 +8,7 @@ export const InputsContainer = (props) => {
 		content,
 		i
 	} = props;
+	let removeSpanTitle = 'remove section: ' + content.name;
 	return(
 		<div className = 'inputs-container'>
 		{ content.value.amount === '' || content.value.amount ?
@@ -45,6 +46,13 @@ export const InputsContainer = (props) => {
 			:
 			null
 		}
+			<span
+				className = {content.required || section === 'financing.terms' || section === 'other.terms' ? 'hidden' : 'close'}
+				title = {removeSpanTitle}
+				data-item-clicked = {content.required ? 'invalid' : 'removeSection'}
+				data-key = {i}
+				data-section = {section}
+			>&times;</span>
 			<i
 				className="fa fa-question-circle-o"
 				aria-hidden="true"

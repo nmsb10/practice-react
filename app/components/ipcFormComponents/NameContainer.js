@@ -15,6 +15,7 @@ export const NameContainer = (props) => {
 				<input
 					className = ''
 					type='text'
+					title = {name}
 					id={name}
 					data-key = {i}
 					data-request = 'changeFieldName'

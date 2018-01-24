@@ -509,12 +509,12 @@ export class InvestPropCalcContainer extends React.Component{
 						field: 'down payment %',
 						title: 'down payment % (remember: LTV = 100% - down payment %)',
 						valueType: ['percentage',2],
-						notice:false,
 						value:{
 							preEntry:'',
 							amount:'',
 							postEntry:'%',
-							placeholder:''
+							placeholder:'',
+							notice:null
 						},
 						tooltip:{
 							textStart:'enter the',
@@ -526,12 +526,12 @@ export class InvestPropCalcContainer extends React.Component{
 					{
 						field: 'down payment $',
 						valueType: ['dollars'],
-						notice:false,
 						value:{
 							preEntry:'$',
 							amount:'',
 							postEntry:'',
-							placeholder:''
+							placeholder:'',
+							notice:null
 						},
 						tooltip:{
 							textStart:'enter the',
@@ -1057,11 +1057,8 @@ export class InvestPropCalcContainer extends React.Component{
 		this.context.router.push('search');
 	}
 	updateAssumptions(e){
-		console.log('updating assumptions: ', e);
 		let{assumptions, formFields, incomeSummary} = this.state;
 		let newState = assumptions;
-		let formFieldsCopy = formFields;
-		let specObj = {};
 		let section = e.target.dataset.section.split('.');
 		let selected = newState[section[0]][section[1]][e.target.dataset.key];
 		let valueType = selected.valueType;
@@ -1072,6 +1069,7 @@ export class InvestPropCalcContainer extends React.Component{
 			return;
 		}else{
 			if(valueType[0] === 'percentage' || valueType[0] === 'interest'){
+				//make sure decimal places does not exceed valueType[1]
 				if(Math.pow(10, valueType[1]) * newValue % 1 > 0){
 					newValue = parseFloat(newValue).toFixed(valueType[1]);
 				}
@@ -1102,22 +1100,22 @@ export class InvestPropCalcContainer extends React.Component{
 			//now check for selected field
 			if(selected.field === 'down payment %'){
 				if(purchasePrice === ''){
-					newState.financing.terms[0].notice = 'enter a purchase price';
-					newState.financing.terms[1].notice = 'enter a purchase price';
+					newState.financing.terms[0].value.notice = 'enter a purchase price';
+					newState.financing.terms[1].value.notice = 'enter a purchase price';
 					newValue = '';
 				}else{
-					newState.financing.terms[1].amount = parseInt(0.01 * newValue * purchasePrice);
+					newState.financing.terms[1].value.amount = parseInt(0.01 * newValue * purchasePrice);
 				}
 			}else if(selected.field === 'down payment $'){
 				if(purchasePrice === ''){
-					newState.financing.terms[0].notice = 'enter a purchase price';
-					newState.financing.terms[1].notice = 'enter a purchase price';
+					newState.financing.terms[0].value.notice = 'enter a purchase price';
+					newState.financing.terms[1].value.notice = 'enter a purchase price';
 					newValue = '';
 				}else if(newValue > purchasePrice){
 					newValue = purchasePrice;
-					newState.financing.terms[0].amount = (100 * newValue / purchasePrice).toFixed(2);
+					newState.financing.terms[0].value.amount = (100 * newValue / purchasePrice).toFixed(2);
 				}else{
-					newState.financing.terms[0].amount = (100 * newValue / purchasePrice).toFixed(2);
+					newState.financing.terms[0].value.amount = (100 * newValue / purchasePrice).toFixed(2);
 				}
 			// }else if(selected.field === 'property management fee'){
 			// 	specObj = formFieldsCopy.expenses.other[propertyManagementIndex];
@@ -1130,12 +1128,10 @@ export class InvestPropCalcContainer extends React.Component{
 			// 	console.log(0.01 * newValue * egi);
 			// 	specObj = this.validateInput(specObj, 0.01 * newValue * egi, 'annual');
 			}
-			selected.amount = newValue;
+			selected.value.amount = newValue;
 			let newAssumptions = Object.assign({}, assumptions, newState);
-			let newFormFields = Object.assign({}, formFields, formFieldsCopy);
 			this.setState({
-				assumptions: newAssumptions,
-				formFields: newFormFields
+				assumptions: newAssumptions
 			});
 			this.updateSummaryContents();
 		}
@@ -1232,7 +1228,7 @@ export class InvestPropCalcContainer extends React.Component{
 		let otherTotalAnnual = incomeSummaryCopy.gpi.totals.other.annual;
 		let resTotalAnnual = incomeSummaryCopy.gpi.totals.rental.annual;
 		incomeSummaryCopy.gpi.total.annual = (retailTotalAnnual + otherTotalAnnual + resTotalAnnual).toFixed(2);
-		incomeSummaryCopy = this.updateIncomeSummary(incomeSummaryCopy, retailTotalMonthly, otherTotalMonthly, resTotalMonthly, retailTotalAnnual, otherTotalAnnual, resTotalAnnual, assumptions);
+		incomeSummaryCopy = this.updateIncomeSummary(incomeSummaryCopy, retailTotalMonthly, otherTotalMonthly, resTotalMonthly, retailTotalAnnual, otherTotalAnnual, resTotalAnnual);
 
 		//for expenses summary data======================================
 		let carryingCostsTotalMonthly = expensesSummaryCopy.oe.totals.carryingCosts.monthly;
@@ -1265,8 +1261,8 @@ export class InvestPropCalcContainer extends React.Component{
 		
 		//cash flow calculations=====================================
 		//purchase formFields.purchasePrice[0].value.amount
-		let loanAmount = formFields.price.purchasePrice[0].value.amount - assumptions.financing.terms[1].amount;
-		let debtServiceMonthlyOrig = this.mortgagePayment(loanAmount, assumptions.financing.terms[3].amount * 12, assumptions.financing.terms[2].amount / 100 / 12) || 0;
+		let loanAmount = formFields.price.purchasePrice[0].value.amount - assumptions.financing.terms[1].value.amount;
+		let debtServiceMonthlyOrig = this.mortgagePayment(loanAmount, assumptions.financing.terms[3].value.amount * 12, assumptions.financing.terms[2].value.amount / 100 / 12) || 0;
 		let debtServiceAnnual = debtServiceMonthlyOrig * 12;
 		let debtServiceMonthly = this.withCommas(debtServiceMonthlyOrig.toFixed(2));
 		cfSummaryCopy.debtService.total.monthly = debtServiceMonthly;
@@ -1316,7 +1312,8 @@ export class InvestPropCalcContainer extends React.Component{
 			//noiSummary: newNoiSummary
 		});
 	}
-	updateIncomeSummary(income, monthlyRetail, monthlyOther, monthlyRes, annRet, annOth, annRes, assumptions){
+	updateIncomeSummary(income, monthlyRetail, monthlyOther, monthlyRes, annRet, annOth, annRes){
+		let { assumptions } = this.state;
 		//gpi tooltip calculations
 		income.gpi.tooltip.monthly.total = this.withCommas(income.gpi.total.monthly);
 		income.gpi.tooltip.annual.total = this.withCommas(income.gpi.total.annual);
@@ -1332,36 +1329,33 @@ export class InvestPropCalcContainer extends React.Component{
 			'total retail income: $'+ this.withCommas(annRet.toFixed(2)),
 			'total other income: $'+ this.withCommas(annOth.toFixed(2)));
 		//vacancy totals and tooltip totals
-		
-		income.vacancy.total.monthly = (assumptions.other.terms[0].amount || 0 * 0.01 * income.gpi.total.monthly).toFixed(2);
-		income.vacancy.total.annual = (assumptions.other.terms[0].amount || 0 * 0.01 * income.gpi.total.annual).toFixed(2);
-		console.log('vacancy stuff:', assumptions.other.terms[0]);
-		console.log('vacancy totla monthly:',income.vacancy.total.monthly);
+		income.vacancy.total.monthly = ((assumptions.other.terms[0].value.amount || 0) * 0.01 * income.gpi.total.monthly).toFixed(2);
+		income.vacancy.total.annual = ((assumptions.other.terms[0].value.amount || 0) * 0.01 * income.gpi.total.annual).toFixed(2);
 		income.vacancy.tooltip.monthly.total = this.withCommas(income.vacancy.total.monthly);
 		income.vacancy.tooltip.annual.total = this.withCommas(income.vacancy.total.annual);
 		//vacancy tooltip
 		income.vacancy.tooltip.monthly.figures = [];
 		income.vacancy.tooltip.monthly.figures.push(
 			'GPI: $'+ income.gpi.tooltip.monthly.total,
-			'Vacancy Factor: '+ assumptions.other.terms[0].amount + '%');
+			'Vacancy Factor: '+ (assumptions.other.terms[0].value.amount ? assumptions.other.terms[0].value.amount : '0') + '%');
 		income.vacancy.tooltip.annual.figures = [];
 		income.vacancy.tooltip.annual.figures.push(
 			'GPI: $'+ income.gpi.tooltip.annual.total,
-			'Vacancy Factor: '+ assumptions.other.terms[0].amount + '%');
+			'Vacancy Factor: '+ (assumptions.other.terms[0].value.amount ? assumptions.other.terms[0].value.amount : '0') + '%');
 		//collections totals and tooltip totals
-		income.collections.total.monthly = (assumptions.other.terms[1].amount * 0.01 * income.gpi.total.monthly).toFixed(2);
-		income.collections.total.annual = (assumptions.other.terms[1].amount * 0.01 * income.gpi.total.annual).toFixed(2);
+		income.collections.total.monthly = ((assumptions.other.terms[1].value.amount || 0) * 0.01 * income.gpi.total.monthly).toFixed(2);
+		income.collections.total.annual = ((assumptions.other.terms[1].value.amount || 0) * 0.01 * income.gpi.total.annual).toFixed(2);
 		income.collections.tooltip.monthly.total = this.withCommas(income.collections.total.monthly);
 		income.collections.tooltip.annual.total = this.withCommas(income.collections.total.annual);
 		//collections tooltip
 		income.collections.tooltip.monthly.figures = [];
 		income.collections.tooltip.monthly.figures.push(
 			'GPI: $'+ income.gpi.tooltip.monthly.total,
-			'Collections Factor: '+ assumptions.other.terms[1].amount + '%');
+			'Collections Factor: '+ (assumptions.other.terms[1].value.amount ? assumptions.other.terms[1].value.amount : '0') + '%');
 		income.collections.tooltip.annual.figures = [];
 		income.collections.tooltip.annual.figures.push(
 			'GPI: $'+ income.gpi.tooltip.annual.total,
-			'Collections Factor: '+ assumptions.other.terms[1].amount + '%');
+			'Collections Factor: '+ (assumptions.other.terms[1].amount ? assumptions.other.terms[1].amount : '0') + '%');
 		//egi totals and tooltip totals
 		income.egi.total.monthly = (income.gpi.total.monthly - income.vacancy.total.monthly - income.collections.total.monthly).toFixed(2);
 		income.egi.total.annual = (income.gpi.total.annual - income.vacancy.total.annual - income.collections.total.annual).toFixed(2);

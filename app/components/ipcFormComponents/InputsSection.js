@@ -24,7 +24,7 @@ export const InputsSection = (props) => {
 						data-val-period = {period}
 						data-section = {section}
 						value = {period ? value[period] : value.amount}
-						placeholder = {value.placeholder}
+						placeholder = {value.notice ? value.notice : value.placeholder}
 						onChange = {handleChange}
 					/>
 				</span>

@@ -10,7 +10,9 @@ export const IpcFormDD = (props) => {
 		assumptions,
 		handleClick,
 		handleInputChange,
-		handleSubmit
+		handleSubmit,
+		handleMouseEnter,
+		handleMouseLeave
 	} = props;
 	let formContents =
 		tiers.tierOne.map((mainObj, i) => {
@@ -30,6 +32,8 @@ export const IpcFormDD = (props) => {
 							fieldsGuide = {fieldsGuide}
 							handleChange = {handleInputChange}
 							sectionOpen = {sectionOpen}
+							handleMouseEnter = {handleMouseEnter}
+							handleMouseLeave = {handleMouseLeave}
 						/>
 					);
 			}));

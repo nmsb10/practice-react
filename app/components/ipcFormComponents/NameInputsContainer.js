@@ -8,7 +8,9 @@ export const NameInputsContainer = (props) => {
 		fields,
 		section,
 		specificSection,
-		handleChange
+		handleChange,
+		handleMouseEnter,
+		handleMouseLeave
 	} = props;
 	return(
 		<div>
@@ -20,7 +22,7 @@ export const NameInputsContainer = (props) => {
 					section: section
 				};
 				return(
-				<div className = 'name-inputs ttt-container' key = {i}>				
+				<div className = {'name-inputs ' + (content.tooltip && content.tooltip.visible ? 'display-ttt' : '')} key = {i}>			
 					<Tooltip
 						content = {content.tooltip ? content.tooltip : ''}
 						inputName = {content.name ? content.name : ''}
@@ -52,8 +54,13 @@ export const NameInputsContainer = (props) => {
 						data-section = {section}
 					>&times;</span>
 					<i
-						className="fa fa-question-circle-o"
+						className = {'fa fa-question-circle-o ' + (content.tooltip && content.tooltip.visible ? 'fa-question-selected' : '')}
 						aria-hidden="true"
+						onMouseEnter = {handleMouseEnter}
+						onMouseLeave = {handleMouseLeave}
+						data-item-clicked = 'displayTooltip'
+						data-key = {i}
+						data-section = {section}
 					></i>
 				</div>
 				);

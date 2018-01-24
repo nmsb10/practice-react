@@ -152,7 +152,8 @@ https://www.w3schools.com/css/css_tooltip.asp*/
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.ttt-container:hover .tooltiptext, .ttt-container:hover .calc-tooltip {
+.ttt-container:hover .tooltiptext, .ttt-container:hover .calc-tooltip,
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .display-ttt .tooltiptext{
     visibility: visible;
     opacity: 0.9;
 }

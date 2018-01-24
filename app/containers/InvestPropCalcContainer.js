@@ -101,7 +101,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter the',
 							textEnd: 'for the subject property (anticipated or actual)',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:true
 					}]
@@ -127,7 +128,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'income (anticipated or actual)',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					},{
@@ -150,7 +152,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'income (anticipated or actual)',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					}],
@@ -174,7 +177,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'income for the subject property (estimated or actual)',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					},{
@@ -197,7 +201,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'income for the subject property (estimated or actual)',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					}],
@@ -221,7 +226,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'income for the subject property',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:true
 					}]
@@ -247,7 +253,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'here',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:true
 					},{
@@ -270,7 +277,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'expenses here',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:true
 					},{
@@ -293,7 +301,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter condomimium, subdivision, or other property',
 							textEnd: 'here',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					}],
@@ -317,7 +326,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'expenses',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					},{
@@ -340,7 +350,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'expenses',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					},{
@@ -363,7 +374,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'expenses',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					},{
@@ -386,7 +398,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter expenses for ',
 							textEnd: '',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:true
 					},{
@@ -409,7 +422,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'expenses',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					}],
@@ -433,7 +447,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'expenses',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					},{
@@ -456,7 +471,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'expenses',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:false
 					},{
@@ -479,7 +495,8 @@ export class InvestPropCalcContainer extends React.Component{
 						tooltip:{
 							textStart:'please enter',
 							textEnd: 'dollar amount here',
-							location: 'bottom'
+							location: 'bottom',
+							visible: false
 						},
 						required:true
 					}]
@@ -917,6 +934,8 @@ export class InvestPropCalcContainer extends React.Component{
 		this.updateExpensesSummary = this.updateExpensesSummary.bind(this);
 		this.addFormSection = this.addFormSection.bind(this);
 		this.minimizeSection = this.minimizeSection.bind(this);
+		this.handleMouseEnter = this.handleMouseEnter.bind(this);
+		this.handleMouseLeave = this.handleMouseLeave.bind(this);
 	}
 	componentDidMount(){
 		this.setState({
@@ -1403,9 +1422,7 @@ export class InvestPropCalcContainer extends React.Component{
 	}
 	handleClick(e){
 		let {formFields} = this.state;
-		let fieldsCopy = formFields;
-		let request = e.target.dataset.itemClicked;
-		let sectionArr, key = e.target.dataset.key;
+		let fieldsCopy = formFields, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
 		switch(request){
 			case undefined:
 				break;
@@ -1432,47 +1449,16 @@ export class InvestPropCalcContainer extends React.Component{
 				break;
 			case 'closeAlertTT':
 				sectionArr = e.target.dataset.section.split('.');
-				fieldsCopy[sectionArr[0]][sectionArr[1]].validation.showVmes = false;
+				fieldsCopy[sectionArr[0]][sectionArr[1]][key].validation.showVmes = false;
+				break;
+			case 'displayTooltip':
+				sectionArr = e.target.dataset.section.split('.');
+				fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = !fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible;
 				break;
 			default:
 				console.log('unknown click request from switch statement: ', request);
 				break;
 		}
-
-		// if(!request){//address situation when the component is clicked but not on a minimize, remove, or addtosection request
-		// 	return;
-		// }else if(request === 'closeForm'){
-		// 	this.setState({
-		// 		currentView: 'showResults'
-		// 	});
-		// 	return;
-		// }else if(request === 'showForm'){
-		// 	this.setState({
-		// 		currentView: 'showForm'
-		// 	});
-		// 	return;
-		// }else if(request === 'addToSection'){
-		// 	this.addFormSection(e.target.dataset.section.split('.'));
-		// 	return;
-		// }else if(request === 'minimizeSection'){
-		// 	this.minimizeSection(e.target.dataset.key1, e.target.dataset.key2);
-		// 	return;
-		// }else if(request === 'removeSection'){
-			
-		// 	if(sectionArr.length === 1){
-		// 		specificObject.splice(key, 1);
-		// 	}else if(sectionArr.length === 2){
-		// 		specificObject[sectionArr[1]].splice(key, 1);
-		// 	}
-		// 	this.updateSummaryContents();
-		// }else if(request === 'closeAlertTT'){
-		// 	if(sectionArr.length === 1){
-		// 		specificObject = specificObject[key];
-		// 	}else if(sectionArr.length === 2){
-		// 		specificObject = specificObject[sectionArr[1]][key];
-		// 	}
-		// 	specificObject.validation.showVmes = false;
-		// }
 		let objCopy = Object.assign({}, formFields, fieldsCopy);
 		this.setState({
 			formFields: objCopy
@@ -1502,7 +1488,8 @@ export class InvestPropCalcContainer extends React.Component{
 			tooltip:{
 				textStart:'',
 				textEnd: '',
-				location: 'bottom'
+				location: 'bottom',
+				visible: false
 			},
 			required:false
 		};
@@ -1541,6 +1528,44 @@ export class InvestPropCalcContainer extends React.Component{
 		let objCopy = Object.assign({}, ipcFormDD, objectCopy);
 		this.setState({
 			ipcFormDD: objCopy
+		});
+	}
+	handleMouseEnter(e){
+		let {formFields} = this.state;
+		let fieldsCopy = formFields, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
+		switch(request){
+			case undefined:
+				break;
+			case 'displayTooltip':
+				sectionArr = e.target.dataset.section.split('.');
+				fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = true;
+				break;
+			default:
+				console.log('unknown onMouseLeave request from switch statement: ', request);
+				break;
+		}
+		let objCopy = Object.assign({}, formFields, fieldsCopy);
+		this.setState({
+			formFields: objCopy
+		});
+	}
+	handleMouseLeave(e){
+		let {formFields} = this.state;
+		let fieldsCopy = formFields, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
+		switch(request){
+			case undefined:
+				break;
+			case 'displayTooltip':
+				sectionArr = e.target.dataset.section.split('.');
+				fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = false;
+				break;
+			default:
+				console.log('unknown onMouseLeave request from switch statement: ', request);
+				break;
+		}
+		let objCopy = Object.assign({}, formFields, fieldsCopy);
+		this.setState({
+			formFields: objCopy
 		});
 	}
 	withCommas(str){
@@ -1605,7 +1630,10 @@ export class InvestPropCalcContainer extends React.Component{
 						fields = {formFields}
 						assumptions = {assumptions}
 						handleClick = {this.handleClick}
+						handleMouseEnter = {this.handleMouseEnter}
+						handleMouseLeave = {this.handleMouseLeave}
 					/>
+			{/*
 					<IPCForm
 						handleSubmit = {this.calculate}
 						handleInputChange = {this.updateFormFields}
@@ -1613,6 +1641,7 @@ export class InvestPropCalcContainer extends React.Component{
 						assumptions = {assumptions}
 						handleClick = {this.handleClick}
 					/>
+			*/}
 					<IPCAnalysis
 						handleClick = {this.handleClick}
 						fields = {formFields}

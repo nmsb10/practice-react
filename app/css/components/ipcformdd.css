@@ -334,10 +334,22 @@
 }
 /* END of The Close Button */
 
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .fa-question-circle-o{
+    -webkit-transition: all 0.2s ease 0s;
+    -moz-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .fa-question-circle-o:hover,
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .fa-question-selected{
+    color: rgb(8, 190, 8);
+}
+
+
+
 
 
 /*what to do:
-? icon works onHover AND onClick
 reformat input / label divs (number inputs should be smaller)
 -make items around the input a label
 correct objects changed when assumptions / financing terms inputs are changed

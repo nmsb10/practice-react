@@ -8,7 +8,9 @@ export const SectionBody = (props) => {
 		guide,
 		fields,
 		handleChange,
-		sectionOpen
+		sectionOpen,
+		handleMouseEnter,
+		handleMouseLeave
 	} = props;
 	let height = 0, heightClass = 'height';
 	guide.map( (len, i) => {
@@ -67,6 +69,8 @@ export const SectionBody = (props) => {
 							section = {content.section}
 							specificSection = {content.name}
 							handleChange = {handleChange}
+							handleMouseEnter = {handleMouseEnter}
+							handleMouseLeave = {handleMouseLeave}
 						/>
 					</div>
 				);

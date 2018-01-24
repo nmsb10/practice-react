@@ -34,6 +34,7 @@ export const IpcFormDD = (props) => {
 							sectionOpen = {sectionOpen}
 							handleMouseEnter = {handleMouseEnter}
 							handleMouseLeave = {handleMouseLeave}
+							mainObj = {mainObj}
 						/>
 					);
 			}));

@@ -27,7 +27,7 @@ export const Tooltip = (props) => {
 			break;
 	}
 	return(
-		<span className= {cssClass}>
+		<span className = {cssClass + (displayType === 'alert' && content === '' ? ' hidden' : '')}>
 			{displayType === 'alert' && content.vmes ?
 			<div>
 				<span>you tried entering:</span>
@@ -72,7 +72,10 @@ export const Tooltip = (props) => {
 				<span className = 'total'>{content.textEnd !== '%' ? '= $' : '= '}{content.total}{content.textEnd === '%' ? '%' : ''}</span>
 			</div>
 			:
-			content.textStart + ' ' + inputName + ' ' + content.textEnd
+			displayType === 'normal' ?
+				content.textStart + ' ' + inputName + ' ' + content.textEnd
+			:
+			null
 			}
 		</span>
 	);

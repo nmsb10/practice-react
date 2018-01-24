@@ -13,7 +13,8 @@ export const MainSection = (props) => {
 		tierTwo,
 		sectionOpen,
 		handleMouseEnter,
-		handleMouseLeave
+		handleMouseLeave,
+		mainObj
 	} = props;
 	return(
 		<div className = 'main-section'>
@@ -24,6 +25,7 @@ export const MainSection = (props) => {
 			/>
 			<SectionBody
 				sectionT2 = {sectionT2}
+				mainObj = {mainObj}
 				guide = {fieldsGuide}
 				fields = {fields}
 				handleChange = {handleChange}

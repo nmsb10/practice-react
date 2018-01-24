@@ -493,7 +493,7 @@ export class InvestPropCalcContainer extends React.Component{
 							location:'right-alert'
 						},
 						tooltip:{
-							textStart:'please enter',
+							textStart:'please enter the',
 							textEnd: 'dollar amount here',
 							location: 'bottom',
 							visible: false
@@ -516,6 +516,12 @@ export class InvestPropCalcContainer extends React.Component{
 							postEntry:'%',
 							placeholder:''
 						},
+						tooltip:{
+							textStart:'enter the',
+							textEnd: '(percentage) amount here (remember: LTV = 100% - down payment %)',
+							location: 'bottom',
+							visible: false
+						}
 					},
 					{
 						field: 'down payment $',
@@ -526,6 +532,12 @@ export class InvestPropCalcContainer extends React.Component{
 							amount:'',
 							postEntry:'',
 							placeholder:''
+						},
+						tooltip:{
+							textStart:'enter the',
+							textEnd: '(dollar) amount here',
+							location: 'bottom',
+							visible: false
 						}
 					},
 					{//NB APR is higher
@@ -537,6 +549,12 @@ export class InvestPropCalcContainer extends React.Component{
 							amount:'',
 							postEntry:'%',
 							placeholder:''
+						},
+						tooltip:{
+							textStart:'enter the',
+							textEnd: 'here (NB: APR is higher)',
+							location: 'bottom',
+							visible: false
 						}
 					},
 					{
@@ -547,40 +565,64 @@ export class InvestPropCalcContainer extends React.Component{
 							amount:'',
 							postEntry:'years',
 							placeholder:''
+						},
+						tooltip:{
+							textStart:'enter the',
+							textEnd: 'in years here',
+							location: 'bottom',
+							visible: false
 						}
 					}
 					]
 				},
 				other:{
 					terms:[
-					{//1 month
+					{
 						field: 'vacancy factor',
 						valueType: ['percentage',2],
 						value:{
 							preEntry:'',
-							amount:0,//8.00
+							amount:'',
 							postEntry:'%',
 							placeholder:''
+						},
+						tooltip:{
+							textStart:'enter the',
+							textEnd: 'here (e.g. 8.33% ~ 1 month)',
+							location: 'bottom',
+							visible: false
 						}
 					},
-					{//rent you will be unable to collect
+					{
 						field: 'collections',
 						valueType: ['percentage',2],
 						value:{
 							preEntry:'',
-							amount:0,//2.00
+							amount:'',
 							postEntry:'%',
 							placeholder:''
+						},
+						tooltip:{
+							textStart:'enter the',
+							textEnd: 'percentage here (e.g. 2.00%). This represents the rent you will be unable to collect.',
+							location: 'bottom',
+							visible: false
 						}
 					},
-					{//property management; brokerage fee also?
+					{
 						field: 'property management fee',
 						valueType: ['percentage',2],
 						value:{
 							preEntry:'',
-							amount:'',//6.00
+							amount:'',
 							postEntry:'%',
 							placeholder:''
+						},
+						tooltip:{
+							textStart:'enter the',
+							textEnd: 'percentage here (e.g. 6.00%)',//property management; brokerage fee also?
+							location: 'bottom',
+							visible: false
 						}
 					},
 					{
@@ -588,9 +630,15 @@ export class InvestPropCalcContainer extends React.Component{
 						valueType: ['percentage',2],
 						value:{
 							preEntry:'',
-							amount:'',//5.00
+							amount:'',
 							postEntry:'%',
 							placeholder:''
+						},
+						tooltip:{
+							textStart:'enter the',
+							textEnd: 'percentage here (e.g. 5.00%)',
+							location: 'bottom',
+							visible: false
 						}
 					}
 					// 	vaa:3.00,//(property) value appreciation annually
@@ -1009,11 +1057,13 @@ export class InvestPropCalcContainer extends React.Component{
 		this.context.router.push('search');
 	}
 	updateAssumptions(e){
+		console.log('updating assumptions: ', e);
 		let{assumptions, formFields, incomeSummary} = this.state;
 		let newState = assumptions;
 		let formFieldsCopy = formFields;
 		let specObj = {};
-		let selected = newState[e.target.dataset.section][e.target.dataset.key];
+		let section = e.target.dataset.section.split('.');
+		let selected = newState[section[0]][section[1]][e.target.dataset.key];
 		let valueType = selected.valueType;
 		//remove $, % and , from the inputted value
 		let newValue = e.target.value.replace(/[$%,]/g, '');
@@ -1041,8 +1091,7 @@ export class InvestPropCalcContainer extends React.Component{
 			}
 			let purchasePrice = formFields.price.purchasePrice[0].value.amount;
 			let egi = incomeSummary.egi.total.annual;
-			let propertyManagementIndex;
-			let reservesIndex;
+			let propertyManagementIndex, reservesIndex;
 			for(let i = 0; i<formFields.expenses.other.length; i++){
 				if(formFields.expenses.other[i].name === 'property management'){
 					propertyManagementIndex = i;
@@ -1053,22 +1102,22 @@ export class InvestPropCalcContainer extends React.Component{
 			//now check for selected field
 			if(selected.field === 'down payment %'){
 				if(purchasePrice === ''){
-					newState.financing[0].notice = 'enter a purchase price';
-					newState.financing[1].notice = 'enter a purchase price';
+					newState.financing.terms[0].notice = 'enter a purchase price';
+					newState.financing.terms[1].notice = 'enter a purchase price';
 					newValue = '';
 				}else{
-					newState.financing[1].amount = parseInt(0.01 * newValue * purchasePrice);
+					newState.financing.terms[1].amount = parseInt(0.01 * newValue * purchasePrice);
 				}
 			}else if(selected.field === 'down payment $'){
 				if(purchasePrice === ''){
-					newState.financing[0].notice = 'enter a purchase price';
-					newState.financing[1].notice = 'enter a purchase price';
+					newState.financing.terms[0].notice = 'enter a purchase price';
+					newState.financing.terms[1].notice = 'enter a purchase price';
 					newValue = '';
 				}else if(newValue > purchasePrice){
 					newValue = purchasePrice;
-					newState.financing[0].amount = (100 * newValue / purchasePrice).toFixed(2);
+					newState.financing.terms[0].amount = (100 * newValue / purchasePrice).toFixed(2);
 				}else{
-					newState.financing[0].amount = (100 * newValue / purchasePrice).toFixed(2);
+					newState.financing.terms[0].amount = (100 * newValue / purchasePrice).toFixed(2);
 				}
 			// }else if(selected.field === 'property management fee'){
 			// 	specObj = formFieldsCopy.expenses.other[propertyManagementIndex];
@@ -1098,34 +1147,35 @@ export class InvestPropCalcContainer extends React.Component{
 		let key = e.target.dataset.key;
 		let sectionArr = section.split('.');
 		let specificObject = {};
+		switch(sectionArr[2]){
+			case undefined:
+				break;
+			case 'fields':
+				specificObject = formFieldsCopy[sectionArr[0]][sectionArr[1]][key];
+				//check if changeFieldName is e.target.dataset.propertyName
+				if(e.target.dataset.request === 'changeFieldName'){
+					specificObject.name = e.target.value;
+				}else if(e.target.dataset.request === 'changeFieldValue'){
+					//validate value
+					specificObject = this.validateInput(specificObject, e.target.value, e.target.dataset.valPeriod);
+				}
+				let newFormFields = Object.assign({}, formFields, formFieldsCopy);
+				this.setState({
+					formFields: newFormFields
+				});
+				if(e.target.dataset.request !== 'changeFieldName'){
+					this.updateSummaryContents();
+				}
+				break;
+			case 'assumptions':
+				this.updateAssumptions(e);
+				break;
+			default:
+				console.log('unknown update form fields request from switch statement: ', request);
+				break;
+		}
 		//https://stackoverflow.com/questions/4260308/getting-the-objects-property-name	
 		//first identify the exact object being changed
-		if(sectionArr.length === 1){
-			specificObject = formFieldsCopy[sectionArr[0]][key];
-			//check if changeFieldName is e.target.dataset.propertyName
-			if(e.target.dataset.request === 'changeFieldName'){
-				specificObject.name = e.target.value;
-			}else if(e.target.dataset.request === 'changeFieldValue'){
-				//validate value
-				specificObject = this.validateInput(specificObject, e.target.value, e.target.dataset.valPeriod);
-			}
-		}else if(sectionArr.length === 2){
-			specificObject = formFieldsCopy[sectionArr[0]][sectionArr[1]][key];
-			//check if changeFieldName is e.target.dataset.propertyName
-			if(e.target.dataset.request === 'changeFieldName'){
-				specificObject.name = e.target.value;
-			}else if(e.target.dataset.request === 'changeFieldValue'){
-				//validate value
-				specificObject = this.validateInput(specificObject, e.target.value, e.target.dataset.valPeriod);
-			}
-		}
-		let newFormFields = Object.assign({}, formFields, formFieldsCopy);
-		this.setState({
-			formFields: newFormFields
-		});
-		if(e.target.dataset.request !== 'changeFieldName'){
-			this.updateSummaryContents();
-		}
 	}
 	updateSummaryContents(){
 		let {
@@ -1421,8 +1471,8 @@ export class InvestPropCalcContainer extends React.Component{
 		return arr[Math.floor(Math.random()*arr.length)];
 	}
 	handleClick(e){
-		let {formFields} = this.state;
-		let fieldsCopy = formFields, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
+		let {formFields, assumptions} = this.state;
+		let fieldsCopy = formFields, assumpCopy = assumptions, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
 		switch(request){
 			case undefined:
 				break;
@@ -1453,15 +1503,21 @@ export class InvestPropCalcContainer extends React.Component{
 				break;
 			case 'displayTooltip':
 				sectionArr = e.target.dataset.section.split('.');
-				fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = !fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible;
+				if(sectionArr[2] === 'fields'){
+					fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = !fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible;
+				}else if(sectionArr[2] === 'assumptions'){
+					assumpCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = !assumpCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible;
+				}
 				break;
 			default:
 				console.log('unknown click request from switch statement: ', request);
 				break;
 		}
 		let objCopy = Object.assign({}, formFields, fieldsCopy);
+		let objCopyAssumptions = Object.assign({}, assumptions, assumpCopy);
 		this.setState({
-			formFields: objCopy
+			formFields: objCopy,
+			assumptions: objCopyAssumptions
 		});
 	}
 	addFormSection(sectionArr){
@@ -1531,41 +1587,53 @@ export class InvestPropCalcContainer extends React.Component{
 		});
 	}
 	handleMouseEnter(e){
-		let {formFields} = this.state;
-		let fieldsCopy = formFields, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
+		let {formFields, assumptions} = this.state;
+		let fieldsCopy = formFields, assumptionsCopy = assumptions, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
 		switch(request){
 			case undefined:
 				break;
 			case 'displayTooltip':
 				sectionArr = e.target.dataset.section.split('.');
-				fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = true;
+				if(sectionArr[2] === 'fields'){
+					fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = true;
+				}else if(sectionArr[2] === 'assumptions'){
+					assumptionsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = true;
+				}
 				break;
 			default:
 				console.log('unknown onMouseLeave request from switch statement: ', request);
 				break;
 		}
 		let objCopy = Object.assign({}, formFields, fieldsCopy);
+		let objCopyAssumptions = Object.assign({}, assumptions, assumptionsCopy);
 		this.setState({
-			formFields: objCopy
+			formFields: objCopy,
+			assumptions: objCopyAssumptions
 		});
 	}
 	handleMouseLeave(e){
-		let {formFields} = this.state;
-		let fieldsCopy = formFields, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
+		let {formFields, assumptions} = this.state;
+		let fieldsCopy = formFields, assumptionsCopy = assumptions, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
 		switch(request){
 			case undefined:
 				break;
 			case 'displayTooltip':
 				sectionArr = e.target.dataset.section.split('.');
-				fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = false;
+				if(sectionArr[2] === 'fields'){
+					fieldsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = false;
+				}else if(sectionArr[2] === 'assumptions'){
+					assumptionsCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = false;
+				}
 				break;
 			default:
 				console.log('unknown onMouseLeave request from switch statement: ', request);
 				break;
 		}
 		let objCopy = Object.assign({}, formFields, fieldsCopy);
+		let objCopyAssumptions = Object.assign({}, assumptions, assumptionsCopy);
 		this.setState({
-			formFields: objCopy
+			formFields: objCopy,
+			assumptions: objCopyAssumptions
 		});
 	}
 	withCommas(str){

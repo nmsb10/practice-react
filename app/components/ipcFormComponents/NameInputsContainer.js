@@ -25,7 +25,7 @@ export const NameInputsContainer = (props) => {
 				<div className = {'name-inputs ' + (content.tooltip && content.tooltip.visible ? 'display-ttt' : '')} key = {i}>			
 					<Tooltip
 						content = {content.tooltip ? content.tooltip : ''}
-						inputName = {content.name ? content.name : ''}
+						inputName = {content.name ? content.name : content.field ? content.field : ''}
 						displayType = 'normal'
 					/>
 					<Tooltip
@@ -47,9 +47,9 @@ export const NameInputsContainer = (props) => {
 						i = {i}
 					/>
 					<span
-						className = {content.required || section === 'financing.terms' || section === 'other.terms' ? 'hidden' : 'close'}
+						className = {content.required || section === 'financing.terms.assumptions' || section === 'other.terms.assumptions' ? 'hidden' : 'close'}
 						title = {removeSpanTitle}
-						data-item-clicked = {content.required ? 'invalid' : 'removeSection'}
+						data-item-clicked = {content.required || section === 'financing.terms.assumptions' || section === 'other.terms.assumptions' ? 'invalid' : 'removeSection'}
 						data-key = {i}
 						data-section = {section}
 					>&times;</span>

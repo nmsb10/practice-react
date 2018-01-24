@@ -5,6 +5,7 @@ import { NameInputsContainer } from './NameInputsContainer';
 export const SectionBody = (props) => {
 	let{
 		sectionT2,
+		mainObj,
 		guide,
 		fields,
 		handleChange,
@@ -52,7 +53,7 @@ export const SectionBody = (props) => {
 	return(
 		<div className = {'ms-body ' + (sectionOpen.bool ? 'open ' +heightClass : 'closed ' ) + ''}>
 			{guide.map( (content, i) => {
-				content.section = sectionT2.concat('.',content.name);
+				content.section = sectionT2.concat('.', content.name, '.', mainObj);
 				content.itemClicked = 'addToSection';
 				content.location = 'ms-body';
 				return(

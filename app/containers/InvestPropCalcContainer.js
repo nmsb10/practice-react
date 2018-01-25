@@ -428,6 +428,54 @@ export class InvestPropCalcContainer extends React.Component{
 						required:false
 					}],
 					other:[{
+						name:'property management',
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							textStart:'please enter',
+							textEnd: 'expenses (will update automatically if property management % is entered below)',
+							location: 'bottom',
+							visible: false
+						},
+						required:true
+					},{
+						name:'reserves fund',
+						value:{
+							preEntry:'$',
+							monthly: '',
+							annual:'',
+							postEntry:'',
+							placeholder:'-0-'
+						},
+						validation:{
+							arr: ['number', 'positive'],
+							validEntry:false,
+							vmes:[],
+							showVmes:false,
+							invalidValue:'',
+							location:'right-alert'
+						},
+						tooltip:{
+							textStart:'please enter the',
+							textEnd: 'dollar amount here (will update automatically if reserves % is entered below)',
+							location: 'bottom',
+							visible: false
+						},
+						required:true
+					},{
 						name:'repairs | decor',
 						value:{
 							preEntry:'$',
@@ -451,54 +499,6 @@ export class InvestPropCalcContainer extends React.Component{
 							visible: false
 						},
 						required:false
-					},{
-						name:'property management',
-						value:{
-							preEntry:'$',
-							monthly: '',
-							annual:'',
-							postEntry:'',
-							placeholder:'-0-'
-						},
-						validation:{
-							arr: ['number', 'positive'],
-							validEntry:false,
-							vmes:[],
-							showVmes:false,
-							invalidValue:'',
-							location:'right-alert'
-						},
-						tooltip:{
-							textStart:'please enter',
-							textEnd: 'expenses',
-							location: 'bottom',
-							visible: false
-						},
-						required:false
-					},{
-						name:'reserves fund',
-						value:{
-							preEntry:'$',
-							monthly: '',
-							annual:'',
-							postEntry:'',
-							placeholder:'-0-'
-						},
-						validation:{
-							arr: ['number', 'positive'],
-							validEntry:false,
-							vmes:[],
-							showVmes:false,
-							invalidValue:'',
-							location:'right-alert'
-						},
-						tooltip:{
-							textStart:'please enter the',
-							textEnd: 'dollar amount here',
-							location: 'bottom',
-							visible: false
-						},
-						required:true
 					}]
 				}
 			},
@@ -620,7 +620,7 @@ export class InvestPropCalcContainer extends React.Component{
 						},
 						tooltip:{
 							textStart:'enter the',
-							textEnd: 'percentage here (e.g. 6.00%)',//property management; brokerage fee also?
+							textEnd: 'percentage here (e.g. 6.00% and/or brokerage compensation). This % is taken of the annual EGI.',
 							location: 'bottom',
 							visible: false
 						}
@@ -636,7 +636,7 @@ export class InvestPropCalcContainer extends React.Component{
 						},
 						tooltip:{
 							textStart:'enter the',
-							textEnd: 'percentage here (e.g. 5.00%)',
+							textEnd: 'percentage here (e.g. 5.00%). This % is taken of the annual EGI.',
 							location: 'bottom',
 							visible: false
 						}
@@ -1063,8 +1063,7 @@ export class InvestPropCalcContainer extends React.Component{
 		let selected = newState[section[0]][section[1]][e.target.dataset.key];
 		let valueType = selected.valueType;
 		//remove $, % and , from the inputted value
-		let newValue = e.target.value.replace(/[$%,]/g, '');
-		//if selected is property management fee OR reserves fund, updateformfields for corresponding object in form fields
+		let newValue = e.target.value.replace(/[$%,-]/g, '');
 		if(isNaN(newValue)){
 			return;
 		}else{
@@ -1089,51 +1088,85 @@ export class InvestPropCalcContainer extends React.Component{
 			}
 			let purchasePrice = formFields.price.purchasePrice[0].value.amount;
 			let egi = incomeSummary.egi.total.annual;
-			let propertyManagementIndex, reservesIndex;
-			for(let i = 0; i<formFields.expenses.other.length; i++){
-				if(formFields.expenses.other[i].name === 'property management'){
-					propertyManagementIndex = i;
-				}else if(formFields.expenses.other[i].name === 'reserves fund'){
-					reservesIndex = i;
-				}
-			}
+			// let propertyManagementIndex, reservesIndex;
+			// for(let i = 0; i<formFields.expenses.other.length; i++){
+			// 	if(formFields.expenses.other[i].name === 'property management'){
+			// 		propertyManagementIndex = i;
+			// 	}else if(formFields.expenses.other[i].name === 'reserves fund'){
+			// 		reservesIndex = i;
+			// 	}
+			// }
 			//now check for selected field
-			if(selected.field === 'down payment %'){
-				if(purchasePrice === ''){
-					newState.financing.terms[0].value.notice = 'enter a purchase price';
-					newState.financing.terms[1].value.notice = 'enter a purchase price';
-					newValue = '';
-				}else{
-					newState.financing.terms[1].value.amount = parseInt(0.01 * newValue * purchasePrice);
-				}
-			}else if(selected.field === 'down payment $'){
-				if(purchasePrice === ''){
-					newState.financing.terms[0].value.notice = 'enter a purchase price';
-					newState.financing.terms[1].value.notice = 'enter a purchase price';
-					newValue = '';
-				}else if(newValue > purchasePrice){
-					newValue = purchasePrice;
-					newState.financing.terms[0].value.amount = (100 * newValue / purchasePrice).toFixed(2);
-				}else{
-					newState.financing.terms[0].value.amount = (100 * newValue / purchasePrice).toFixed(2);
-				}
-			// }else if(selected.field === 'property management fee'){
-			// 	specObj = formFieldsCopy.expenses.other[propertyManagementIndex];
-			// 	console.log(specObj);
-			// 	console.log(0.01 * newValue * egi);
-			// 	specObj = this.validateInput(specObj, 0.01 * newValue * egi, 'annual');
-			// }else if(selected.field === 'reserves fund'){
-			// 	specObj = formFieldsCopy.expenses.other[reservesIndex];
-			// 	console.log(specObj);
-			// 	console.log(0.01 * newValue * egi);
-			// 	specObj = this.validateInput(specObj, 0.01 * newValue * egi, 'annual');
+			switch(selected.field){
+				case 'down payment %':
+					if(purchasePrice === ''){
+						newState.financing.terms[0].value.notice = 'enter a purchase price';
+						newState.financing.terms[1].value.notice = 'enter a purchase price';
+						newValue = '';
+					}else{
+						newState.financing.terms[1].value.amount = parseInt(0.01 * newValue * purchasePrice);
+					}
+					break;
+				case 'down payment $':
+					if(purchasePrice === ''){
+						newState.financing.terms[0].value.notice = 'enter a purchase price';
+						newState.financing.terms[1].value.notice = 'enter a purchase price';
+						newValue = '';
+					}else if(newValue > purchasePrice){
+						newValue = purchasePrice;
+						newState.financing.terms[0].value.amount = (100 * newValue / purchasePrice).toFixed(2);
+					}else{
+						newState.financing.terms[0].value.amount = (100 * newValue / purchasePrice).toFixed(2);
+					}
+					break;
+				case 'property management fee':
+					let artificialPMFinput = {
+						target:{
+							dataset:{
+								section:'expenses.other.fields',
+								key: '0',
+								request: 'changeFieldValue',
+								valPeriod: 'annual'
+							},
+							value: (0.01 * newValue * egi).toFixed(2)
+						}
+					};
+					if(artificialPMFinput.target.value > 0){
+						this.updateFormFields(artificialPMFinput);
+					}else{
+						newValue = '';
+					}
+					break;
+				case 'reserves fund':
+					let artificialRFinput = {
+						target:{
+							dataset:{
+								section:'expenses.other.fields',
+								key: '1',
+								request: 'changeFieldValue',
+								valPeriod: 'annual'
+							},
+							value: (0.01 * newValue * egi).toFixed(2)
+						}
+					};
+					if(artificialRFinput.target.value > 0){
+						this.updateFormFields(artificialRFinput);
+					}else{
+						newValue = '';
+					}
+					break;
+				default:
+					//console.log('unknown assumptions update field from switch statement: ', selected.field);
+					break;
 			}
 			selected.value.amount = newValue;
 			let newAssumptions = Object.assign({}, assumptions, newState);
 			this.setState({
 				assumptions: newAssumptions
 			});
-			this.updateSummaryContents();
+			if(selected.field !== 'property management fee' || selected.field !== 'reserves fund'){
+				this.updateSummaryContents();
+			}
 		}
 	}
 	updateFormFields(e){
@@ -1147,6 +1180,8 @@ export class InvestPropCalcContainer extends React.Component{
 			case undefined:
 				break;
 			case 'fields':
+				//https://stackoverflow.com/questions/4260308/getting-the-objects-property-name	
+				//first identify the exact object being changed
 				specificObject = formFieldsCopy[sectionArr[0]][sectionArr[1]][key];
 				//check if changeFieldName is e.target.dataset.propertyName
 				if(e.target.dataset.request === 'changeFieldName'){
@@ -1170,8 +1205,6 @@ export class InvestPropCalcContainer extends React.Component{
 				console.log('unknown update form fields request from switch statement: ', request);
 				break;
 		}
-		//https://stackoverflow.com/questions/4260308/getting-the-objects-property-name	
-		//first identify the exact object being changed
 	}
 	updateSummaryContents(){
 		let {
@@ -1355,7 +1388,7 @@ export class InvestPropCalcContainer extends React.Component{
 		income.collections.tooltip.annual.figures = [];
 		income.collections.tooltip.annual.figures.push(
 			'GPI: $'+ income.gpi.tooltip.annual.total,
-			'Collections Factor: '+ (assumptions.other.terms[1].amount ? assumptions.other.terms[1].amount : '0') + '%');
+			'Collections Factor: '+ (assumptions.other.terms[1].value.amount ? assumptions.other.terms[1].value.amount : '0') + '%');
 		//egi totals and tooltip totals
 		income.egi.total.monthly = (income.gpi.total.monthly - income.vacancy.total.monthly - income.collections.total.monthly).toFixed(2);
 		income.egi.total.annual = (income.gpi.total.annual - income.vacancy.total.annual - income.collections.total.annual).toFixed(2);

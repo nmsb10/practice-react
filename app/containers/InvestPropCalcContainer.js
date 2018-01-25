@@ -616,7 +616,8 @@ export class InvestPropCalcContainer extends React.Component{
 							preEntry:'',
 							amount:'',
 							postEntry:'%',
-							placeholder:''
+							placeholder:'',
+							notice: null
 						},
 						tooltip:{
 							textStart:'enter the',
@@ -632,7 +633,8 @@ export class InvestPropCalcContainer extends React.Component{
 							preEntry:'',
 							amount:'',
 							postEntry:'%',
-							placeholder:''
+							placeholder:'',
+							notice: null
 						},
 						tooltip:{
 							textStart:'enter the',
@@ -984,6 +986,7 @@ export class InvestPropCalcContainer extends React.Component{
 		this.minimizeSection = this.minimizeSection.bind(this);
 		this.handleMouseEnter = this.handleMouseEnter.bind(this);
 		this.handleMouseLeave = this.handleMouseLeave.bind(this);
+		this.updateSpecificExpenses = this.updateSpecificExpenses.bind(this);
 	}
 	componentDidMount(){
 		this.setState({
@@ -1120,39 +1123,19 @@ export class InvestPropCalcContainer extends React.Component{
 					}
 					break;
 				case 'property management fee':
-					let artificialPMFinput = {
-						target:{
-							dataset:{
-								section:'expenses.other.fields',
-								key: '0',
-								request: 'changeFieldValue',
-								valPeriod: 'annual'
-							},
-							value: (0.01 * newValue * egi).toFixed(2)
-						}
-					};
-					if(artificialPMFinput.target.value > 0){
-						this.updateFormFields(artificialPMFinput);
-					}else{
+					if(egi === '0.00' || egi === 0){
+						newState.other.terms[2].value.notice = 'first enter income above';
 						newValue = '';
+					}else{
+						this.updateSpecificExpenses('0', newValue);
 					}
 					break;
 				case 'reserves fund':
-					let artificialRFinput = {
-						target:{
-							dataset:{
-								section:'expenses.other.fields',
-								key: '1',
-								request: 'changeFieldValue',
-								valPeriod: 'annual'
-							},
-							value: (0.01 * newValue * egi).toFixed(2)
-						}
-					};
-					if(artificialRFinput.target.value > 0){
-						this.updateFormFields(artificialRFinput);
-					}else{
+					if(egi === '0.00' || egi === 0){
+						newState.other.terms[3].value.notice = 'first enter income above';
 						newValue = '';
+					}else{
+						this.updateSpecificExpenses('1', newValue);
 					}
 					break;
 				default:
@@ -1170,7 +1153,7 @@ export class InvestPropCalcContainer extends React.Component{
 		}
 	}
 	updateFormFields(e){
-		let {formFields} = this.state;
+		let {formFields, assumptions} = this.state;
 		let formFieldsCopy = formFields;
 		let section = e.target.dataset.section;
 		let key = e.target.dataset.key;
@@ -1196,6 +1179,13 @@ export class InvestPropCalcContainer extends React.Component{
 				});
 				if(e.target.dataset.request !== 'changeFieldName'){
 					this.updateSummaryContents();
+					//now check if property management fee and / or reserves fund values must be updated
+					if(sectionArr[0] === 'income' && assumptions.other.terms[2].value.amount !== ''){//property management fee % has a value
+						this.updateSpecificExpenses('0', assumptions.other.terms[2].value.amount);
+					}
+					if(sectionArr[0] === 'income' && assumptions.other.terms[3].value.amount !== ''){//reserves fund % has a value
+						this.updateSpecificExpenses('1', assumptions.other.terms[3].value.amount);
+					}
 				}
 				break;
 			case 'assumptions':
@@ -1205,6 +1195,22 @@ export class InvestPropCalcContainer extends React.Component{
 				console.log('unknown update form fields request from switch statement: ', request);
 				break;
 		}
+	}
+	updateSpecificExpenses(key, value){
+		let {incomeSummary} = this.state;
+		let egi = incomeSummary.egi.total.annual;
+		let artificialInput = {
+			target:{
+				dataset:{
+					section:'expenses.other.fields',
+					key: key,
+					request: 'changeFieldValue',
+					valPeriod: 'annual'
+				},
+				value: (0.01 * value * egi).toFixed(2)
+			}
+		};
+		this.updateFormFields(artificialInput);
 	}
 	updateSummaryContents(){
 		let {

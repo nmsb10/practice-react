@@ -7,16 +7,18 @@ export const InputsSection = (props) => {
 		section,
 		period,
 		value,
-		handleChange
+		handleChange,
+		oneInput
 	} = props;
 	return(
-		<div className = 'input-label'>
+		<div className = {'input-label ' + (oneInput ? ' single' : '')}>
 			<div className = {'input-section' + (value.preEntry ? ' ta-left' : ' ta-right')}>
-				<label htmlFor = {id}>
+				<label htmlFor = {id} className = {value.preEntry ? '' : 'hidden'}>
 					<span className = ''>{value.preEntry}</span>
 				</label>
-				<span className = ''>
+				<span className = 'main-input'>
 					<input
+						className = {value.preEntry ? 'ta-left' : 'ta-right'}
 						type='text'
 						id={id}
 						data-key = {i}
@@ -28,10 +30,9 @@ export const InputsSection = (props) => {
 						onChange = {handleChange}
 					/>
 				</span>
-				<span className = ''>
-					<label htmlFor = {id}>{value.postEntry}
-					</label>
-				</span>
+				<label htmlFor = {id} className = {value.postEntry ? 'ta-right' : 'hidden'}>
+					<span>{value.postEntry}</span>
+				</label>
 			</div>
 			{/*
 				when a label has attribute 'for' this makes the input with which it is associated clickable

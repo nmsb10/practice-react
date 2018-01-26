@@ -39,6 +39,9 @@ export const NameInputsContainer = (props) => {
 						name = {content.name}
 						i = {i}
 						field = {content.field}
+						tooltip = {content.tooltip}
+						handleMouseEnter = {handleMouseEnter}
+						handleMouseLeave = {handleMouseLeave}
 					/>
 					< InputsContainer
 						handleChange = {handleChange}
@@ -53,15 +56,6 @@ export const NameInputsContainer = (props) => {
 						data-key = {i}
 						data-section = {section}
 					>&times;</span>
-					<i
-						className = {'fa fa-question-circle-o ' + (content.tooltip && content.tooltip.visible ? 'fa-question-selected' : '')}
-						aria-hidden="true"
-						onMouseEnter = {handleMouseEnter}
-						onMouseLeave = {handleMouseLeave}
-						data-item-clicked = 'displayTooltip'
-						data-key = {i}
-						data-section = {section}
-					></i>
 				</div>
 				);
 			})

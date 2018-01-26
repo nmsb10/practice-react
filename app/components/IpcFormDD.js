@@ -49,7 +49,7 @@ export const IpcFormDD = (props) => {
 			<div className = {'cover' + (view === 'showForm' ? ' display-ipcform' : ' remove-ipcform')}>
 				<CloseButton
 					itemClicked = 'closeForm'
-					handleClick = {handleClick}
+					handleClick = ''
 				/>
 				<div className = 'content'>
 					<div className = 'main-title'>

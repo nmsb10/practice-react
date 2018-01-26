@@ -17,7 +17,11 @@ export const CloseButton = (props) => {
 			<div
 				className = 'close-content'
 				data-item-clicked = {itemClicked}
-			><span>&times;</span>
+			>
+				<span
+					data-item-clicked = {itemClicked}
+				>&times;
+				</span>
 			</div>
 		</button>
 	);

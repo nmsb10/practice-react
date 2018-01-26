@@ -1127,7 +1127,7 @@ export class InvestPropCalcContainer extends React.Component{
 						newState.other.terms[2].value.notice = 'first enter income above';
 						newValue = '';
 					}else{
-						this.updateSpecificExpenses('0', newValue);
+						this.updateSpecificExpenses('expenses.other.fields', '0', newValue);
 					}
 					break;
 				case 'reserves fund':
@@ -1135,7 +1135,7 @@ export class InvestPropCalcContainer extends React.Component{
 						newState.other.terms[3].value.notice = 'first enter income above';
 						newValue = '';
 					}else{
-						this.updateSpecificExpenses('1', newValue);
+						this.updateSpecificExpenses('expenses.other.fields', '1', newValue);
 					}
 					break;
 				default:
@@ -1181,10 +1181,10 @@ export class InvestPropCalcContainer extends React.Component{
 					this.updateSummaryContents();
 					//now check if property management fee and / or reserves fund values must be updated
 					if(sectionArr[0] === 'income' && assumptions.other.terms[2].value.amount !== ''){//property management fee % has a value
-						this.updateSpecificExpenses('0', assumptions.other.terms[2].value.amount);
+						this.updateSpecificExpenses('expenses.other.fields', '0', assumptions.other.terms[2].value.amount);
 					}
 					if(sectionArr[0] === 'income' && assumptions.other.terms[3].value.amount !== ''){//reserves fund % has a value
-						this.updateSpecificExpenses('1', assumptions.other.terms[3].value.amount);
+						this.updateSpecificExpenses('expenses.other.fields', '1', assumptions.other.terms[3].value.amount);
 					}
 				}
 				break;
@@ -1196,13 +1196,13 @@ export class InvestPropCalcContainer extends React.Component{
 				break;
 		}
 	}
-	updateSpecificExpenses(key, value){
+	updateSpecificExpenses(section, key, value){
 		let {incomeSummary} = this.state;
 		let egi = incomeSummary.egi.total.annual;
 		let artificialInput = {
 			target:{
 				dataset:{
-					section:'expenses.other.fields',
+					section: section,
 					key: key,
 					request: 'changeFieldValue',
 					valPeriod: 'annual'

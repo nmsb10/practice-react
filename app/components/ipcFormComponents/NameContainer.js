@@ -6,7 +6,10 @@ export const NameContainer = (props) => {
 		section,
 		name,
 		i,
-		field
+		field,
+		tooltip,
+		handleMouseEnter,
+		handleMouseLeave
 	} = props;
 	return(
 		<div className = 'name-container'>
@@ -30,6 +33,15 @@ export const NameContainer = (props) => {
 				</label>
 				}
 			</div>
+			<i
+				className = {'fa fa-question-circle-o ' + (tooltip && tooltip.visible ? 'fa-question-selected' : '')}
+				aria-hidden="true"
+				onMouseEnter = {handleMouseEnter}
+				onMouseLeave = {handleMouseLeave}
+				data-item-clicked = 'displayTooltip'
+				data-key = {i}
+				data-section = {section}
+			></i>
 		</div>
 	);
 }

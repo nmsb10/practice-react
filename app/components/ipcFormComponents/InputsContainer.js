@@ -9,6 +9,7 @@ export const InputsContainer = (props) => {
 		i
 	} = props;
 	let removeSpanTitle = 'remove section: ' + content.name;
+	let oneInput = (content.value.monthly === '' || content.value.monthly) && (content.value.annual === '' || content.value.annual) ? false : true;
 	return(
 		<div className = 'inputs-container'>
 		{ content.value.amount === '' || content.value.amount ?
@@ -18,6 +19,7 @@ export const InputsContainer = (props) => {
 				section = {section}
 				value = {content.value}	
 				handleChange = {handleChange}
+				oneInput = {oneInput}
 			/>
 			:
 			null

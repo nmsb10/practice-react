@@ -249,7 +249,7 @@
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .name-container{
-    width: 30%;
+    width: 40%;
     display: inline-block;
     vertical-align:top;
     background-color: transparent;
@@ -263,13 +263,17 @@
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container{
-    width: 70%;
+    width: 60%;
     display: inline-block;
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label{
     width: 50%;
     display: inline-block;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label.single{
+    width: 65%;
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label .label-section label{
@@ -281,6 +285,10 @@
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label .input-section{
     color: black;
     background-color: rgb(255, 255, 255);
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label .input-section .main-input{
+    width:85%;
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label .input-section input{

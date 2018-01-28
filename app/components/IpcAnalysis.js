@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Tooltip} from './Tooltip';
+import {StandardButton} from './StandardButton';
 
 export const IPCAnalysis = (props) => {
 	let {
@@ -52,12 +53,14 @@ export const IPCAnalysis = (props) => {
 					</span>
 				</div>
 				<div>
-					<button
-						onClick = {handleClick}
-						data-item-clicked = 'showForm'
-						type = 'button'
+					<StandardButton
+						name = 'show ipc form'
 						title = 'display the calculator form'
-					>show ipc form</button>
+						type = 'button'
+						itemClicked = 'showForm'
+						handleClick = {handleClick}
+						cssClass = 'standard-button'
+					/>
 				</div>
 			</div>
 			{tierOne.map( (tierOneName, i) => {

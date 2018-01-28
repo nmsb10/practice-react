@@ -352,14 +352,3 @@
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .fa-question-selected{
     color: rgb(8, 190, 8);
 }
-
-
-
-
-
-/*what to do:
-correct objects changed when assumptions / financing terms inputs are changed
-reformat input / label divs (number inputs should be less width)
--make items around the input a label
-create "basic button"
-prettify protected classes in RE component*/

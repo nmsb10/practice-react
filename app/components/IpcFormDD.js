@@ -1,6 +1,7 @@
 import React from 'react';
 import { CloseButton } from './CloseButton';
 import { MainSection } from './ipcFormComponents/MainSection';
+import { StandardButton } from './StandardButton';
 
 export const IpcFormDD = (props) => {
 	let {
@@ -66,13 +67,12 @@ export const IpcFormDD = (props) => {
 					<div className = 'form-container'>
 						<form onSubmit = {(event) => handleSubmit(event)}>
 							{formContents}
-							<button
-								type="submit"
-								className=''
-								id="runSearch"
-								>
-								verify & calculate
-							</button>
+							<StandardButton
+								cssClass = 'sb-1'
+								type = 'submit'
+								id = 'runSearch'
+								name = 'verify & calculate'
+							/>
 						</form>
 					</div>
 				</div>

@@ -1,0 +1,58 @@
+.standard-button{
+    display: block;
+    margin: 0 auto;
+    box-sizing: border-box;
+    outline: none;
+    background-color: rgb(31, 31, 31);
+    background-color: rgba(31, 31, 31, 0.85);
+/*background: -webkit-linear-gradient(180deg, rgba(135, 135, 135, 0.9), rgb(85, 85, 85));
+background: -o-linear-gradient(180deg, rgba(135, 135, 135, 0.9), rgb(85, 85, 85));
+background: -moz-linear-gradient(180deg, rgba(135, 135, 135, 0.9), rgb(85, 85, 85));
+background: linear-gradient(180deg,rgb(128, 128, 128), rgba(39, 39, 39, 0.88), rgb(128, 128, 128));*/
+	color: rgb(255, 255, 255);
+	font-size:0.9rem;
+	padding: 0.35rem;
+	border: 0.09rem solid rgba(239, 239, 239, 0.9);
+	border-radius: 0.45rem;
+	-webkit-transition: all 0.2s ease 0s;
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.standard-button:hover{
+	box-shadow: 0 0.18rem 0.25rem rgb(110, 95, 107);
+	background-color: rgb(59, 3, 79);
+    border-color: rgba(215, 215, 215, 0.95);
+}
+
+.standard-button:active{
+	background-color:lime;
+	border-color: rgb(59, 3, 79);
+	color: rgb(59, 3, 79);
+	box-shadow: none;
+}
+
+.sb-1 {
+	color: rgb(255, 255, 255);
+    background-color: rgb(59, 3, 79);
+    border: none;
+    border-radius: 0.5rem;
+    width: 65%;
+    display: block;
+    margin: 0 auto;
+    padding: 0.27rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    outline: none;
+    -webkit-transition: all 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.sb-1:hover{
+	box-shadow: 0 5px 9px rgb(110, 95, 107);
+}
+
+.sb-1:active{
+	box-shadow: inset 0 0 0 1px rgb(59, 3, 79), inset 0 5px 30px rgb(250, 250, 250);
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { CloseButton } from './CloseButton';
 import { MainSection } from './ipcFormComponents/MainSection';
 import { StandardButton } from './StandardButton';
+import { VerificationBox } from './ipcFormComponents/VerificationBox';
 
 export const IpcFormDD = (props) => {
 	let {
@@ -13,7 +14,8 @@ export const IpcFormDD = (props) => {
 		handleInputChange,
 		handleSubmit,
 		handleMouseEnter,
-		handleMouseLeave
+		handleMouseLeave,
+		verificationBox
 	} = props;
 	let formContents =
 		tiers.tierOne.map((mainObj, i) => {
@@ -58,7 +60,7 @@ export const IpcFormDD = (props) => {
 							Investment Property Capitalization Rate Calculator
 						</p>
 						<p>
-							Please complete the following fields (if known or estimated), then click "verify & calculate."
+							Please complete the following fields (if known or estimated), then click "<a className = 'ipc-form-link' href = '#runSearch'>verify & calculate</a>."
 						</p>
 						<p>
 							You may close this box at any time to review the analysis with the figures you have already provided.
@@ -75,6 +77,9 @@ export const IpcFormDD = (props) => {
 							/>
 						</form>
 					</div>
+					< VerificationBox
+						content = {verificationBox}
+					/>
 				</div>
 			</div>
 		</div>

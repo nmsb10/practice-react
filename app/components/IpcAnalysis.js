@@ -54,8 +54,8 @@ export const IPCAnalysis = (props) => {
 				</div>
 				<div>
 					<StandardButton
-						name = 'show ipc form'
-						title = 'display the calculator form'
+						name = 'display form'
+						title = 'display the calculator form to add or change inputs'
 						type = 'button'
 						itemClicked = 'showForm'
 						handleClick = {handleClick}
@@ -302,6 +302,12 @@ export const IPCAnalysis = (props) => {
 					</div>
 				</div>
 			</div>
+			<a
+				href = 'https://youtu.be/pEM41vtIT4Y'
+				target = '_blank'
+				title = 'view the calculator demo on YouTube'
+			>view original calculator demonstration
+			</a>
 		{/*
 			http://fontawesome.io/examples/#animated
 			http://fontawesome.io/icons/

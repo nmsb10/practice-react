@@ -2,7 +2,6 @@ import React from 'react';
 import {IPCForm} from '../components/IpcForm';
 import {IPCAnalysis} from '../components/IpcAnalysis';
 import {IPCOtherTermsBox} from '../components/IpcOtherTermsBox';
-import {InfoAlert} from '../components/InfoAlert';
 import {IpcFormDD} from '../components/IpcFormDD';
 import * as axios from 'axios';
 
@@ -965,8 +964,8 @@ export class InvestPropCalcContainer extends React.Component{
 					display: 'Operating Expenses'
 				}
 			],
-			infoAlert:{
-				cssClass:'ipc-vc-alert',
+			verificationBox:{
+				cssClass:'',
 				text:[]
 			}
 		};
@@ -978,7 +977,6 @@ export class InvestPropCalcContainer extends React.Component{
 		this.updateAssumptions = this.updateAssumptions.bind(this);
 		this.withCommas = this.withCommas.bind(this);
 		this.updateSummaryContents = this.updateSummaryContents.bind(this);
-		this.closeInfoAlert = this.closeInfoAlert.bind(this);
 		this.mortgagePayment = this.mortgagePayment.bind(this);
 		this.updateIncomeSummary = this.updateIncomeSummary.bind(this);
 		this.updateExpensesSummary = this.updateExpensesSummary.bind(this);
@@ -995,7 +993,7 @@ export class InvestPropCalcContainer extends React.Component{
 	}
 	calculate(e){
 		e.preventDefault();
-		let{formFields, tierOne, tierTwo, infoAlert, noiSummary} = this.state;
+		let{formFields, tierOne, tierTwo, noiSummary, verificationBox} = this.state;
 		let submission = {
 			fields: formFields,
 			tierOne: tierOne,
@@ -1006,38 +1004,35 @@ export class InvestPropCalcContainer extends React.Component{
 			purchasePrice: formFields.price.purchasePrice[0].value.amount
 		};
 		let capRate = (100 * cr.noiAnnual / cr.purchasePrice) || 0;
-		let newInfoAlert = infoAlert;
-		newInfoAlert.text = [];
-		newInfoAlert.cssClass = 'ipc-vc-alert';
-		this.setState({
-			infoAlert: newInfoAlert
-		});
+		let newVB = verificationBox;
 		axios.post('/calculate-investment-property', submission).then(function(response){
-			newInfoAlert.cssClass += ' ipc-vc-alert-displayed';
-			newInfoAlert.text.push({
+			newVB.cssClass = 'display';
+			newVB.text = [];
+			newVB.text.push({
 				content: 'The details you provided on your submission correspond to a capitalization rate of ' + capRate.toFixed(2) + '%.',
 				css:''
 			});
 			if(response.data.length === 0){
-				newInfoAlert.text.push({
+				newVB.text.push({
 					content: 'You provided figures for all recommended fields.',
 					css:''
 				});
-				newInfoAlert.cssClass += ' ipc-vc-alert-hidden';
+				newVB.cssClass += ' ipc-vc-alert-hidden';
 			}else{
-				newInfoAlert.text.push({
+				newVB.text.push({
 					content: 'For the most complete analysis, we recommend you consider providing figures for:',
 					css:''
 				});
 				response.data.map((contents, i) =>{
-					newInfoAlert.text.push({
-						content: i+1 + '. ' + contents,
+					newVB.text.push({
+						area: contents.area,
+						content: i+1 + '. ' + contents.text,
 						css:''
 					});
 				});
 			}
 			this.setState({
-				infoAlert: newInfoAlert
+				verificationBox: newVB
 			});
 		}.bind(this));//must include .bind(this) so this.setState refers to this component
 		// .then(() => {
@@ -1046,14 +1041,6 @@ export class InvestPropCalcContainer extends React.Component{
 		// .catch((error) => {
 		// 	console.log('search didn\'t work. darn.');
 		// });
-	}
-	closeInfoAlert(){
-		let {infoAlert} = this.state;
-		let aiCopy = infoAlert;
-		aiCopy.cssClass = 'ipc-vc-alert';
-		this.setState({
-			infoAlert: aiCopy
-		});
 	}
 	redirectToSearch(){
 		//'search' is the Route path from routes.js
@@ -1504,7 +1491,7 @@ export class InvestPropCalcContainer extends React.Component{
 		return arr[Math.floor(Math.random()*arr.length)];
 	}
 	handleClick(e){
-		let {formFields, assumptions} = this.state;
+		let {formFields, assumptions, verificationBox} = this.state;
 		let fieldsCopy = formFields, assumpCopy = assumptions, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
 		switch(request){
 			case undefined:
@@ -1541,6 +1528,14 @@ export class InvestPropCalcContainer extends React.Component{
 				}else if(sectionArr[2] === 'assumptions'){
 					assumpCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible = !assumpCopy[sectionArr[0]][sectionArr[1]][key].tooltip.visible;
 				}
+				break;
+			case 'closeVerificationBox':
+				let vbNewCss = verificationBox;
+				vbNewCss.cssClass = 'hide';
+				let vbCopy = Object.assign({}, verificationBox, vbNewCss);
+				this.setState({
+					verificationBox: vbCopy
+				})
 				break;
 			default:
 				console.log('unknown click request from switch statement: ', request);
@@ -1712,7 +1707,7 @@ export class InvestPropCalcContainer extends React.Component{
 			expensesSummaryOrder,
 			cashFlowSummary,
 			cashFlowSummaryOrder,
-			infoAlert
+			verificationBox
 		} = this.state;
 		return(
 			<div className = 'ipc-component'>
@@ -1733,6 +1728,7 @@ export class InvestPropCalcContainer extends React.Component{
 						handleClick = {this.handleClick}
 						handleMouseEnter = {this.handleMouseEnter}
 						handleMouseLeave = {this.handleMouseLeave}
+						verificationBox = {verificationBox}
 					/>
 			{/*
 					<IPCForm
@@ -1759,10 +1755,6 @@ export class InvestPropCalcContainer extends React.Component{
 						cashFlowSummaryOrder = {cashFlowSummaryOrder}
 					/>
 				</div>
-				<InfoAlert
-					content = {infoAlert}
-					onClick = {this.closeInfoAlert}
-				/>
 			</div>
 		);
 	}

@@ -54,14 +54,20 @@ app.post('/calculate-investment-property', function(request, response){
 	let tierTwo = rb.tierTwo;
 	let unresolved = [];
 	let suggestionObject = {};
-	if(!formFields.purchasePrice[0].validation.validEntry){
-		unresolved.push(formFields.purchasePrice[0].name);
+	if(!formFields.price.purchasePrice[0].validation.validEntry){
+		unresolved.push({
+			area: '',
+			text: formFields.price.purchasePrice[0].name
+		});
 	}
 	tierOne.map((tierOneName, i) => {
 		tierTwo[i].map( (tierTwoName, j) => {
 			formFields[tierOneName][tierTwoName.obj].map( (contents, k) => {
 				if(contents.required && !contents.validation.validEntry){
-					unresolved.push(contents.name + ' (' + tierOneName + ')');
+					unresolved.push({
+						area: tierOneName,
+						text: contents.name
+					});
 				}
 			});
 		});

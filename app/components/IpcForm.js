@@ -19,7 +19,7 @@ export class IPCForm extends React.Component{
 							href = 'https://youtu.be/pEM41vtIT4Y'
 							target = '_blank'
 							title = 'view the calculator demo on YouTube'
-						>view calculator demonstration
+						>view original calculator demonstration
 						</a>
 						<div className = 'content-section'>
 							<WordLine

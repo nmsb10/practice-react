@@ -1,7 +1,6 @@
 import React from 'react';
 import {IPCForm} from '../components/IpcForm';
 import {IPCAnalysis} from '../components/IpcAnalysis';
-import {IPCOtherTermsBox} from '../components/IpcOtherTermsBox';
 import {IpcFormDD} from '../components/IpcFormDD';
 import * as axios from 'axios';
 
@@ -1711,12 +1710,6 @@ export class InvestPropCalcContainer extends React.Component{
 		} = this.state;
 		return(
 			<div className = 'ipc-component'>
-		{/*
-				<IPCOtherTermsBox
-					assumptions = {assumptions}
-					handleChange = {this.updateAssumptions}
-				/>
-		*/}
 				<div className = 'fit-95 form-and-analysis'>
 					<IpcFormDD
 						view = {currentView}

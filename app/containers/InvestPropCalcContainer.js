@@ -992,7 +992,7 @@ export class InvestPropCalcContainer extends React.Component{
 	}
 	calculate(e){
 		e.preventDefault();
-		let{formFields, tierOne, tierTwo, noiSummary, verificationBox} = this.state;
+		let{formFields, tierOne, tierTwo, noiSummary, verificationBox, incomeSummary, expensesSummary, cashFlowSummary} = this.state;
 		let submission = {
 			fields: formFields,
 			tierOne: tierOne,
@@ -1016,7 +1016,6 @@ export class InvestPropCalcContainer extends React.Component{
 					content: 'You provided figures for all recommended fields.',
 					css:''
 				});
-				newVB.cssClass += ' ipc-vc-alert-hidden';
 			}else{
 				newVB.text.push({
 					content: 'For the most complete analysis, we recommend you consider providing figures for:',
@@ -1030,6 +1029,27 @@ export class InvestPropCalcContainer extends React.Component{
 					});
 				});
 			}
+			newVB.text.push(
+				{
+					content: 'important annual figures at a glance:',
+					css:''
+				},{
+					content: 'GPI: $' + this.withCommas(incomeSummary.gpi.total.annual.toString()),
+					css:''
+				},{
+					content: 'EGI: $' + this.withCommas(incomeSummary.egi.total.annual.toString()),
+					css:''
+				},{
+					content: 'Operating Expenses: $' + this.withCommas(expensesSummary.oe.total.annual.toString()),
+					css:''
+				},{
+					content: 'NOI: $' + this.withCommas(cr.noiAnnual.toString()),
+					css:''
+				},{
+					content: 'Cash Flow: $' + cashFlowSummary.cashFlow.total.annual,
+					css:''
+				}
+			);
 			this.setState({
 				verificationBox: newVB
 			});
@@ -1491,13 +1511,16 @@ export class InvestPropCalcContainer extends React.Component{
 	}
 	handleClick(e){
 		let {formFields, assumptions, verificationBox} = this.state;
-		let fieldsCopy = formFields, assumpCopy = assumptions, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr;
+		let fieldsCopy = formFields, assumpCopy = assumptions, request = e.target.dataset.itemClicked, key = e.target.dataset.key, sectionArr, vbNewCss = verificationBox, vbCopy;
 		switch(request){
 			case undefined:
 				break;
 			case 'closeForm':
+				vbNewCss.cssClass = '';
+				vbCopy = Object.assign({}, verificationBox, vbNewCss);
 				this.setState({
-					currentView: 'showResults'
+					currentView: 'showResults',
+					verificationBox: vbCopy
 				});
 				break;
 			case 'showForm':
@@ -1529,9 +1552,8 @@ export class InvestPropCalcContainer extends React.Component{
 				}
 				break;
 			case 'closeVerificationBox':
-				let vbNewCss = verificationBox;
 				vbNewCss.cssClass = 'hide';
-				let vbCopy = Object.assign({}, verificationBox, vbNewCss);
+				vbCopy = Object.assign({}, verificationBox, vbNewCss);
 				this.setState({
 					verificationBox: vbCopy
 				})

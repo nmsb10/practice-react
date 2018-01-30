@@ -1009,17 +1009,17 @@ export class InvestPropCalcContainer extends React.Component{
 			newVB.text = [];
 			newVB.text.push({
 				content: 'The details you provided on your submission correspond to a capitalization rate of ' + capRate.toFixed(2) + '%.',
-				css:''
+				css:'ta-center vb-section'
 			});
 			if(response.data.length === 0){
 				newVB.text.push({
 					content: 'You provided figures for all recommended fields.',
-					css:''
+					css:'ta-center vb-section'
 				});
 			}else{
 				newVB.text.push({
 					content: 'For the most complete analysis, we recommend you consider providing figures for:',
-					css:''
+					css:'ta-center'
 				});
 				response.data.map((contents, i) =>{
 					newVB.text.push({
@@ -1028,26 +1028,30 @@ export class InvestPropCalcContainer extends React.Component{
 						css:''
 					});
 				});
+				newVB.text.push({
+					content: '',
+					css:'vb-section'
+				});
 			}
 			newVB.text.push(
 				{
 					content: 'important annual figures at a glance:',
-					css:''
+					css:'ta-center'
 				},{
 					content: 'GPI: $' + this.withCommas(incomeSummary.gpi.total.annual.toString()),
-					css:''
+					css:'ta-right'
 				},{
 					content: 'EGI: $' + this.withCommas(incomeSummary.egi.total.annual.toString()),
-					css:''
+					css:'ta-right'
 				},{
 					content: 'Operating Expenses: $' + this.withCommas(expensesSummary.oe.total.annual.toString()),
-					css:''
+					css:'ta-right'
 				},{
 					content: 'NOI: $' + this.withCommas(cr.noiAnnual.toString()),
-					css:''
+					css:'ta-right'
 				},{
 					content: 'Cash Flow: $' + cashFlowSummary.cashFlow.total.annual,
-					css:''
+					css:'ta-right'
 				}
 			);
 			this.setState({

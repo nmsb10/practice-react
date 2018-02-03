@@ -11,7 +11,7 @@ export const InputsContainer = (props) => {
 	let removeSpanTitle = 'remove section: ' + content.name;
 	let oneInput = (content.value.monthly === '' || content.value.monthly) && (content.value.annual === '' || content.value.annual) ? false : true;
 	return(
-		<div className = 'inputs-container'>
+		<div className = {'inputs-container' + (content.validation && content.validation.validEntry && !oneInput ? ' valid' : '')}>
 		{ content.value.amount === '' || content.value.amount ?
 			< InputsSection
 				id = {content.name ? content.name + '-value'+ i : content.field + i}
@@ -20,6 +20,7 @@ export const InputsContainer = (props) => {
 				value = {content.value}	
 				handleChange = {handleChange}
 				oneInput = {oneInput}
+				oneInputValid = {content.validation ? content.validation.validEntry : ''}
 			/>
 			:
 			null

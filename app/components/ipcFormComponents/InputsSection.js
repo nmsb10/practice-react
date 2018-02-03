@@ -8,10 +8,11 @@ export const InputsSection = (props) => {
 		period,
 		value,
 		handleChange,
-		oneInput
+		oneInput,
+		oneInputValid
 	} = props;
 	return(
-		<div className = {'input-label ' + (oneInput ? ' single' : '')}>
+		<div className = {'input-label ' + (oneInput ? oneInputValid ? ' single valid' : ' single' : '')}>
 			<div className = {'input-section' + (value.preEntry ? ' ta-left' : ' ta-right')}>
 				<label htmlFor = {id} className = {value.preEntry ? '' : 'hidden'}>
 					<span className = ''>{value.preEntry}</span>

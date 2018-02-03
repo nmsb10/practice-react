@@ -15,12 +15,6 @@
     display: block;
 }
 
-.test-content{
-    -webkit-transition: all 0.35s ease 0s; /* For Safari 3.1 to 6.0 */
-    -moz-transition: all 0.35s ease 0s;
-    transition: all 0.35s ease 0s;
-}
-
 .ipc-form-ad .cover{
     box-sizing: border-box;
     position: relative;
@@ -255,6 +249,7 @@
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs{
     position: relative;
+    margin-bottom: 0.35rem;
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .name-container{
@@ -274,15 +269,29 @@
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container{
     width: 60%;
     display: inline-block;
+    -webkit-transition: all 0.2s ease 0s;
+    -moz-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container.valid{
+   box-shadow: 0 0 0.25rem 0.05rem rgba(82, 195, 29, 0.9); 
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label{
     width: 50%;
     display: inline-block;
+    -webkit-transition: all 0.2s ease 0s;
+    -moz-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label.single{
-    width: 65%;
+    width: 55%;
+}
+
+.ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label.valid{
+    box-shadow: 0 0 0.25rem 0.05rem rgba(82, 195, 29, 0.9); 
 }
 
 .ipc-form-ad .cover .content .form-container .main-section .ms-body .name-inputs .inputs-container .input-label .label-section label{
@@ -325,7 +334,7 @@
     height: 1.1rem;
     line-height: 1.1rem;
     right: -0.425rem;
-    top: -0.425rem;
+    /*top: -0.425rem;*/
     text-align: center;
     border: 0.1rem solid white;
     border-radius: 0.65rem;

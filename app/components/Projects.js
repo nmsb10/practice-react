@@ -151,6 +151,7 @@ export class Projects extends React.Component{
 		this.changeValue = this.changeValue.bind(this);
 		this.displayProjectTiles = this.displayProjectTiles.bind(this);
 		this.resetProjectsCss = this.resetProjectsCss.bind(this);
+		this.rcFunc = this.rcFunc.bind(this);
 	}
 	componentDidMount(){
 		this.changeBC([255, 255, 255, 1], 13, 5000);
@@ -164,8 +165,8 @@ export class Projects extends React.Component{
 		let{projects} = this.state;
 		let projectsArray = projects.arr;
 		for(let i = 0; i < projectsArray.length; i++){
-			projectsArray[i].cssStyle.backgroundColor = this.convertToRGBAString(initialRGBA);
 			projectsArray[i].bcArr = initialRGBA;
+			projectsArray[i].cssStyle.backgroundColor = this.convertToRGBAString(initialRGBA);
 		}
 		projectsArray = this.resetProjectsCss(projectsArray, 'project');
 		let counter = setInterval(this.randomColors, interval);
@@ -183,16 +184,68 @@ export class Projects extends React.Component{
 	randomColors(){
 		let{projects} = this.state;
 		let arrCopy = projects.arr;
-		for(let i = 0; i<arrCopy.length; i++){
-			let backgroundColor = arrCopy[i].bcArr;
-			for(let j = 0; j < backgroundColor.length-1; j ++){
-				backgroundColor[j] = this.changeValue(backgroundColor[j], projects.magnitude);
-			}
-			//set opacity to 1 for now
-			backgroundColor[3] = 0.5;
-			arrCopy[i].bcArr = backgroundColor;
-			arrCopy[i].cssStyle.backgroundColor = this.convertToRGBAString(backgroundColor);
+		//let self = this;
+
+// const isKitten = cat => cat.months < 7
+// const getName = cat => cat.name
+// const getKittenNames = cats =>
+//   cats.filter(isKitten)
+//       .map(getName)
+
+// const cats = [
+//   { name: 'Mojo',    months: 84 },
+//   { name: 'Mao-Mao', months: 34 },
+//   { name: 'Waffles', months: 4 },
+//   { name: 'Pickles', months: 6 }
+// ]
+
+// const kittens = getKittenNames(cats)
+
+// console.log(kittens)
+		// const newColorArray = arr => {
+		// 	for(let i = 0; i < arr.length-1; i ++){
+		// 		arr[i] = self.changeValue(arr[i], projects.magnitude);
+		// 	}
+		// 	arr[3] = 0.5;//set the opacity
+		// 	return arr;
+		// };		
+
+		// const updateColor = color => {
+		// 	let project = color;
+		// 	project.bcArr = self.rcFunc(project.bcArr);
+		// 	project.cssStyle.backgroundColor = self.convertToRGBAString(project.bcArr);
+		// 	return project;
+		// };
+
+		// const changeColors = projectsArray => {
+		// 	projectsArray.map(updateColor);
+		// };
+
+		// const projectsWithNewColors = changeColors(projects.arr);
+		// console.log(projectsWithNewColors);
+		// if(complete){
+		// 	console.log(projectsWithNewColors);
+		// 	const objCopy = Object.assign({}, projects, {arr: projectsWithNewColors});
+		// 	this.setState({
+		// 		projects: objCopy
+		// 	});
+		// }
+
+
+		//console.log('changing the colors:============================================', arrCopy);
+		//for(let i = 0; i < arrCopy.length; i++){
+		//let i;
+		for(let i = 0; i < arrCopy.length; i++){
+			// console.log('first bc:',i, ' | ',arrCopy[i].bcArr);
+			// console.log('next bc:',i+1, ' | ',arrCopy[i+1].bcArr);
+			// console.log('next bc:',i+2, ' | ',arrCopy[i+2].bcArr);
+			// console.log('10: ', ' | ',arrCopy[10].bcArr, arrCopy[10].cssStyle.backgroundColor);
+			arrCopy[i].bcArr = this.rcFunc(arrCopy[i].bcArr);
+			arrCopy[i].cssStyle.backgroundColor = this.convertToRGBAString(arrCopy[i].bcArr);
+			// console.log('new bc string:', arrCopy[i].cssStyle.backgroundColor);
+			// console.log('new bc:',i, ' | ', arrCopy[i].bcArr);
 		}
+		//console.log('done changing colors+++++++++++++++++++++++++++++++++');
 		let objCopy = Object.assign({}, projects, {arr:arrCopy});
 		this.setState({
 			projects: objCopy
@@ -200,6 +253,14 @@ export class Projects extends React.Component{
 	}
 	convertToRGBAString(array){
 		return 'rgba(' + array.join(',') + ')';
+	}
+	rcFunc(arr){
+		let{projects} = this.state;
+		for(let i = 0; i < arr.length-1; i ++){
+			arr[i] = this.changeValue(arr[i], projects.magnitude);
+		}
+		arr[3] = 0.5;//set the opacity
+		return arr;
 	}
 	changeValue(value, mag){
 		//with equal probability, increase or decrease each of the 3 values by mag
@@ -240,7 +301,7 @@ export class Projects extends React.Component{
 		//in React mutating style is deprecated
 		let style = [];
 		let mappedProjects = projectsDisplayed.map( (contents, i) => {
-			style.push({backgroundColor: contents.cssStyle.backgroundColor});
+			style.push({'backgroundColor': contents.cssStyle.backgroundColor});
 			return(
 				<div key = {i} className = {contents.cssClass} style = {style[i]}>
 					<div className = 'contents project-name'>

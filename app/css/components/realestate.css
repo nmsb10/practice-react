@@ -35,6 +35,37 @@
     transition-timing-function: linear;
 }
 
+.real-estate-component .re-cards-container{
+	text-align: center;
+	margin: 1.25rem 0.75rem;
+}
+
+.real-estate-component .re-card{
+	vertical-align:top;
+	overflow: auto;
+	position: relative;
+	top:0;
+	display: inline-block;
+	width:13rem;
+	height: 18rem;
+	color: black;
+	background-color: rgb(249, 249, 249);
+	border: 0.15rem solid rgb(229, 229, 229);
+	box-sizing: border-box;
+	border-radius: 0.8rem;
+	margin: 0.2rem;
+	padding:0.25rem;
+	opacity:0;
+}
+
+.real-estate-component .re-card:hover{
+	top:-1.2rem;
+}
+
+.real-estate-component .re-card.displayed{
+	opacity:1;
+}
+
 .real-estate-component .display-list-component{
 	display:inline-block;
 	vertical-align:top;
@@ -475,4 +506,49 @@
 		transform:rotateX(540deg);
 		color:rgb(254, 254, 254);
 	}
+}
+
+.opac-trans-03{
+	-webkit-transition: opacity 3s ease 0s,
+	top 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: opacity 3s ease 0s,
+	top 0.2s ease 0s;
+	transition: opacity 3s ease 0s,
+	top 0.2s ease 0s;
+}
+
+.opac-trans-04{
+	-webkit-transition: opacity 4s ease 0s,
+	top 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: opacity 4s ease 0s,
+	top 0.2s ease 0s;
+	transition: opacity 4s ease 0s,
+	top 0.2s ease 0s;
+}
+
+.opac-trans-05{
+	-webkit-transition: opacity 5s ease 0s,
+	top 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: opacity 5s ease 0s,
+	top 0.2s ease 0s;
+	transition: opacity 5s ease 0s,
+	top 0.2s ease 0s;
+}
+
+.opac-trans-06{
+	-webkit-transition: opacity 6s ease 0s,
+	top 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: opacity 6s ease 0s,
+	top 0.2s ease 0s;
+	transition: opacity 6s ease 0s,
+	top 0.2s ease 0s;
+}
+
+.opac-trans-07{
+	-webkit-transition: opacity 7s ease 0s,
+	top 0.2s ease 0s; /* For Safari 3.1 to 6.0 */
+	-moz-transition: opacity 7s ease 0s,
+	top 0.2s ease 0s;
+	transition: opacity 7s ease 0s,
+	top 0.2s ease 0s;
 }

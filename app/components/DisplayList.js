@@ -1,14 +1,15 @@
 import React from 'react';
 
 export const DisplayList = (props) => {
-	let {type, title, content, handleClick} = props;
+	let {type, title, index, content, handleClick} = props;
 	// let listCssClass = content.open ? '' : 'hidden';
 	let listCssClass = '';
 	return(
 		<div className = 'display-list-component'>
 			<button
 				type = 'button'
-				data-item = {title}
+				data-item = {type}
+				data-key = {index}
 				onClick = {handleClick}
 			>{type === 're' && !content.open ? <i className="fa fa-home" aria-hidden="true"></i> : ''}{content.open ? 'hide' : 'view'} {title}</button>
 			<ul className = {listCssClass}>

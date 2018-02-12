@@ -45,6 +45,13 @@
 	transition: all 0.25s ease 0s;
 }
 
+.real-estate-component a{
+	background-image: -webkit-linear-gradient(180deg,transparent 0%, rgb(13, 161, 0) 0%); /*Safari 5.1-6*/
+	background-image: -o-linear-gradient(180deg,transparent 0%, rgb(13, 161, 0) 0%); /*Opera 11.1-12*/
+	background-image: -moz-linear-gradient(180deg,transparent 0%, rgb(13, 161, 0) 0%); /*Fx 3.6-15*/
+	background-image: linear-gradient(180deg,transparent 0%, rgb(13, 161, 0) 0%);
+}
+
 .about-component ul li a:hover,
 .real-estate-component a:hover{
 	color: white;

@@ -60,6 +60,10 @@ export class RealEstate extends React.Component{
 					open:false,
 					counter:null,
 					cssClass:'scale-in'
+				},
+				source:{
+					title:'Fair Housing Act',
+					url:'https://www.justice.gov/crt/fair-housing-act-2'
 				}
 			},{
 				type: 'displayList',
@@ -69,11 +73,7 @@ export class RealEstate extends React.Component{
 					arrayOriginal: ['race', 'color', 'religion', 'national origin', 'sex', 'familial status (with regard to housing)', 'physical and mental disability', 'age', 'ancestry', 'arrest record', 'citizenship status (with regard to employment)', 'marital status', 'military status', 'order of protection status', 'sexual orientation', 'unfavorable discharge from military service'],
 					open: false,
 					counter:null,
-					cssClass:'scale-in',
-					source:{
-						title:'Illinois Human Rights Act',
-						url:'https://www.illinois.gov/ihrc/Pages/default.aspx'
-					}
+					cssClass:'scale-in'
 				},
 				source:{
 					title:'Illinois Human Rights Act',

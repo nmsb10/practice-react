@@ -33,13 +33,21 @@ export const RealEstateCards = (props) => {
 							null
 						:
 						card.type === 'displayList' ?
-							<DisplayList
-								type = 're-display-protected-classes'
-								title = {card.name}
-								index = {i}
-								content = {card.body}
-								handleClick = {handleClick}
-							/>
+							<div>
+								<DisplayList
+									type = 're-display-protected-classes'
+									title = {card.name}
+									index = {i}
+									content = {card.body}
+									handleClick = {handleClick}
+								/>
+								<a
+									href = {card.source.url}
+									target = '_blank'
+									title = {card.source.title}
+									>{card.source.title}
+								</a>
+							</div>
 						:
 						card.type === 'infoSource' ?
 							<div>

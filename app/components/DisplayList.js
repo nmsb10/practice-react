@@ -11,7 +11,7 @@ export const DisplayList = (props) => {
 				data-item = {type}
 				data-key = {index}
 				onClick = {handleClick}
-			>{type === 're' && !content.open ? <i className="fa fa-home" aria-hidden="true"></i> : ''}{content.open ? 'hide' : 'view'} {title}</button>
+			>{type === 're-display-protected-classes' && !content.open ? <i className="fa fa-home" aria-hidden="true"></i> : ''}{content.open ? 'hide' : 'view'} {title}</button>
 			<ul className = {listCssClass}>
 				{content.array.map((item, i) => {
 					return(

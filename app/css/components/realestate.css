@@ -40,7 +40,7 @@
 	margin: 1.25rem 0.75rem;
 }
 
-.real-estate-component .re-card{
+.real-estate-component .re-cards-container .re-card{
 	vertical-align:top;
 	overflow: auto;
 	position: relative;
@@ -58,12 +58,16 @@
 	opacity:0;
 }
 
-.real-estate-component .re-card:hover{
+.real-estate-component .re-cards-container .re-card:hover{
 	top:-1.2rem;
 }
 
-.real-estate-component .re-card.displayed{
+.real-estate-component .re-cards-container .re-card.displayed{
 	opacity:1;
+}
+
+.real-estate-component .re-cards-container .re-card .info-source span{
+	display:block;
 }
 
 .real-estate-component .display-list-component{

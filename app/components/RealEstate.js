@@ -81,14 +81,6 @@ export class RealEstate extends React.Component{
 				}
 			},{
 				type: 'infoSource',
-				name: 'The Americans With Disabilities Act Information Line',
-				body:['Dial 1.800.514.0301',' MWF 9:30AM - 5:30PM (Eastern Time)', 'Th 12:30PM - 5:30PM (Eastern Time)', 'to speak with a ADA specialist confidentially'],
-				source:{
-					title: 'ADA Information Line',
-					url: 'https://www.ada.gov/infoline.htm'
-				}
-			},{
-				type: 'infoSource',
 				name: 'U.S. Department of Housing and Urban Development',
 				source: {
 					title: 'HUD.gov',
@@ -110,7 +102,16 @@ export class RealEstate extends React.Component{
 				}
 			},{
 				type: 'infoSource',
+				name: 'The Americans With Disabilities Act Information Line',
+				body:['Dial 1.800.514.0301',' MWF 9:30AM - 5:30PM (Eastern Time)', 'Th 12:30PM - 5:30PM (Eastern Time)', 'to speak with a ADA specialist confidentially'],
+				source:{
+					title: 'ADA Information Line',
+					url: 'https://www.ada.gov/infoline.htm'
+				}
+			},{
+				type: 'infoSource',
 				name: 'Service Animals',
+				body:['view the ADA service animals booklet'],
 				source: {
 					title: 'ADA service animals booklet',
 					url: 'https://adata.org/publication/service-animals-booklet'
@@ -118,6 +119,7 @@ export class RealEstate extends React.Component{
 			},{
 				type: 'infoSource',
 				name: 'Service Animals +',
+				body: ['Questions and Answers about service animals'],
 				source: {
 					title: 'Service Animal Q & A',
 					url: 'https://www.ada.gov/regs2010/service_animal_qa.html'

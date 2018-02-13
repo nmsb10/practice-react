@@ -19,7 +19,7 @@ export const RealEstateCards = (props) => {
 							<Link
 								to = {card.link.to}
 								title = {card.link.title}
-							>{card.name}
+							>try the {card.name}
 							</Link>
 							:
 							card.link.type === 'a' ?
@@ -27,7 +27,7 @@ export const RealEstateCards = (props) => {
 								href = {card.link.href}
 								target = {card.link.target}
 								title = {card.link.title}
-								>{card.name}
+								>view the {card.name}
 							</a>
 							:
 							null
@@ -45,18 +45,16 @@ export const RealEstateCards = (props) => {
 									href = {card.source.url}
 									target = '_blank'
 									title = {card.source.title}
-									>{card.source.title}
+									>more information
 								</a>
 							</div>
 						:
 						card.type === 'infoSource' ?
-							<div>
-								<div>{card.source.title}
-								</div>
+							<div className = 'info-source'>
 								{card.body ?
 									card.body.map((text, j) => {
 										return(
-											<span key = {j}>
+											<span key = {j} className = ''>
 												{text}
 											</span>
 										);
@@ -67,7 +65,7 @@ export const RealEstateCards = (props) => {
 									href = {card.source.url}
 									target = '_blank'
 									title = {card.source.title}
-									>{card.name}
+									>more information
 								</a>
 							</div>
 						:

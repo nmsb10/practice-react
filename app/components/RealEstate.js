@@ -262,7 +262,6 @@ export class RealEstate extends React.Component{
 						handleClick = {this.handleClick}
 					/>					
 				</div>
-				<span>more text here.</span>
 			</div>
 		);
 	}
